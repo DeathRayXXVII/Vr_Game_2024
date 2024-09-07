@@ -9,7 +9,7 @@ public class MatchIDBehavior : IDBehavior
     public struct PossibleMatch
     {
         public ID id;
-        public UnityEvent triggerEvent;
+        public UnityEvent triggerEvent, triggerExitEvent;
     }
     
     private readonly WaitForFixedUpdate _wffu = new();
@@ -21,6 +21,20 @@ public class MatchIDBehavior : IDBehavior
         IDBehavior idBehavior = other.GetComponent<IDBehavior>();
         if (idBehavior == null) return;
         StartCoroutine(CheckId(idBehavior.id, triggerEnterMatches));
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        IDBehavior idBehavior = other.GetComponent<IDBehavior>();
+        if (idBehavior == null) return;
+        
+        foreach (var obj in triggerEnterMatches)
+        {
+            if (idBehavior.id != obj.id) continue;
+            if (debug) Debug.Log($"Match found on: '{this} (ID: {id})' with '{obj.id}' while checking for '{idBehavior.id}'");
+            obj.triggerExitEvent.Invoke();
+            return;
+        }
     }
     
     private IEnumerator CheckId(ID otherId, List<PossibleMatch> possibleMatches)
