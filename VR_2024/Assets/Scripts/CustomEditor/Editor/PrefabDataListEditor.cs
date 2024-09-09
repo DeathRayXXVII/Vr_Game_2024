@@ -16,7 +16,7 @@ public class PrefabDataListEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        PrefabDataList myPrefabList = (PrefabDataList)target;
+        PrefabDataList prefabList = (PrefabDataList)target;
 
         prefabToAdd = (GameObject)EditorGUILayout.ObjectField("Prefab To Add:", prefabToAdd, typeof(GameObject), false);
         priority = EditorGUILayout.IntField("Priority:", priority);
@@ -27,12 +27,14 @@ public class PrefabDataListEditor : Editor
             {
                 var newPrefabData = CreateInstance<PrefabData>();
 
-                newPrefabData.obj = prefabToAdd;
+                newPrefabData.prefab = prefabToAdd;
                 newPrefabData.priority = priority;
 
-                myPrefabList.prefabDataList.Add(newPrefabData);
+                newPrefabData.name =$"[{prefabList.prefabDataList.Count}] {prefabToAdd.name}";
 
-                AssetDatabase.AddObjectToAsset(newPrefabData, myPrefabList);
+                prefabList.prefabDataList.Add(newPrefabData);
+
+                AssetDatabase.AddObjectToAsset(newPrefabData, prefabList);
                 AssetDatabase.SaveAssets();
             }
             else
@@ -43,11 +45,11 @@ public class PrefabDataListEditor : Editor
 
         if (GUILayout.Button("Clear List"))
         {
-            myPrefabList.prefabDataList.Clear();
+            prefabList.prefabDataList.Clear();
             AssetDatabase.SaveAssets();
         }
 
-        if (myPrefabList.prefabDataList.Count == 0) return;
+        if (prefabList.prefabDataList.Count == 0) return;
 
         EditorGUILayout.Space();
 
@@ -63,7 +65,7 @@ public class PrefabDataListEditor : Editor
 
             EditorGUILayout.BeginVertical(GUI.skin.box); // Begin a vertical group with a box around it
 
-            foreach (PrefabData prefabData in myPrefabList.prefabDataList)
+            foreach (PrefabData prefabData in prefabList.prefabDataList)
             {
                 if (prefabData == null)
                 {
@@ -99,7 +101,7 @@ public class PrefabDataListEditor : Editor
 
             if (elementToRemove != null)
             {
-                myPrefabList.prefabDataList.Remove(elementToRemove);
+                prefabList.prefabDataList.Remove(elementToRemove);
                 DestroyImmediate(elementToRemove, true);
                 AssetDatabase.SaveAssets();
             }

@@ -1,22 +1,18 @@
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "BoolData", menuName = "Data/SingleValueData/BoolData")]
+[CreateAssetMenu (fileName = "BoolData", menuName = "Data/Primitive/BoolData")]
 public class BoolData : ScriptableObject
 {
-    public bool value;
+    [SerializeField] private bool objectValue;
 
-    public void SetTrue()
+    public bool value
     {
-        value = true;
+        get => objectValue;
+        set => objectValue = value;
     }
     
-    public void SetFalse()
+    public static implicit operator bool(BoolData data)
     {
-        value = false;
-    }
-
-    public bool GetValue()
-    {
-        return value;
+        return data.value;
     }
 }

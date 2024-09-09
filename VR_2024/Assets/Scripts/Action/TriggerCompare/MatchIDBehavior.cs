@@ -9,47 +9,56 @@ public class MatchIDBehavior : IDBehavior
     public struct PossibleMatch
     {
         public ID id;
-        public UnityEvent triggerEvent, triggerExitEvent;
+        public UnityEvent triggerEnterEvent, triggerExitEvent;
+    }
+
+    private enum TriggerType
+    {
+        Enter,
+        Exit
     }
     
     private readonly WaitForFixedUpdate _wffu = new();
-    public bool debug;
+    public bool allowDebug;
     public List<PossibleMatch> triggerEnterMatches;
 
     private void OnTriggerEnter(Collider other)
     {
         IDBehavior idBehavior = other.GetComponent<IDBehavior>();
-        if (idBehavior == null) return;
-        StartCoroutine(CheckId(idBehavior.id, triggerEnterMatches));
+        if (!idBehavior) return;
+        StartCoroutine(CheckId(idBehavior.id, triggerEnterMatches, TriggerType.Enter));
     }
     
     private void OnTriggerExit(Collider other)
     {
         IDBehavior idBehavior = other.GetComponent<IDBehavior>();
-        if (idBehavior == null) return;
-        
-        foreach (var obj in triggerEnterMatches)
-        {
-            if (idBehavior.id != obj.id) continue;
-            if (debug) Debug.Log($"Match found on: '{this} (ID: {id})' with '{obj.id}' while checking for '{idBehavior.id}'");
-            obj.triggerExitEvent.Invoke();
-            return;
-        }
+        if (!idBehavior) return;
+        StartCoroutine(CheckId(idBehavior.id, triggerEnterMatches, TriggerType.Exit));
     }
     
-    private IEnumerator CheckId(ID otherId, List<PossibleMatch> possibleMatches)
+    private IEnumerator CheckId(ID otherId, List<PossibleMatch> possibleMatches, TriggerType triggerType)
     {
         bool noMatch = true;
         foreach (var obj in possibleMatches)
         {
             if (otherId != obj.id) continue;
-            if (debug) Debug.Log($"Match found on: '{this} (ID: {id})' with '{obj.id}' while checking for '{otherId}'");
             noMatch = false;
-            obj.triggerEvent.Invoke();
+            
+            if (triggerType == TriggerType.Enter)
+            {
+                if (allowDebug) Debug.Log($"Triggering Enter Event on: '{this} (ID: {id})' with '{obj.id}'");
+                obj.triggerEnterEvent.Invoke();
+            }
+            else if (triggerType == TriggerType.Exit)
+            {
+                if (allowDebug) Debug.Log($"Triggering Exit Event on: '{this} (ID: {id})' with '{obj.id}'");
+                obj.triggerExitEvent.Invoke();
+            }
+            
             yield return _wffu;
         }
 
-        if (noMatch && debug)
+        if (noMatch && allowDebug)
         {
             Debug.Log($"No match found on: '{this} (ID: {id})' While checking for '{otherId}' in {possibleMatches.Count} possible matches.");
         }

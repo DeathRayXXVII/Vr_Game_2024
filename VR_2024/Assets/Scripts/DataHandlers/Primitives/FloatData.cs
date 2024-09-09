@@ -1,64 +1,136 @@
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "FloatData", menuName = "Data/SingleValueData/FloatData")]
+[CreateAssetMenu (fileName = "FloatData", menuName = "Data/Primitive/FloatData")]
 public class FloatData : ScriptableObject
 {
-    public bool zeroOnEnable;
-    public float value;
-    // private float _step;
-    //
-    // public float step { get; set; }
-    // {
-    //     _step = value;
-    // }
+    private string _saveKey;
     
-    private void OnEnable()
+    [SerializeField] private bool zeroOnEnable;
+    [SerializeField] private float objectValue;
+
+    public float value
     {
-        value = (zeroOnEnable) ? 0 : value;
-    }
-    
-    public void SetValue(float num)
-    {
-        value = num;
-    }
-    
-    public void UpdateValue(float num)
-    {
-        value += num;
-    }
-    
-    public void IncrementValue()
-    {
-        value++;
-    }
-    
-    public void DecrementValue()
-    {
-        value--;
+        get => objectValue;
+        set => objectValue = value;
     }
 
-    private float GetPlayPrefVal(string key)
+    private void Awake()
     {
-        value = (PlayerPrefs.HasKey(key)) ? PlayerPrefs.GetFloat(key) : 0;
+        _saveKey = name;
+    }
+
+    private void OnEnable()
+    {
+        objectValue = (zeroOnEnable) ? 0 : objectValue;
+    }
+
+    public void SetValue(int num) { objectValue = num; }
+    
+    public void IncrementValue() { ++objectValue; }
+    
+    public void DecrementValue() { --objectValue; }
+    
+    public void UpdateValue(int num) { objectValue += num; }
+
+    public float GetSavedValue()
+    {
+        var key = name;
+        value = (PlayerPrefs.HasKey(key)) ? PlayerPrefs.GetInt(key) : 0;
         return value;
     }
     
-    public void AddValueToPlayPref(string key)
+    public void SaveCurrentValue()
     {
-        value += GetPlayPrefVal(key);
-        PlayerPrefs.SetFloat(key, value);
-        value = 0;
+        PlayerPrefs.SetFloat(_saveKey, objectValue);
         PlayerPrefs.Save();
     }
     
-    public void SetValueToPlayPref(string key)
+    public static implicit operator float(FloatData data)
     {
-        value = GetPlayPrefVal(key);
-        PlayerPrefs.SetFloat(key, value);
+        return data.value;
+    }
+
+    public static FloatData operator --(FloatData data)
+    {
+        data.value--;
+        return data;
+    }
+
+    public static FloatData operator ++(FloatData data)
+    {
+        data.value++;
+        return data;
     }
     
-    public void SetPlayPrefToValue(string key)
+    public static FloatData operator +(FloatData data, int other)
     {
-        PlayerPrefs.SetFloat(key, value);
+        data.value += other;
+        return data;
+    }
+
+    public static FloatData operator -(FloatData data, int other)
+    {
+        data.value -= other;
+        return data;
+    }
+
+    public static FloatData operator *(FloatData data, int scalar)
+    {
+        data.value *= scalar;
+        return data;
+    }
+
+    public static FloatData operator /(FloatData data, int scalar)
+    {
+        data.value /= scalar;
+        return data;
+    }
+    
+    public static bool operator ==(FloatData data, float other)
+    {
+        return data != null && Mathf.Approximately(data.value, other);
+    }
+
+    public static bool operator !=(FloatData data, float other)
+    {
+        return data != null && !Mathf.Approximately(data.value, other);
+    }
+
+    public static bool operator >(FloatData data, float other)
+    {
+        return data.value > other;
+    }
+
+    public static bool operator <(FloatData data, float other)
+    {
+        return data.value < other;
+    }
+
+    public static bool operator >=(FloatData data, float other)
+    {
+        return data.value >= other;
+    }
+
+    public static bool operator <=(FloatData data, float other)
+    {
+        return data.value <= other;
+    }
+
+    public override bool Equals(object obj)
+    {
+        switch (obj)
+        {
+            case FloatData otherData:
+                return Mathf.Approximately(value, otherData.value);
+            case float otherValue:
+                return Mathf.Approximately(value, otherValue);
+            default:
+                return false;
+        }
+    }
+
+    public override int GetHashCode()
+    {
+        return value.GetHashCode();
     }
 }

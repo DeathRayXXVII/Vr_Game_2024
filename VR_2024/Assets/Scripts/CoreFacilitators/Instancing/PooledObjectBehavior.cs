@@ -4,43 +4,34 @@ using UnityEngine.Events;
 public class PooledObjectBehavior : MonoBehaviour
 {
     public UnityEvent onSpawn;
-    public SpawnManager spawnManager { get; set; }
-    public string spawnerID { get; set; }
-    public bool spawned { get; set; }
-    public bool finalSpawn { get; set; }
-    public bool allowDebug { get; set; }
     
-    private bool _justInstantiated, _bypassDisable, _respawnTriggered;
+    private SpawnManager _spawnManager;
+    private SpawnerData.Spawner _spawner;
+    private bool _allowDebug, _spawned, _justInstantiated, _respawnTriggered, _beingDestroyed;
 
     private void Awake()
     {
-        _justInstantiated = false;
-        _bypassDisable = false;
-        _respawnTriggered = false;
+        _justInstantiated = true;
     }
 
-    public void SetSpawnDelay(float respawnTime)
+    public void Setup(SpawnManager spawnManager, ref SpawnerData.Spawner spawner, ref bool allowDebug)
     {
-        if (spawnManager == null)
-        {
-            Debug.LogWarning("SpawnManager is null on " + name + " SpawnedObjectBehavior.");
-            return;
-        }
-        spawnManager.SetSpawnDelay(respawnTime);
+        _spawnManager = spawnManager;
+        _spawner = spawner;
+        _allowDebug = allowDebug;
     }
 
     public void TriggerRespawn()
     {
         if (_respawnTriggered) return;
         _respawnTriggered = true;
-        _bypassDisable = true;
-        if (spawnManager == null)
+        if (_spawnManager == null)
         {
             Debug.LogWarning("SpawnManager is null" + name + " SpawnedObjectBehavior.");
             return;
         }
-        spawnManager.NotifyOfDeath(spawnerID);
-        spawnManager.StartSpawn(1);
+        _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
+        _spawnManager.StartSpawn(1);
     }
 
     private void OnEnable()
@@ -50,35 +41,29 @@ public class PooledObjectBehavior : MonoBehaviour
             _justInstantiated = false;
             return;
         }
-        spawned = true;
-        _bypassDisable = false;
+        _spawned = true;
+        _respawnTriggered = false;
         onSpawn.Invoke();
     }
 
     public void InvalidateDeath()
     {
-        finalSpawn = false;
-        spawnManager.numToSpawn++;
-        spawnManager.waitingCount++;
+        _spawnManager.numToSpawn++;
     }
 
     private void OnDisable()
     {
-        _respawnTriggered = false;
-        if (allowDebug) Debug.Log($"OnDisable of {name} called");
-        if (!spawned) return;
-        if (_bypassDisable)
-        {
-            _bypassDisable = false;
-            return;
-        }
-        spawnManager.NotifyOfDeath(spawnerID);
-        spawned = false;
+        if (_beingDestroyed) return;
+        if (_allowDebug) Debug.Log($"OnDisable of {name} called");
+        if (!_spawned || _respawnTriggered) return;
+        _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
+        _spawned = false;
     }
 
     private void OnDestroy()
     {
         // Stops errors from being thrown on closing the game        
-        spawned = false;
+        _beingDestroyed = true;
+        _spawned = false;
     }
 }

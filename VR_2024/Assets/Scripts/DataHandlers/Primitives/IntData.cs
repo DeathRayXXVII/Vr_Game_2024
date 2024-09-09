@@ -1,68 +1,136 @@
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "IntData", menuName = "Data/SingleValueData/IntData")]
+[CreateAssetMenu (fileName = "IntData", menuName = "Data/Primitive/IntData")]
 public class IntData : ScriptableObject
 {
-    public bool zeroOnEnable;
-    public int value;
+    private string _saveKey;
+    
+    [SerializeField] private bool zeroOnEnable;
+    [SerializeField] private int objectValue;
+    
+    public int value
+    {
+        get => objectValue;
+        set => objectValue = value;
+    }
+    
+    private void Awake()
+    {
+        _saveKey = name;
+    }
     
     private void OnEnable()
     {
         value = (zeroOnEnable) ? 0 : value;
     }
 
-    public void SetValue(int num)
-    {
-        value = num;
-    }
+    public void Set(int num) { value = num; }
+    
+    public void Increment() { ++value; }
+    
+    public void Decrement() { --value; }
+    
+    public void UpdateValue(int num) { value += num; }
 
-    public void SetValue(IntData obj)
+    public int GetSavedValue()
     {
-        value = obj.value;
-    }
-
-    public void CompareValue(IntData obj)
-    {
-        value = (value >= obj.value) ? value: obj.value;
-    }
-    
-    public void IncrementValue()
-    {
-        value++;
-    }
-    
-    public void DecrementValue()
-    {
-        value--;
-    }
-    
-    public void UpdateValue(int num)
-    {
-        value += num;
-    }
-    
-    public void UpdateValue(IntData obj)
-    {
-        value += obj.value;
-    }
-
-    private int GetPlayPrefVal(string key)
-    {
+        var key = name;
         value = (PlayerPrefs.HasKey(key)) ? PlayerPrefs.GetInt(key) : 0;
         return value;
     }
     
-    public void AddValueToPlayPref(string key)
+    public void SaveCurrentValue()
     {
-        value += GetPlayPrefVal(key);
-        PlayerPrefs.SetInt(key, value);
-        value = 0;
+        PlayerPrefs.SetInt(_saveKey, value);
         PlayerPrefs.Save();
     }
     
-    public void SetValueToPlayPref(string key)
+    public static implicit operator int(IntData data)
     {
-        value = GetPlayPrefVal(key);
-        PlayerPrefs.SetInt(key, value);
+        return data.value;
+    }
+
+    public static IntData operator --(IntData data)
+    {
+        data.value--;
+        return data;
+    }
+
+    public static IntData operator ++(IntData data)
+    {
+        data.value++;
+        return data;
+    }
+    
+    public static IntData operator +(IntData data, int other)
+    {
+        data.value += other;
+        return data;
+    }
+
+    public static IntData operator -(IntData data, int other)
+    {
+        data.value -= other;
+        return data;
+    }
+
+    public static IntData operator *(IntData data, int scalar)
+    {
+        data.value *= scalar;
+        return data;
+    }
+
+    public static IntData operator /(IntData data, int scalar)
+    {
+        data.value /= scalar;
+        return data;
+    } 
+    
+    public static bool operator ==(IntData data, int other)
+    {
+        return data != null && data.value == other;
+    }
+
+    public static bool operator !=(IntData data, int other)
+    {
+        return data != null && data.value != other;
+    }
+
+    public static bool operator >(IntData data, int other)
+    {
+        return data.value > other;
+    }
+
+    public static bool operator <(IntData data, int other)
+    {
+        return data.value < other;
+    }
+
+    public static bool operator >=(IntData data, int other)
+    {
+        return data.value >= other;
+    }
+
+    public static bool operator <=(IntData data, int other)
+    {
+        return data.value <= other;
+    }
+
+    public override bool Equals(object obj)
+    {
+        switch (obj)
+        {
+            case IntData otherData:
+                return value == otherData.value;
+            case int otherValue:
+                return value == otherValue;
+            default:
+                return false;
+        }
+    }
+
+    public override int GetHashCode()
+    {
+        return value.GetHashCode();
     }
 }

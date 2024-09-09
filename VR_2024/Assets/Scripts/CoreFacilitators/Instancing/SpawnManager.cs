@@ -9,28 +9,14 @@ using Random = UnityEngine.Random;
 public class SpawnManager : MonoBehaviour, INeedButton
 {
     private bool _destroying;
-    public bool allowDebug, allowMultipleSpawnInstances;
+    private bool _allowDebug;
 
     public UnityEvent onSpawn, onSpawningComplete, onFinalSpawnDefeated;
 
     public SpawnerData spawnerData;
     public bool usePriority, spawnOnStart, randomizeSpawnRate;
 
-    [System.Serializable]
-    public class Spawner
-    {
-        public string spawnerID;
-        public Transform spawnLocation, pathingTarget;
-        private int _currentSpawnCount;
-        public int activeSpawnLimit;
-
-        public int GetAliveCount() { return _currentSpawnCount; }
-        public void IncrementCount() { _currentSpawnCount++; }
-        public void DecrementCount() { _currentSpawnCount--; }
-    }
-    public List<Spawner> spawners = new();
-
-    public float poolCreationDelay = 1.0f, spawnDelay = 1.0f, spawnRateMin = 1.0f, spawnRateMax = 1.0f;
+    public float spawnDelay = 1.0f, spawnRateMin = 1.0f, spawnRateMax = 1.0f;
     public int numToSpawn = 10;
     [HideInInspector] public int waitingCount;
 
@@ -40,10 +26,10 @@ public class SpawnManager : MonoBehaviour, INeedButton
     {
         get
         {
-            int totalPoolSize = 0;
-            foreach (var spawner in spawners)
+            var totalPoolSize = 0;
+            foreach (var spawner in spawnerData.spawners)
             {
-                totalPoolSize += spawner.activeSpawnLimit;
+                totalPoolSize += spawner.activeLimit;
             }
 
             return totalPoolSize;
@@ -51,7 +37,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
     }
 
     private List<GameObject> _pooledObjects;
-    private List<WaitForSeconds> _spawnRates = new();
+    private readonly List<WaitForSeconds> _spawnRates = new();
     private float spawnRate
     {
         get
@@ -61,7 +47,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
         }
     }
 
-    private WaitForSeconds _waitForSpawnRate, _waitForSpawnDelay, _waitForPoolDelay, _waitForSpawnOffset;
+    private WaitForSeconds _waitForSpawnRate, _waitForSpawnDelay, _waitLoadBuffer;
     private WaitForFixedUpdate _wffu;
     private Coroutine _lateStartRoutine, _delaySpawnRoutine,_spawnRoutine,_poolCreationRoutine, _spawnWaitingRoutine;
 
@@ -71,20 +57,19 @@ public class SpawnManager : MonoBehaviour, INeedButton
     private int spawnedCount
     {
         get => spawnerData.activeCount.value;
-        set => spawnerData.activeCount.SetValue(value);
+        set => spawnerData.activeCount.Set(value);
     }
 
     private void Awake()
     {
+        spawnerData.ResetSpawnerData();
         _parentObject = new GameObject($"SpawnedObjects_{name}");
         
         _wffu = new WaitForFixedUpdate();
-        _waitForSpawnOffset = new WaitForSeconds(1.0f);
+        _waitLoadBuffer = new WaitForSeconds(1.0f);
 
         _poolSize = poolSize;
-        poolCreationDelay = ToleranceCheck(poolCreationDelay, poolCreationDelay);
         spawnDelay = ToleranceCheck(spawnDelay, spawnDelay);
-        _waitForPoolDelay = new WaitForSeconds(poolCreationDelay);
 
         _waitForSpawnDelay = new WaitForSeconds(spawnDelay);
 
@@ -95,8 +80,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
             Debug.LogError("SpawnerData not found in " + name);
             return;
         }
-
-        spawnerData.ResetSpawner();
+        
         _prefabSet = spawnerData.prefabList;
 
         _poolCreationRoutine ??= StartCoroutine(DelayPoolCreation());
@@ -104,7 +88,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
 
     private IEnumerator DelayPoolCreation()
     {
-        yield return _waitForPoolDelay;
+        yield return _waitLoadBuffer;
         _parentObject.transform.SetParent(transform);
         yield return _wffu;
         ProcessPool();
@@ -139,8 +123,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
     private void AddToPool(GameObject obj)
     {
         var spawnBehavior = obj.GetComponent<PooledObjectBehavior>();
-        spawnBehavior = (spawnBehavior == null) ? obj.AddComponent<PooledObjectBehavior>() : spawnBehavior;
-        spawnBehavior.spawned = false;
+        if (spawnBehavior == null) obj.AddComponent<PooledObjectBehavior>();
 
         _pooledObjects.Add(obj);
         obj.transform.SetParent(_parentObject.transform);
@@ -184,9 +167,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
     private IEnumerator LateStartSpawn()
     {
         yield return _wffu;
-        yield return _waitForPoolDelay;
-        yield return _wffu;
-        yield return _waitForSpawnDelay;
+        yield return _waitLoadBuffer;
         yield return _wffu;
         StartSpawn();
         yield return _wffu;
@@ -195,11 +176,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
 
     public void StartSpawn(int amount)
     {
-        if (_spawnRoutine != null)
-        {
-            if (allowMultipleSpawnInstances) numToSpawn += amount;
-            return;
-        }
+        if (_spawnRoutine != null) return;
         numToSpawn = (amount > 0) ? amount : numToSpawn;
         StartSpawn();
     }
@@ -222,6 +199,10 @@ public class SpawnManager : MonoBehaviour, INeedButton
     private IEnumerator DelaySpawn()
     {
         SetSpawnRate();
+        while(_poolCreationRoutine != null)
+        {
+            yield return _wffu;
+        }
         yield return _wffu;
         yield return _waitForSpawnDelay;
         _spawnRoutine ??= StartCoroutine(Spawn());
@@ -231,19 +212,24 @@ public class SpawnManager : MonoBehaviour, INeedButton
     
     private IEnumerator Spawn()
     {
-        yield return _waitForSpawnOffset;
+        yield return _waitLoadBuffer;
         while (spawnedCount < numToSpawn)
         {
             var waitTime = GetWaitSpawnRate();
-            if (allowDebug) Debug.Log($"Spawning... Count: {spawnedCount} Total To Spawn: {numToSpawn} Num Left: {numToSpawn-spawnedCount} PoolSize: {_poolSize} PooledObjects: {_pooledObjects.Count} spawners: {spawners.Count} spawnRate: {waitTime}");
+            SpawnerData.Spawner spawner = spawnerData.GetInactiveSpawner();
+            if (_allowDebug)
+            {
+                Debug.Log($"Spawning Info...\nTotal Spawns Currently Active Count: {spawnedCount}\nTotal To Spawn: {numToSpawn}\nNum Left: {numToSpawn-spawnedCount}\nPoolSize: {_poolSize}\nPooledObjects: {_pooledObjects.Count}\nspawners: {spawnerData.spawners.Count}\nspawnRate: {waitTime}");
+                Debug.Log((spawner == null) ? "No Spawners Available" : $"Spawner: {spawner.spawnerID}");
+            }
             
-            Spawner spawner = GetSpawner();
+            yield return _wffu;
+            
             if (spawner == null)
             {
                 waitingCount = numToSpawn - spawnedCount;
                 spawnedCount = 0;
-                if (allowDebug) Debug.Log($"All Spawners Active... Killing Process, {waitingCount} spawns waiting for next spawn cycle.");
-                _spawnRoutine = null;
+                if (_allowDebug) Debug.Log($"All Spawners Active... Killing Process, {waitingCount} spawns waiting for next spawn cycle.");
                 yield break;
             }
 
@@ -261,16 +247,12 @@ public class SpawnManager : MonoBehaviour, INeedButton
             if (spawner.pathingTarget && navBehavior == null) Debug.LogError($"No NavAgentBehavior found on {spawnObj} though a pathingTarget was found in ProcessSpawnedObject Method");
 
             Transform objTransform = spawnObj.transform;
-            PooledObjectBehavior objBehavior = spawnObj.GetComponent<PooledObjectBehavior>();
+            PooledObjectBehavior spawnBehavior = spawnObj.GetComponent<PooledObjectBehavior>();
                     
-            if (objBehavior == null) Debug.LogError($"No SpawnObjectBehavior found on {spawnObj} in ProcessSpawnedObject Method");
+            if (spawnBehavior == null) Debug.LogError($"No SpawnObjectBehavior found on {spawnObj} in ProcessSpawnedObject Method");
             var rb = spawnObj.GetComponent<Rigidbody>();
             
-            objBehavior.spawnManager = this;
-            objBehavior.spawnerID = spawner.spawnerID;
-            objBehavior.spawned = true;
-            objBehavior.finalSpawn = spawnedCount == numToSpawn - 1;
-            if (allowDebug) objBehavior.allowDebug = true;
+            spawnBehavior.Setup(this, ref spawner, ref _allowDebug);
             
             if (rb)
             {
@@ -278,15 +260,17 @@ public class SpawnManager : MonoBehaviour, INeedButton
                 rb.angularVelocity = Vector3.zero;
             }
             
-            if (allowDebug) Debug.Log($"Retrieved Spawner: {spawner.spawnerID} with... Count: {spawner.GetAliveCount()} Limit: {spawner.activeSpawnLimit}"); 
-            Transform spawnLocation = spawner.spawnLocation;
+            if (_allowDebug) Debug.Log($"Retrieved Spawner: {spawner.spawnerID} with... Count: {spawner.GetAliveCount()} Limit: {spawner.activeLimit}"); 
             
-            objTransform.position = spawnLocation.position;
-            objTransform.rotation = spawnLocation.rotation;
+            objTransform.position = spawner.spawnLocation.position;
+            if (spawner.pathingTarget)
+            {
+                objTransform.rotation = Quaternion.LookRotation(spawner.pathingTarget.position - spawner.spawnLocation.position);
+            }
             
-            if (navBehavior) navBehavior.destination = spawner.pathingTarget;
+            if (navBehavior) navBehavior.destination = spawner.pathingTarget.position;
             spawnObj.SetActive(true);
-            if (navBehavior) navBehavior.Setup(spawner.pathingTarget);
+            if (navBehavior) navBehavior.Setup(spawner.pathingTarget.position);
             onSpawn.Invoke();
             spawner.IncrementCount();
             spawnedCount++;
@@ -297,34 +281,6 @@ public class SpawnManager : MonoBehaviour, INeedButton
     }
 
     private GameObject FetchFromPool() { return FetchFromList(_pooledObjects, obj => !obj.activeInHierarchy); }
-
-    private Spawner RandomlyFetchFromAllOpenSpawners()
-    {
-        var availableSpawners = new List<Spawner>();
-        foreach (var spawner in spawners)
-        {
-            if (spawner.GetAliveCount() < spawner.activeSpawnLimit)
-            {
-                availableSpawners.Add(spawner);
-            }
-        }
-        return (availableSpawners.Count == 0) ? null: availableSpawners[Random.Range(0, availableSpawners.Count)];
-    }
-
-    private Spawner GetSpawner()
-    {
-        var count = spawners.Count;
-        switch (count)
-        {
-            case 0:
-                return null;
-            case 1:
-                return spawners[0];
-        }
-
-        var spawner = RandomlyFetchFromAllOpenSpawners();
-        return spawner;
-    }
     
     private IEnumerator ProcessWaitingSpawns()
     {
@@ -335,36 +291,27 @@ public class SpawnManager : MonoBehaviour, INeedButton
         _spawnWaitingRoutine = null;
     }
     
-    public void NotifyOfDeath(string spawnerID)
+    public void NotifyPoolObjectDisabled(ref SpawnerData.Spawner spawnerID)
     {
         if (_destroying) return;
+        spawnerData.HandleSpawnRemoval(ref spawnerID);
+        if (_allowDebug) Debug.Log($"Notified of Death: passed {spawnerID} as spawnerID\nTotal active: {spawnerData.activeCount}");
         
-        if (allowDebug) Debug.Log($"Notified of Death: passed {spawnerID} as spawnerID");
-        var activeCount = 0;
-        foreach (var spawner in spawners)
+        if (spawnerData.activeCount <= 0 && numToSpawn - spawnedCount <= 0 && waitingCount <= 0)
         {
-            if (spawner.spawnerID != spawnerID)
-            {
-                activeCount += spawner.GetAliveCount();
-            }
-            else
-            {
-                spawner.DecrementCount();
-                if (allowDebug) Debug.Log($"Found {spawnerID} in spawner list... Current Count: {spawner.GetAliveCount() + 1} --- New count: {spawner.GetAliveCount()}");
-                activeCount += spawner.GetAliveCount();
-            }
-        }
-        if (allowDebug) Debug.Log($"Total active: {activeCount}");
-        if (activeCount <= 0 && numToSpawn - spawnedCount <= 0 && waitingCount <= 0)
-        {
-            if (allowDebug) Debug.Log($"NOTIFIED: {spawnerID} WAS THE FINAL SPAWN");
+            if (_allowDebug) Debug.Log($"NOTIFIED: {spawnerID} WAS THE FINAL SPAWN");
             onFinalSpawnDefeated.Invoke();
         }
         else
         {
-            if (waitingCount <= 0) return;
+            if (waitingCount <= 0 || _destroying) return;
             _spawnWaitingRoutine ??= StartCoroutine(ProcessWaitingSpawns());
         }
+    }
+
+    private void OnDisable()
+    {
+        _destroying = true;
     }
 
     private void OnDestroy()

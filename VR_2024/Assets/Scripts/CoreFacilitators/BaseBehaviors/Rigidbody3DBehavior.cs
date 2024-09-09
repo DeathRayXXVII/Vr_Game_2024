@@ -28,11 +28,6 @@ public class Rigidbody3DBehavior : MonoBehaviour
         rigidBody.useGravity = value;
     }
     
-    public void ToggleGravity()
-    {
-        rigidBody.useGravity = !rigidBody.useGravity;
-    }
-    
     public void ZeroOutVelocity()
     {
         rigidBody.velocity = Vector3.zero;

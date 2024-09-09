@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PrefabDataList", menuName = "Data/List/PrefabDataList")]
+[CreateAssetMenu(fileName = "PrefabDataList", menuName = "Data/Collection/PrefabDataList")]
 public class PrefabDataList : ScriptableObject
 {
     [HideInInspector] public List<PrefabData> prefabDataList;

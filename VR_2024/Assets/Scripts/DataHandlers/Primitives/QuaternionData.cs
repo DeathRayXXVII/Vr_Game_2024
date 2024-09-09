@@ -1,41 +1,58 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "QuaternionData", menuName = "Data/Base/QuaternionData")]
+[CreateAssetMenu(fileName = "QuaternionData", menuName = "Data/Primitive/QuaternionData")]
 public class QuaternionData : ScriptableObject
 {
-    [SerializeField] private Quaternion quaternion;
+    [SerializeField] private Quaternion objectValue;
 
-    public float x
-    { get => quaternion.x; set => quaternion.x = value; }
+    private float x
+    { get => value.x; set => objectValue.x = value; }
 
-    public float y
-    { get => quaternion.y; set => quaternion.y = value; }
+    private float y
+    { get => value.y; set => objectValue.y = value; }
 
-    public float z
-    { get => quaternion.z; set => quaternion.z = value; }
+    private float z
+    { get => value.z; set => objectValue.z = value; }
 
-    public float w
-    { get => quaternion.w; set => quaternion.w = value; }
+    private float w
+    {
+        get => value.w; set => objectValue.w = value; }
 
     public Quaternion value
     {
-        get => quaternion;
+        get => objectValue;
         set
         {
-            quaternion = value;
+            objectValue = value;
             x = value.x;
             y = value.y;
             z = value.z;
             w = value.w;
         }
     }
-
-    public void Set(Quaternion newValue)
+    
+    public static implicit operator Quaternion(QuaternionData data)
     {
-        quaternion = newValue;
-        x = newValue.x;
-        y = newValue.y;
-        z = newValue.z;
-        w = newValue.w;
+        return data.value;
+    }
+    
+    public static Quaternion operator *(QuaternionData data, Quaternion other)
+    {
+        return data.value * other;
+    }
+
+    public static Vector3 operator *(QuaternionData data, Vector3 other)
+    {
+        return data.value * other; 
+    }
+
+    public static Quaternion operator *(QuaternionData data, float scalar)
+    {
+        return new Quaternion(data.x * scalar, data.y * scalar, data.z * scalar, data.w * scalar);
+    }
+
+    public static Quaternion operator /(QuaternionData data, float scalar)
+    {
+        return new Quaternion(data.x / scalar, data.y / scalar, data.z / scalar, data.w / scalar);
     }
 }

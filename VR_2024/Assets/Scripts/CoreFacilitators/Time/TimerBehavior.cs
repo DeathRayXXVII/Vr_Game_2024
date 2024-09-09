@@ -6,17 +6,16 @@ public class TimerBehavior : MonoBehaviour
 {
     public UnityEvent updateTextEvent;
     
-    private float seconds =  0.01f;
-    public BoolData canRun;
-    public FloatData timer;
+    [SerializeField] private BoolData canRunTimer;
+    [SerializeField] private FloatData timer;
 
-    private float elapsedTime;
-
-    private WaitForSecondsRealtime wfsrtObj;
+    private float _seconds =  0.01f;
+    private float _elapsedTime;
+    private WaitForSecondsRealtime _wfsrtObj;
 
     private void Start()
     {
-        wfsrtObj = new WaitForSecondsRealtime(seconds);
+        _wfsrtObj = new WaitForSecondsRealtime(_seconds);
     }
     
     public void StartTimer()
@@ -31,10 +30,10 @@ public class TimerBehavior : MonoBehaviour
     
     private IEnumerator UpdateTimer()
     {
-        while (canRun.value)
+        while (canRunTimer)
         {
-            elapsedTime += Time.deltaTime;
-            timer.SetValue(elapsedTime);
+            _elapsedTime += Time.deltaTime;
+            timer.value = _elapsedTime;
             updateTextEvent.Invoke();
             yield return null;
         }

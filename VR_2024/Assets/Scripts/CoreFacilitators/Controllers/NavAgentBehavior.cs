@@ -10,7 +10,7 @@ public class NavAgentBehavior : MonoBehaviour
     
     private WaitForFixedUpdate _wffu;
     private NavMeshAgent _ai;
-    public Transform destination;
+    public Vector3 destination;
 
     private void Awake()
     {
@@ -37,11 +37,11 @@ public class NavAgentBehavior : MonoBehaviour
         _ai.height = height;
     }
 
-    public void Setup(Transform dest)
+    public void Setup(Vector3 dest)
     {
         destination = dest;
         if (!_ai) _ai = GetComponent<NavMeshAgent>();
-        if (_ai) _ai.SetDestination(destination.position);
+        if (_ai) _ai.SetDestination(destination);
     }
 
     private void StartEndPathCheck()

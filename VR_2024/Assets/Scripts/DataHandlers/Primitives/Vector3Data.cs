@@ -1,36 +1,57 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Vector3Data", menuName = "Data/Base/Vector3Data")]
+[CreateAssetMenu(fileName = "Vector3Data", menuName = "Data/Primitive/Vector3Data")]
 public class Vector3Data : ScriptableObject
 {
-    [SerializeField] private Vector3 vector3;
+    [SerializeField] private Vector3 objectValue;
 
     public float x
-    { get => vector3.x; set => vector3.x = value; }
+    { get => value.x; set => objectValue.x = value; }
 
     public float y
-    { get => vector3.y; set => vector3.y = value; }
+    { get => value.y; set => objectValue.y = value; }
 
     public float z
-    { get => vector3.z; set => vector3.z = value; }
+    { get => value.z; set => objectValue.z = value; }
 
     public Vector3 value
     {
-        get => vector3;
+        get => objectValue;
         set
         {
-            vector3 = value;
+            objectValue = value;
             x = value.x;
             y = value.y;
             z = value.z;
         }
     }
-
-    public void Set(Vector3 newValue)
+    
+    public static implicit operator Vector3(Vector3Data data)
     {
-        vector3 = newValue;
-        x = newValue.x;
-        y = newValue.y;
-        z = newValue.z;
+        return data.value;
+    }
+
+    public static Vector3Data operator +(Vector3Data data, Vector3 other)
+    {
+        data.objectValue += other;
+        return data;
+    }
+
+    public static Vector3Data operator -(Vector3Data data, Vector3 other)
+    {
+        data.objectValue -= other;
+        return data;
+    }
+
+    public static Vector3Data operator *(Vector3Data data, float scalar)
+    {
+        data.value *= scalar;
+        return data;
+    }
+
+    public static Vector3Data operator /(Vector3Data data, float scalar)
+    {
+        data.value /= scalar;
+        return data;
     }
 }

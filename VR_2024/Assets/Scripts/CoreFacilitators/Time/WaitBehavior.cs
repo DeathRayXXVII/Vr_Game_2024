@@ -142,11 +142,11 @@ public class WaitBehavior : MonoBehaviour
 
     private IEnumerator WaitForZeroIntDataEvent(IntData obj, string eventID)
     {
-        _waitAmount = obj.value;
+        _waitAmount = obj;
         if (_waitAmount <= 0) yield break;
         while (_waitAmount > 0)
         {
-            _waitAmount = obj.value;
+            _waitAmount = obj;
             yield return _wffu;
         }
 
