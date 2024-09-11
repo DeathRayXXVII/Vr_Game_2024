@@ -247,8 +247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3edc9008b6944d4aa28a67b31d284e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowDebug: 0
-  allowMultipleSpawnInstances: 0
   onSpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -262,12 +260,6 @@ MonoBehaviour:
   usePriority: 0
   spawnOnStart: 0
   randomizeSpawnRate: 0
-  spawners:
-  - spawnerID: Tutorial Cannon
-    spawnLocation: {fileID: 940361015}
-    pathingTarget: {fileID: 0}
-    activeSpawnLimit: 1
-  poolCreationDelay: 0
   spawnDelay: 0.1
   spawnRateMin: 0.1
   spawnRateMax: 0.1
@@ -1358,8 +1350,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3edc9008b6944d4aa28a67b31d284e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowDebug: 0
-  allowMultipleSpawnInstances: 0
   onSpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -1373,12 +1363,6 @@ MonoBehaviour:
   usePriority: 0
   spawnOnStart: 0
   randomizeSpawnRate: 0
-  spawners:
-  - spawnerID: pedestal
-    spawnLocation: {fileID: 2119517339}
-    pathingTarget: {fileID: 0}
-    activeSpawnLimit: 1
-  poolCreationDelay: 0
   spawnDelay: 0.25
   spawnRateMin: 0.1
   spawnRateMax: 0.1
@@ -1634,12 +1618,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 787ac823e74879f47b263c4a83d83471, type: 3}
---- !u!4 &940361015 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3461222517388533763, guid: 8b5b544d640aa994690e7fdac09baf22,
-    type: 3}
-  m_PrefabInstance: {fileID: 1101333739}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &975910584
 GameObject:
   m_ObjectHideFlags: 0
@@ -2750,8 +2728,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setPosition: {x: 0, y: 0.3, z: 0}
-  setRotation: {x: 0, y: 0, z: 0, w: 0}
+  transformTrackerSO: {fileID: 0}
+  singleTrackOnStart: 0
+  continuousTrackOnStart: 0
 --- !u!114 &1381801930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2765,40 +2744,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: b1248dc0261effe40b46761673244b02, type: 2}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches:
   - id: {fileID: 11400000, guid: 6ce658b07eebcad46a12960a0839dee3, type: 2}
-    triggerEvent:
+    triggerEnterEvent:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1381801929}
-          m_TargetAssemblyTypeName: TransformBehavior, Assembly-CSharp
-          m_MethodName: ResetToStartTransform
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
   - id: {fileID: 11400000, guid: 37bb8e482ee637941a219a2c0bc394e1, type: 2}
-    triggerEvent:
+    triggerEnterEvent:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1937801379}
-          m_TargetAssemblyTypeName: SceneBehavior, Assembly-CSharp
-          m_MethodName: LoadScene
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: VR Scene
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &1381801931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5586,24 +5547,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 7a017aa7328f8a24fb778bd5dd665385, type: 2}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches:
   - id: {fileID: 11400000, guid: b1248dc0261effe40b46761673244b02, type: 2}
-    triggerEvent:
+    triggerEnterEvent:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2126129411}
-          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
-          m_MethodName: PlayAudioShot
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: How to perform grab
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!65 &2040307510
 BoxCollider:
   m_ObjectHideFlags: 0
