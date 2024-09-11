@@ -29311,6 +29311,7 @@ Transform:
   - {fileID: 1244882421}
   - {fileID: 1376460602}
   - {fileID: 1047381525}
+  - {fileID: 1257161412}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &873827361
@@ -34905,7 +34906,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 873119574}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b84abf2ccb410a84d890301c0c737192,
         type: 3}
@@ -34972,6 +34973,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b84abf2ccb410a84d890301c0c737192, type: 3}
+--- !u!4 &1257161412 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b84abf2ccb410a84d890301c0c737192,
+    type: 3}
+  m_PrefabInstance: {fileID: 1257161411}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1276662580
 GameObject:
   m_ObjectHideFlags: 0
@@ -35029,21 +35036,9 @@ MonoBehaviour:
   onAwake:
     m_PersistentCalls:
       m_Calls: []
-  onSceneInit:
+  onStart:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: d75a78fa1bdcd674a8fd430c13cc75e5, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onLateInit:
     m_PersistentCalls:
       m_Calls:
@@ -50002,5 +49997,4 @@ SceneRoots:
   - {fileID: 1276662581}
   - {fileID: 1367817611}
   - {fileID: 873119574}
-  - {fileID: 1257161411}
   - {fileID: 622253402}
