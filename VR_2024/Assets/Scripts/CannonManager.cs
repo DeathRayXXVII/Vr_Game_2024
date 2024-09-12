@@ -11,8 +11,8 @@ public class CannonManager : MonoBehaviour
     
     public GameObject ammoPrefab;
     public float fireForce;
-    public Vector3 fireDirection;
-    public Transform firePoint;
+    [SerializeField] private Transform firePosition, reloadPosition;
+    private Vector3Data _fireDirection;
     public SocketMatchInteractor ammoSocket;
     
     private List <GameObject> _currentAmmoList;
@@ -28,7 +28,7 @@ public class CannonManager : MonoBehaviour
 
     public void Fire()
     {
-        // var ammoObj = ammoSocket.RemoveAndMoveSocketObject(firePoint.position, firePoint.rotation);
+        // var ammoObj = ammoSocket.RemoveAndMoveSocketObject(firePosition.position, firePosition.rotation);
         if(_ammoObj == null) {Debug.LogWarning("NO AMMO IN CANNON " + gameObject.name); return;}
         if (!_isLoaded) {Debug.LogWarning($"{gameObject.name} HAS NO AMMO."); return;}
         
@@ -47,11 +47,11 @@ public class CannonManager : MonoBehaviour
         foreach (var ammoObj in _currentAmmoList)
         {
             if (ammoObj.activeSelf) continue;
-            ammoObj.transform.position = firePoint.position;
-            ammoObj.transform.rotation = firePoint.rotation;
+            ammoObj.transform.position = firePosition.position;
+            ammoObj.transform.rotation = firePosition.rotation;
             return ammoObj;
         }
-        var newAmmo = Instantiate(ammoPrefab, firePoint.position, firePoint.rotation);
+        var newAmmo = Instantiate(ammoPrefab, firePosition.position, firePosition.rotation);
         _currentAmmoList.Add(newAmmo);
         return newAmmo;
     }
@@ -63,7 +63,24 @@ public class CannonManager : MonoBehaviour
         yield return _wffu;
         yield return _wffu;
         yield return null;
-        ammoRb.AddForce(fireDirection * fireForce, ForceMode.Impulse);
+        
+        var fireDirectionX = firePosition.position.x - reloadPosition.position.x;
+        var fireDirectionZ = firePosition.position.z - reloadPosition.position.z;
+        
+        if (fireDirectionX > fireDirectionZ)
+        {
+            _fireDirection.x = (fireDirectionX > 0) ? 1 : -1;
+            _fireDirection.z = 0;
+        }
+        else
+        {
+            _fireDirection.z = (fireDirectionZ > 0) ? 1 : -1;
+            _fireDirection.x = 0;
+        }
+        
+        _fireDirection.y = 0.1f;
+        
+        ammoRb.AddForce(_fireDirection * fireForce, ForceMode.Impulse);
         _addForceCoroutine = null; 
     }
 
