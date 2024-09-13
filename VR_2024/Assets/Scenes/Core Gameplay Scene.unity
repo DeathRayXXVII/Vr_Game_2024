@@ -5653,6 +5653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3edc9008b6944d4aa28a67b31d284e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowDebug: 0
   onSpawn:
     m_PersistentCalls:
       m_Calls:
@@ -9648,6 +9649,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1770681677}
   m_CullTransparentMesh: 1
+--- !u!1 &1787149304 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 162536762571314890, guid: d157dddd1c333fa4b80a3f4d3e610436,
+    type: 3}
+  m_PrefabInstance: {fileID: 8698141786969312525}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1787149307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787149304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3edc9008b6944d4aa28a67b31d284e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowDebug: 0
+  onSpawn:
+    m_PersistentCalls:
+      m_Calls: []
+  onSpawningComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onFinalSpawnDefeated:
+    m_PersistentCalls:
+      m_Calls: []
+  spawnerData: {fileID: 11400000, guid: 10649db0b35fff843bc908de984e368b, type: 2}
+  usePriority: 0
+  spawnOnStart: 1
+  randomizeSpawnRate: 0
+  spawnDelay: 0.1
+  spawnRateMin: 0.01
+  spawnRateMax: 0.01
+  numToSpawn: 6
+  waitingCount: 0
 --- !u!1001 &1795237665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12021,10 +12059,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2002004277901934463, guid: d157dddd1c333fa4b80a3f4d3e610436,
+    - target: {fileID: 1106524234724890703, guid: d157dddd1c333fa4b80a3f4d3e610436,
         type: 3}
-      propertyPath: m_Name
-      value: Front Lane
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1756136243400438318, guid: d157dddd1c333fa4b80a3f4d3e610436,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065894353418910306, guid: d157dddd1c333fa4b80a3f4d3e610436,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2355431322830637509, guid: d157dddd1c333fa4b80a3f4d3e610436,
         type: 3}
@@ -12035,6 +12083,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Galleon
+      objectReference: {fileID: 0}
+    - target: {fileID: 3593901446564498323, guid: d157dddd1c333fa4b80a3f4d3e610436,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870095024259605582, guid: d157dddd1c333fa4b80a3f4d3e610436,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912456739676136318, guid: d157dddd1c333fa4b80a3f4d3e610436,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6034602030910051618, guid: d157dddd1c333fa4b80a3f4d3e610436,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6359081725582706104, guid: d157dddd1c333fa4b80a3f4d3e610436,
         type: 3}
@@ -12101,20 +12169,19 @@ PrefabInstance:
       propertyPath: m_TeleportationProvider
       value: 
       objectReference: {fileID: 665386946}
-    - target: {fileID: 8227447404607527505, guid: d157dddd1c333fa4b80a3f4d3e610436,
+    - target: {fileID: 7392510014422177198, guid: d157dddd1c333fa4b80a3f4d3e610436,
         type: 3}
-      propertyPath: m_Name
-      value: Mid Lane
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381145642262636347, guid: d157dddd1c333fa4b80a3f4d3e610436,
-        type: 3}
-      propertyPath: m_Name
-      value: Rear Lane
+      propertyPath: allowDebug
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 162536762571314890, guid: d157dddd1c333fa4b80a3f4d3e610436,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1787149307}
   m_SourcePrefab: {fileID: 100100000, guid: d157dddd1c333fa4b80a3f4d3e610436, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

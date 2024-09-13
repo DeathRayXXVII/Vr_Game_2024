@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 public class SpawnManager : MonoBehaviour, INeedButton
 {
     private bool _destroying;
-    private bool _allowDebug;
+    [SerializeField] private bool allowDebug;
 
     public UnityEvent onSpawn, onSpawningComplete, onFinalSpawnDefeated;
 
@@ -217,7 +217,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
         {
             var waitTime = GetWaitSpawnRate();
             SpawnerData.Spawner spawner = spawnerData.GetInactiveSpawner();
-            if (_allowDebug)
+            if (allowDebug)
             {
                 Debug.Log($"Spawning Info...\nTotal Spawns Currently Active Count: {spawnedCount}\nTotal To Spawn: {numToSpawn}\nNum Left: {numToSpawn-spawnedCount}\nPoolSize: {_poolSize}\nPooledObjects: {_pooledObjects.Count}\nspawners: {spawnerData.spawners.Count}\nspawnRate: {waitTime}");
                 Debug.Log((spawner == null) ? "No Spawners Available" : $"Spawner: {spawner.spawnerID}");
@@ -229,7 +229,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
             {
                 waitingCount = numToSpawn - spawnedCount;
                 spawnedCount = 0;
-                if (_allowDebug) Debug.Log($"All Spawners Active... Killing Process, {waitingCount} spawns waiting for next spawn cycle.");
+                if (allowDebug) Debug.Log($"All Spawners Active... Killing Process, {waitingCount} spawns waiting for next spawn cycle.");
                 yield break;
             }
 
@@ -252,7 +252,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
             if (spawnBehavior == null) Debug.LogError($"No SpawnObjectBehavior found on {spawnObj} in ProcessSpawnedObject Method");
             var rb = spawnObj.GetComponent<Rigidbody>();
             
-            spawnBehavior.Setup(this, ref spawner, ref _allowDebug);
+            spawnBehavior.Setup(this, ref spawner, ref allowDebug);
             
             if (rb)
             {
@@ -260,7 +260,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
                 rb.angularVelocity = Vector3.zero;
             }
             
-            if (_allowDebug) Debug.Log($"Retrieved Spawner: {spawner.spawnerID} with... Count: {spawner.GetAliveCount()} Limit: {spawner.activeLimit}"); 
+            if (allowDebug) Debug.Log($"Retrieved Spawner: {spawner.spawnerID} with... Count: {spawner.GetAliveCount()} Limit: {spawner.activeLimit}"); 
             
             objTransform.position = spawner.spawnLocation.position;
             if (spawner.pathingTarget)
@@ -295,11 +295,11 @@ public class SpawnManager : MonoBehaviour, INeedButton
     {
         if (_destroying) return;
         spawnerData.HandleSpawnRemoval(ref spawnerID);
-        if (_allowDebug) Debug.Log($"Notified of Death: passed {spawnerID} as spawnerID\nTotal active: {spawnerData.activeCount}");
+        if (allowDebug) Debug.Log($"Notified of Death: passed {spawnerID} as spawnerID\nTotal active: {spawnerData.activeCount}");
         
         if (spawnerData.activeCount <= 0 && numToSpawn - spawnedCount <= 0 && waitingCount <= 0)
         {
-            if (_allowDebug) Debug.Log($"NOTIFIED: {spawnerID} WAS THE FINAL SPAWN");
+            if (allowDebug) Debug.Log($"NOTIFIED: {spawnerID} WAS THE FINAL SPAWN");
             onFinalSpawnDefeated.Invoke();
         }
         else

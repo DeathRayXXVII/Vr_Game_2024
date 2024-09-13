@@ -153,10 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 0eba56e70948ccd4a8f10c4ad410c5be, type: 2}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches:
   - id: {fileID: 11400000, guid: 6ce658b07eebcad46a12960a0839dee3, type: 2}
-    triggerEvent:
+    triggerEnterEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 4176567598734683626}
@@ -168,25 +168,26 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: reset
-            m_BoolArgument: 1
+            m_StringArgument: deactivate
+            m_BoolArgument: 0
           m_CallState: 2
-  - id: {fileID: 11400000, guid: 9f5ff81a699609342b5b360edd1a0b78, type: 2}
-    triggerEvent:
+    triggerExitEvent:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4176567598734683626}
-          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-          m_MethodName: StartWaitForSecondsEvent
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: stopDealingDamage
-            m_BoolArgument: 1
-          m_CallState: 2
+        m_Calls: []
+  - id: {fileID: 11400000, guid: 9f5ff81a699609342b5b360edd1a0b78, type: 2}
+    triggerEnterEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: {fileID: 0}
+    triggerEnterEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &453423135970158518
 MonoBehaviour:
   m_ObjectHideFlags: 0

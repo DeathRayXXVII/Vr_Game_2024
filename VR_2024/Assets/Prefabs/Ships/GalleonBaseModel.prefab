@@ -303,6 +303,59 @@ MonoBehaviour:
         stateExited: {fileID: 0}
     m_Variable: {fileID: 11400000, guid: 9e9801488734c1a43b98f5ac0a83b38c, type: 2}
   m_AudioSource: {fileID: 8135877293822236143}
+--- !u!1 &4178757058480866703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3061422754400135944}
+  - component: {fileID: 3535647110299421440}
+  m_Layer: 0
+  m_Name: Collider Grate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3061422754400135944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4178757058480866703}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.012653317, y: 0, z: 0, w: 0.99991995}
+  m_LocalPosition: {x: 0, y: 6.334, z: -5.93}
+  m_LocalScale: {x: 3.1, y: 1, z: 5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 205980066849312053}
+  m_LocalEulerAnglesHint: {x: 1.45, y: 0, z: 0}
+--- !u!65 &3535647110299421440
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4178757058480866703}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.25, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5966255857992811453
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,6 +438,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 3535647110299421440}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1152,8 +1206,18 @@ PrefabInstance:
         type: 3}
       insertIndex: 1
       addedObject: {fileID: 8965952309970445879}
+    - targetCorrespondingSourceObject: {fileID: -6120273217012766415, guid: 317bc1d345c468045bf216140d0b0327,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3061422754400135944}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 317bc1d345c468045bf216140d0b0327, type: 3}
+--- !u!4 &205980066849312053 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6120273217012766415, guid: 317bc1d345c468045bf216140d0b0327,
+    type: 3}
+  m_PrefabInstance: {fileID: 3011679068522324996}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3332975253239219183 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 317bc1d345c468045bf216140d0b0327,

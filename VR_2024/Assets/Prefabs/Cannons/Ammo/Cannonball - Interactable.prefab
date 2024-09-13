@@ -570,10 +570,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 0eba56e70948ccd4a8f10c4ad410c5be, type: 2}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches:
   - id: {fileID: 11400000, guid: 6ce658b07eebcad46a12960a0839dee3, type: 2}
-    triggerEvent:
+    triggerEnterEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: -1384171436132759502}
@@ -586,7 +586,7 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: deactivate
-            m_BoolArgument: 1
+            m_BoolArgument: 0
           m_CallState: 2
     triggerExitEvent:
       m_PersistentCalls:
@@ -711,6 +711,7 @@ MonoBehaviour:
           m_StringArgument: allowGrab
           m_BoolArgument: 0
         m_CallState: 2
+  timeToRespawn: {fileID: 11400000, guid: 524182c2839ad094a82b055e46694aef, type: 2}
 --- !u!198 &6902952253728924966
 ParticleSystem:
   m_ObjectHideFlags: 0
