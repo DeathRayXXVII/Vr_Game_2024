@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,12 +26,13 @@ public class CannonManager : MonoBehaviour
     {
         _wffu = new WaitForFixedUpdate();
         _addForceCoroutine = null;
+        _fireDirection = ScriptableObject.CreateInstance<Vector3Data>();
     }
 
     public void Fire()
     {
         // var ammoObj = ammoSocket.RemoveAndMoveSocketObject(firePosition.position, firePosition.rotation);
-        if(_ammoObj == null) {Debug.LogWarning("NO AMMO IN CANNON " + gameObject.name); return;}
+        if(_ammoObj == null) {Debug.LogWarning($"NO AMMO IN CANNON {gameObject.name}"); return;}
         if (!_isLoaded) {Debug.LogWarning($"{gameObject.name} HAS NO AMMO."); return;}
         
         var ammoRb = _ammoObj.GetComponent<Rigidbody>();
@@ -44,9 +47,8 @@ public class CannonManager : MonoBehaviour
     private GameObject GetAmmo()
     {
         _currentAmmoList ??= new List<GameObject>();
-        foreach (var ammoObj in _currentAmmoList)
+        foreach (var ammoObj in _currentAmmoList.Where(ammoObj => !ammoObj.activeSelf))
         {
-            if (ammoObj.activeSelf) continue;
             ammoObj.transform.position = firePosition.position;
             ammoObj.transform.rotation = firePosition.rotation;
             return ammoObj;

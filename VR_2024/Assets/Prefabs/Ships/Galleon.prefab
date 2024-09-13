@@ -1242,6 +1242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7799248266087118402}
   - component: {fileID: 16904767328789253}
+  - component: {fileID: 8839202629711114893}
   m_Layer: 0
   m_Name: Ammo Spawn
   m_TagString: Untagged
@@ -1266,6 +1267,21 @@ Transform:
   m_Father: {fileID: 3407697453091022258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &16904767328789253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3789391686126767233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformTrackerSO: {fileID: 11400000, guid: 39963fcc10f568647b92c898df40ff4a, type: 2}
+  singleTrackOnStart: 1
+  continuousTrackOnStart: 0
+--- !u!114 &8839202629711114893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

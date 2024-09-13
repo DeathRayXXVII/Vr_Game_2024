@@ -15822,13 +15822,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6811761895146779019}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.037515767, y: 0, z: 0, w: 0.9992961}
-  m_LocalPosition: {x: -0.22, y: 9.92, z: 13.55}
+  m_LocalRotation: {x: 0.043619405, y: -0, z: -0, w: 0.9990483}
+  m_LocalPosition: {x: 0, y: 10.131146, z: 11.773206}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2138473726733975965}
-  m_LocalEulerAnglesHint: {x: 4.3, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &5240843114848675322
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15848,8 +15848,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3.68
-  m_Height: 0
+  m_Radius: 4
+  m_Height: 10
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7146054960839332106
@@ -20937,7 +20937,7 @@ Transform:
   m_GameObject: {fileID: 8393854904978600405}
   serializedVersion: 2
   m_LocalRotation: {x: 0.043619405, y: -0, z: -0, w: 0.9990483}
-  m_LocalPosition: {x: 0, y: 12, z: -10}
+  m_LocalPosition: {x: 0, y: 12, z: -10.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20963,7 +20963,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 4
-  m_Height: 50.25
+  m_Height: 48
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9207764901726323132
@@ -21091,6 +21091,18 @@ MonoBehaviour:
   onObjectSocketed:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 9105805529164418268}
+        m_TargetAssemblyTypeName: CannonManager, Assembly-CSharp
+        m_MethodName: LoadCannon
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 4835952981608933241}
         m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
         m_MethodName: StartWaitForFixedUpdateEvent
