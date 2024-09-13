@@ -14,7 +14,7 @@ public class CannonManager : MonoBehaviour
     
     public GameObject ammoPrefab;
     public float fireForce;
-    [SerializeField] private Transform firePosition, reloadPosition;
+    [SerializeField] private Transform barrelExitVelocityPosition, barrelInitialVelocityPosition;
     private Vector3Data _fireDirection;
     public SocketMatchInteractor ammoSocket;
     
@@ -32,7 +32,7 @@ public class CannonManager : MonoBehaviour
 
     public void Fire()
     {
-        // var ammoObj = ammoSocket.RemoveAndMoveSocketObject(firePosition.position, firePosition.rotation);
+        // var ammoObj = ammoSocket.RemoveAndMoveSocketObject(barrelExitVelocityPosition.position, barrelExitVelocityPosition.rotation);
         if(_ammoObj == null) {Debug.LogWarning($"NO AMMO IN CANNON {gameObject.name}"); return;}
         if (!_isLoaded) {Debug.LogWarning($"{gameObject.name} HAS NO AMMO."); return;}
         
@@ -50,11 +50,11 @@ public class CannonManager : MonoBehaviour
         _currentAmmoList ??= new List<GameObject>();
         foreach (var ammoObj in _currentAmmoList.Where(ammoObj => !ammoObj.activeSelf))
         {
-            ammoObj.transform.position = firePosition.position;
-            ammoObj.transform.rotation = firePosition.rotation;
+            ammoObj.transform.position = barrelExitVelocityPosition.position;
+            ammoObj.transform.rotation = barrelExitVelocityPosition.rotation;
             return ammoObj;
         }
-        var newAmmo = Instantiate(ammoPrefab, firePosition.position, firePosition.rotation);
+        var newAmmo = Instantiate(ammoPrefab, barrelExitVelocityPosition.position, barrelExitVelocityPosition.rotation);
         _currentAmmoList.Add(newAmmo);
         return newAmmo;
     }
@@ -67,8 +67,8 @@ public class CannonManager : MonoBehaviour
         yield return _wffu;
         yield return null;
         
-        var fireDirectionX = firePosition.position.x - reloadPosition.position.x;
-        var fireDirectionZ = firePosition.position.z - reloadPosition.position.z;
+        var fireDirectionX = barrelExitVelocityPosition.position.x - barrelInitialVelocityPosition.position.x;
+        var fireDirectionZ = barrelExitVelocityPosition.position.z - barrelInitialVelocityPosition.position.z;
         
         if (Math.Abs(fireDirectionX) > Math.Abs(fireDirectionZ))
         {
@@ -81,7 +81,7 @@ public class CannonManager : MonoBehaviour
             _fireDirection.x = 0;
         }
         
-        _fireDirection.y = (firePosition.position.z - reloadPosition.position.z > 0) ? firePosition.position.z - reloadPosition.position.z : 0.1f;
+        _fireDirection.y = (barrelExitVelocityPosition.position.z - barrelInitialVelocityPosition.position.z > 0) ? barrelExitVelocityPosition.position.z - barrelInitialVelocityPosition.position.z : 0.1f;
         ammoRb.AddForce(_fireDirection * fireForce, ForceMode.Impulse);
         _addForceCoroutine = null; 
     }

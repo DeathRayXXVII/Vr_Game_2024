@@ -126,8 +126,8 @@ MonoBehaviour:
   ammoPrefab: {fileID: 7001261881460551479, guid: ddfc025fdb29c6f439a5c2f2c5762552,
     type: 3}
   fireForce: 55
-  firePosition: {fileID: 7323743104195517700}
-  reloadPosition: {fileID: 5032631625000350748}
+  barrelExitVelocityPosition: {fileID: 7323743104195517700}
+  barrelInitialVelocityPosition: {fileID: 5032631625000350748}
   ammoSocket: {fileID: 4624554520326943738}
 --- !u!95 &2370026578296386634
 Animator:
@@ -15760,7 +15760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7323743104195517700}
   m_Layer: 0
-  m_Name: Pos Fire
+  m_Name: Pos Barrel Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15836,7 +15836,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 3.5
   m_Height: 10
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
