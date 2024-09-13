@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 928590206356770032}
   - component: {fileID: 7392510014422177198}
+  - component: {fileID: 258294720298365452}
   m_Layer: 0
   m_Name: Firing & Spawn Lanes
   m_TagString: Untagged
@@ -67,6 +68,25 @@ MonoBehaviour:
   spawnRateMax: 0.01
   numToSpawn: 6
   waitingCount: 0
+--- !u!114 &258294720298365452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162536762571314890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9cfec968f06200499eff6a9d30544f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 991913744571767613, guid: e9c5d08b260ddd240af99c9be382c27f, type: 3}
+  prefabOffset: {fileID: 0}
+  instantiateOnStart: 1
+  instances:
+  - targetPosition: {fileID: 11400000, guid: 6b81dc21836e8f044bc569dafaf06a12, type: 2}
+    offset: {fileID: 0}
+    excludePrefabOffset: 0
 --- !u!1 &368216457425220112
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,9 +131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 701c407fc0e3272459ccd0482372bd52, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
 --- !u!1 &388995173397563536
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,9 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: ebd12d7968508ad4e99d6df4028aab77, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
 --- !u!1 &565057342552691698
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,9 +254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 105427cd45e6dc344a036921195276d5, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
 --- !u!1 &1624076759749971995
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,9 +518,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 72b8a3da15c360b4a9636ea046992525, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
 --- !u!1 &1785222698593436479
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,9 +856,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 756ab505c437ac1449b633c13d6175f7, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
 --- !u!1 &3147384388640761322
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,9 +900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 0751988b66220bb458f2ca240920ff81, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
 --- !u!1 &3343833173984464834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,7 +1163,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3782649943884083815}
-  - component: {fileID: 6777257786481383248}
+  - component: {fileID: 2612855997997981873}
   m_Layer: 0
   m_Name: Ammo Spawn
   m_TagString: Untagged
@@ -1185,7 +1187,7 @@ Transform:
   - {fileID: 767749765870605683}
   m_Father: {fileID: 7042468110501980833}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6777257786481383248
+--- !u!114 &2612855997997981873
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1194,7 +1196,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3367843587601742121}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   transformTrackerSO: {fileID: 11400000, guid: a1e33b60f5501b142b647dbd2bef7462, type: 2}
@@ -1209,6 +1211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3407697453091022258}
+  - component: {fileID: 7663871698797261607}
   m_Layer: 0
   m_Name: Right Cannon Pos&Rot
   m_TagString: Untagged
@@ -1229,10 +1232,24 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1961674755258538710}
   - {fileID: 7799248266087118402}
   m_Father: {fileID: 3237810299145955545}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &7663871698797261607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3649483715481275146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformTrackerSO: {fileID: 11400000, guid: 6b81dc21836e8f044bc569dafaf06a12, type: 2}
+  singleTrackOnStart: 1
+  continuousTrackOnStart: 0
 --- !u!1 &3789391686126767233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,8 +1259,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7799248266087118402}
-  - component: {fileID: 16904767328789253}
-  - component: {fileID: 8839202629711114893}
+  - component: {fileID: 7086766694733712175}
   m_Layer: 0
   m_Name: Ammo Spawn
   m_TagString: Untagged
@@ -1267,7 +1283,7 @@ Transform:
   - {fileID: 6461351788047191143}
   m_Father: {fileID: 3407697453091022258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &16904767328789253
+--- !u!114 &7086766694733712175
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1276,22 +1292,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3789391686126767233}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 39963fcc10f568647b92c898df40ff4a, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
---- !u!114 &8839202629711114893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3789391686126767233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   transformTrackerSO: {fileID: 11400000, guid: 39963fcc10f568647b92c898df40ff4a, type: 2}
@@ -1579,6 +1580,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7631521998624735572}
+  - component: {fileID: 4833542193696379274}
   m_Layer: 0
   m_Name: Left Cannon Pos&Rot
   m_TagString: Untagged
@@ -1600,9 +1602,23 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3058617998439530999}
-  - {fileID: 1439536676660774524}
   m_Father: {fileID: 3237810299145955545}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &4833542193696379274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201101278923585072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformTrackerSO: {fileID: 0}
+  singleTrackOnStart: 0
+  continuousTrackOnStart: 0
 --- !u!1 &4203265059427163677
 GameObject:
   m_ObjectHideFlags: 0
@@ -1980,9 +1996,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: e0f9e3437a743fd47b1057e223e0d886, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
 --- !u!1 &4589101746973680265
 GameObject:
   m_ObjectHideFlags: 0
@@ -1992,6 +2005,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2490900399351745925}
+  - component: {fileID: 5723257223877252882}
   m_Layer: 0
   m_Name: Left Cannon Pos&Rot
   m_TagString: Untagged
@@ -2015,6 +2029,21 @@ Transform:
   - {fileID: 3410410226396303557}
   m_Father: {fileID: 4830752427429485727}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &5723257223877252882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4589101746973680265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformTrackerSO: {fileID: 0}
+  singleTrackOnStart: 0
+  continuousTrackOnStart: 0
 --- !u!1 &4871071757640177983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2059,6 +2088,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7042468110501980833}
+  - component: {fileID: 9195502311468300423}
   m_Layer: 0
   m_Name: Right Cannon Pos&Rot
   m_TagString: Untagged
@@ -2082,6 +2112,21 @@ Transform:
   - {fileID: 3782649943884083815}
   m_Father: {fileID: 2312120862463815917}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &9195502311468300423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5502643788036703761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformTrackerSO: {fileID: 0}
+  singleTrackOnStart: 0
+  continuousTrackOnStart: 0
 --- !u!1 &5755481413947628836
 GameObject:
   m_ObjectHideFlags: 0
@@ -2091,7 +2136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3058617998439530999}
-  - component: {fileID: 3670111985161030236}
+  - component: {fileID: 4527697469830925658}
   m_Layer: 0
   m_Name: Ammo Spawn
   m_TagString: Untagged
@@ -2115,7 +2160,7 @@ Transform:
   - {fileID: 338984268538535581}
   m_Father: {fileID: 7631521998624735572}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3670111985161030236
+--- !u!114 &4527697469830925658
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2124,7 +2169,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5755481413947628836}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   transformTrackerSO: {fileID: 11400000, guid: a1138276d835a904ca5b4922568dc523, type: 2}
@@ -2365,6 +2410,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5835469048561212718}
+  - component: {fileID: 5875707512124011439}
   m_Layer: 0
   m_Name: Left Cannon Pos&Rot
   m_TagString: Untagged
@@ -2388,6 +2434,21 @@ Transform:
   - {fileID: 3886531370018892000}
   m_Father: {fileID: 2312120862463815917}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &5875707512124011439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267201147556313270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformTrackerSO: {fileID: 0}
+  singleTrackOnStart: 0
+  continuousTrackOnStart: 0
 --- !u!1 &6397732700920010187
 GameObject:
   m_ObjectHideFlags: 0
@@ -2585,9 +2646,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 64c135c46b0aef042a042f345d2da1a0, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
 --- !u!1 &6823800409281830148
 GameObject:
   m_ObjectHideFlags: 0
@@ -2632,9 +2690,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 62743dc67197aa74ba07a827f76bf295, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
 --- !u!1 &6984843571636421550
 GameObject:
   m_ObjectHideFlags: 0
@@ -2679,9 +2734,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 54a35739977b6ce49aa9dc7a8fe57e21, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
 --- !u!1 &7304259634476613500
 GameObject:
   m_ObjectHideFlags: 0
@@ -2917,7 +2969,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3886531370018892000}
-  - component: {fileID: 3950625195574902415}
+  - component: {fileID: 5303192818496759535}
   m_Layer: 0
   m_Name: Ammo Spawn
   m_TagString: Untagged
@@ -2941,7 +2993,7 @@ Transform:
   - {fileID: 5822664344183961264}
   m_Father: {fileID: 5835469048561212718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3950625195574902415
+--- !u!114 &5303192818496759535
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2950,7 +3002,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8067669394705137463}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   transformTrackerSO: {fileID: 11400000, guid: 24cd216558ec7c848bdc44d138a240a7, type: 2}
@@ -3103,9 +3155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 43661dec44aef464eac9fbcbf095aad3, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
 --- !u!1 &8604351377233327881
 GameObject:
   m_ObjectHideFlags: 0
@@ -3115,7 +3164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6579586485031834859}
-  - component: {fileID: 5350273101108656820}
+  - component: {fileID: 6433011118496201768}
   m_Layer: 0
   m_Name: Ammo Spawn
   m_TagString: Untagged
@@ -3139,7 +3188,7 @@ Transform:
   - {fileID: 6734653782860423877}
   m_Father: {fileID: 322485345601045220}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5350273101108656820
+--- !u!114 &6433011118496201768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3148,7 +3197,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8604351377233327881}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   transformTrackerSO: {fileID: 11400000, guid: db2cb3f936a6c0a44b6ef17b42cb5289, type: 2}
@@ -3163,7 +3212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3410410226396303557}
-  - component: {fileID: 613767630151143270}
+  - component: {fileID: 6332808075461179980}
   m_Layer: 0
   m_Name: Ammo Spawn
   m_TagString: Untagged
@@ -3187,7 +3236,7 @@ Transform:
   - {fileID: 4771795889926364127}
   m_Father: {fileID: 2490900399351745925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &613767630151143270
+--- !u!114 &6332808075461179980
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3196,7 +3245,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8705045885515690995}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   transformTrackerSO: {fileID: 11400000, guid: 359703860fca4c044a65d66a59893ad8, type: 2}
@@ -3461,6 +3510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 322485345601045220}
+  - component: {fileID: 5317490268313219915}
   m_Layer: 0
   m_Name: Right Cannon Pos&Rot
   m_TagString: Untagged
@@ -3484,6 +3534,21 @@ Transform:
   - {fileID: 6579586485031834859}
   m_Father: {fileID: 4830752427429485727}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &5317490268313219915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8901507368833980144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformTrackerSO: {fileID: 0}
+  singleTrackOnStart: 0
+  continuousTrackOnStart: 0
 --- !u!1 &8922936919544860926
 GameObject:
   m_ObjectHideFlags: 0
@@ -3528,9 +3593,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 3b72f8ea5b992a64ca088e6f64e9da9b, type: 2}
-  singleTrackOnStart: 1
-  continuousTrackOnStart: 0
 --- !u!1 &9163916729362485045
 GameObject:
   m_ObjectHideFlags: 0
@@ -12033,154 +12095,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6750812065809539138, guid: d525b5870970e884982d52b1f7268ae8,
     type: 3}
   m_PrefabInstance: {fileID: 5161974450619263160}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &5167203313160730399
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 7631521998624735572}
-    m_Modifications:
-    - target: {fileID: 991913744571767613, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_Name
-      value: Cannon Standard
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.345
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.651
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e9c5d08b260ddd240af99c9be382c27f, type: 3}
---- !u!4 &1439536676660774524 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-    type: 3}
-  m_PrefabInstance: {fileID: 5167203313160730399}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &5725937941191125941
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 3407697453091022258}
-    m_Modifications:
-    - target: {fileID: 991913744571767613, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_Name
-      value: Cannon Standard
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.345
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.651
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e9c5d08b260ddd240af99c9be382c27f, type: 3}
---- !u!4 &1961674755258538710 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6075315162622570851, guid: e9c5d08b260ddd240af99c9be382c27f,
-    type: 3}
-  m_PrefabInstance: {fileID: 5725937941191125941}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5931653074144070999
 PrefabInstance:
