@@ -5653,6 +5653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3edc9008b6944d4aa28a67b31d284e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowDebug: 0
   onSpawn:
     m_PersistentCalls:
       m_Calls:
@@ -12021,11 +12022,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2002004277901934463, guid: d157dddd1c333fa4b80a3f4d3e610436,
-        type: 3}
-      propertyPath: m_Name
-      value: Front Lane
-      objectReference: {fileID: 0}
     - target: {fileID: 2355431322830637509, guid: d157dddd1c333fa4b80a3f4d3e610436,
         type: 3}
       propertyPath: onEnableEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -12101,15 +12097,10 @@ PrefabInstance:
       propertyPath: m_TeleportationProvider
       value: 
       objectReference: {fileID: 665386946}
-    - target: {fileID: 8227447404607527505, guid: d157dddd1c333fa4b80a3f4d3e610436,
+    - target: {fileID: 7392510014422177198, guid: d157dddd1c333fa4b80a3f4d3e610436,
         type: 3}
-      propertyPath: m_Name
-      value: Mid Lane
-      objectReference: {fileID: 0}
-    - target: {fileID: 8381145642262636347, guid: d157dddd1c333fa4b80a3f4d3e610436,
-        type: 3}
-      propertyPath: m_Name
-      value: Rear Lane
+      propertyPath: allowDebug
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

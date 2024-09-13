@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -69,7 +70,7 @@ public class CannonManager : MonoBehaviour
         var fireDirectionX = firePosition.position.x - reloadPosition.position.x;
         var fireDirectionZ = firePosition.position.z - reloadPosition.position.z;
         
-        if (fireDirectionX > fireDirectionZ)
+        if (Math.Abs(fireDirectionX) > Math.Abs(fireDirectionZ))
         {
             _fireDirection.x = (fireDirectionX > 0) ? 1 : -1;
             _fireDirection.z = 0;
@@ -80,8 +81,7 @@ public class CannonManager : MonoBehaviour
             _fireDirection.x = 0;
         }
         
-        _fireDirection.y = 0.1f;
-        
+        _fireDirection.y = (firePosition.position.z - reloadPosition.position.z > 0) ? firePosition.position.z - reloadPosition.position.z : 0.1f;
         ammoRb.AddForce(_fireDirection * fireForce, ForceMode.Impulse);
         _addForceCoroutine = null; 
     }

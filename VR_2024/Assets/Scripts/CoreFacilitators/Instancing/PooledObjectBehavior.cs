@@ -8,6 +8,8 @@ public class PooledObjectBehavior : MonoBehaviour
     private SpawnManager _spawnManager;
     private SpawnerData.Spawner _spawner;
     private bool _allowDebug, _spawned, _justInstantiated, _respawnTriggered, _beingDestroyed;
+    
+    [SerializeField] private FloatData timeToRespawn;
 
     private void Awake()
     {
@@ -23,14 +25,18 @@ public class PooledObjectBehavior : MonoBehaviour
 
     public void TriggerRespawn()
     {
+        Debug.Log($"Triggering Respawn on {name}");
         if (_respawnTriggered) return;
         _respawnTriggered = true;
         if (_spawnManager == null)
         {
-            Debug.LogWarning("SpawnManager is null" + name + " SpawnedObjectBehavior.");
+            Debug.LogWarning($"SpawnManager is null {name} SpawnedObjectBehavior.");
             return;
         }
         _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
+        Debug.Log($"Setting spawn delay to {(timeToRespawn != null ? timeToRespawn : 1)}");
+        _spawnManager.SetSpawnDelay(timeToRespawn != null ? timeToRespawn : 1);
+        
         _spawnManager.StartSpawn(1);
     }
 
