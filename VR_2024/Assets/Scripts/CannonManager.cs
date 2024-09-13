@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,8 +13,8 @@ public class CannonManager : MonoBehaviour
     
     public GameObject ammoPrefab;
     public float fireForce;
-    public Vector3 fireDirection;
-    public Transform firePoint;
+    [SerializeField] private Transform firePosition, reloadPosition;
+    private Vector3Data _fireDirection;
     public SocketMatchInteractor ammoSocket;
     
     private List <GameObject> _currentAmmoList;
@@ -24,12 +26,13 @@ public class CannonManager : MonoBehaviour
     {
         _wffu = new WaitForFixedUpdate();
         _addForceCoroutine = null;
+        _fireDirection = ScriptableObject.CreateInstance<Vector3Data>();
     }
 
     public void Fire()
     {
-        // var ammoObj = ammoSocket.RemoveAndMoveSocketObject(firePoint.position, firePoint.rotation);
-        if(_ammoObj == null) {Debug.LogWarning("NO AMMO IN CANNON " + gameObject.name); return;}
+        // var ammoObj = ammoSocket.RemoveAndMoveSocketObject(firePosition.position, firePosition.rotation);
+        if(_ammoObj == null) {Debug.LogWarning($"NO AMMO IN CANNON {gameObject.name}"); return;}
         if (!_isLoaded) {Debug.LogWarning($"{gameObject.name} HAS NO AMMO."); return;}
         
         var ammoRb = _ammoObj.GetComponent<Rigidbody>();
@@ -44,14 +47,13 @@ public class CannonManager : MonoBehaviour
     private GameObject GetAmmo()
     {
         _currentAmmoList ??= new List<GameObject>();
-        foreach (var ammoObj in _currentAmmoList)
+        foreach (var ammoObj in _currentAmmoList.Where(ammoObj => !ammoObj.activeSelf))
         {
-            if (ammoObj.activeSelf) continue;
-            ammoObj.transform.position = firePoint.position;
-            ammoObj.transform.rotation = firePoint.rotation;
+            ammoObj.transform.position = firePosition.position;
+            ammoObj.transform.rotation = firePosition.rotation;
             return ammoObj;
         }
-        var newAmmo = Instantiate(ammoPrefab, firePoint.position, firePoint.rotation);
+        var newAmmo = Instantiate(ammoPrefab, firePosition.position, firePosition.rotation);
         _currentAmmoList.Add(newAmmo);
         return newAmmo;
     }
@@ -63,7 +65,24 @@ public class CannonManager : MonoBehaviour
         yield return _wffu;
         yield return _wffu;
         yield return null;
-        ammoRb.AddForce(fireDirection * fireForce, ForceMode.Impulse);
+        
+        var fireDirectionX = firePosition.position.x - reloadPosition.position.x;
+        var fireDirectionZ = firePosition.position.z - reloadPosition.position.z;
+        
+        if (fireDirectionX > fireDirectionZ)
+        {
+            _fireDirection.x = (fireDirectionX > 0) ? 1 : -1;
+            _fireDirection.z = 0;
+        }
+        else
+        {
+            _fireDirection.z = (fireDirectionZ > 0) ? 1 : -1;
+            _fireDirection.x = 0;
+        }
+        
+        _fireDirection.y = 0.1f;
+        
+        ammoRb.AddForce(_fireDirection * fireForce, ForceMode.Impulse);
         _addForceCoroutine = null; 
     }
 
