@@ -2,33 +2,29 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public int levelNumber;
-    public Vector3 levelPosition;
-    public bool Unlocked;
+    [SerializeField] private ShipData shipData;
+    public LevelData levelData;
+    public int currentLevel;
 
     private void Start()
     {
-        levelPosition = transform.position;
-    }
-
-    public void LevelActive()
-    {
-        gameObject.SetActive(true);
+        LoadLevel();
     }
     
-    public void ExitLevel()
+    private void LoadLevel()
     {
-        transform.position = levelPosition;
-        gameObject.SetActive(false);
+        GameObject shipInstance = Instantiate(shipData.currentShip);
+        foreach (GameObject cannonPosition in shipData.cannonPositions)
+        {
+            for (int i = 0; i < levelData.spawnNum; i++)
+            {
+                Instantiate(shipData.currentCannons, cannonPosition.transform.position, cannonPosition.transform.rotation, shipInstance.transform);
+            }
+        }
     }
     
-    public void UnlockLevel()
+    public void LoadLevelData(LevelData levelsData)
     {
-        Unlocked = true;
-    }
-    
-    public void LockLevel()
-    {
-        Unlocked = false;
+        levelData = levelsData;
     }
 }
