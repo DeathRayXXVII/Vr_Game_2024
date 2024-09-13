@@ -4,41 +4,36 @@ using Vector3 = UnityEngine.Vector3;
 
 public class ObjectInstancer : MonoBehaviour, INeedButton
 {
-    public GameObject prefab;
-    public Vector3Data prefabOffset;
-    
-    [System.Serializable]
-    private class InstanceData
-    {
-        public TransformData targetPosition;
-        public Vector3Data offset;
-        public bool excludePrefabOffset;
-    }
-    
-    [SerializeField] private InstanceData[] instances;
-    
+    [SerializeField] private InstancerData instancerData;
     [SerializeField] private bool instantiateOnStart;
+    
+    public void SetInstancerData(InstancerData data) { instancerData = data; }
     
     private void Start()
     {
+        if (instancerData == null) 
+        { 
+            Debug.LogError("InstancerData is missing.");
+            return;
+        }
         if (instantiateOnStart) InstantiateObjects();
     }
     
     public void InstantiateObjects()
     {
-        foreach (var instance in instances)
+        foreach (var instance in instancerData.instances)
         {
             var instanceOffset = Vector3.zero;
             if (instance.offset != null) {instanceOffset = instance.offset;}
 
-            var finalOffset = !instance.excludePrefabOffset && prefabOffset != null ? instanceOffset + prefabOffset.value : instanceOffset;
+            var finalOffset = !instance.excludePrefabOffset && instancerData.prefabOffset != null ? instanceOffset + instancerData.prefabOffset.value : instanceOffset;
             InstantiateObject(instance.targetPosition, finalOffset);
         }
     }
     
     private void InstantiateObject(TransformData location, Vector3 offset)
     {
-        var newInstance = Instantiate(prefab, location.position, location.rotation);
+        var newInstance = Instantiate(instancerData.prefab, location.position, location.rotation);
         newInstance.transform.localPosition += location.rotation * offset;
         newInstance.transform.SetParent(transform);
     }
