@@ -25,7 +25,6 @@ public class PooledObjectBehavior : MonoBehaviour
 
     public void TriggerRespawn()
     {
-        Debug.Log($"Triggering Respawn on {name}");
         if (_respawnTriggered) return;
         _respawnTriggered = true;
         if (_spawnManager == null)
@@ -34,7 +33,6 @@ public class PooledObjectBehavior : MonoBehaviour
             return;
         }
         _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
-        Debug.Log($"Setting spawn delay to {(timeToRespawn != null ? timeToRespawn : 1)}");
         _spawnManager.SetSpawnDelay(timeToRespawn != null ? timeToRespawn : 1);
         
         _spawnManager.StartSpawn(1);

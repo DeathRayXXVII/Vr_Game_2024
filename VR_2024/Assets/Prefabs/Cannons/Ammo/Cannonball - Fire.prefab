@@ -168,7 +168,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: deactivate
+            m_StringArgument: reset
             m_BoolArgument: 0
           m_CallState: 2
     triggerExitEvent:
@@ -180,14 +180,19 @@ MonoBehaviour:
         m_Calls: []
     triggerExitEvent:
       m_PersistentCalls:
-        m_Calls: []
-  - id: {fileID: 0}
-    triggerEnterEvent:
-      m_PersistentCalls:
-        m_Calls: []
-    triggerExitEvent:
-      m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 4176567598734683626}
+          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
+          m_MethodName: StartWaitForSecondsEvent
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: stopDealingDamage
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &453423135970158518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,30 +248,6 @@ MonoBehaviour:
           m_TargetAssemblyTypeName: WeaponController, Assembly-CSharp
           m_MethodName: set_canDealDamage
           m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-        - m_Target: {fileID: 453423135970158518}
-          m_TargetAssemblyTypeName: Rigidbody3DBehavior, Assembly-CSharp
-          m_MethodName: ZeroOutVelocity
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-        - m_Target: {fileID: 453423135970158518}
-          m_TargetAssemblyTypeName: Rigidbody3DBehavior, Assembly-CSharp
-          m_MethodName: ZeroOutAngularVelocity
-          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
