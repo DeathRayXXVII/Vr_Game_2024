@@ -214,7 +214,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 2
+    m_Bits: 6
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -407,49 +407,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 60ed7de22b891f446a34e41b7e76be87, type: 2}
-  colliderObj: {fileID: 0}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches:
   - id: {fileID: 11400000, guid: 6ce658b07eebcad46a12960a0839dee3, type: 2}
-    triggerEvent:
+    triggerEnterEvent:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2673050081111478343}
-          m_TargetAssemblyTypeName: TransformBehavior, Assembly-CSharp
-          m_MethodName: ResetToStartTransform
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 3822237972236828226}
-          m_TargetAssemblyTypeName: Rigidbody3DBehavior, Assembly-CSharp
-          m_MethodName: ZeroOutVelocity
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 3822237972236828226}
-          m_TargetAssemblyTypeName: Rigidbody3DBehavior, Assembly-CSharp
-          m_MethodName: ZeroOutAngularVelocity
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &3822237972236828226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,5 +442,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setPosition: {x: 0, y: 0, z: 0}
-  setRotation: {x: 0, y: 0, z: 0, w: 0}

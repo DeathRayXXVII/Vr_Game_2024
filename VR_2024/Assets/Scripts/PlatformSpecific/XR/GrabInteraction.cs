@@ -18,6 +18,8 @@ public class GrabInteraction : MonoBehaviour
         
         _interactable.selectEntered.AddListener(Grab);
         _interactable.selectExited.AddListener(Release);
+        
+        canGrab = true;
     }
     
     private void OnDisable()
@@ -34,6 +36,8 @@ public class GrabInteraction : MonoBehaviour
 
     private void Grab(SelectEnterEventArgs arg)
     {
+        var interactorType = arg.interactorObject.GetType();
+        if (interactorType == typeof(XRSocketInteractor) || interactorType == typeof(SocketMatchInteractor)) return;
         if (toggleGrabbersMeshVisibility) ToggleVis(false, arg.interactorObject.transform);
         if (!canGrab) return;
         HandleInteractionEvent(true);
@@ -41,6 +45,8 @@ public class GrabInteraction : MonoBehaviour
 
     private void Release(SelectExitEventArgs arg)
     {
+        var interactorType = arg.interactorObject.GetType();
+        if (interactorType == typeof(XRSocketInteractor) || interactorType == typeof(SocketMatchInteractor)) return;
         if (toggleGrabbersMeshVisibility) ToggleVis(true, arg.interactorObject.transform);
         HandleInteractionEvent(false);
     }
