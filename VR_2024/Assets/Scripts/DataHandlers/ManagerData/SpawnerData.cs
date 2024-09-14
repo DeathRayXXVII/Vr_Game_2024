@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 [CreateAssetMenu (fileName = "SpawnerData", menuName = "Data/ManagerData/SpawnerData")]
 public class SpawnerData : ScriptableObject
 {
-    public bool allowDebug;
+    [SerializeField] private bool allowDebug;
     
     public IntData activeCount;
     public PrefabDataList prefabList;
@@ -31,6 +31,7 @@ public class SpawnerData : ScriptableObject
     private void Awake()
     {
         if (activeCount == null) Debug.LogError("Missing IntData for activeCount on SpawnerData" + name);
+        if (prefabList == null) Debug.LogError("Missing PrefabDataList for prefabList on SpawnerData" + name);
     }
 
     public void ResetSpawnerData()
