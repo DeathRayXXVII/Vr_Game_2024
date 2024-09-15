@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipData : MonoBehaviour
+[CreateAssetMenu (fileName = "ShipData", menuName = "Data/ManagerData/ShipData")]
+public class ShipData : ScriptableObject
 {
     public GameObject currentShip;
     public GameObject currentCannons;
