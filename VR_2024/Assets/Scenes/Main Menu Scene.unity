@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 8f7c33f99bf626f4bbf79b43264a20b9, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 0912b8c25e8d83245beaf9bb5d272db1, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.19649115, g: 0.22203113, b: 0.22341996, a: 1}
+  m_IndirectSpecularColor: {r: 0.036732025, g: 0.042899862, b: 0.061776567, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3193,8 +3193,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 638643311}
+  - component: {fileID: 638643314}
   - component: {fileID: 638643310}
-  - component: {fileID: 638643308}
+  - component: {fileID: 638643313}
+  - component: {fileID: 638643312}
   - component: {fileID: 638643309}
   m_Layer: 0
   m_Name: Game Handlers
@@ -3203,18 +3205,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &638643308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 638643307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ce81fe88a28904468ae54c2210a5731, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &638643309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3239,8 +3229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39229b0fb60359a46b88d0e55c156195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shipData: {fileID: 0}
-  levelData: {fileID: 0}
+  shipData: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
+  levelData: {fileID: 11400000, guid: 8c7f90ecad54fe641b481d6c9f229ea4, type: 2}
   currentLevel: 0
 --- !u!4 &638643311
 Transform:
@@ -3258,6 +3248,82 @@ Transform:
   - {fileID: 69248285}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &638643312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638643307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b357f7999efef0541a80482b8d5d4f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &638643313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638643307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9cc29b4af7c6c409061cc6b13b9956, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  directionalLight: {fileID: 893008725}
+  lightData: {fileID: 11400000, guid: d1ee96f7adb12614695fc6fb1ce7f4e6, type: 2}
+  timeOfDay: 0
+  timeScale: 0.08
+  skyboxMaterial: {fileID: 2100000, guid: 0912b8c25e8d83245beaf9bb5d272db1, type: 2}
+  nightExposure: 0.2
+  dayExposure: 1
+--- !u!114 &638643314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638643307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87e0a64e16e26474a91addeb9b8c03aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onAwake:
+    m_PersistentCalls:
+      m_Calls: []
+  onStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 638643313}
+        m_TargetAssemblyTypeName: LightingManager, Assembly-CSharp
+        m_MethodName: StartDayCycle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onLateInit:
+    m_PersistentCalls:
+      m_Calls: []
+  onGameStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onGameOver:
+    m_PersistentCalls:
+      m_Calls: []
+  onGameWin:
+    m_PersistentCalls:
+      m_Calls: []
+  onRestartGame:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &642557922 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1212939508823906005, guid: 4abfbb9a777df334db0181b75c0e55db,
@@ -4336,13 +4402,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893008724}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.31641003, y: -0.24453901, z: 0.08478179, w: 0.91263217}
+  m_LocalRotation: {x: -0.08999716, y: 0.25769317, z: -0.02411466, w: -0.9617241}
   m_LocalPosition: {x: 12, y: 8.04, z: -20.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 38.243, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 370.692, y: -30, z: 0}
 --- !u!1 &927825672
 GameObject:
   m_ObjectHideFlags: 0
@@ -5067,8 +5133,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 638643308}
-        m_TargetAssemblyTypeName: LoadApplication, Assembly-CSharp
+      - m_Target: {fileID: 638643312}
+        m_TargetAssemblyTypeName: SceneBehavior, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
@@ -6454,8 +6520,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 638643308}
-        m_TargetAssemblyTypeName: LoadApplication, Assembly-CSharp
+      - m_Target: {fileID: 638643312}
+        m_TargetAssemblyTypeName: SceneBehavior, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
@@ -8351,8 +8417,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 638643308}
-        m_TargetAssemblyTypeName: LoadApplication, Assembly-CSharp
+      - m_Target: {fileID: 638643312}
+        m_TargetAssemblyTypeName: SceneBehavior, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
@@ -9294,9 +9360,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 0}
-  singleTrackOnStart: 0
-  continuousTrackOnStart: 0
 --- !u!114 &1976674327
 MonoBehaviour:
   m_ObjectHideFlags: 0
