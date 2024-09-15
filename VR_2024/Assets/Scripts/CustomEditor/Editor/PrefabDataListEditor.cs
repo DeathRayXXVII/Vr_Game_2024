@@ -16,6 +16,11 @@ public class PrefabDataListEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        SerializedProperty scriptProp = serializedObject.FindProperty("m_Script");
+        EditorGUI.BeginDisabledGroup(true);
+        EditorGUILayout.PropertyField(scriptProp);
+        EditorGUI.EndDisabledGroup();
+        
         PrefabDataList prefabList = (PrefabDataList)target;
 
         prefabToAdd = (GameObject)EditorGUILayout.ObjectField("Prefab To Add:", prefabToAdd, typeof(GameObject), false);

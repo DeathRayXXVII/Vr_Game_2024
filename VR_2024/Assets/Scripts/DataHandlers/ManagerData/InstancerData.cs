@@ -4,8 +4,15 @@ using UnityEngine;
 [CreateAssetMenu (fileName = "InstancerData", menuName = "Data/ManagerData/InstancerData")]
 public class InstancerData : ScriptableObject
 {
-    public GameObject prefab;
+    [SerializeField] private PrefabData prefabData;
     public Vector3Data prefabOffset;
+    
+    public GameObject prefab => prefabData.prefab;
+    
+    public void SetPrefabData(PrefabData data)
+    {
+        prefabData = data;
+    }
     
     [System.Serializable]
     public class InstanceData
