@@ -4,6 +4,7 @@ using UnityEngine;
 [CustomEditor(typeof(MonoBehaviour), true)]
 public class ButtonEditor : Editor
 {
+#if UNITY_EDITOR
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -18,4 +19,5 @@ public class ButtonEditor : Editor
             }
         }
     }
+#endif
 }

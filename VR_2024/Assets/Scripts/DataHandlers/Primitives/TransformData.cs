@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -47,7 +49,7 @@ public class TransformData : ScriptableObject
             RotationHandler.value = _rotation;
         }
     }
-    
+
     public static implicit operator QuaternionData(TransformData data)
     {
         return data.RotationHandler;

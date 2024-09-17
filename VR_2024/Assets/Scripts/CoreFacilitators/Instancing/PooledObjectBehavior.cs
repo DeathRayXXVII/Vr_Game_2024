@@ -32,8 +32,8 @@ public class PooledObjectBehavior : MonoBehaviour
             Debug.LogWarning($"SpawnManager is null {name} SpawnedObjectBehavior.");
             return;
         }
-        _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
         _spawnManager.SetSpawnDelay(timeToRespawn != null ? timeToRespawn : 1);
+        _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
         
         _spawnManager.StartSpawn(1);
     }

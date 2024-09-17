@@ -18,7 +18,7 @@ public class InstancerData : ScriptableObject
     public class InstanceData
     {
         public TransformData targetPosition;
-        public Vector3Data offset;
+        public Vector3Data instanceOffset;
         public bool excludePrefabOffset;
     }
     

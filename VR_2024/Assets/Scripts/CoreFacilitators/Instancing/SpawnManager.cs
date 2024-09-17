@@ -176,7 +176,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
 
     public void StartSpawn(int amount)
     {
-        if (_spawnRoutine != null) return;
+        if (_spawnRoutine != null || waitingCount > 0) return;
         numToSpawn = (amount > 0) ? amount : numToSpawn;
         StartSpawn();
     }
@@ -319,10 +319,12 @@ public class SpawnManager : MonoBehaviour, INeedButton
         _destroying = true;
     }
 
+#if UNITY_EDITOR
     public List<(System.Action, string)> GetButtonActions()
     {
         return new List<(System.Action, string)> { (() => StartSpawn(numToSpawn), "Spawn") };
     }
+#endif
 }
 
 namespace ZpTools
