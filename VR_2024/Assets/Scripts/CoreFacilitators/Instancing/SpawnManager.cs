@@ -176,7 +176,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
 
     public void StartSpawn(int amount)
     {
-        if (_spawnRoutine != null) return;
+        if (_spawnRoutine != null || waitingCount > 0) return;
         numToSpawn = (amount > 0) ? amount : numToSpawn;
         StartSpawn();
     }

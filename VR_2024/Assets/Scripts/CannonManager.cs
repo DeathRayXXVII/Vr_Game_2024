@@ -14,8 +14,7 @@ public class CannonManager : MonoBehaviour
     public GameObject ammoPrefab;
     public float fireForce;
     [SerializeField] private Transform barrelExitVelocityPosition, barrelInitialVelocityPosition;
-    private Vector3 _fireDirection;
-    public SocketMatchInteractor ammoSocket;
+    private Vector3 _forceVector;
     
     private List <GameObject> _currentAmmoList;
     private bool _isLoaded;
@@ -26,7 +25,7 @@ public class CannonManager : MonoBehaviour
     {
         _wffu = new WaitForFixedUpdate();
         _addForceCoroutine = null;
-        _fireDirection = Vector3.zero;
+        _forceVector = Vector3.zero;
     }
 
     public void Fire()
@@ -69,6 +68,16 @@ public class CannonManager : MonoBehaviour
         return newAmmo;
     }
     
+    private Vector3 CalculateFireDirection()
+    {
+        var x = barrelExitVelocityPosition.position.x - barrelInitialVelocityPosition.position.x;
+        var y = barrelExitVelocityPosition.position.y - barrelInitialVelocityPosition.position.y;
+        var z = barrelExitVelocityPosition.position.z - barrelInitialVelocityPosition.position.z;
+        var direction = new Vector3(x, y, z).normalized;
+        
+        return direction;
+    }
+    
     private IEnumerator AddForceToAmmo(Rigidbody ammoRb)
     {
         ammoRb.isKinematic = false;
@@ -81,27 +90,9 @@ public class CannonManager : MonoBehaviour
         yield return _wffu;
         yield return null;
         
-        if (_fireDirection == Vector3.zero){
-            var fireDirectionX = barrelExitVelocityPosition.position.x - barrelInitialVelocityPosition.position.x;
-            var fireDirectionZ = barrelExitVelocityPosition.position.z - barrelInitialVelocityPosition.position.z;
-
-            if (Math.Abs(fireDirectionX) > Math.Abs(fireDirectionZ))
-            {
-                _fireDirection.x = (fireDirectionX > 0) ? 1 : -1;
-                _fireDirection.z = 0;
-            }
-            else
-            {
-                _fireDirection.z = (fireDirectionZ > 0) ? 1 : -1;
-                _fireDirection.x = 0;
-            }
-
-            _fireDirection.y = (barrelExitVelocityPosition.position.z - barrelInitialVelocityPosition.position.z > 0)
-                ? barrelExitVelocityPosition.position.z - barrelInitialVelocityPosition.position.z
-                : 0.1f;
-        }
+        _forceVector = CalculateFireDirection();
         
-        ammoRb.AddForce(_fireDirection * fireForce, ForceMode.Impulse);
+        ammoRb.AddForce(_forceVector * fireForce, ForceMode.Impulse);
         _addForceCoroutine = null; 
     }
 }
