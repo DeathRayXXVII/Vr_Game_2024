@@ -6,6 +6,7 @@ public class DebugButton : MonoBehaviour, INeedButton
 {
     public UnityEvent onButtonPress;
 
+#if UNITY_EDITOR
     public List<(System.Action, string)> GetButtonActions()
     {
         return new List<(System.Action, string)>
@@ -13,4 +14,5 @@ public class DebugButton : MonoBehaviour, INeedButton
             (() => onButtonPress.Invoke(), "OnButtonPress")
         };
     }
+#endif
 }

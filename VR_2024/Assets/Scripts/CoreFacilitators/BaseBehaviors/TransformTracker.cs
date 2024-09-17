@@ -124,7 +124,8 @@ public class TransformTracker : MonoBehaviour, INeedButton
         if (internalCoroutineObject != null) StopCoroutine(internalCoroutineObject);
         internalCoroutineObject = null;
     }
-
+    
+#if UNITY_EDITOR
     public List<(System.Action, string)> GetButtonActions()
     {
         return new List<(System.Action, string)>
@@ -133,4 +134,5 @@ public class TransformTracker : MonoBehaviour, INeedButton
             (TrackCurrentRotation, "Track Current Rotation")
         };
     }
+#endif
 }

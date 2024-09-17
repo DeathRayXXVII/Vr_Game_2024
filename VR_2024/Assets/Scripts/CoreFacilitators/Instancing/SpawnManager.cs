@@ -319,10 +319,12 @@ public class SpawnManager : MonoBehaviour, INeedButton
         _destroying = true;
     }
 
+#if UNITY_EDITOR
     public List<(System.Action, string)> GetButtonActions()
     {
         return new List<(System.Action, string)> { (() => StartSpawn(numToSpawn), "Spawn") };
     }
+#endif
 }
 
 namespace ZpTools
