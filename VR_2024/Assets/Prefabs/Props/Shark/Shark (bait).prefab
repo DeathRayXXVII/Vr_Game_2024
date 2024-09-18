@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4327567546848916333}
   - component: {fileID: 8775989289185819817}
   - component: {fileID: 4527983879440055122}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: pSphere2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6984031643351439447}
   - component: {fileID: 2660709921412838650}
   - component: {fileID: 784770272463089846}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Tooth13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 138105534624306030}
   - component: {fileID: 7003594777373466921}
   - component: {fileID: 7972813844166388862}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Shark (bait)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,108 +269,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 1d5b471cb37600f458ef1f4fcd473db1, type: 2}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches:
   - id: {fileID: 11400000, guid: 6ce658b07eebcad46a12960a0839dee3, type: 2}
-    triggerEvent:
+    triggerEnterEvent:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11400000, guid: cc15c70139498e04d95dbb067fbeadf2, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 2416006670379812770}
-          m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
-          m_MethodName: set_enabled
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 7972813844166388862}
-          m_TargetAssemblyTypeName: Rigidbody3DBehavior, Assembly-CSharp
-          m_MethodName: ZeroOutAngularVelocity
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 7972813844166388862}
-          m_TargetAssemblyTypeName: Rigidbody3DBehavior, Assembly-CSharp
-          m_MethodName: ZeroOutVelocity
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: pause for reset
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 7003594777373466921}
-          m_TargetAssemblyTypeName: TransformBehavior, Assembly-CSharp
-          m_MethodName: ResetToStartTransform
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 7972813844166388862}
-          m_TargetAssemblyTypeName: Rigidbody3DBehavior, Assembly-CSharp
-          m_MethodName: SetGravity
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 8443405980294033764}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 4868366705470625697}
-          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-          m_MethodName: StartWaitForSecondsEvent
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: respawn
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &4868366705470625697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,8 +523,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  setPosition: {x: 0, y: 0, z: 0}
-  setRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &7972813844166388862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,7 +546,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7824314913151336368}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Geo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -677,7 +582,7 @@ GameObject:
   - component: {fileID: 4992290903266299865}
   - component: {fileID: 3442566295000352941}
   - component: {fileID: 5206612230452304518}
-  m_Layer: 12
+  m_Layer: 10
   m_Name: Shark_high
   m_TagString: Untagged
   m_Icon: {fileID: 0}
