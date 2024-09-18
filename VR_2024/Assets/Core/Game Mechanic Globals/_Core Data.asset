@@ -10,11 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0916b40533838e3409f3a8accccc3915, type: 3}
-  m_Name: ShipData
+  m_Name: _Core Data
   m_EditorClassIdentifier: 
-  currentShip: {fileID: 0}
-  currentCannons: {fileID: 0}
-  currentCannonBalls: {fileID: 0}
-  cannonPositions: []
-  cannonDamage: 0
-  spawnLanes: 0
+  shipInstancerData: {fileID: 0}
+  shipMaxHealth: {fileID: 0}
+  shipCurrentHealth: {fileID: 0}
+  ammoRespawnTime: {fileID: 11400000, guid: 524182c2839ad094a82b055e46694aef, type: 2}
+  ammoDamage: {fileID: 0}
+  enemyMaxHealth: {fileID: 0}
+  shipSelections: []
+  cannonSelections: []
+  ammoSelections: []
+  enemySelections: []
