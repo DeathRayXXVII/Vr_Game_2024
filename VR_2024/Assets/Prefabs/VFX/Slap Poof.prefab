@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7396123584988645046}
   - component: {fileID: 1188087488389731248}
   - component: {fileID: 7464545995264608762}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Hit Smoke Poof_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4899,7 +4899,7 @@ GameObject:
   - component: {fileID: 7552106795475554998}
   - component: {fileID: 6471296442969888309}
   - component: {fileID: 3818344990271120574}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Slap Poof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4957,36 +4957,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 4724255d870a26b45b28cb37a595fa4b, type: 2}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches:
   - id: {fileID: 11400000, guid: 9f5ff81a699609342b5b360edd1a0b78, type: 2}
-    triggerEvent:
+    triggerEnterEvent:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1188087488389731248}
-          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-          m_MethodName: Play
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 3094684578268362660}
-          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-          m_MethodName: Play
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &6826899902933290750
 GameObject:
   m_ObjectHideFlags: 0
@@ -4998,7 +4977,7 @@ GameObject:
   - component: {fileID: 5989582155654125244}
   - component: {fileID: 3094684578268362660}
   - component: {fileID: 7642375811235117572}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Hit Smoke Poof_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
