@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
             var totalPoolSize = 0;
             foreach (var spawner in spawnerData.spawners)
             {
-                totalPoolSize += spawner.activeLimit;
+                totalPoolSize += spawnerData.GetSpawnerActiveLimit(spawner);
             }
 
             return totalPoolSize;
@@ -260,7 +260,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
                 rb.angularVelocity = Vector3.zero;
             }
             
-            if (allowDebug) Debug.Log($"Retrieved Spawner: {spawner.spawnerID} with... Count: {spawner.GetAliveCount()} Limit: {spawner.activeLimit}"); 
+            if (allowDebug) Debug.Log($"Retrieved Spawner: {spawner.spawnerID} with... Count: {spawner.GetAliveCount()} Limit: {spawnerData.GetSpawnerActiveLimit(spawner)}");
             
             objTransform.position = spawner.spawnLocation.position;
             if (spawner.pathingTarget)

@@ -9,16 +9,18 @@ public class SpawnerData : ScriptableObject
     [SerializeField] private bool allowDebug;
     
     public IntData activeCount;
+    public IntData globalLaneActiveLimit;
     public PrefabDataList prefabList;
 
     [System.Serializable]
     public class Spawner
     {
         public string spawnerID;
-        public int activeLimit = 1;
+        public int laneActiveLimitAdjustment;
         public TransformData spawnLocation, pathingTarget;
         private int _currentSpawnCount;
-
+        
+        public int GetActiveLimit(int globalActiveLimit) { return globalActiveLimit + laneActiveLimitAdjustment; }
         public int GetAliveCount() { return _currentSpawnCount; }
         public void IncrementCount() { _currentSpawnCount++; }
         public void DecrementCount() { _currentSpawnCount--; }
@@ -42,6 +44,11 @@ public class SpawnerData : ScriptableObject
             spawner.ResetCount();
         }
     }
+    
+    internal int GetSpawnerActiveLimit(Spawner spawner)
+    {
+        return spawner.GetActiveLimit(globalLaneActiveLimit.value);
+    }
 
     internal Spawner GetInactiveSpawner()
     {
@@ -52,7 +59,7 @@ public class SpawnerData : ScriptableObject
         foreach (var spawner in spawners)
         {
             var currentSpawnerActiveCount = spawner.GetAliveCount();
-            if (currentSpawnerActiveCount < spawner.activeLimit)
+            if (currentSpawnerActiveCount < GetSpawnerActiveLimit(spawner))
             {
                 _availableSpawners.Add(spawner);
             }
