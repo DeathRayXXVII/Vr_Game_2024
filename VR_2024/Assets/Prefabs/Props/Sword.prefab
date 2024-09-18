@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5885600390969276766}
   - component: {fileID: 1743374235046239617}
   - component: {fileID: 8772880353196411667}
-  m_Layer: 10
+  m_Layer: 12
   m_Name: Edge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,15 +600,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: b6cff83debbaa4740ac2b1be65e65933, type: 2}
-  allowDebug: 0
+  debug: 0
   triggerEnterMatches:
   - id: {fileID: 11400000, guid: 6ce658b07eebcad46a12960a0839dee3, type: 2}
-    triggerEnterEvent:
+    triggerEvent:
       m_PersistentCalls:
-        m_Calls: []
-    triggerExitEvent:
-      m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2529840004862625664}
+          m_TargetAssemblyTypeName: TransformBehavior, Assembly-CSharp
+          m_MethodName: ResetToStartTransform
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 3436590127454024626}
+          m_TargetAssemblyTypeName: Rigidbody3DBehavior, Assembly-CSharp
+          m_MethodName: ZeroOutVelocity
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 3436590127454024626}
+          m_TargetAssemblyTypeName: Rigidbody3DBehavior, Assembly-CSharp
+          m_MethodName: ZeroOutAngularVelocity
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &2529840004862625664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,6 +654,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  setPosition: {x: 0, y: 0, z: 0}
+  setRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &3436590127454024626
 MonoBehaviour:
   m_ObjectHideFlags: 0
