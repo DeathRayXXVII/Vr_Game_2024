@@ -9,7 +9,7 @@ public class TransformData : ScriptableObject
 {
     [SerializeField] private Vector3 _position;
     [SerializeField] private Quaternion _rotation;
-    [SerializeField] private Vector3 _scale;
+    [SerializeField] private Vector3 _scale = Vector3.one;
     internal Vector3Data PositionHandler, ScaleHandler;
     internal QuaternionData RotationHandler;
     
