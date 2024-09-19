@@ -1,20 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1418631190768924205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cad256366cdef2846b48aac73c95619d, type: 3}
-  m_Name: '[0] Cannonball - Interactable'
-  m_EditorClassIdentifier: 
-  gameObject: {fileID: 7281101536470286139, guid: c7f0cdd8601014a469748ed08d9c0f0e,
-    type: 3}
-  spawnPriority: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25,7 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 369448966d2faf24fbc5bffea5e272bc, type: 3}
-  m_Name: Prefab List Cannon Ammo
+  m_Name: Prefab List-Ammo-Default
   m_EditorClassIdentifier: 
   prefabDataList:
-  - {fileID: -1418631190768924205}
+  - {fileID: 2666361993649908660}
+--- !u!114 &2666361993649908660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad256366cdef2846b48aac73c95619d, type: 3}
+  m_Name: '[0] Ammo-Default - Interactable'
+  m_EditorClassIdentifier: 
+  gameObject: {fileID: 7281101536470286139, guid: c7f0cdd8601014a469748ed08d9c0f0e,
+    type: 3}
+  spawnPriority: 1
