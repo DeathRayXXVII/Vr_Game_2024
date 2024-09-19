@@ -18,7 +18,7 @@ public class GameCoreData : ScriptableObject
     public FloatData ammoRespawnTime;
     
     // Current damage of player's ammo
-    public IntData ammoDamage;
+    public WeaponData ammoDamage;
     
     // This is the current health of the enemy at max health
     //  No current enemy health as we do not need to keep track of the enemy's current health between levels
@@ -59,6 +59,8 @@ public class GameCoreData : ScriptableObject
         [System.Serializable]
         public struct CannonPrefabOffset
         {
+            public string targetShip;
+            
             // Offset of the cannon from the positions predefined in the ship prefab
             public Vector3Data cannonOffset;
         }
