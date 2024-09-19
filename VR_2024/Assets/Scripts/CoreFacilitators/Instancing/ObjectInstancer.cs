@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +5,8 @@ public class ObjectInstancer : MonoBehaviour, INeedButton
 {
     [SerializeField] private InstancerData instancerData;
     [SerializeField] private string groupName;
-    [SerializeField] private bool instantiateOnStart;
     
     private GameObject _groupObject;
-    private WaitForSeconds _wait = new (1);
     
     public void SetInstancerData(InstancerData data) => instancerData = data;
     
@@ -17,16 +14,8 @@ public class ObjectInstancer : MonoBehaviour, INeedButton
     {
         if (instancerData == null) 
         { 
-            Debug.LogError("InstancerData is missing.");
-            return;
+            Debug.LogError("InstancerData is missing.", this);
         }
-        if (instantiateOnStart) { StartCoroutine(StartAfterDelay()); }
-    }
-
-    private IEnumerator StartAfterDelay()
-    {
-        yield return _wait;
-        InstantiateObjects();
     }
     
     public void InstantiateObjects()

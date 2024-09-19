@@ -60,7 +60,6 @@ MonoBehaviour:
       m_Calls: []
   spawnerData: {fileID: 11400000, guid: 10649db0b35fff843bc908de984e368b, type: 2}
   usePriority: 0
-  spawnOnStart: 1
   randomizeSpawnRate: 0
   spawnDelay: 0.1
   spawnRateMin: 0.01
@@ -81,7 +80,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instancerData: {fileID: 11400000, guid: 63d4e0f6d2fe73b4db66c877e3e07707, type: 2}
   groupName: Cannons
-  instantiateOnStart: 1
 --- !u!1 &368216457425220112
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,8 +920,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7201963466419428107}
+  - component: {fileID: 1150600094597304446}
   - component: {fileID: 7369464536241583910}
-  - component: {fileID: 3178760273295024683}
   - component: {fileID: 4113808063437509408}
   m_Layer: 0
   m_Name: Galleon-GameObject
@@ -951,6 +949,51 @@ Transform:
   - {fileID: 6047952528502583431}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1150600094597304446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3343833173984464834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412663a223fb28c448ef681a3a5c5bf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameActions:
+  - actionObj: {fileID: 11400000, guid: b5d27126c640fbe43ba28b96b1826da1, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 258294720298365452}
+          m_TargetAssemblyTypeName: ObjectInstancer, Assembly-CSharp
+          m_MethodName: InstantiateObjects
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - actionObj: {fileID: 11400000, guid: 4d97ab5767e300b40a95a227ffd3dbde, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7392510014422177198}
+          m_TargetAssemblyTypeName: SpawnManager, Assembly-CSharp
+          m_MethodName: StartSpawn
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &7369464536241583910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,34 +1086,6 @@ MonoBehaviour:
         m_CallState: 2
   currentHealth: 0
   maxHealth: 6
---- !u!114 &3178760273295024683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3343833173984464834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f72b3679fd822d4f8acc86e01fd5433, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  action: {fileID: 11400000, guid: c45a236e8305cfd44a23260a4b63edff, type: 2}
-  response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7369464536241583910}
-        m_TargetAssemblyTypeName: HealthBehavior, Assembly-CSharp
-        m_MethodName: TakeDamage
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: -1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!82 &4113808063437509408
 AudioSource:
   m_ObjectHideFlags: 0

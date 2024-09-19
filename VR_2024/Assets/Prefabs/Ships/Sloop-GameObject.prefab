@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 7106425777598973200}
   - component: {fileID: 5145059414814943255}
   - component: {fileID: 3031790246163811005}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Socket Cannon Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 2475079031134170316}
   - component: {fileID: 1812045925082835337}
   - component: {fileID: 8793612271552749316}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Socket Cannon Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -699,7 +699,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4950856518900010820}
-  m_Layer: 0
+  - component: {fileID: 827649433752072693}
+  m_Layer: 11
   m_Name: Sloop-GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,6 +724,51 @@ Transform:
   - {fileID: 47506177510327739}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &827649433752072693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4834825726330543891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412663a223fb28c448ef681a3a5c5bf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameActions:
+  - actionObj: {fileID: 11400000, guid: b5d27126c640fbe43ba28b96b1826da1, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 425432050655578215}
+          m_TargetAssemblyTypeName: ObjectInstancer, Assembly-CSharp
+          m_MethodName: InstantiateObjects
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - actionObj: {fileID: 11400000, guid: 4d97ab5767e300b40a95a227ffd3dbde, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4654977476877925043}
+          m_TargetAssemblyTypeName: SpawnManager, Assembly-CSharp
+          m_MethodName: StartSpawn
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5809934676073817134
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,7 +828,6 @@ MonoBehaviour:
       m_Calls: []
   spawnerData: {fileID: 11400000, guid: fb52ea895bdb6a54b8f5ab0c1a7e2336, type: 2}
   usePriority: 0
-  spawnOnStart: 1
   randomizeSpawnRate: 0
   spawnDelay: 0.1
   spawnRateMin: 0.01
@@ -803,7 +848,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instancerData: {fileID: 11400000, guid: b127bcf214d229348a671eb485b731bc, type: 2}
   groupName: Cannons
-  instantiateOnStart: 1
 --- !u!1 &5907241764157637758
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,10 +984,115 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4950856518900010820}
     m_Modifications:
+    - target: {fileID: 287146897387948979, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 321831546178948047, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 365925035401360095, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 662387329702210897, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 665974523674468864, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 751265323506767334, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1212458913621948296, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1832070909481187192, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1981821027306828275, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2615949547297664993, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2867179334832781277, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3890980100388812727, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097528837083462981, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222700887740560261, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295186146604202591, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444654295670487701, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595659983394069976, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7313722946318624277, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427067360938691131, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7792947351774858577, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 8456979356729480022, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
       propertyPath: m_Name
       value: Sloop-Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 8456979356729480022, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 9085705786803112428, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}

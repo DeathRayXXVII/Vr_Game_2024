@@ -45,6 +45,11 @@ public class SpawnerData : ScriptableObject
         }
     }
     
+    public void SetPrefabDataList(PrefabDataList data)
+    {
+        prefabList = data;
+    }
+    
     internal int GetSpawnerActiveLimit(Spawner spawner)
     {
         return spawner.GetActiveLimit(globalLaneActiveLimit.value);
