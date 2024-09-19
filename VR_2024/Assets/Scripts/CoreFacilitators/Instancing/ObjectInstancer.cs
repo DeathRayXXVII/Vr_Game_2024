@@ -52,11 +52,10 @@ public class ObjectInstancer : MonoBehaviour, INeedButton
         newInstance.transform.localPosition += location.rotation * offset;
         newInstance.transform.SetParent(_groupObject.transform);
     }
-
-#if UNITY_EDITOR
+    
     public List<(System.Action, string)> GetButtonActions()
     {
         return new List<(System.Action, string)> {(InstantiateObjects, "Instantiate Objects")};
     }
-#endif
+
 }
