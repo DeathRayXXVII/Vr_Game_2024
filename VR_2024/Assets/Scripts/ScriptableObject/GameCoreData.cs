@@ -93,16 +93,16 @@ public class GameCoreData : ScriptableObject
         public PrefabDataList prefabVariantList;
     }
 
-    [SerializeField] private int currentShipIndex;
+    [SerializeField] [ReadOnly] private int currentShipIndex;
     [SerializeField] private ShipSelection[] shipSelections;
     
-    [SerializeField] private int currentCannonIndex;
+    [SerializeField] [ReadOnly] private int currentCannonIndex;
     [SerializeField] private CannonSelection[] cannonSelections;
     
-    [SerializeField] private int currentAmmoIndex;
+    [SerializeField] [ReadOnly] private int currentAmmoIndex;
     [SerializeField] private AmmoSelection[] ammoSelections;
     
-    [SerializeField] private int currentSEnemyIndex;
+    [SerializeField] [ReadOnly] private int currentSEnemyIndex;
     [SerializeField] private EnemySelection[] enemySelections;
     
     
