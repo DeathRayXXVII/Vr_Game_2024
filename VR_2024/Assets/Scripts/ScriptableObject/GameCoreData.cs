@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu (fileName = "GameCoreData", menuName = "Data/ManagerData/GameCoreData")]
@@ -9,25 +8,25 @@ public class GameCoreData : ScriptableObject
     public InstancerData shipInstancerData;
     
     // Current health of the ship at max health
-    public IntData shipMaxHealth;
+    [SerializeField] private IntData shipMaxHealth;
     
     // Current health of the ship - Need this to keep track of the ship's health between levels
-    public IntData shipCurrentHealth;
+    [SerializeField] private IntData shipCurrentHealth;
     
     // Current respawn time of player's ammo
-    public FloatData ammoRespawnTime;
+    [SerializeField] private FloatData ammoRespawnTime;
     
-    // Current damage of player's ammo
-    public WeaponData ammoDamage;
+    // Current player's ammo damage
+    [SerializeField] private WeaponData ammoDamage;
     
     // This is the current health of the enemy at max health
     //  No current enemy health as we do not need to keep track of the enemy's current health between levels
-    public IntData enemyMaxHealth;
+    [SerializeField] private IntData enemyMaxHealth;
 
     [System.Serializable]
     public struct ShipSelection
     {
-        public string selectionName;
+        [SerializeField] private string selectionName;
         
         // Instantiates a cannon in every lane of the ship dependent on and used in the prefab below
         // Requires the cannon selection's prefab and offset
@@ -51,7 +50,7 @@ public class GameCoreData : ScriptableObject
     [System.Serializable]
     public struct CannonSelection
     {
-        public string selectionName;
+        [SerializeField] private string selectionName;
         
         // Prefab that determines all other data within this selection
         public PrefabData prefab;
@@ -79,7 +78,7 @@ public class GameCoreData : ScriptableObject
     [System.Serializable]
     public struct AmmoSelection
     {
-        public string selectionName;
+        [SerializeField] private string selectionName;
         
         // Prefab List that contains variants of a specific ammo type
         public PrefabDataList prefabVariantList;
@@ -88,35 +87,119 @@ public class GameCoreData : ScriptableObject
     [System.Serializable]
     public struct EnemySelection
     {
-        public string selectionName;
+        [SerializeField] private string selectionName;
         
         // Prefab List that contains variants of a specific enemy type
         public PrefabDataList prefabVariantList;
     }
 
-    private int _currentShipIndex;
-    public ShipSelection[] shipSelections;
+    [SerializeField] private int currentShipIndex;
+    [SerializeField] private ShipSelection[] shipSelections;
     
-    private int _currentCannonIndex;
-    public CannonSelection[] cannonSelections;
+    [SerializeField] private int currentCannonIndex;
+    [SerializeField] private CannonSelection[] cannonSelections;
     
-    private int _currentAmmoIndex;
-    public AmmoSelection[] ammoSelections;
+    [SerializeField] private int currentAmmoIndex;
+    [SerializeField] private AmmoSelection[] ammoSelections;
     
-    private int _currentSEnemyIndex;
-    public EnemySelection[] enemySelections;
+    [SerializeField] private int currentSEnemyIndex;
+    [SerializeField] private EnemySelection[] enemySelections;
     
     
     // Public accessors for current selections
-    public ShipSelection ship => shipSelections[_currentShipIndex];
-    public CannonSelection cannon => cannonSelections[_currentCannonIndex];
-    public AmmoSelection ammo => ammoSelections[_currentAmmoIndex];
-    public EnemySelection enemy => enemySelections[_currentSEnemyIndex];
+    private ShipSelection ship => shipSelections[shipIndex];
+    private CannonSelection cannon => cannonSelections[currentCannonIndex];
+    private AmmoSelection ammo => ammoSelections[currentAmmoIndex];
+    private EnemySelection enemy => enemySelections[currentSEnemyIndex];
+
+    public int shipIndex
+    {
+        get => currentShipIndex;
+        set
+        {
+            if (shipSelections == null || shipSelections.Length == 0)
+            {
+                Debug.LogError("shipSelections is not initialized or is empty.", this);
+                return;
+            }
+
+            // Ternary setter clamps the value between 0 and the length of the ship array
+            currentShipIndex = value < 0 ? 0 : value > shipSelections.Length - 1 ? shipSelections.Length - 1 : value;
+            shipInstancerData.SetPrefabData(ship.prefab);
+            ship.cannonInstancerData.SetPrefabOffset(cannonPrefabOffset);
+        }
+    }
+
+    public int cannonIndex
+    {
+        get => currentCannonIndex;
+        set
+        {
+            if (cannonSelections == null || cannonSelections.Length == 0)
+            {
+                Debug.LogError("cannonSelections is not initialized or is empty.", this);
+                return;
+            }
+            
+            // Ternary setter clamps the value between 0 and the length of the cannon array
+            currentCannonIndex = value < 0 ? 0 : value > cannonSelections.Length - 1 ? cannonSelections.Length - 1 : value;
+            ship.cannonInstancerData.SetPrefabData(cannon.prefab);
+            ship.cannonInstancerData.SetPrefabOffset(cannonPrefabOffset);
+        }
+    }
     
-    public int currentShipIndex { get; set; }
-    public int currentCannonIndex { get; set; }
-    public int currentAmmoIndex { get; set; }
+    public int ammoIndex
+    {
+        get => currentAmmoIndex;
+        set 
+        {
+            if (ammoSelections == null || ammoSelections.Length == 0)
+            {
+                Debug.LogError("ammoSelections is not initialized or is empty.", this);
+                return;
+            }
+            
+            // Ternary setter clamps the value between 0 and the length of the ammo array
+            currentAmmoIndex = value < 0 ? 0 : value > ammoSelections.Length - 1 ? ammoSelections.Length - 1 : value;
+            ship.ammoSpawnerData.SetPrefabDataList(ammo.prefabVariantList);
+        }
+    }
+
+    public int enemyIndex
+    {
+        get => currentSEnemyIndex;
+        set 
+        {
+            if (enemySelections == null || enemySelections.Length == 0)
+            {
+                Debug.LogError("enemySelections is not initialized or is empty.", this);
+                return;
+            }
+            
+            // Ternary setter clamps the value between 0 and the length of the enemy array
+            currentSEnemyIndex = value < 0 ? 0 : value > enemySelections.Length - 1 ? enemySelections.Length - 1 : value;
+            ship.enemySpawnerData.SetPrefabDataList(enemy.prefabVariantList);
+        }
+    }
     
     // Current cannon prefab offset based on cannon prefab and ship prefab if ordered correctly in cannon selection's offset array
-    public Vector3Data currentCannonOffset => cannonSelections[_currentCannonIndex].GetCannonOffset(currentShipIndex);
+    public Vector3Data cannonPrefabOffset => cannonSelections[currentCannonIndex].GetCannonOffset(shipIndex);
+
+    private void OnValidate()
+    {
+        if (!shipInstancerData) Debug.LogError("Ship Instancer Data is null. Please assign a value.", this);
+        if (!shipMaxHealth) Debug.LogError("Ship Max Health is null. Please assign a value.", this);
+        if (!shipCurrentHealth) Debug.LogError("Ship Current Health is null. Please assign a value.", this);
+        if (!ammoRespawnTime) Debug.LogError("Ammo Respawn Time is null. Please assign a value.", this);
+        if (!ammoDamage) Debug.LogError("Ammo Damage is null. Please assign a value.", this);
+        if (!enemyMaxHealth) Debug.LogError("Enemy Max Health is null. Please assign a value.", this);
+    }
+
+    public void Reset()
+    {
+        shipIndex = 0;
+        cannonIndex = 0;
+        ammoIndex = 0;
+        enemyIndex = 0;
+    }
 }

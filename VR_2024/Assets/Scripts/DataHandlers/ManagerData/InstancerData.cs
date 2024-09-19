@@ -14,6 +14,11 @@ public class InstancerData : ScriptableObject
         prefabData = data;
     }
     
+    public void SetPrefabOffset(Vector3Data data)
+    {
+        prefabOffset = data;
+    }
+    
     [System.Serializable]
     public class InstanceData
     {
@@ -23,4 +28,9 @@ public class InstancerData : ScriptableObject
     }
     
     public List<InstanceData> instances = new();
+
+    public void OnEnable()
+    {
+        if (!prefabData) Debug.LogError("Prefab Data is null. Please assign a value.", this);
+    }
 }

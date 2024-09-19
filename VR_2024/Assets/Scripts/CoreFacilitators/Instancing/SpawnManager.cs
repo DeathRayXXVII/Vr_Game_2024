@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
     public UnityEvent onSpawn, onSpawningComplete, onFinalSpawnDefeated;
 
     public SpawnerData spawnerData;
-    public bool usePriority, spawnOnStart, randomizeSpawnRate;
+    public bool usePriority, randomizeSpawnRate;
 
     public float spawnDelay = 1.0f, spawnRateMin = 1.0f, spawnRateMax = 1.0f;
     public int numToSpawn = 10;
@@ -157,21 +157,6 @@ public class SpawnManager : MonoBehaviour, INeedButton
     public WaitForSeconds GetWaitSpawnRate()
     {
         return randomizeSpawnRate ? _spawnRates[Random.Range(0, _spawnRates.Count)] : _waitForSpawnRate;
-    }
-    
-    private void Start()
-    {
-        if (spawnOnStart) _lateStartRoutine ??= StartCoroutine(LateStartSpawn());
-    }
-
-    private IEnumerator LateStartSpawn()
-    {
-        yield return _wffu;
-        yield return _waitLoadBuffer;
-        yield return _wffu;
-        StartSpawn();
-        yield return _wffu;
-        _lateStartRoutine = null;
     }
 
     public void StartSpawn(int amount)
