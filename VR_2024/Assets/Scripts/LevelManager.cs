@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelData levelData;
     [SerializeField] private GameAction initializeCannonAction, initializeAmmoAction;
 
-    [SerializeField] private UnityEvent onInitializeLevel, onLevelInitialized;
+    [SerializeField] private UnityEvent onInitializeLevel, onLevelInitialized, onLevelComplete, onLevelFailed;
     
     
     private int currentLevel => levelData.currentLevel.value;
@@ -66,5 +66,16 @@ public class LevelManager : MonoBehaviour
     {
         initializeAmmoAction.RaiseAction();
         yield return null;
+    }
+    
+    public void LevelComplete()
+    {
+        levelData.currentLevel.value++;
+        onLevelComplete.Invoke();
+    }
+    
+    public void LevelFailed()
+    {
+        onLevelFailed.Invoke();
     }
 }

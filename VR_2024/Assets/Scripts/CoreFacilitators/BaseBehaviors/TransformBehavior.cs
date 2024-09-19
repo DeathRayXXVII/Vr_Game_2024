@@ -5,7 +5,19 @@ public class TransformBehavior : MonoBehaviour
 {
     private Vector3 _startTransformPosition;
     private Quaternion _startTransformRotation;
-
+    
+    public void SetToTransform(Transform newTransform)
+    {
+        transform.position = newTransform.position;
+        transform.rotation = newTransform.rotation;
+    }
+    
+    public void SetToTransform(TransformData newTransform)
+    {
+        transform.position = newTransform.position;
+        transform.rotation = newTransform.rotation;
+    }
+    
     public void SetToStartPosition() { transform.position = _startTransformPosition; }
     public void SetPosition(Vector3 newPosition) { transform.position = newPosition; }
     public void SetPosition(Vector3Data newPosition) => SetPosition(newPosition.value);
