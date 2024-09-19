@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2261890676671540951}
   - component: {fileID: 5570663754506040682}
   - component: {fileID: 817160177756882353}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: Tentacle RK03 Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 9f5ff81a699609342b5b360edd1a0b78, type: 2}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches: []
 --- !u!1 &2558008966591089972
 GameObject:
@@ -82,7 +82,7 @@ GameObject:
   - component: {fileID: 6810945071646020313}
   - component: {fileID: 7620950620629938489}
   - component: {fileID: 6000760333797062876}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: Tentacle RK01 Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 9f5ff81a699609342b5b360edd1a0b78, type: 2}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches: []
 --- !u!1 &3573555681529757365
 GameObject:
@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 4841238705278985812}
   - component: {fileID: 6526240844314172873}
   - component: {fileID: 6100873731280638098}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: RingTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5003,7 +5003,7 @@ GameObject:
   - component: {fileID: 4990703808756508750}
   - component: {fileID: 3249318776743706110}
   - component: {fileID: 429323822024251537}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: Tentacle RK05 Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5061,7 +5061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 9f5ff81a699609342b5b360edd1a0b78, type: 2}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches: []
 --- !u!65 &429323822024251537
 BoxCollider:
@@ -5095,7 +5095,7 @@ GameObject:
   - component: {fileID: 1866713935253153652}
   - component: {fileID: 3489487147196070058}
   - component: {fileID: 2746037192373584758}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: Tentacle RK06 Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5153,7 +5153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 9f5ff81a699609342b5b360edd1a0b78, type: 2}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches: []
 --- !u!1 &6260298674985669710
 GameObject:
@@ -5166,7 +5166,7 @@ GameObject:
   - component: {fileID: 6681635464415306588}
   - component: {fileID: 719519333512001168}
   - component: {fileID: 1740789025616571583}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: Tentacle RK04 Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5224,7 +5224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 9f5ff81a699609342b5b360edd1a0b78, type: 2}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches: []
 --- !u!1 &8432742943028795706
 GameObject:
@@ -5237,7 +5237,7 @@ GameObject:
   - component: {fileID: 4278712168268019465}
   - component: {fileID: 7562506472335925180}
   - component: {fileID: 2643215228858209372}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: Tentacle RK02 Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5295,7 +5295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 9f5ff81a699609342b5b360edd1a0b78, type: 2}
-  debug: 0
+  allowDebug: 0
   triggerEnterMatches: []
 --- !u!1001 &206639239457842823
 PrefabInstance:
@@ -5310,6 +5310,11 @@ PrefabInstance:
       propertyPath: autoRandomSeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1894777798857969414, guid: 4ba0cb066ea4cef4da15792f277c8b43,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
     - target: {fileID: 6664366139156186050, guid: 4ba0cb066ea4cef4da15792f277c8b43,
         type: 3}
       propertyPath: m_Name
@@ -5317,8 +5322,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6664366139156186050, guid: 4ba0cb066ea4cef4da15792f277c8b43,
         type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664366139156186050, guid: 4ba0cb066ea4cef4da15792f277c8b43,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6826899902933290750, guid: 4ba0cb066ea4cef4da15792f277c8b43,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 7552106795475554998, guid: 4ba0cb066ea4cef4da15792f277c8b43,
         type: 3}
@@ -5401,6 +5416,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9179558315074180008, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: -9101836590829714730, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: -8874739728837113873, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 18f3c82500183274796002d61174efda,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5451,45 +5481,170 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8431592907194858405, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: -8020593584204152421, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
     - target: {fileID: -7814532140369286368, guid: 18f3c82500183274796002d61174efda,
         type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: -7813804761349273992, guid: 18f3c82500183274796002d61174efda,
         type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: -6779944524242893075, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: -5606288429718646648, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: -3792736943308591167, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: -3684858271644546815, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: -2593653641198468981, guid: 18f3c82500183274796002d61174efda,
         type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: -2031831763218924145, guid: 18f3c82500183274796002d61174efda,
         type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -1952226296831416576, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: -954127781698281767, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: -948878599850530397, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
     - target: {fileID: 257695296109518129, guid: 18f3c82500183274796002d61174efda,
         type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 464318519421466712, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 584616603838889337, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 700611047454424112, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 18f3c82500183274796002d61174efda,
         type: 3}
       propertyPath: m_Name
       value: Tentacle
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 1208460346234096759, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 2089399150491014547, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 3033596194605844316, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 3536817336765220342, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 3946928239872898350, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4394295275666395244, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
     - target: {fileID: 4412938484574456108, guid: 18f3c82500183274796002d61174efda,
         type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921604386032505657, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928492724515802338, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 6648685567819846052, guid: 18f3c82500183274796002d61174efda,
         type: 3}
       propertyPath: m_Layer
-      value: 13
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 7506513756253835028, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 8130717364394678803, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 8394573161036702035, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993585504618078670, guid: 18f3c82500183274796002d61174efda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 26
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5733,7 +5888,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  destination: {fileID: 0}
+  destination: {x: 0, y: 0, z: 0}
 --- !u!195 &2344902874963195353
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -6173,6 +6328,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+  timeToRespawn: {fileID: 0}
 --- !u!114 &-5124441387747337520
 MonoBehaviour:
   m_ObjectHideFlags: 0
