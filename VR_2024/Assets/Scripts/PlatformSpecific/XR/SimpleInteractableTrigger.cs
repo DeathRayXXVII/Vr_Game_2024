@@ -31,10 +31,10 @@ public class SimpleInteractableTrigger : MonoBehaviour, INeedButton
         onInteractionEnded.Invoke();
     }
 
-#if UNITY_EDITOR
+
     public List<(System.Action, string)> GetButtonActions()
     {
         return new List<(System.Action, string)> { (() => onInteractionPerformed.Invoke(), "Perform Interaction") };
     }
-#endif
+
 }
