@@ -1,17 +1,17 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(XRGrabInteractable))]
+
+[RequireComponent(typeof(UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable))]
 public class ControllerTriggerInteraction : MonoBehaviour
 {
-    private XRGrabInteractable _interactable;
+    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable _interactable;
 
     public UnityEvent onTriggerDown, onTriggerUp;
 
     private void OnEnable()
     {
-        _interactable = GetComponent<XRGrabInteractable>();
+        _interactable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         
         _interactable.activated.AddListener(_ => Perform());
         _interactable.deactivated.AddListener(_ => Stop());

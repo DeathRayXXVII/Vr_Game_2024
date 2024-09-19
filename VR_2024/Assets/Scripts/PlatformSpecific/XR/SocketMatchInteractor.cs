@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.XR.Interaction.Toolkit;
+
 using Object = UnityEngine.Object;
 
-public class SocketMatchInteractor : XRSocketInteractor
+public class SocketMatchInteractor : UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor
 {
     [System.Serializable]
     public struct PossibleMatch
@@ -28,7 +28,7 @@ public class SocketMatchInteractor : XRSocketInteractor
     private IDBehavior _idBehavior;
     private WaitForFixedUpdate _wffu = new WaitForFixedUpdate();
     
-    private XRGrabInteractable _socketedObject;
+    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable _socketedObject;
     private Collider _socketTrigger;
     
     private Coroutine _removeAndMoveCoroutine;
@@ -59,15 +59,15 @@ public class SocketMatchInteractor : XRSocketInteractor
 
     protected override void OnEnable()
     {
-        GetComponent<XRSocketInteractor>().selectEntered.AddListener(_ => OnObjectSocketed());
-        GetComponent<XRSocketInteractor>().selectExited.AddListener(_ => OnObjectUnsocketed());
+        GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor>().selectEntered.AddListener(_ => OnObjectSocketed());
+        GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor>().selectExited.AddListener(_ => OnObjectUnsocketed());
         base.OnEnable();
     }
 
     protected override void OnDisable()
     {
-        GetComponent<XRSocketInteractor>().selectEntered.RemoveListener(_ => OnObjectSocketed());
-        GetComponent<XRSocketInteractor>().selectExited.RemoveListener(_ => OnObjectUnsocketed());
+        GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor>().selectEntered.RemoveListener(_ => OnObjectSocketed());
+        GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor>().selectExited.RemoveListener(_ => OnObjectUnsocketed());
         base.OnDisable();
     }
     
@@ -93,17 +93,17 @@ public class SocketMatchInteractor : XRSocketInteractor
         return nameId != null && triggerID.Any(obj => nameId == obj.id);
     }
 
-    public override bool CanHover(IXRHoverInteractable interactable)
+    public override bool CanHover(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable interactable)
     {
         return base.CanHover(interactable) && CheckId(FetchOtherID(interactable.transform.gameObject));
     }
 
-    public override bool CanSelect(IXRSelectInteractable interactable)
+    public override bool CanSelect(UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable interactable)
     {
         return base.CanSelect(interactable) && CheckId(FetchOtherID(interactable.transform.gameObject));
     }
 
-    protected override bool StartSocketSnapping(XRGrabInteractable interactable)
+    protected override bool StartSocketSnapping(UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable interactable)
     {
         _socketedObject = interactable;
         if (!disableObjectOnSocket) return base.StartSocketSnapping(interactable);
@@ -119,7 +119,7 @@ public class SocketMatchInteractor : XRSocketInteractor
         obj.SetActive(false);
     }
     
-    protected override bool EndSocketSnapping(XRGrabInteractable interactable)
+    protected override bool EndSocketSnapping(UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable interactable)
     {
         return base.EndSocketSnapping(interactable);
     }

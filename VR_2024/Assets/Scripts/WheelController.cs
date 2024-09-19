@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class SteeringWheel : XRBaseInteractable
+public class SteeringWheel : UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable
 {
     [SerializeField] private Transform wheelTransform;
 
@@ -52,7 +52,7 @@ public class SteeringWheel : XRBaseInteractable
         float totalAngle = 0;
 
         // Combine directions of current interactors
-        foreach (IXRSelectInteractor interactor in interactorsSelecting)
+        foreach (UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor in interactorsSelecting)
         {
             Vector2 direction = FindLocalPoint(interactor.transform.position);
             totalAngle += ConvertToAngle(direction) * FindRotationSensitivity();
