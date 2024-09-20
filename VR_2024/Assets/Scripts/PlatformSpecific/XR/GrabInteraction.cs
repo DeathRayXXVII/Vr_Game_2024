@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
-[RequireComponent(typeof(UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable))]
+[RequireComponent(typeof(XRGrabInteractable))]
 public class GrabInteraction : MonoBehaviour
 {
-    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable _interactable;
+    private XRGrabInteractable _interactable;
 
     public bool toggleGrabbersMeshVisibility;
     public bool canGrab { get; set; }
@@ -14,7 +14,7 @@ public class GrabInteraction : MonoBehaviour
 
     private void OnEnable()
     {
-        _interactable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+        _interactable = GetComponent<XRGrabInteractable>();
         
         _interactable.selectEntered.AddListener(Grab);
         _interactable.selectExited.AddListener(Release);
@@ -37,7 +37,7 @@ public class GrabInteraction : MonoBehaviour
     private void Grab(SelectEnterEventArgs arg)
     {
         var interactorType = arg.interactorObject.GetType();
-        if (interactorType == typeof(UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor) || interactorType == typeof(SocketMatchInteractor)) return;
+        if (interactorType == typeof(XRSocketInteractor) || interactorType == typeof(SocketMatchInteractor)) return;
         if (toggleGrabbersMeshVisibility) ToggleVis(false, arg.interactorObject.transform);
         if (!canGrab) return;
         HandleInteractionEvent(true);
@@ -46,7 +46,7 @@ public class GrabInteraction : MonoBehaviour
     private void Release(SelectExitEventArgs arg)
     {
         var interactorType = arg.interactorObject.GetType();
-        if (interactorType == typeof(UnityEngine.XR.Interaction.Toolkit.Interactors.XRSocketInteractor) || interactorType == typeof(SocketMatchInteractor)) return;
+        if (interactorType == typeof(XRSocketInteractor) || interactorType == typeof(SocketMatchInteractor)) return;
         if (toggleGrabbersMeshVisibility) ToggleVis(true, arg.interactorObject.transform);
         HandleInteractionEvent(false);
     }
