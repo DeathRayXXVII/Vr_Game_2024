@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0916b40533838e3409f3a8accccc3915, type: 3}
+  m_Name: _Core Data
+  m_EditorClassIdentifier: 
+  shipInstancerData: {fileID: 11400000, guid: 2e08ed6f792463941a754099a4740a6d, type: 2}
+  shipMaxHealth: {fileID: 11400000, guid: f3cf570f73c5a2c4fa0b465449b59ad0, type: 2}
+  shipCurrentHealth: {fileID: 11400000, guid: 20e2f0734eb98da48b67bbabed0d3af6, type: 2}
+  ammoRespawnTime: {fileID: 11400000, guid: 524182c2839ad094a82b055e46694aef, type: 2}
+  ammoDamage: {fileID: 11400000, guid: 6ee7b525777ae8b4790eccbdd6a77487, type: 2}
+  enemyMaxHealth: {fileID: 11400000, guid: d32370288a578b5408e2070edb02cb97, type: 2}
+  currentShipIndex: 1
+  shipSelections:
+  - selectionName: Sloop
+    cannonInstancerData: {fileID: 11400000, guid: b127bcf214d229348a671eb485b731bc,
+      type: 2}
+    ammoSpawnerData: {fileID: 11400000, guid: fb52ea895bdb6a54b8f5ab0c1a7e2336, type: 2}
+    enemySpawnerData: {fileID: 11400000, guid: 28d700cc452ed0d4ebf6c052340ccd4e, type: 2}
+    prefab: {fileID: 11400000, guid: 6ad3fc7c4f2476542bf2cd546c35756c, type: 2}
+    numberOfLanes: 2
+  - selectionName: Galleon
+    cannonInstancerData: {fileID: 11400000, guid: 63d4e0f6d2fe73b4db66c877e3e07707,
+      type: 2}
+    ammoSpawnerData: {fileID: 11400000, guid: 10649db0b35fff843bc908de984e368b, type: 2}
+    enemySpawnerData: {fileID: 11400000, guid: 9996e784309b73740a5ccdb27d741e45, type: 2}
+    prefab: {fileID: 11400000, guid: cd4a8931f8381814a89283e02082575e, type: 2}
+    numberOfLanes: 6
+  currentCannonIndex: 0
+  cannonSelections:
+  - selectionName: Default
+    prefab: {fileID: 11400000, guid: 2c43e130e336adc4c8b3674a86f3e173, type: 2}
+    cannonOffsetsByShip:
+    - targetShip: Sloop
+      cannonOffset: {fileID: 11400000, guid: 7c1dd9d316615a24daf5dc21fb9a2d89, type: 2}
+    - targetShip: Galleon
+      cannonOffset: {fileID: 11400000, guid: 60bc8149a3d48064d87cc4668980d33b, type: 2}
+  - selectionName: Test
+    prefab: {fileID: 11400000, guid: 27e55ad80797930449fdde6702deee12, type: 2}
+    cannonOffsetsByShip:
+    - targetShip: Sloop
+      cannonOffset: {fileID: 11400000, guid: 7c1dd9d316615a24daf5dc21fb9a2d89, type: 2}
+    - targetShip: Galleon
+      cannonOffset: {fileID: 11400000, guid: 60bc8149a3d48064d87cc4668980d33b, type: 2}
+  currentAmmoIndex: 0
+  ammoSelections:
+  - selectionName: Default
+    prefabVariantList: {fileID: 11400000, guid: cce5195886a2745459e8b36f9a378e97,
+      type: 2}
+  - selectionName: Test
+    prefabVariantList: {fileID: 11400000, guid: f50a8e9a007f7a541b8c79f47a75f53f,
+      type: 2}
+  currentSEnemyIndex: 0
+  enemySelections:
+  - selectionName: Tentacle
+    prefabVariantList: {fileID: 11400000, guid: 67cc5b8a6d9c18c4393e5d51e25bd7c6,
+      type: 2}
