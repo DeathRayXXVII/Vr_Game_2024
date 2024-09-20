@@ -168,7 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8157328425048827172}
   - component: {fileID: 936165909522949470}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Left Controller Teleport Stabilized Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 4412054401558138934}
   - component: {fileID: 5569175211472987332}
   - component: {fileID: 8084851601691690082}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Near-Far Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,7 +653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3252434045647878050}
   - component: {fileID: 4619137470985363399}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Right Controller Teleport Stabilized Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -705,7 +705,7 @@ GameObject:
   - component: {fileID: 2375849823567343591}
   - component: {fileID: 6815810430150713527}
   - component: {fileID: 2063298971238958047}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: NearFar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1054,7 +1054,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1778373408281596847}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Left Controller Stabilized Attach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1117,7 +1117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4760665076733274811}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Poke Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1506,7 +1506,7 @@ GameObject:
   - component: {fileID: 7101453990617471608}
   - component: {fileID: 1751225304810131241}
   - component: {fileID: 8003105875257385700}
-  m_Layer: 2
+  m_Layer: 17
   m_Name: XR Origin (XR Rig)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1521,15 +1521,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2351209219464703707}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.125, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4756450210954485026}
   - {fileID: 5254880769089424826}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5110361430338305877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1545,8 +1545,8 @@ MonoBehaviour:
   m_Camera: {fileID: 422415552361412167}
   m_OriginBaseGameObject: {fileID: 2351209219464703707}
   m_CameraFloorOffsetObject: {fileID: 6838418191745234607}
-  m_RequestedTrackingOriginMode: 0
-  m_CameraYOffset: 1.36144
+  m_RequestedTrackingOriginMode: 1
+  m_CameraYOffset: 1
 --- !u!143 &7101453990617471608
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1560,19 +1560,19 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
+    m_Bits: 1049600
+  m_LayerOverridePriority: 1
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.36144
-  m_Radius: 0.1
-  m_SlopeLimit: 45
-  m_StepOffset: 0.5
+  m_Height: 0.85
+  m_Radius: 0.175
+  m_SlopeLimit: 75
+  m_StepOffset: 0.1
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.76072, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &1751225304810131241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1660,7 +1660,7 @@ GameObject:
   - component: {fileID: 6286711198783838421}
   - component: {fileID: 8902827398572390857}
   - component: {fileID: 3210873078595373305}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Teleport Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2339,7 +2339,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5618180493318043489}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Poke Point Affordances
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2723,7 +2723,7 @@ GameObject:
   - component: {fileID: 7057096468771453456}
   - component: {fileID: 3882449041032720994}
   - component: {fileID: 3639463811845934327}
-  m_Layer: 2
+  m_Layer: 17
   m_Name: Turn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2759,7 +2759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Mediator: {fileID: 4466912988573252933}
   m_TransformationPriority: 0
-  m_TurnAmount: 45
+  m_TurnAmount: 25
   m_DebounceTime: 0.5
   m_EnableTurnLeftRight: 1
   m_EnableTurnAround: 1
@@ -2808,7 +2808,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Mediator: {fileID: 4466912988573252933}
   m_TransformationPriority: 0
-  m_TurnSpeed: 60
+  m_TurnSpeed: 90
   m_LeftHandTurnInput:
     m_InputSourceMode: 2
     m_InputAction:
@@ -3042,7 +3042,7 @@ GameObject:
   - component: {fileID: 1859834303554560593}
   - component: {fileID: 6580480682576565712}
   - component: {fileID: 165877090966703207}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Poke Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3349,7 +3349,7 @@ GameObject:
   - component: {fileID: 356042120424389110}
   - component: {fileID: 5278995716390681122}
   - component: {fileID: 9036010909688282399}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: TunnelingVignette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3677,7 +3677,7 @@ GameObject:
   - component: {fileID: 8340948480969337612}
   - component: {fileID: 8923373420958260593}
   - component: {fileID: 5861508403063916922}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Poke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3976,7 +3976,7 @@ GameObject:
   - component: {fileID: 4400659512178651674}
   - component: {fileID: 7684538615136569479}
   - component: {fileID: 6811087929967274826}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: LineVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4357,7 +4357,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5637470723103590054}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Right Controller Stabilized Attach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4452,7 +4452,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1689087088352915169}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Poke Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4627,7 +4627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 317576988843489948}
   - component: {fileID: 5406896485509411290}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Pinch_Pointer_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4777,7 +4777,7 @@ GameObject:
   - component: {fileID: 5254880769089424826}
   - component: {fileID: 4466912988573252933}
   - component: {fileID: 7385981539951456484}
-  m_Layer: 2
+  m_Layer: 17
   m_Name: Locomotion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4842,7 +4842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2159522114728008710}
   - component: {fileID: 3076228858740580180}
-  m_Layer: 2
+  m_Layer: 17
   m_Name: Climb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4990,7 +4990,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7948396160671994693}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Poke Point Affordances
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5118,7 +5118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4756450210954485026}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Camera Offset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5134,7 +5134,7 @@ Transform:
   m_GameObject: {fileID: 6838418191745234607}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.36144, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5189,7 +5189,7 @@ GameObject:
   - component: {fileID: 1768969022075163809}
   - component: {fileID: 1296375417387760396}
   - component: {fileID: 2710235575660689451}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Poke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5359,7 +5359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 865920674176379840}
   - component: {fileID: 7897440396980726504}
-  m_Layer: 2
+  m_Layer: 17
   m_Name: Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5395,7 +5395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Mediator: {fileID: 4466912988573252933}
   m_TransformationPriority: 0
-  m_MoveSpeed: 2.5
+  m_MoveSpeed: 2
   m_EnableStrafe: 1
   m_EnableFly: 0
   m_UseGravity: 1
@@ -5447,7 +5447,7 @@ GameObject:
   - component: {fileID: 4796072586040575978}
   - component: {fileID: 2241719047913378460}
   - component: {fileID: 7726868465969257524}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: LineVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5862,7 +5862,7 @@ GameObject:
   - component: {fileID: 326456184184570576}
   - component: {fileID: 463645608831541293}
   - component: {fileID: 3665527205792849563}
-  m_Layer: 2
+  m_Layer: 17
   m_Name: Climb Teleport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5993,7 +5993,7 @@ GameObject:
   - component: {fileID: 1963472637886000968}
   - component: {fileID: 1880462120626991325}
   - component: {fileID: 1146933623266482711}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Near-Far Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6424,7 +6424,7 @@ GameObject:
   - component: {fileID: 7650520132913075745}
   - component: {fileID: 1386590943669716433}
   - component: {fileID: 7840699581099225628}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Poke Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6664,7 +6664,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2452046126657557180}
   - component: {fileID: 3671898188929227332}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Pinch_Pointer_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6751,7 +6751,7 @@ GameObject:
   - component: {fileID: 3350629431424508671}
   - component: {fileID: 3647601441888223333}
   - component: {fileID: 5855200167829817418}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: NearFar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6924,7 +6924,7 @@ GameObject:
   - component: {fileID: 7939185554550004316}
   - component: {fileID: 6308608066119315462}
   - component: {fileID: 1955547425242408519}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Left Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7116,7 +7116,7 @@ GameObject:
   - component: {fileID: 6186440458432056349}
   - component: {fileID: 4326716996155619303}
   - component: {fileID: 2300484989582971756}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -7358,7 +7358,7 @@ GameObject:
   - component: {fileID: 5244655931064494205}
   - component: {fileID: 1436571587012388659}
   - component: {fileID: 5483892515381614478}
-  m_Layer: 2
+  m_Layer: 17
   m_Name: Grab Move
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7553,7 +7553,7 @@ GameObject:
   - component: {fileID: 6475382615048064830}
   - component: {fileID: 7745840831948518518}
   - component: {fileID: 4295615350211356884}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Right Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7746,7 +7746,7 @@ GameObject:
   - component: {fileID: 4732441799856734904}
   - component: {fileID: 3892156911936186672}
   - component: {fileID: 3105481796983737060}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Teleport Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8426,7 +8426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8616045412260883516}
   - component: {fileID: 1934651728539113875}
-  m_Layer: 2
+  m_Layer: 17
   m_Name: Teleportation
   m_TagString: Untagged
   m_Icon: {fileID: 0}

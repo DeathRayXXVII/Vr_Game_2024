@@ -39,7 +39,6 @@ public class GrabInteraction : MonoBehaviour
     private void Grab(SelectEnterEventArgs arg)
     {
         var interactorType = arg.interactorObject.GetType();
-        Debug.Log($"Interactor Type: {interactorType}");
         if (interactorType == typeof(XRSocketInteractor) || interactorType == typeof(SocketMatchInteractor)) return;
         if (toggleGrabbersMeshVisibility) ToggleVis(false, arg.interactorObject.transform);
         if (!canGrab) return;
