@@ -1,7 +1,11 @@
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "GameCoreData", menuName = "Data/ManagerData/GameCoreData")]
-public class GameCoreData : ScriptableObject
+[CreateAssetMenu (fileName = "ShipGameInventoryData", menuName = "Data/ManagerData/ShipGameInventoryData")]
+public class ShipGameInventoryData : ScriptableObject
 {
     // Instancer that performs the instantiation of the ship
     // all other instancers and spawners are inside the instanced ship making them dependent on this instancer
@@ -93,16 +97,16 @@ public class GameCoreData : ScriptableObject
         public PrefabDataList prefabVariantList;
     }
 
-    [SerializeField] [ReadOnly] private int currentShipIndex;
+    [SerializeField] [InspectorReadOnly] private int currentShipIndex;
     [SerializeField] private ShipSelection[] shipSelections;
     
-    [SerializeField] [ReadOnly] private int currentCannonIndex;
+    [SerializeField] [InspectorReadOnly] private int currentCannonIndex;
     [SerializeField] private CannonSelection[] cannonSelections;
     
-    [SerializeField] [ReadOnly] private int currentAmmoIndex;
+    [SerializeField] [InspectorReadOnly] private int currentAmmoIndex;
     [SerializeField] private AmmoSelection[] ammoSelections;
     
-    [SerializeField] [ReadOnly] private int currentSEnemyIndex;
+    [SerializeField] [InspectorReadOnly] private int currentEnemyIndex;
     [SerializeField] private EnemySelection[] enemySelections;
     
     
@@ -110,7 +114,7 @@ public class GameCoreData : ScriptableObject
     private ShipSelection ship => shipSelections[shipIndex];
     private CannonSelection cannon => cannonSelections[currentCannonIndex];
     private AmmoSelection ammo => ammoSelections[currentAmmoIndex];
-    private EnemySelection enemy => enemySelections[currentSEnemyIndex];
+    private EnemySelection enemy => enemySelections[currentEnemyIndex];
 
     public int shipIndex
     {
@@ -123,8 +127,8 @@ public class GameCoreData : ScriptableObject
                 return;
             }
 
-            // Ternary setter clamps the value between 0 and the length of the ship array
-            currentShipIndex = value < 0 ? 0 : value > shipSelections.Length - 1 ? shipSelections.Length - 1 : value;
+            currentShipIndex = Mathf.Clamp(value, 0, shipSelections.Length - 1);
+            
             shipInstancerData.SetPrefabData(ship.prefab);
             ship.cannonInstancerData.SetPrefabOffset(cannonPrefabOffset);
         }
@@ -167,7 +171,7 @@ public class GameCoreData : ScriptableObject
 
     public int enemyIndex
     {
-        get => currentSEnemyIndex;
+        get => currentEnemyIndex;
         set 
         {
             if (enemySelections == null || enemySelections.Length == 0)
@@ -177,7 +181,7 @@ public class GameCoreData : ScriptableObject
             }
             
             // Ternary setter clamps the value between 0 and the length of the enemy array
-            currentSEnemyIndex = value < 0 ? 0 : value > enemySelections.Length - 1 ? enemySelections.Length - 1 : value;
+            currentEnemyIndex = value < 0 ? 0 : value > enemySelections.Length - 1 ? enemySelections.Length - 1 : value;
             ship.enemySpawnerData.SetPrefabDataList(enemy.prefabVariantList);
         }
     }

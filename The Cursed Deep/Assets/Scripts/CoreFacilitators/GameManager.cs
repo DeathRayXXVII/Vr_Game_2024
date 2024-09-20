@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+[DisallowMultipleComponent]
 public class GameManager : MonoBehaviour
 {
     public UnityEvent onAwake, onStart, onLateInit, onGameStart, onGameOver, onGameWin, onRestartGame;

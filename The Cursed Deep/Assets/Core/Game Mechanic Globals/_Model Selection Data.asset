@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0916b40533838e3409f3a8accccc3915, type: 3}
-  m_Name: _Core Data
+  m_Name: _Model Selection Data
   m_EditorClassIdentifier: 
   shipInstancerData: {fileID: 11400000, guid: 2e08ed6f792463941a754099a4740a6d, type: 2}
   shipMaxHealth: {fileID: 11400000, guid: f3cf570f73c5a2c4fa0b465449b59ad0, type: 2}
@@ -34,7 +34,7 @@ MonoBehaviour:
     enemySpawnerData: {fileID: 11400000, guid: 9996e784309b73740a5ccdb27d741e45, type: 2}
     prefab: {fileID: 11400000, guid: cd4a8931f8381814a89283e02082575e, type: 2}
     numberOfLanes: 6
-  currentCannonIndex: 0
+  currentCannonIndex: 1
   cannonSelections:
   - selectionName: Default
     prefab: {fileID: 11400000, guid: 2c43e130e336adc4c8b3674a86f3e173, type: 2}
@@ -50,7 +50,7 @@ MonoBehaviour:
       cannonOffset: {fileID: 11400000, guid: 7c1dd9d316615a24daf5dc21fb9a2d89, type: 2}
     - targetShip: Galleon
       cannonOffset: {fileID: 11400000, guid: 60bc8149a3d48064d87cc4668980d33b, type: 2}
-  currentAmmoIndex: 0
+  currentAmmoIndex: 1
   ammoSelections:
   - selectionName: Default
     prefabVariantList: {fileID: 11400000, guid: cce5195886a2745459e8b36f9a378e97,
@@ -58,7 +58,7 @@ MonoBehaviour:
   - selectionName: Test
     prefabVariantList: {fileID: 11400000, guid: f50a8e9a007f7a541b8c79f47a75f53f,
       type: 2}
-  currentSEnemyIndex: 0
+  currentEnemyIndex: 0
   enemySelections:
   - selectionName: Tentacle
     prefabVariantList: {fileID: 11400000, guid: 67cc5b8a6d9c18c4393e5d51e25bd7c6,

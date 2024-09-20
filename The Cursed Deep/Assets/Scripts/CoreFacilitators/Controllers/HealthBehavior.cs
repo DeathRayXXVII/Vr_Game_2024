@@ -5,7 +5,7 @@ public class HealthBehavior : MonoBehaviour, IDamagable
 {
     public UnityEvent onHealthGained, onHealthLost, onThreeQuarterHealth, onHalfHealth, onQuarterHealth, onHealthDepleted;
     
-    [SerializeField] [ReadOnly] private float currentHealth;
+    [SerializeField] [InspectorReadOnly] private float currentHealth;
     private float _previousCheckHealth;
     public float maxHealth;
 
