@@ -1,16 +1,24 @@
+using System;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Interactors.Casters;
 
 public class InteractorMeshBehavior: MonoBehaviour
 {
-    [SerializeField] private GameObject model;
+    [Serializable]
+    private struct Models
+    {
+        public GameObject model;
+    }
+    
+    [SerializeField] private Models[] modelArray;
     
     public void Show()
     {
-        model.SetActive(true);
+        foreach (var models in modelArray) models.model.SetActive(true);
     }
     
     public void Hide()
     {
-        model.SetActive(false);
+        foreach (var models in modelArray) models.model.SetActive(false);
     }
 }
