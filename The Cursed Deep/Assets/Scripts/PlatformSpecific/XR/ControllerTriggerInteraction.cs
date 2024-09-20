@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 
 [RequireComponent(typeof(XRGrabInteractable))]
