@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d27c026ac4334a345b58a584e1e52854,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.39896
+      value: 0.39896005
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d27c026ac4334a345b58a584e1e52854,
         type: 3}
@@ -21,22 +21,22 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d27c026ac4334a345b58a584e1e52854,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.39896
+      value: 0.39896005
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d27c026ac4334a345b58a584e1e52854,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.467384
+      value: -2.2519896
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d27c026ac4334a345b58a584e1e52854,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.106
+      value: -0.63888246
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d27c026ac4334a345b58a584e1e52854,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.98216033
+      value: -0.38566703
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d27c026ac4334a345b58a584e1e52854,
         type: 3}
@@ -46,7 +46,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d27c026ac4334a345b58a584e1e52854,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.00800681
+      value: -0.008006811
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d27c026ac4334a345b58a584e1e52854,
         type: 3}
@@ -56,7 +56,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d27c026ac4334a345b58a584e1e52854,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.001155962
+      value: 0.0011559621
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d27c026ac4334a345b58a584e1e52854,
         type: 3}
@@ -99,7 +99,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d27c026ac4334a345b58a584e1e52854,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1770046304758692301}
+      addedObject: {fileID: 2769773665809780191}
   m_SourcePrefab: {fileID: 100100000, guid: d27c026ac4334a345b58a584e1e52854, type: 3}
 --- !u!1 &2425683308252830426 stripped
 GameObject:
@@ -128,7 +128,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.41, y: 0.61, z: 7.48}
   m_Center: {x: 0, y: 1.28, z: 0.08}
---- !u!114 &1770046304758692301
+--- !u!114 &2769773665809780191
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,28 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2425683308252830426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 084cda31011b9ca4a806fa24ee9735db, type: 3}
+  m_Script: {fileID: 11500000, guid: 758bba6c5a10eb840bf779d0dec9fc87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: {fileID: 0}
-  allowDebug: 0
-  triggerEnterMatches:
-  - id: {fileID: 11400000, guid: d62942c5eb9610e47a3b231dbdd04564, type: 2}
-    triggerEnterEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
-          m_MethodName: set_isKinematic
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-    triggerExitEvent:
-      m_PersistentCalls:
-        m_Calls: []
+  id: {fileID: 11400000, guid: 4ddc232c1197a4345a6460b1d0741aeb, type: 2}

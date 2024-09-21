@@ -5,9 +5,9 @@ public class LevelData : ScriptableObject
 {
     public IntData currentLevel;
     
-    public int spawnsPerLane => levels[currentLevel.value].spawnsPerLane;
+    public int spawnsPerLane => levels[currentLevel].spawnsPerLane;
     public IntData currentSpawnValue;
-    public int spawnValue => levels[currentLevel.value].spawnValue;
+    public int spawnValue => levels[currentLevel].spawnValue;
     
     [System.Serializable]
     public struct Level

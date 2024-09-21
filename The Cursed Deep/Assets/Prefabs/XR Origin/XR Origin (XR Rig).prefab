@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 4412054401558138934}
   - component: {fileID: 5569175211472987332}
   - component: {fileID: 8084851601691690082}
+  - component: {fileID: 4060006937624535644}
   m_Layer: 17
   m_Name: Near-Far Interactor
   m_TagString: Untagged
@@ -568,7 +569,7 @@ MonoBehaviour:
   m_AimTargetObject: {fileID: 0}
   m_PhysicsLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1048577
   m_PhysicsTriggerInteraction: 1
   m_CastRadius: 0.1
 --- !u!114 &5569175211472987332
@@ -590,7 +591,7 @@ MonoBehaviour:
   m_AimTargetObject: {fileID: 6377203611846736043}
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 2147483681
+    m_Bits: 1048609
   m_RaycastTriggerInteraction: 1
   m_RaycastSnapVolumeInteraction: 1
   m_TargetNumCurveSegments: 1
@@ -643,6 +644,18 @@ MonoBehaviour:
     m_Duration: 0.1
     m_Frequency: 0
   m_AllowHoverHapticsWhileSelecting: 0
+--- !u!210 &4060006937624535644
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686733481739046219}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 5
+  m_SortAtRoot: 0
 --- !u!1 &1026993642256983447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1394,7 +1407,7 @@ MonoBehaviour:
   m_ImproveAccuracyWithSphereCollider: 1
   m_PhysicsLayerMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1049600
   m_PhysicsTriggerInteraction: 1
 --- !u!135 &7872023823397574811
 SphereCollider:
@@ -1503,9 +1516,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6459086314133376178}
   - component: {fileID: 5110361430338305877}
+  - component: {fileID: 4087018406843762002}
   - component: {fileID: 7101453990617471608}
   - component: {fileID: 1751225304810131241}
   - component: {fileID: 8003105875257385700}
+  - component: {fileID: 5041514052442482704}
+  - component: {fileID: 3005439204152601145}
   m_Layer: 17
   m_Name: XR Origin (XR Rig)
   m_TagString: Untagged
@@ -1546,7 +1562,23 @@ MonoBehaviour:
   m_OriginBaseGameObject: {fileID: 2351209219464703707}
   m_CameraFloorOffsetObject: {fileID: 6838418191745234607}
   m_RequestedTrackingOriginMode: 1
-  m_CameraYOffset: 1
+  m_CameraYOffset: 1.25
+--- !u!114 &4087018406843762002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2351209219464703707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a50d88b55b45648927679791f472de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_GroupName: 
+  m_InteractionManager: {fileID: 0}
+  m_StartingGroupMembers: []
+  m_StartingInteractionOverridesMap: []
 --- !u!143 &7101453990617471608
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1572,7 +1604,7 @@ CharacterController:
   m_StepOffset: 0.1
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &1751225304810131241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1615,6 +1647,79 @@ MonoBehaviour:
   m_MotionControllerModeEnded:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5041514052442482704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2351209219464703707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084cda31011b9ca4a806fa24ee9735db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: {fileID: 11400000, guid: b1248dc0261effe40b46761673244b02, type: 2}
+  allowDebug: 0
+  triggerEnterMatches:
+  - id: {fileID: 11400000, guid: 6ce658b07eebcad46a12960a0839dee3, type: 2}
+    triggerEnterEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3005439204152601145}
+          m_TargetAssemblyTypeName: TransformBehavior, Assembly-CSharp
+          m_MethodName: SetToTransform
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: TransformData, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: {fileID: 11400000, guid: 6496e6f3a634d304aae9b6bfa44fa469, type: 2}
+    triggerEnterEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: {fileID: 11400000, guid: 9f5ff81a699609342b5b360edd1a0b78, type: 2}
+    triggerEnterEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: dca0e413a98cfd042879613450ecc09b, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!114 &3005439204152601145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2351209219464703707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2440671554273326739
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,7 +1942,7 @@ MonoBehaviour:
   m_ConeCastAngle: 6
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 2147483681
+    m_Bits: 2081
   m_RaycastTriggerInteraction: 1
   m_RaycastSnapVolumeInteraction: 1
   m_HitClosestOnly: 0
@@ -3355,7 +3460,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5867771646263449355
 Transform:
   m_ObjectHideFlags: 0
@@ -3481,7 +3586,7 @@ MonoBehaviour:
       m_VignetteColorBlend: {r: 0, g: 0, b: 0, a: 1}
       m_ApertureVerticalPosition: 0
   - m_LocomotionProvider: {fileID: 7897440396980726504}
-    m_Enabled: 1
+    m_Enabled: 0
     m_OverrideDefaultParameters: 0
     m_OverrideParameters:
       m_ApertureSize: 0.7
@@ -5993,6 +6098,7 @@ GameObject:
   - component: {fileID: 1963472637886000968}
   - component: {fileID: 1880462120626991325}
   - component: {fileID: 1146933623266482711}
+  - component: {fileID: 2338602267660728233}
   m_Layer: 17
   m_Name: Near-Far Interactor
   m_TagString: Untagged
@@ -6275,7 +6381,7 @@ MonoBehaviour:
   m_AimTargetObject: {fileID: 0}
   m_PhysicsLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1048576
   m_PhysicsTriggerInteraction: 1
   m_CastRadius: 0.1
 --- !u!114 &1880462120626991325
@@ -6297,7 +6403,7 @@ MonoBehaviour:
   m_AimTargetObject: {fileID: 130409938858082385}
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 2147483681
+    m_Bits: 1048609
   m_RaycastTriggerInteraction: 1
   m_RaycastSnapVolumeInteraction: 1
   m_TargetNumCurveSegments: 1
@@ -6350,6 +6456,18 @@ MonoBehaviour:
     m_Duration: 0.1
     m_Frequency: 0
   m_AllowHoverHapticsWhileSelecting: 0
+--- !u!210 &2338602267660728233
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7829412523850576014}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 5
+  m_SortAtRoot: 0
 --- !u!1 &7915682483985231178
 GameObject:
   m_ObjectHideFlags: 0
@@ -7923,7 +8041,7 @@ MonoBehaviour:
   m_ConeCastAngle: 6
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 2147483681
+    m_Bits: 2081
   m_RaycastTriggerInteraction: 1
   m_RaycastSnapVolumeInteraction: 1
   m_HitClosestOnly: 0

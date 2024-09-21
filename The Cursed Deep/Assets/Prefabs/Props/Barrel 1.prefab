@@ -10,18 +10,33 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b1c490c47df3b2745a5d1865e16be8be,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1c490c47df3b2745a5d1865e16be8be,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1c490c47df3b2745a5d1865e16be8be,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b1c490c47df3b2745a5d1865e16be8be,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.03901
+      value: -2.8236156
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c490c47df3b2745a5d1865e16be8be,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.394
+      value: -0.35088247
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c490c47df3b2745a5d1865e16be8be,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.9431999
+      value: 2.539693
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c490c47df3b2745a5d1865e16be8be,
         type: 3}
@@ -31,7 +46,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b1c490c47df3b2745a5d1865e16be8be,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1c490c47df3b2745a5d1865e16be8be,
         type: 3}
@@ -66,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b1c490c47df3b2745a5d1865e16be8be,
         type: 3}
       propertyPath: m_Layer
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -79,7 +94,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b1c490c47df3b2745a5d1865e16be8be,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4599001704583451216}
+      addedObject: {fileID: 1740658646446980149}
   m_SourcePrefab: {fileID: 100100000, guid: b1c490c47df3b2745a5d1865e16be8be, type: 3}
 --- !u!1 &2500691060466188353 stripped
 GameObject:
@@ -109,7 +124,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: b1c490c47df3b2745a5d1865e16be8be, type: 3}
---- !u!114 &4599001704583451216
+--- !u!114 &1740658646446980149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,28 +133,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2500691060466188353}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 084cda31011b9ca4a806fa24ee9735db, type: 3}
+  m_Script: {fileID: 11500000, guid: 758bba6c5a10eb840bf779d0dec9fc87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: {fileID: 0}
-  allowDebug: 0
-  triggerEnterMatches:
-  - id: {fileID: 11400000, guid: d62942c5eb9610e47a3b231dbdd04564, type: 2}
-    triggerEnterEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
-          m_MethodName: set_isKinematic
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-    triggerExitEvent:
-      m_PersistentCalls:
-        m_Calls: []
+  id: {fileID: 11400000, guid: 4ddc232c1197a4345a6460b1d0741aeb, type: 2}

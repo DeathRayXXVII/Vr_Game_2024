@@ -14,6 +14,7 @@ public class CannonManager : MonoBehaviour
     public GameObject ammoPrefab;
     public float fireForce;
     [SerializeField] private Transform barrelExitVelocityPosition, barrelInitialVelocityPosition;
+    [SerializeField] private SocketMatchInteractor reloadSocket;
     private Vector3 _forceVector;
     
     private List <GameObject> _currentAmmoList;
@@ -30,8 +31,7 @@ public class CannonManager : MonoBehaviour
 
     public void Fire()
     {
-        // var ammoObj = ammoSocket.RemoveAndMoveSocketObject(barrelExitVelocityPosition.position, barrelExitVelocityPosition.rotation);
-        if(_ammoObj == null) {Debug.LogWarning($"No ammo found in {gameObject.name}"); return;}
+        if(!_ammoObj) {Debug.LogWarning($"No ammo found in {gameObject.name}"); return;}
         if (!_isLoaded) {Debug.LogWarning($"{gameObject.name} has not been loaded."); return;}
         
         var ammoRb = _ammoObj.GetComponent<Rigidbody>();

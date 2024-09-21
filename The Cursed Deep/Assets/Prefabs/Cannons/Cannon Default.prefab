@@ -224,6 +224,7 @@ MonoBehaviour:
   fireForce: 55
   barrelExitVelocityPosition: {fileID: 7323743104195517700}
   barrelInitialVelocityPosition: {fileID: 5032631625000350748}
+  reloadSocket: {fileID: 0}
 --- !u!95 &2370026578296386634
 Animator:
   serializedVersion: 5
@@ -367,7 +368,7 @@ Transform:
   m_GameObject: {fileID: 1486445593991792456}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.037999973, z: 0}
+  m_LocalPosition: {x: 3.4412062e-10, y: 0.023339018, z: -0.000000011769156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15429,9 +15430,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 6
   m_DistanceCalculationMode: 1
@@ -15490,33 +15488,6 @@ MonoBehaviour:
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_StartingInteractionStrengthFilters: []
-  m_OnFirstHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnLastHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectCanceled:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &5384503399576748464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15557,6 +15528,7 @@ MonoBehaviour:
   m_ApplyIfChildIsTarget: 1
   m_ClampToMaxDistance: 1
   m_MaxDistance: 0.045
+  m_PokeFilter: {fileID: 5384503399576748464}
 --- !u!114 &3965077671134962739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21093,7 +21065,6 @@ GameObject:
   - component: {fileID: 5032631625000350748}
   - component: {fileID: 3300723562912348241}
   - component: {fileID: 4624554520326943738}
-  - component: {fileID: 4835952981608933241}
   - component: {fileID: 6611880016742504851}
   m_Layer: 20
   m_Name: Pos Socket Reload
@@ -21151,11 +21122,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 2
+  m_Handedness: 0
   m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
@@ -21175,18 +21144,6 @@ MonoBehaviour:
       m_Calls: []
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
   m_ShowInteractableHoverMeshes: 1
   m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: d577caddbf9044e439a33d99bca23ed2,
     type: 2}
@@ -21211,18 +21168,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: CannonManager, Assembly-CSharp
         m_MethodName: LoadCannon
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4835952981608933241}
-        m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-        m_MethodName: StartWaitForFixedUpdateEvent
-        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -21259,37 +21204,6 @@ MonoBehaviour:
   onObjectUnsocketed:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4835952981608933241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9207764901726323132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endWaitForSeconds: []
-  endWaitForZero: []
-  endWaitForFixedUpdate:
-  - id: trigger load animation
-    onWaitFinished:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2370026578296386634}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: SetTrigger
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Load
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!82 &6611880016742504851
 AudioSource:
   m_ObjectHideFlags: 0
