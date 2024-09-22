@@ -19,9 +19,17 @@ public class MatchIDBehavior : IDBehavior
     }
     
     private readonly WaitForFixedUpdate _wffu = new();
-    public bool allowDebug;
-    public List<PossibleMatch> triggerEnterMatches;
+    [SerializeField] private bool allowDebug;
+    [SerializeField] private List<PossibleMatch> triggerEnterMatches;
 
+    // OnTriggerEnter and OnTriggerExit are called when one collider that is marked as a trigger enters or exits this or
+    // the other object's non-trigger collider. Summary Each collider you want to have this match check occur on must have
+    // an IDBehavior component and an ID assigned to it that corresponds to a match in the triggerEnterMatches list.
+    // (This MatchIDBehavior works as an IDBehavior component) and a collider with the Is Trigger option checked.
+    
+    // NOTE: If you place this on a parent object with a rigidbody, and have child objects with colliders, 
+    // all the child objects will trigger the events on the parent object. Allowing for a single instance of this script
+    // to handle all the ID matches in a single object.
     private void OnTriggerEnter(Collider other)
     {
         IDBehavior idBehavior = other.GetComponent<IDBehavior>();

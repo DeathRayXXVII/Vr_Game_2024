@@ -1,5 +1,58 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &11150338379423146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8928221124967271470}
+  - component: {fileID: 658151466872775558}
+  m_Layer: 20
+  m_Name: Trigger Collider (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8928221124967271470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11150338379423146}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.025304608, y: -0, z: -0, w: 0.9996798}
+  m_LocalPosition: {x: 0, y: -0.0085, z: -0.00925}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7849150665995447168}
+  m_LocalEulerAnglesHint: {x: 2.9, y: 0, z: 0}
+--- !u!65 &658151466872775558
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11150338379423146}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.001, y: 0.003, z: 0.08}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1453005142835601490
 GameObject:
   m_ObjectHideFlags: 0
@@ -16,6 +69,7 @@ GameObject:
   - component: {fileID: 9165534151746106480}
   - component: {fileID: 4248796630173096499}
   - component: {fileID: 4838120525210870491}
+  - component: {fileID: 3749808970983667303}
   m_Layer: 20
   m_Name: Knife
   m_TagString: Untagged
@@ -31,17 +85,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453005142835601490}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.7405, y: -0.4913, z: 0.4069}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.82493275, y: 0.8249328, z: 0.8249328}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8201144472705714985}
   - {fileID: 7849150665995447168}
-  - {fileID: 3990616247282012747}
   - {fileID: 727140735607667648}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8542187855385183915
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -61,8 +114,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.02, y: 0.03, z: 0.11}
-  m_Center: {x: 0, y: 0, z: 0.077}
+  m_Size: {x: 0.01, y: 0.02, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0.08}
 --- !u!54 &8113299584678115328
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -89,7 +142,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &6640024425376405689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +265,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  m_FarAttachMode: 0
+  m_FarAttachMode: 1
 --- !u!114 &7459323623906489240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f64b8b0ac26e084e958be7c6dacf32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggleGrabbersMeshVisibility: 0
+  toggleGrabbersMeshVisibility: 1
   onGrab:
     m_PersistentCalls:
       m_Calls: []
@@ -293,6 +346,256 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3749808970983667303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453005142835601490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084cda31011b9ca4a806fa24ee9735db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: {fileID: 11400000, guid: d62942c5eb9610e47a3b231dbdd04564, type: 2}
+  allowDebug: 0
+  triggerEnterMatches:
+  - id: {fileID: 11400000, guid: 4ddc232c1197a4345a6460b1d0741aeb, type: 2}
+    triggerEnterEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8113299584678115328}
+          m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
+          m_MethodName: set_isKinematic
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: {fileID: 11400000, guid: 6ce658b07eebcad46a12960a0839dee3, type: 2}
+    triggerEnterEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4248796630173096499}
+          m_TargetAssemblyTypeName: Rigidbody3DBehavior, Assembly-CSharp
+          m_MethodName: ZeroOutAngularVelocity
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 4248796630173096499}
+          m_TargetAssemblyTypeName: Rigidbody3DBehavior, Assembly-CSharp
+          m_MethodName: ZeroOutVelocity
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 9165534151746106480}
+          m_TargetAssemblyTypeName: TransformBehavior, Assembly-CSharp
+          m_MethodName: ResetToStartTransform
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!1 &2026510588008343732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3612338805175808814}
+  - component: {fileID: 8846959097697774089}
+  - component: {fileID: 2767676989359784430}
+  m_Layer: 20
+  m_Name: Contact Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3612338805175808814
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026510588008343732}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7849150665995447168}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8846959097697774089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026510588008343732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 758bba6c5a10eb840bf779d0dec9fc87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: {fileID: 11400000, guid: 67c8edc176063d544a35010006a3ca45, type: 2}
+--- !u!65 &2767676989359784430
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026510588008343732}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.002, y: 0.01, z: 0.1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3207740152382531400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5533401857794120075}
+  - component: {fileID: 2896556459493158505}
+  m_Layer: 20
+  m_Name: Trigger Collider (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5533401857794120075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3207740152382531400}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.10452846, y: 0, z: 0, w: 0.9945219}
+  m_LocalPosition: {x: 0, y: -0.00435, z: -0.06345}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7849150665995447168}
+  m_LocalEulerAnglesHint: {x: 12, y: 0, z: 0}
+--- !u!65 &2896556459493158505
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3207740152382531400}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.001, y: 0.003, z: 0.025}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3895577067404884613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2663523862772331944}
+  - component: {fileID: 1396320428174998963}
+  m_Layer: 20
+  m_Name: Trigger Collider (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2663523862772331944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3895577067404884613}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.10452837, y: 0, z: 0, w: 0.9945219}
+  m_LocalPosition: {x: 0, y: 0.00435, z: -0.06345}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7849150665995447168}
+  m_LocalEulerAnglesHint: {x: -12, y: 0, z: 0}
+--- !u!65 &1396320428174998963
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3895577067404884613}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.001, y: 0.003, z: 0.025}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6593398952972369388
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,8 +605,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7849150665995447168}
-  - component: {fileID: 7772917921322604000}
-  - component: {fileID: 3610595281788659055}
   m_Layer: 0
   m_Name: Blade
   m_TagString: Untagged
@@ -320,46 +621,17 @@ Transform:
   m_GameObject: {fileID: 6593398952972369388}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0388}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3612338805175808814}
+  - {fileID: 3990616247282012747}
+  - {fileID: 2663523862772331944}
+  - {fileID: 8928221124967271470}
+  - {fileID: 5533401857794120075}
   m_Father: {fileID: 8183781293960917358}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &7772917921322604000
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6593398952972369388}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.007, y: 0.03, z: 0.13}
-  m_Center: {x: 0, y: 0, z: -0.05}
---- !u!114 &3610595281788659055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6593398952972369388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 758bba6c5a10eb840bf779d0dec9fc87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: {fileID: 11400000, guid: d62942c5eb9610e47a3b231dbdd04564, type: 2}
 --- !u!1 &8226585738575187708
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 727140735607667648}
   - component: {fileID: 6354697285716961303}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Guard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,9 +695,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3990616247282012747}
   - component: {fileID: 6103287580504382326}
-  - component: {fileID: 9078180217499508465}
-  m_Layer: 0
-  m_Name: BladeTrigger
+  m_Layer: 20
+  m_Name: Trigger Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -439,13 +710,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8244130148616085384}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.025304608, y: -0, z: -0, w: 0.9996798}
+  m_LocalPosition: {x: 0, y: 0.0085, z: -0.00925}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8183781293960917358}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 7849150665995447168}
+  m_LocalEulerAnglesHint: {x: -2.9, y: 0, z: 0}
 --- !u!65 &6103287580504382326
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -465,61 +736,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.007, y: 0.03, z: 0.13}
-  m_Center: {x: 0, y: 0, z: -0.05}
---- !u!114 &9078180217499508465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8244130148616085384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 084cda31011b9ca4a806fa24ee9735db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: {fileID: 11400000, guid: d62942c5eb9610e47a3b231dbdd04564, type: 2}
-  allowDebug: 0
-  triggerEnterMatches:
-  - id: {fileID: 11400000, guid: 4ddc232c1197a4345a6460b1d0741aeb, type: 2}
-    triggerEnterEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8113299584678115328}
-          m_TargetAssemblyTypeName: UnityEngine.Rigidbody, UnityEngine
-          m_MethodName: set_isKinematic
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-    triggerExitEvent:
-      m_PersistentCalls:
-        m_Calls: []
-  - id: {fileID: 11400000, guid: 6ce658b07eebcad46a12960a0839dee3, type: 2}
-    triggerEnterEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 9165534151746106480}
-          m_TargetAssemblyTypeName: TransformBehavior, Assembly-CSharp
-          m_MethodName: ResetToStartTransform
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-    triggerExitEvent:
-      m_PersistentCalls:
-        m_Calls: []
+  m_Size: {x: 0.001, y: 0.003, z: 0.08}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8742164829012458499
 GameObject:
   m_ObjectHideFlags: 0
