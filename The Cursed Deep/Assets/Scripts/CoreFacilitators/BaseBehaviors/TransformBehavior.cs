@@ -5,6 +5,12 @@ public class TransformBehavior : MonoBehaviour
     private Vector3 _startTransformPosition;
     private Quaternion _startTransformRotation;
     
+    private void Awake()
+    {
+        _startTransformPosition = transform.position;
+        _startTransformRotation = transform.rotation;
+    }
+    
     public void SetToTransform(Transform newTransform)
     {
         transform.position = newTransform.position;
