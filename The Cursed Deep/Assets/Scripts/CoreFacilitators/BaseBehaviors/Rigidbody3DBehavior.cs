@@ -30,11 +30,13 @@ public class Rigidbody3DBehavior : MonoBehaviour
     
     public void ZeroOutVelocity()
     {
+        if (rigidBody.isKinematic) return;
         rigidBody.velocity = Vector3.zero;
     }
     
     public void ZeroOutAngularVelocity()
     {
+        if (rigidBody.isKinematic) return;
         rigidBody.angularVelocity = Vector3.zero;
     }
     

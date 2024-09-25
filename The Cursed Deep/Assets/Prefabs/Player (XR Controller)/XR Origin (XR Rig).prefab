@@ -380,9 +380,9 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_InputActionReferencePerformed: {fileID: 187161793506945269, guid: b8b7ac6cba47ccc44a6fb068c1e74545,
+    m_InputActionReferencePerformed: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
-    m_InputActionReferenceValue: {fileID: -1758520528963094988, guid: b8b7ac6cba47ccc44a6fb068c1e74545,
+    m_InputActionReferenceValue: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualPerformed: 0
@@ -412,9 +412,9 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_InputActionReferencePerformed: {fileID: 83097790271614945, guid: b8b7ac6cba47ccc44a6fb068c1e74545,
+    m_InputActionReferencePerformed: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
-    m_InputActionReferenceValue: {fileID: 7904272356298805229, guid: b8b7ac6cba47ccc44a6fb068c1e74545,
+    m_InputActionReferenceValue: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualPerformed: 0
@@ -1320,7 +1320,7 @@ MonoBehaviour:
   m_Camera: {fileID: 422415552361412167}
   m_OriginBaseGameObject: {fileID: 2351209219464703707}
   m_CameraFloorOffsetObject: {fileID: 6838418191745234607}
-  m_RequestedTrackingOriginMode: 0
+  m_RequestedTrackingOriginMode: 1
   m_CameraYOffset: 1.25
 --- !u!143 &7101453990617471608
 CharacterController:
@@ -1335,19 +1335,19 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1049600
-  m_LayerOverridePriority: 200
+    m_Bits: 0
+  m_LayerOverridePriority: 1
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.25
+  m_Height: 0.85
   m_Radius: 0.175
   m_SlopeLimit: 75
   m_StepOffset: 0.1
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.6, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &1751225304810131241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1891,7 +1891,7 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.02
+    widthMultiplier: 0.01
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -5483,9 +5483,9 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_InputActionReferencePerformed: {fileID: -6131295136447488360, guid: b8b7ac6cba47ccc44a6fb068c1e74545,
+    m_InputActionReferencePerformed: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
-    m_InputActionReferenceValue: {fileID: 6558622148059887818, guid: b8b7ac6cba47ccc44a6fb068c1e74545,
+    m_InputActionReferenceValue: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualPerformed: 0
@@ -5515,9 +5515,9 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_InputActionReferencePerformed: {fileID: -5982496924579745919, guid: b8b7ac6cba47ccc44a6fb068c1e74545,
+    m_InputActionReferencePerformed: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
-    m_InputActionReferenceValue: {fileID: -4289430672226363583, guid: b8b7ac6cba47ccc44a6fb068c1e74545,
+    m_InputActionReferenceValue: {fileID: -4289430672226363583, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualPerformed: 0
@@ -6436,8 +6436,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_InputActionReference: {fileID: -8785819595477538065, guid: b8b7ac6cba47ccc44a6fb068c1e74545,
-      type: 3}
+    m_InputActionReference: {fileID: 0}
     m_ObjectReferenceObject: {fileID: 0}
   m_AmplitudeMultiplier: 1
 --- !u!114 &1955547425242408519
@@ -7063,8 +7062,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_InputActionReference: {fileID: -8222252007134549311, guid: b8b7ac6cba47ccc44a6fb068c1e74545,
-      type: 3}
+    m_InputActionReference: {fileID: 0}
     m_ObjectReferenceObject: {fileID: 0}
   m_AmplitudeMultiplier: 1
 --- !u!114 &4295615350211356884
@@ -7548,13 +7546,13 @@ LineRenderer:
   m_Positions: []
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.02
+    widthMultiplier: 0.01
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
+        time: 0.0006240867
+        value: 0.24976104
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -7564,8 +7562,8 @@ LineRenderer:
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 0
-        outSlope: 0
+        inSlope: 2
+        outSlope: 2
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
