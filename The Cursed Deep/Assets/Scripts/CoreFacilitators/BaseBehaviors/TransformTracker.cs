@@ -14,7 +14,7 @@ public class TransformTracker : MonoBehaviour, INeedButton
     private Coroutine _trackPostionCoroutine;
     private Coroutine _trackRotationCoroutine;
     private WaitForFixedUpdate _wffu = new();
-    private bool _isTrackingPosition, _isTrackingRotation;
+    private bool _isTrackingPosition, _isTrackRotation;
 
     private void Awake()
     {
@@ -31,17 +31,23 @@ public class TransformTracker : MonoBehaviour, INeedButton
         else
         {
             if (!continuousTrackOnStart) return;
-            StartContinuousTrackingPosition(transformTrackerSO);
-            StartContinuousTrackingRotation(transformTrackerSO);
+            StartContinuousTrackPosition(transformTrackerSO);
+            StartContinuousTrackRotation(transformTrackerSO);
         }
     }
     
-    private void TrackCurrentPosition()
+    public void TrackCurrentPosition()
     {
-        if (transformTrackerSO != null) { TrackCurrentPosition(transformTrackerSO); }
+        if (transformTrackerSO) { TrackCurrentPosition(transformTrackerSO); }
     }
     
-    private void TrackCurrentPosition(Vector3Data tracker)
+    public void TrackCurrentPosition(TransformData tracker)
+    {
+        transformTrackerSO ??= tracker;
+        TrackCurrentPosition(tracker.PositionHandler);
+    }
+    
+    public void TrackCurrentPosition(Vector3Data tracker)
     {
         if (tracker == transformTrackerSO.PositionHandler && tracker != transformTrackerSO.ScaleHandler)
         {
@@ -53,12 +59,18 @@ public class TransformTracker : MonoBehaviour, INeedButton
         }
     }
     
-    private void TrackCurrentRotation()
+    public void TrackCurrentRotation()
     {
         if (transformTrackerSO != null) { TrackCurrentRotation(transformTrackerSO); }
     }
     
-    private void TrackCurrentRotation(QuaternionData tracker)
+    public void TrackCurrentRotation(TransformData tracker)
+    {
+        transformTrackerSO ??= tracker;
+        TrackCurrentRotation(tracker.RotationHandler);
+    }
+    
+    public void TrackCurrentRotation(QuaternionData tracker)
     {
         if (tracker == transformTrackerSO.RotationHandler)
         {
@@ -81,33 +93,33 @@ public class TransformTracker : MonoBehaviour, INeedButton
     
     private IEnumerator TrackRotation(QuaternionData tracker)
     {
-        while (_isTrackingRotation)
+        while (_isTrackRotation)
         {
             tracker.value = transform.rotation;
             yield return _wffu;
         }
     }
 
-    public void StartContinuousTrackingPosition(Vector3Data positionTracker)
+    public void StartContinuousTrackPosition(Vector3Data positionTracker)
     {
         _activePositionTracker = positionTracker;
         StartTracking(ref _isTrackingPosition, ref _trackPostionCoroutine, TrackPosition(_activePositionTracker));
     }
 
-    public void StopContinuousTrackingPosition()
+    public void StopContinuousTrackPosition()
     {
         StopTracking(ref _isTrackingPosition, ref _trackPostionCoroutine);
     }
     
-    public void StartContinuousTrackingRotation(QuaternionData rotationTracker)
+    public void StartContinuousTrackRotation(QuaternionData rotationTracker)
     {
         _activeRotationTracker = rotationTracker;
-        StartTracking(ref _isTrackingRotation, ref _trackRotationCoroutine, TrackRotation(_activeRotationTracker));
+        StartTracking(ref _isTrackRotation, ref _trackRotationCoroutine, TrackRotation(_activeRotationTracker));
     }
     
-    public void StopContinuousTrackingRotation()
+    public void StopContinuousTrackRotation()
     {
-        StopTracking(ref _isTrackingRotation, ref _trackRotationCoroutine);
+        StopTracking(ref _isTrackRotation, ref _trackRotationCoroutine);
     }
     
     private void StartTracking(ref bool isRunning, ref Coroutine internalCoroutineObject, IEnumerator coroutine)
