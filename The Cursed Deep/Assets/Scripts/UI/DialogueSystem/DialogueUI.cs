@@ -38,7 +38,7 @@ public class DialogueUI : MonoBehaviour
             string dialogue = dialogueObj.Dialogue[i];
             yield return RunTypingEffect(dialogue);
             textLabel.text = dialogue;
-            if (i == dialogueObj.Dialogue.Length - 1 && dialogueObj.HasResponses) break;
+            if (i == dialogueObj.Dialogue.Length - 1 && dialogueObj.hasResponses) break;
             // {
             //     responseHandler.ShowResponses(dialogueObj.Responses);
             // }
@@ -46,10 +46,10 @@ public class DialogueUI : MonoBehaviour
             yield return new WaitUntil(() => inputAction.action.triggered);
         }
 
-        if (dialogueObj.HasResponses)
+        if (dialogueObj.hasResponses)
         {
             responseHandler.ShowResponses(dialogueObj.Responses);
-            yield return new WaitUntil(() => inputAction.action.triggered);
+            //yield return new WaitUntil(() => inputAction.action.triggered);
         }
         else
         {
@@ -74,16 +74,27 @@ public class DialogueUI : MonoBehaviour
     public void CloseDialogueBox()
     {
         IsOpen = false;
+        Debug.Log("CloseDialogueBox");
         dialogueBox.SetActive(false);
+        Debug.Log("False");
         textLabel.text = string.Empty;
+        Debug.Log("Empty");
     }
     
     public void OnEnable()
     {
-        inputAction.action.Enable();
+        if (inputAction != null)
+        {
+            inputAction.action.Enable();
+        }
+        
     }
     public void OnDisable()
     {
-        inputAction.action.Disable();
+        if (inputAction != null)
+        {
+            inputAction.action.Disable();
+        }
+        
     }
 }

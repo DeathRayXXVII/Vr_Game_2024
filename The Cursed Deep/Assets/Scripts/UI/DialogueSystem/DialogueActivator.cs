@@ -2,43 +2,69 @@ using UnityEngine;
 
 public class DialogueActivator : MonoBehaviour, IInteractable
 {
+    public ID id;
     [SerializeField] private DialogueData dialogueData;
-    public bool requireinput;
+    
+    public void UpdateDialogueObject(DialogueData dialogueData)
+    {
+        this.dialogueData = dialogueData;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        // if (other.TryGetComponent(out IDBehavior idBehavior) && idBehavior.id == id)
+        // {
+        //     if (other.TryGetComponent(out PlayerDialogueActivator player))
+        //     {
+        //         player.interactable = this;
+        //         //player.dialogueUI.ShowDialogue(dialogueData);
+        //     }
+        // }
+        if (other.CompareTag("Player") && other.TryGetComponent(out PlayerDialogueActivator player))
         {   
-            if (!requireinput)
-            {
-                other.GetComponent<DialogueUI>().ShowDialogue(dialogueData);
-            }
+            //player.interactable = this;
+            player.dialogueUI.ShowDialogue(dialogueData);
+            //other.GetComponent<DialogueUI>().ShowDialogue(dialogueData);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        // if (other.TryGetComponent(out IDBehavior idBehavior) && idBehavior.id == id)
+        // {
+        //     if (other.TryGetComponent(out PlayerDialogueActivator player))
+        //     {
+        //         //player.dialogueUI.typewriterEffect.Stop();
+        //         //player.dialogueUI.CloseDialogueBox();
+        //         
+        //     }
+        // }
+        
+        if (other.CompareTag("Player") && other.TryGetComponent(out PlayerDialogueActivator player))
         {
-            if (!requireinput)
+            if (player.interactable is DialogueActivator dialogueActivator && dialogueActivator == this)
             {
-                other.GetComponent<DialogueUI>().typewriterEffect.Stop();
-                other.GetComponent<DialogueUI>().CloseDialogueBox();
+                //player.interactable = null;
+                player.dialogueUI.typewriterEffect.Stop();
+                player.dialogueUI.CloseDialogueBox();
             }
+            //other.GetComponent<DialogueUI>().typewriterEffect.Stop();
+            //other.GetComponent<DialogueUI>().CloseDialogueBox();
         }
     }
 
-    public void Interact(GameObject player)
+    public void Interact(PlayerDialogueActivator player)
     {
         foreach (DialogueResponseEvents responseEvents in GetComponents<DialogueResponseEvents>())
         {
             if (responseEvents.DialogueData == dialogueData)
             {
-                player.GetComponent<DialogueUI>().AddResponseEvents(responseEvents.Events);
+                //player.GetComponent<DialogueUI>().AddResponseEvents(responseEvents.Events);
+                player.dialogueUI.AddResponseEvents(responseEvents.Events);
                 break;
             }
         }
-
-        player.GetComponent<DialogueUI>().ShowDialogue(dialogueData);
+        player.dialogueUI.ShowDialogue(dialogueData);
+        //player.GetComponent<DialogueUI>().ShowDialogue(dialogueData);
     }
 }
