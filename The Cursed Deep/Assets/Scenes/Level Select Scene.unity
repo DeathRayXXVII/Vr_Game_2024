@@ -3983,16 +3983,16 @@ MonoBehaviour:
   onLateInit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1894221301}
-        m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-        m_MethodName: StartWaitForSecondsEvent
-        m_Mode: 5
+      - m_Target: {fileID: 11400000, guid: febedde4d4cd76a4d8fafea30fda3d4b, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: allow vision
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   onGameStart:
@@ -9285,36 +9285,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 835539561}
     m_Modifications:
-    - target: {fileID: 322384675112447493, guid: 532a38bad7825bb4d8b551cd42e76f04,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerExitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 22900518}
-    - target: {fileID: 322384675112447493, guid: 532a38bad7825bb4d8b551cd42e76f04,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 22900518}
-    - target: {fileID: 322384675112447493, guid: 532a38bad7825bb4d8b551cd42e76f04,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1400262316}
-    - target: {fileID: 322384675112447493, guid: 532a38bad7825bb4d8b551cd42e76f04,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 1285655686}
-    - target: {fileID: 322384675112447493, guid: 532a38bad7825bb4d8b551cd42e76f04,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Target
-      value: 
-      objectReference: {fileID: 1283640885}
-    - target: {fileID: 322384675112447493, guid: 532a38bad7825bb4d8b551cd42e76f04,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Target
-      value: 
-      objectReference: {fileID: 393943349}
     - target: {fileID: 622473449870394851, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -9490,36 +9460,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8987946963954151073, guid: 532a38bad7825bb4d8b551cd42e76f04,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerExitEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 22900518}
-    - target: {fileID: 8987946963954151073, guid: 532a38bad7825bb4d8b551cd42e76f04,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 22900518}
-    - target: {fileID: 8987946963954151073, guid: 532a38bad7825bb4d8b551cd42e76f04,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1283640885}
-    - target: {fileID: 8987946963954151073, guid: 532a38bad7825bb4d8b551cd42e76f04,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 1285655686}
-    - target: {fileID: 8987946963954151073, guid: 532a38bad7825bb4d8b551cd42e76f04,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[3].m_Target
-      value: 
-      objectReference: {fileID: 1400262316}
-    - target: {fileID: 8987946963954151073, guid: 532a38bad7825bb4d8b551cd42e76f04,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Target
-      value: 
-      objectReference: {fileID: 393943349}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
