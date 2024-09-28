@@ -12,45 +12,46 @@ public class DialogueActivator : MonoBehaviour, IInteractable
 
     private void OnTriggerEnter(Collider other)
     {
-        // if (other.TryGetComponent(out IDBehavior idBehavior) && idBehavior.id == id)
-        // {
-        //     if (other.TryGetComponent(out PlayerDialogueActivator player))
-        //     {
-        //         player.interactable = this;
-        //         //player.dialogueUI.ShowDialogue(dialogueData);
-        //     }
-        // }
-        if (other.CompareTag("Player") && other.TryGetComponent(out PlayerDialogueActivator player))
-        {   
-            //player.interactable = this;
-            player.dialogueUI.ShowDialogue(dialogueData);
-            //other.GetComponent<DialogueUI>().ShowDialogue(dialogueData);
+        if (other.TryGetComponent(out IDBehavior idBehavior) && idBehavior.id == id)
+        {
+            if (other.TryGetComponent(out PlayerDialogueActivator player))
+            {
+                player.interactable = this;
+                //player.dialogueUI.ShowDialogue(dialogueData);
+            }
         }
+        // if (other.CompareTag("Player") && other.TryGetComponent(out PlayerDialogueActivator player))
+        // {   
+        //     //player.interactable = this;
+        //     //player.dialogueUI.ShowDialogue(dialogueData);
+        //     other.GetComponent<DialogueUI>().ShowDialogue(dialogueData);
+        // }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        // if (other.TryGetComponent(out IDBehavior idBehavior) && idBehavior.id == id)
-        // {
-        //     if (other.TryGetComponent(out PlayerDialogueActivator player))
-        //     {
-        //         //player.dialogueUI.typewriterEffect.Stop();
-        //         //player.dialogueUI.CloseDialogueBox();
-        //         
-        //     }
-        // }
+        if (other.TryGetComponent(out IDBehavior idBehavior) && idBehavior.id == id)
+        {
+            if (other.TryGetComponent(out PlayerDialogueActivator player))
+            {
+                player.dialogueUI.typewriterEffect.Stop();
+                player.dialogueUI.CloseDialogueBox();
+                player.interactable = null;
+            }
+        }
         
-        if (other.CompareTag("Player") && other.TryGetComponent(out PlayerDialogueActivator player))
+        /*if (other.CompareTag("Player") && other.TryGetComponent(out PlayerDialogueActivator player))
         {
             if (player.interactable is DialogueActivator dialogueActivator && dialogueActivator == this)
             {
                 //player.interactable = null;
-                player.dialogueUI.typewriterEffect.Stop();
-                player.dialogueUI.CloseDialogueBox();
+                //player.dialogueUI.typewriterEffect.Stop();
+                //player.dialogueUI.CloseDialogueBox();
+                other.GetComponent<DialogueUI>().typewriterEffect.Stop();
+                other.GetComponent<DialogueUI>().CloseDialogueBox();
             }
-            //other.GetComponent<DialogueUI>().typewriterEffect.Stop();
-            //other.GetComponent<DialogueUI>().CloseDialogueBox();
-        }
+            
+        }*/
     }
 
     public void Interact(PlayerDialogueActivator player)
@@ -59,12 +60,10 @@ public class DialogueActivator : MonoBehaviour, IInteractable
         {
             if (responseEvents.DialogueData == dialogueData)
             {
-                //player.GetComponent<DialogueUI>().AddResponseEvents(responseEvents.Events);
                 player.dialogueUI.AddResponseEvents(responseEvents.Events);
                 break;
             }
         }
         player.dialogueUI.ShowDialogue(dialogueData);
-        //player.GetComponent<DialogueUI>().ShowDialogue(dialogueData);
     }
 }
