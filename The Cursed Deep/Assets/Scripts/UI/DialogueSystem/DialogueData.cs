@@ -7,6 +7,6 @@ public class DialogueData : ScriptableObject
     [SerializeField] private Response[] responses;
     public string[] Dialogue => dialogue;
     
-    public bool hasResponses => responses != null && responses.Length > 0;
+    public bool hasResponses => responses is { Length: > 0 };
     public Response[] Responses => responses;
 }

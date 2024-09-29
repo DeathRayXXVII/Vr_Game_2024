@@ -12,7 +12,7 @@ public class ResponseHandler : MonoBehaviour
    private DialogueUI dialogueUI;
    private ResponseEvent[] responseEvents;
    
-   List<GameObject> tempResponseButtons = new List<GameObject>();
+   public List<GameObject> tempResponseButtons = new List<GameObject>();
    
    private void Start()
    {
@@ -26,6 +26,12 @@ public class ResponseHandler : MonoBehaviour
    
    public void ShowResponses(Response[] responses)
    {
+      foreach (GameObject button in tempResponseButtons)
+      {
+         Destroy(button);
+      }
+      tempResponseButtons.Clear();
+      
       float responseBoxHeight = 0;
       for (int i = 0; i < responses.Length; i++)
       {
@@ -35,8 +41,9 @@ public class ResponseHandler : MonoBehaviour
          GameObject responseButton = Instantiate(responseButtonTemplate.gameObject, responseContainer);
          responseButton.gameObject.SetActive(true);
          responseButton.GetComponent<TMP_Text>().text = response.ResponseText;
+         Debug.Log($"Instantiated response button for: {response.ResponseText}");
          responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response, responseIndex));
-            
+         Debug.Log($"Assigned OnPickedResponse to {responseIndex}");
          tempResponseButtons.Add(responseButton);
 
          responseBoxHeight += responseButtonTemplate.sizeDelta.y;
@@ -44,8 +51,8 @@ public class ResponseHandler : MonoBehaviour
       responseBox.sizeDelta = new Vector2(responseBox.sizeDelta.x, responseBoxHeight);
       responseBox.gameObject.SetActive(true);
    }
-   
-   private void OnPickedResponse(Response response, int responseIndex)
+
+   public void OnPickedResponse(Response response, int responseIndex)
    {
       responseBox.gameObject.SetActive(false);
 
