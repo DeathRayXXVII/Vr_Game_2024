@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: _Level Data
   m_EditorClassIdentifier: 
   currentLevel: {fileID: 11400000, guid: 253fbbad587c441489d1bd9dac20e634, type: 2}
-  currentSpawnValue: {fileID: 11400000, guid: c57d65f6f0779ae41b1453333fa1b604, type: 2}
+  currentSpawnBounty: {fileID: 11400000, guid: c57d65f6f0779ae41b1453333fa1b604, type: 2}
   levels:
-  - spawnsPerLane: 1
+  - spawnCount: 5
+    laneActiveLimit: 0
+    spawnBaseHealth: 0
     spawnValue: 1
-  - spawnsPerLane: 0
-    spawnValue: 0
+  - spawnCount: 10
+    laneActiveLimit: 0
+    spawnBaseHealth: 0
+    spawnValue: 3

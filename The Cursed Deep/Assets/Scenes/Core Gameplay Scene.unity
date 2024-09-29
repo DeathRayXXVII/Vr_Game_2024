@@ -5064,50 +5064,6 @@ Transform:
   - {fileID: 1236312883}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1538981829
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1538981830}
-  - component: {fileID: 1538981831}
-  m_Layer: 0
-  m_Name: Level Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1538981830
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1538981829}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1795409403}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1538981831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1538981829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39229b0fb60359a46b88d0e55c156195, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1560347702
 GameObject:
   m_ObjectHideFlags: 0
@@ -6288,7 +6244,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 930496884}
-  - {fileID: 1538981830}
   - {fileID: 420394453}
   - {fileID: 2091228625}
   - {fileID: 452585655}
@@ -6307,11 +6262,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coreData: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
-  levelData: {fileID: 11400000, guid: 8c7f90ecad54fe641b481d6c9f229ea4, type: 2}
   initializeCannonAction: {fileID: 11400000, guid: b5d27126c640fbe43ba28b96b1826da1,
     type: 2}
   initializeAmmoAction: {fileID: 11400000, guid: 4d97ab5767e300b40a95a227ffd3dbde,
     type: 2}
+  levelCompleteAction: {fileID: 11400000, guid: 7a09a20d6bfc3bb4cb416333ced333c3,
+    type: 2}
+  levelFailedAction: {fileID: 11400000, guid: febea16168d99f7479cd585451046fb9, type: 2}
   onAwake:
     m_PersistentCalls:
       m_Calls:
@@ -6322,7 +6279,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
