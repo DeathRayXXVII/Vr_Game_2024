@@ -12,28 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0916b40533838e3409f3a8accccc3915, type: 3}
   m_Name: _Model Selection Data
   m_EditorClassIdentifier: 
+  gameGlobals: {fileID: 11400000, guid: af65e6507f92cec48bb1892fdb22419b, type: 2}
+  levelData: {fileID: 11400000, guid: 8c7f90ecad54fe641b481d6c9f229ea4, type: 2}
   shipInstancerData: {fileID: 11400000, guid: 2e08ed6f792463941a754099a4740a6d, type: 2}
-  shipMaxHealth: {fileID: 11400000, guid: f3cf570f73c5a2c4fa0b465449b59ad0, type: 2}
-  shipCurrentHealth: {fileID: 11400000, guid: 20e2f0734eb98da48b67bbabed0d3af6, type: 2}
-  ammoRespawnTime: {fileID: 11400000, guid: 524182c2839ad094a82b055e46694aef, type: 2}
-  ammoDamage: {fileID: 11400000, guid: 6ee7b525777ae8b4790eccbdd6a77487, type: 2}
-  enemyMaxHealth: {fileID: 11400000, guid: d32370288a578b5408e2070edb02cb97, type: 2}
   currentShipIndex: 1
   shipSelections:
   - selectionName: Sloop
+    numberOfLanes: 2
+    baseHealth: 3
+    prefab: {fileID: 11400000, guid: 6ad3fc7c4f2476542bf2cd546c35756c, type: 2}
     cannonInstancerData: {fileID: 11400000, guid: b127bcf214d229348a671eb485b731bc,
       type: 2}
     ammoSpawnerData: {fileID: 11400000, guid: fb52ea895bdb6a54b8f5ab0c1a7e2336, type: 2}
     enemySpawnerData: {fileID: 11400000, guid: 28d700cc452ed0d4ebf6c052340ccd4e, type: 2}
-    prefab: {fileID: 11400000, guid: 6ad3fc7c4f2476542bf2cd546c35756c, type: 2}
-    numberOfLanes: 2
   - selectionName: Galleon
+    numberOfLanes: 6
+    baseHealth: 10
+    prefab: {fileID: 11400000, guid: cd4a8931f8381814a89283e02082575e, type: 2}
     cannonInstancerData: {fileID: 11400000, guid: 63d4e0f6d2fe73b4db66c877e3e07707,
       type: 2}
     ammoSpawnerData: {fileID: 11400000, guid: 10649db0b35fff843bc908de984e368b, type: 2}
     enemySpawnerData: {fileID: 11400000, guid: 9996e784309b73740a5ccdb27d741e45, type: 2}
-    prefab: {fileID: 11400000, guid: cd4a8931f8381814a89283e02082575e, type: 2}
-    numberOfLanes: 6
   currentCannonIndex: 1
   cannonSelections:
   - selectionName: Default
