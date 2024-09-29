@@ -19,10 +19,12 @@ public class TypewriterEffect : MonoBehaviour
     
     public void Run(string text, TMP_Text textLabel)
     {
+        
         this.text = text;
         this.textLabel = textLabel;
-
+        
         typingCoroutine = StartCoroutine(TypeText());
+        
     }
     
     public void Stop()
@@ -66,7 +68,6 @@ public class TypewriterEffect : MonoBehaviour
 
             yield return null;
         }
-
         OnTypingCompleted();
     }
     private void OnTypingCompleted()
