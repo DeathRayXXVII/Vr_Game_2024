@@ -16,6 +16,7 @@ public class SceneBehavior : MonoBehaviour
     [Tooltip("Name of the trigger that will be used to transition out of the scene.")]
     [SerializeField] private string transitionOutTrigger = "TransitionOut";
 
+    public void SetAnimator(AnimatorOverrideController animator) => transitionAnimator.runtimeAnimatorController = animator;
     public string transitionInTriggerName { set => transitionInTrigger = value; }
     public string transitionOutTriggerName { set => transitionOutTrigger = value; }
     
@@ -49,21 +50,22 @@ public class SceneBehavior : MonoBehaviour
     
     public void LoadScene(string scene)
     {
-        var sceneIndex = SceneManager.GetSceneByName(scene);
-        if (sceneIndex.IsValid())
+        var sceneIndex = SceneUtility.GetBuildIndexByScenePath(scene);
+        var sceneAt = SceneManager.GetSceneAt(sceneIndex);
+        Debug.Log($"Scene: {sceneAt.name}, Index: {sceneAt.buildIndex}");
+        Debug.Log($"Loading Scene: {scene}, Index: {sceneIndex}");
+        if (sceneIndex >= 0)
         {
-            LoadScene(sceneIndex.buildIndex);
+            LoadScene(sceneIndex);
         }
         else
         {
-            Debug.LogError($"Scene {scene} not found.");
+            Debug.LogError($"Scene: '{scene}' not found.", this);
         }
     }
     
     public void LoadScene(int sceneIndex)
     {
-        if (_loadCoroutine == null) return;
-        
         if (transitionAnimator)
         {
             _loadCoroutine ??= StartCoroutine(LoadSceneWithTransitionAsync(sceneIndex));
@@ -84,7 +86,7 @@ public class SceneBehavior : MonoBehaviour
         var asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
         if (asyncLoad == null)
         {
-            Debug.LogError($"Scene {sceneIndex} not found.");
+            Debug.LogError($"Scene Index: '{sceneIndex}' not found.", this);
             yield break;
         }
         asyncLoad.allowSceneActivation = false;
@@ -103,7 +105,7 @@ public class SceneBehavior : MonoBehaviour
         var asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
         if (asyncLoad == null)
         {
-            Debug.LogError($"Scene {sceneIndex} not found.");
+            Debug.LogError($"Scene Index: '{sceneIndex}' not found.", this);
             yield break;
         }
         asyncLoad.allowSceneActivation = false;
