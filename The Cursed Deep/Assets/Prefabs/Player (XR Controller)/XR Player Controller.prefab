@@ -51,7 +51,7 @@ MonoBehaviour:
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 627950962918354747}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
           m_MethodName: StartWaitForSecondsEvent
           m_Mode: 5
@@ -80,7 +80,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 627950962918354747}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
           m_MethodName: StartWaitForSecondsEvent
           m_Mode: 5
@@ -151,8 +151,9 @@ GameObject:
   - component: {fileID: 4630937463184375570}
   - component: {fileID: 3933576791182957221}
   - component: {fileID: 4909459619635634106}
+  - component: {fileID: 2619321924164098552}
   m_Layer: 5
-  m_Name: Vision Blocker
+  m_Name: Cross Fade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,10 +173,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 7049460933321084296}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2000, y: 1000}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3933576791182957221
 CanvasRenderer:
@@ -215,6 +216,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &2619321924164098552
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659264030406464141}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8649240391875177710
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,7 +241,6 @@ GameObject:
   - component: {fileID: 361548181369131906}
   - component: {fileID: 4582783807162987500}
   - component: {fileID: 3039706558307376582}
-  - component: {fileID: 627950962918354747}
   m_Layer: 5
   m_Name: Vision Canvas
   m_TagString: Untagged
@@ -340,73 +352,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &627950962918354747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8649240391875177710}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endWaitForSeconds:
-  - id: allow vision
-    realTime: 0
-    seconds: 1
-    onWaitFinished:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3039706558307376582}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: SetTrigger
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: BlackToClear
-            m_BoolArgument: 0
-          m_CallState: 2
-  - id: vision to black
-    realTime: 0
-    seconds: 1
-    onWaitFinished:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3039706558307376582}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: SetTrigger
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: ClearToBlack
-            m_BoolArgument: 0
-          m_CallState: 2
-  endWaitForZero: []
-  endWaitForFixedUpdate:
-  - id: vision to blue
-    onWaitFinished:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3039706558307376582}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: SetTrigger
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: ClearToBlue
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1001 &9206322971131032478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -422,9 +367,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5041514052442482704, guid: c26bd7c9455a35849a842b4fa3ef5889,
         type: 3}
-      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 627950962918354747}
+      propertyPath: allowDebug
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6459086314133376178, guid: c26bd7c9455a35849a842b4fa3ef5889,
         type: 3}
       propertyPath: m_LocalPosition.x
