@@ -114,8 +114,8 @@ namespace ShipGame.Inventory
                     return;
                 }
                 
-                // Ternary setter clamps the value between 0 and the length of the enemy array
-                currentEnemyIndex = value < 0 ? 0 : value > enemySelections.Length - 1 ? enemySelections.Length - 1 : value;
+                // Index clamped between 0 and the length of the enemy array
+                currentEnemyIndex = Mathf.Clamp(value, 0, enemySelections.Length - 1);
                 ship.enemySpawnerData.SetPrefabDataList(enemy.prefabVariantList);
             }
         }
