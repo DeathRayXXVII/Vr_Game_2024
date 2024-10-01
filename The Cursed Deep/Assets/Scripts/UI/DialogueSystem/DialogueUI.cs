@@ -8,6 +8,8 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private TMP_Text textLabel;
     [SerializeField] private InputActionReference inputAction;
+    [SerializeField] private float autoAdvancedDelay = 5f;
+    [SerializeField] private bool autoAdvance = false;
     
     public bool IsOpen { get; private set;}
     
@@ -38,15 +40,18 @@ public class DialogueUI : MonoBehaviour
             string dialogue = dialogueObj.Dialogue[i];
             yield return RunTypingEffect(dialogue);
             textLabel.text = dialogue;
-            yield return new WaitUntil(() => inputAction.action.triggered);
-            if (i == dialogueObj.Dialogue.Length - 1) break;
-            //if (i == dialogueObj.Dialogue.Length - 1 && dialogueObj.hasResponses) break;
-            // {
-            //     responseHandler.ShowResponses(dialogueObj.Responses);
-            // }
             
-            //yield return null;
-            //yield return new WaitUntil(() => inputAction.action.triggered);
+            if (i == dialogueObj.Dialogue.Length - 1 && dialogueObj.hasResponses) break;
+            
+            yield return null;
+            if (autoAdvance)
+            {
+                yield return new WaitForSeconds(autoAdvancedDelay);
+            }
+            else
+            {
+                yield return new WaitUntil(() => inputAction.action.triggered);
+            }
         }
 
         if (dialogueObj.hasResponses && dialogueObj.Responses.Length > 0)
@@ -56,7 +61,7 @@ public class DialogueUI : MonoBehaviour
         }
         else
         {
-            //yield return new WaitUntil(() => inputAction.action.triggered);
+            yield return new WaitUntil(() => inputAction.action.triggered);
             CloseDialogueBox();
         }
     }

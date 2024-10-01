@@ -41,9 +41,7 @@ public class ResponseHandler : MonoBehaviour
          GameObject responseButton = Instantiate(responseButtonTemplate.gameObject, responseContainer);
          responseButton.gameObject.SetActive(true);
          responseButton.GetComponent<TMP_Text>().text = response.ResponseText;
-         Debug.Log($"Instantiated response button for: {response.ResponseText}");
          responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response, responseIndex));
-         Debug.Log($"Assigned OnPickedResponse to {responseIndex}");
          tempResponseButtons.Add(responseButton);
 
          responseBoxHeight += responseButtonTemplate.sizeDelta.y;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.74454683, g: 0.78869176, b: 0.9215352, a: 1}
+  m_IndirectSpecularColor: {r: 0.026522351, g: 0.030974383, b: 0.04431117, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -883,7 +883,7 @@ PrefabInstance:
     - target: {fileID: 3906399293454468433, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.576
       objectReference: {fileID: 0}
     - target: {fileID: 3906399293454468433, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -4207,7 +4207,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Option 1
+  m_text: 'Template
 
 '
   m_isRightToLeft: 0
@@ -4703,7 +4703,7 @@ MonoBehaviour:
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1666510484}
+        - m_Target: {fileID: 1129511217}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_MethodName: SetActive
           m_Mode: 6
@@ -4719,6 +4719,19 @@ MonoBehaviour:
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 937754369}
+          m_TargetAssemblyTypeName: DialogueResponseEvents, Assembly-CSharp
+          m_MethodName: UpdateResponseEvents
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: d1cd62b422825ce46b9963b078a21184,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: DialogueData, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
         - m_Target: {fileID: 937754370}
           m_TargetAssemblyTypeName: DialogueActivator, Assembly-CSharp
           m_MethodName: UpdateDialogueObject
@@ -5318,7 +5331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674f2f666a3264b46b86b537aec053d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textSpeed: 50
+  textSpeed: 25
+  text: 
 --- !u!114 &1129511220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5335,6 +5349,8 @@ MonoBehaviour:
   textLabel: {fileID: 1199991965}
   inputAction: {fileID: 428865950568216609, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
+  autoAdvancedDelay: 3
+  autoAdvance: 0
   typewriterEffect: {fileID: 1129511219}
 --- !u!114 &1129511221
 MonoBehaviour:
@@ -5529,11 +5545,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'New Text
+  m_text: 'Text
 
-    New Text
+    Text
 
-    New Text'
+    Text'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7c3d31e7a33a5e649a2a1efd3587e169, type: 2}
   m_sharedMaterial: {fileID: -8542482079860698706, guid: 7c3d31e7a33a5e649a2a1efd3587e169,
@@ -5561,8 +5577,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6576,6 +6592,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397c681876c5c948b9b0d70cbb30eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactAction: {fileID: -7108594476148862318, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
   dialogue: {fileID: 1129511220}
 --- !u!1001 &1565951334
 PrefabInstance:
