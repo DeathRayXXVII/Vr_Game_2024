@@ -8,6 +8,12 @@ public class DialogueResponseEvents : MonoBehaviour
 
     public DialogueData DialogueData => dialogueData;
     public ResponseEvent[] Events => events;
+    
+    public void UpdateResponseEvents(DialogueData dialogueData)
+    {
+        this.dialogueData = dialogueData;
+        OnValidate();
+    }
 
     public void OnValidate()
     {

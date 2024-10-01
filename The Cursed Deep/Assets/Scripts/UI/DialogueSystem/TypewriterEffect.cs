@@ -15,16 +15,16 @@ public class TypewriterEffect : MonoBehaviour
     
     private Coroutine typingCoroutine;
     private TMP_Text textLabel;
-    private string text;
+    public string text;
     
     public void Run(string text, TMP_Text textLabel)
     {
-        
+        if (IsRunning)
+            StopCoroutine(typingCoroutine);
         this.text = text;
         this.textLabel = textLabel;
         
         typingCoroutine = StartCoroutine(TypeText());
-        
     }
     
     public void Stop()
@@ -47,27 +47,26 @@ public class TypewriterEffect : MonoBehaviour
 
         while (charIndex < text.Length)
         {
-            int lastCharIndex = charIndex;
-
             t += Time.deltaTime * textSpeed;
+            int nextCharIndex = Mathf.Clamp(Mathf.FloorToInt(t), 0, text.Length);
 
-            charIndex = Mathf.FloorToInt(t);
-            charIndex = Mathf.Clamp(charIndex, 0, text.Length);
-
-            for (int i = lastCharIndex; i < charIndex; i++)
+            if (nextCharIndex > charIndex)
             {
-                bool isLast = i >= text.Length - 1;
-
-                textLabel.maxVisibleCharacters = i + 1;
-
-                if (IsPunctuation(text[i], out float waitTime) && !isLast && !IsPunctuation(text[i + 1], out _))
+                for (int i = charIndex; i < nextCharIndex; i++)
                 {
-                    yield return new WaitForSeconds(waitTime);
+                    textLabel.maxVisibleCharacters = i + 1;
+
+                    if (IsPunctuation(text[i], out float waitTime) && i < text.Length - 1 && !IsPunctuation(text[i + 1], out _))
+                    {
+                        yield return new WaitForSeconds(waitTime);
+                    }
                 }
+                charIndex = nextCharIndex;
             }
 
             yield return null;
         }
+
         OnTypingCompleted();
     }
     private void OnTypingCompleted()
