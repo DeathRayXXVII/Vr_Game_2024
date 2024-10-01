@@ -6,6 +6,8 @@ namespace ShipGame.Inventory
     public struct CannonSelection
     {
         [SerializeField] private string selectionName;
+        [SerializeField] private int damage;
+        [SerializeField] private int cost;
             
         // Prefab that determines all other data within this selection
         public PrefabData prefab;

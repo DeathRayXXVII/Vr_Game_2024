@@ -11,14 +11,15 @@ namespace ShipGame.ScriptObj
             public int spawnCount;
             public int laneActiveLimit;
             public int spawnBaseHealth;
+            public int spawnBaseDamage;
             public int spawnValue;
+            public int spawnScore;
         }
         
         public IntData currentLevel;
+        public IntData currentSpawnBounty;
 
         public int spawnCount => levels[currentLevel].spawnCount;
-        
-        public IntData currentSpawnBounty;
         public int spawnBounty => levels[currentLevel].spawnValue;
 
         public Level[] levels;

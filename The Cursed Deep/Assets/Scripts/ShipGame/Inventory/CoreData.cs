@@ -13,12 +13,13 @@ namespace ShipGame.Inventory
         [SerializeField] private GameGlobals gameGlobals;
         [SerializeField] private LevelData levelData;
 
-        private int currentLevel
+        public int currentLevel
         {
             get => levelData.currentLevel;
             set => levelData.currentLevel.value = value;
         }
-        private int spawnTotal => levelData.spawnCount * ship.laneCount;
+        public int spawnTotal => levelData.spawnCount * ship.laneCount;
+        
         
         // Instancer that performs the instantiation of the ship
         // all other instancers and spawners are inside the instanced ship making them dependent on this instancer

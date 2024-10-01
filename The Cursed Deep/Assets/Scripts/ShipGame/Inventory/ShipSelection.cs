@@ -10,8 +10,11 @@ namespace ShipGame.Inventory
         // Number of lanes in the ship
         [SerializeField] private int numberOfLanes;
         
-        // Number of lanes in the ship
+        // Base health of the ship
         [SerializeField] private int baseHealth;
+        
+        // Cost of the ship
+        [SerializeField] private int cost;
         
         // Prefab that determines all other data within this selection
         public PrefabData prefab;

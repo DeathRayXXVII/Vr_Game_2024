@@ -5,18 +5,24 @@ namespace ShipGame.ScriptObj
     [CreateAssetMenu(fileName = "GameGlobals", menuName = "Data/ManagerData/GameGlobals")]
     public class GameGlobals : ScriptableObject
     {
-        [Header("Ship Data")] 
-        [SerializeField] private IntData shipMaxHealth;
-        [SerializeField] private IntData shipCurrentHealth;  // Need this to keep track of the ship's health between levels
+        [Header("Game Data:")]
+        [SerializeField] private IntData playerMaxHealth;
+        [SerializeField] private IntData playerHealth;
+        [SerializeField] private IntData playerDamage;
+        [SerializeField] private IntData playerSpeed;
         
-        [Header("Cannon Data")]
+        [Header("Ship Data:")] 
+        [SerializeField] private IntData shipMaxHealth;
+        [SerializeField] private IntData shipHealth;
+        
+        [Header("Cannon Data:")]
         [SerializeField] private IntData cannonDamage;
         
-        [Header("Ammo Data")]
+        [Header("Ammo Data:")]
         [SerializeField] private WeaponData ammoDamage;
         [SerializeField] private FloatData ammoRespawnTime;
 
-        [Header("Enemy Data")]
+        [Header("Enemy Data:")]
         [SerializeField] private IntData enemyHealth;
         [SerializeField] private IntData enemyLaneActiveLimit;
     }
