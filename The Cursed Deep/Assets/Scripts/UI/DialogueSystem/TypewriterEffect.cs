@@ -15,7 +15,7 @@ public class TypewriterEffect : MonoBehaviour
     
     private Coroutine typingCoroutine;
     private TMP_Text textLabel;
-    public string text;
+    private string text;
     
     public void Run(string text, TMP_Text textLabel)
     {
