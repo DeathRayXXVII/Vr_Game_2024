@@ -1268,6 +1268,7 @@ GameObject:
   - component: {fileID: 8003105875257385700}
   - component: {fileID: 3005439204152601145}
   - component: {fileID: 5041514052442482704}
+  - component: {fileID: 3915177695166538124}
   m_Layer: 17
   m_Name: XR Origin (XR Rig)
   m_TagString: Untagged
@@ -1463,6 +1464,36 @@ MonoBehaviour:
     triggerExitEvent:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &3915177695166538124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2351209219464703707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3397c681876c5c948b9b0d70cbb30eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactAction: {fileID: -7108594476148862318, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  dialogue: {fileID: 0}
+  onInteract:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2440671554273326739
 GameObject:
   m_ObjectHideFlags: 0
