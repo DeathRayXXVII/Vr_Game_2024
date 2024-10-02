@@ -23,11 +23,6 @@ namespace ShipGame.Manager
             onLevelInitialized,
             onLevelComplete,
             onLevelFailed;
-        
-        private void SetGameVariables()
-        {
-            coreData.SetGameVariables();
-        }
 
         private void OnValidate()
         {
@@ -37,11 +32,14 @@ namespace ShipGame.Manager
             if (!levelCompleteAction) Debug.LogError("Level Complete Action is missing. One must be provided.", this);
             if (!levelFailedAction) Debug.LogError("Level Failed Action is missing. One must be provided.", this);
         }
+        
+        private void SetGameVariables()
+        {
+            coreData.SetGameVariables();
+        }
 
         private void Awake()
         {
-            
-            
             onAwake.Invoke();
             _shipInstancer = this.AddComponent<ObjectInstancer>();
             _shipInstancer.SetInstancerData(coreData.shipInstancerData);
@@ -83,6 +81,7 @@ namespace ShipGame.Manager
             // Initialize the cannon and ammo only after the ship is done
             StartCoroutine(InitializeCannon());
             StartCoroutine(InitializeAmmo());
+            SetGameVariables();
 
             onLevelInitialized.Invoke();
         }

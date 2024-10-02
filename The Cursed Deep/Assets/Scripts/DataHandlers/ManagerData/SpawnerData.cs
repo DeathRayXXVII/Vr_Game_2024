@@ -7,13 +7,42 @@ using System.Runtime.CompilerServices;
 public class SpawnerData : ScriptableObject
 {
 #if UNITY_EDITOR
-    [SerializeField] private bool allowDebug;
+    [SerializeField] internal bool allowDebug;
 #endif
     
+    [SerializeField] private bool randomizeSpawnRate;
+    public bool usePriority;
     public IntData numToSpawn;
+    [SerializeField] private FloatData spawnRateMin, spawnRateMax;
     public IntData activeCount;
     public IntData globalLaneActiveLimit;
     public PrefabDataList prefabList;
+
+    private float spawnRate => spawnRateMin == spawnRateMax ? spawnRateMin : Random.Range(spawnRateMin, spawnRateMin);
+
+    private readonly List<WaitForSeconds> _spawnRates = new();
+    private WaitForSeconds _waitForSpawnRate;
+
+    internal void SetSpawnRate()
+    {
+        if (!randomizeSpawnRate)
+        {
+            _waitForSpawnRate = _spawnRates.Count > 0 ? _spawnRates[0] : new WaitForSeconds(spawnRate);
+            return;
+        }
+        if (spawnCount < _spawnRates.Count) return;
+        
+        var count = spawnCount - _spawnRates.Count;
+        for (var i = 0; i < count; i++)
+        {
+            _spawnRates.Add(new WaitForSeconds(spawnRate));
+        }
+    }
+    
+    internal WaitForSeconds GetWaitSpawnRate()
+    {
+        return randomizeSpawnRate ? _spawnRates[Random.Range(0, _spawnRates.Count)] : _waitForSpawnRate;
+    }
 
     public int spawnCount
     {

@@ -15,7 +15,6 @@ namespace ShipGame.Inventory
             set => levelData.currentLevel.value = value;
         }
         
-        
         // Instancer that performs the instantiation of the ship
         // all other instancers and spawners are inside the instanced ship making them dependent on this instancer
         public InstancerData shipInstancerData;
@@ -160,9 +159,9 @@ namespace ShipGame.Inventory
             gameGlobals.enemyScore.value = levelData.spawnScore + enemy.score;
             
             Debug.Log(
-                "-----Game Variables Set-----" +
+                "-----Game Variables Set-----\n" +
                 $"Ship Health: {gameGlobals.shipHealth}\n" +
-                $"Ammo Damage: {gameGlobals.ammoDamage}\n\n" +
+                $"Ammo Damage: {gameGlobals.ammoDamage.damage}\n\n" +
                 $"Lane Active Limit: {gameGlobals.enemyLaneActiveLimit}\n" +
                 $"Enemy Spawn Count: {gameGlobals.enemySpawnCount}\n" +
                 $"Enemy Health: {gameGlobals.enemyHealth}\n" +
@@ -171,6 +170,17 @@ namespace ShipGame.Inventory
                 $"Enemy Bounty: {gameGlobals.enemyBounty}\n" +
                 $"Enemy Score: {levelData.spawnScore}\n\n"
             );
+        }
+        
+        public void ResetGameValues()
+        {
+            gameGlobals.ResetToNewGameValues();
+            currentLevel = 0;
+            shipIndex = 0;
+            cannonIndex = 0;
+            ammoIndex = 0;
+            enemyIndex = 0;
+            
         }
     }
 }

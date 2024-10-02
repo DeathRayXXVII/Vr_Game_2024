@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e336f25b0cdb49a46b09e6958c9611af, type: 3}
   m_Name: Spawner Data-Galleon-Enemy
   m_EditorClassIdentifier: 
-  allowDebug: 0
+  allowDebug: 1
+  randomizeSpawnRate: 0
+  usePriority: 0
   numToSpawn: {fileID: 11400000, guid: e979c6ea323cf0345a9d4ac55a9bea78, type: 2}
-  activeCount: {fileID: 11400000, guid: 222e03ce350db2a468720bfbd081486f, type: 2}
+  spawnRateMin: {fileID: 11400000, guid: 46fab052e5fb31e4a8068c894e25e25f, type: 2}
+  spawnRateMax: {fileID: 11400000, guid: 16523b65699d9eb4680d092695f24a1e, type: 2}
+  activeCount: {fileID: 11400000, guid: c398e52bb31ed184e9a3e174a3ec5ac6, type: 2}
   globalLaneActiveLimit: {fileID: 11400000, guid: 91a8aa774c547e6488331bb429fd0e58,
     type: 2}
-  prefabList: {fileID: 11400000, guid: cce5195886a2745459e8b36f9a378e97, type: 2}
+  prefabList: {fileID: 11400000, guid: 67cc5b8a6d9c18c4393e5d51e25bd7c6, type: 2}
   spawners:
   - spawnerID: Left Front Creep Lane
     laneActiveLimitAdjustment: 0
