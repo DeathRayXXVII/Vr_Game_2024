@@ -8,6 +8,7 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     [SerializeField] [InspectorReadOnly] private float currentHealth;
     private float _previousCheckHealth;
     public float maxHealth;
+    [SerializeField] private GameObject floatingText;
 
     public float health
     {
@@ -56,14 +57,25 @@ public class HealthBehavior : MonoBehaviour, IDamagable
 
     public void TakeDamage(float amount)
     {
+        ShowDamage(amount.ToString());
+        Debug.Log(amount);
         if (amount > -1) amount *= -1;
         AddAmountToHealth(amount);
     }
 
     public void TakeDamage(IDamageDealer dealer)
     {
+        ShowDamage(dealer.damage.ToString());
+        Debug.Log(dealer.damage);
         var damage = dealer.damage;
         if (damage > -1) damage *= -1;
         AddAmountToHealth(damage);
+    }
+    
+    private void ShowDamage(string text)
+    {
+        if (floatingText == null) return;
+        var textObj = Instantiate(floatingText, transform.position, Quaternion.identity);
+        textObj.GetComponentInChildren<TextMesh>().text = text;
     }
 }
