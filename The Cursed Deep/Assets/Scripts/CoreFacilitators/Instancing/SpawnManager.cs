@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour, INeedButton
 {
-    private bool _destroying;
+    private bool _destroying, _pooling;
 #if UNITY_EDITOR
     private bool allowDebug => spawnerData.allowDebug;
 #endif
@@ -82,12 +82,12 @@ public class SpawnManager : MonoBehaviour, INeedButton
 #endif
         
         _prefabSet = spawnerData.prefabList;
-
         _poolCreationRoutine ??= StartCoroutine(DelayPoolCreation());
     }
 
     private IEnumerator DelayPoolCreation()
     {
+        _pooling = true;
         yield return _waitLoadBuffer;
         _parentObject.transform.SetParent(transform);
         yield return _wffu;
@@ -120,6 +120,8 @@ public class SpawnManager : MonoBehaviour, INeedButton
                 break;
             }
         }
+        
+        _pooling = false;
     }
 
     private void AddToPool(GameObject obj)
@@ -164,7 +166,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
     {
         if (_spawnRoutine != null) return;
         if (spawnedCount > 0) spawnedCount = 0;
-        StartCoroutine(Spawn(true));
+        _spawnRoutine ??= StartCoroutine(Spawn(true));
     }
     
     public void StopSpawn()
@@ -188,10 +190,12 @@ public class SpawnManager : MonoBehaviour, INeedButton
     private IEnumerator Spawn(bool immediate = false)
     {
         yield return _waitLoadBuffer;
-        var immediateSpawn = immediate;
+        
+        while(_pooling) yield return _waitLoadBuffer;
+        
         while (spawnedCount < spawnCount)
         {
-            var waitTime = immediate ? (YieldInstruction)_wffu : spawnerData.GetWaitSpawnRate();
+            var waitTime = immediate ? (YieldInstruction)_waitLoadBuffer : spawnerData.GetWaitSpawnRate();
             SpawnerData.Spawner spawner = spawnerData.GetInactiveSpawner();
             
 #if UNITY_EDITOR
@@ -285,7 +289,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
     
     public void NotifyPoolObjectDisabled(ref SpawnerData.Spawner spawnerID)
     {
-        if (_destroying) return;
+        if (_destroying || _pooling) return;
         spawnerData.HandleSpawnRemoval(ref spawnerID);
 #if UNITY_EDITOR
         if (allowDebug) Debug.Log($"Notified of Death: passed {spawnerID} as spawnerID\nTotal active: {spawnerData.activeCount}", this);
