@@ -2433,7 +2433,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onButtonPress:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
+        m_TargetAssemblyTypeName: ShipGame.Inventory.CoreData, Assembly-CSharp
+        m_MethodName: SetGameVariables
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &678659649
 Transform:
   m_ObjectHideFlags: 0
@@ -5085,6 +5097,54 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1605362401}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1642789783 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2215665434495562623, guid: 9633f4a35242b454783ef9a0d2324a5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6366127948270241549}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1642789785 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1322428564386322806, guid: 9633f4a35242b454783ef9a0d2324a5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6366127948270241549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642789783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1e8c997df241c1a67045eeac79b41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1642789786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1642789783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56593a6888d7c7f4a923582ba7ab6167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedEvent: 0
+  eventActions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1642789785}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets.DynamicMoveProvider,
+          Assembly-CSharp
+        m_MethodName: SetMovementSpeed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 219a518e95713d84f8ccb8d4e3040b4c,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: FloatData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1714186601
 GameObject:
   m_ObjectHideFlags: 0
@@ -5704,18 +5764,6 @@ MonoBehaviour:
             type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AnimatorOverrideController,
             UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 930496885}
-        m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-        m_MethodName: StartWaitForFixedUpdateEvent
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7009,7 +7057,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2215665434495562623, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1642789786}
   m_SourcePrefab: {fileID: 100100000, guid: 9633f4a35242b454783ef9a0d2324a5f, type: 3}
 --- !u!114 &6366127948270241550 stripped
 MonoBehaviour:

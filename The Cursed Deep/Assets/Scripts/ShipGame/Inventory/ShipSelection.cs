@@ -5,16 +5,16 @@ namespace ShipGame.Inventory
     [System.Serializable]
     public struct ShipSelection
     {
-        [SerializeField] private string selectionName;
+        [SerializeField] private string _name;
         
         // Number of lanes in the ship
         [SerializeField] private int numberOfLanes;
         
         // Base health of the ship
-        [SerializeField] private int baseHealth;
+        [SerializeField] private int _health;
         
         // Cost of the ship
-        [SerializeField] private int cost;
+        [SerializeField] private int _cost;
         
         // Prefab that determines all other data within this selection
         public PrefabData prefab;
@@ -31,7 +31,10 @@ namespace ShipGame.Inventory
         // Requires the enemy selection's prefab list
         public SpawnerData enemySpawnerData;
         
+        public string name => _name;
         public int laneCount => numberOfLanes;
+        public int health => _health;
+        public int cost => _cost;
     }
     
     

@@ -52,7 +52,7 @@ public class PooledObjectBehavior : MonoBehaviour
 
     public void InvalidateDeath()
     {
-        _spawnManager.numToSpawn++;
+        _spawnManager.IncrementSpawnCount();
     }
 
     private void OnDisable()

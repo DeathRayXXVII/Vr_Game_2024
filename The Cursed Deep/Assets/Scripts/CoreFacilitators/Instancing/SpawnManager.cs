@@ -17,9 +17,18 @@ public class SpawnManager : MonoBehaviour, INeedButton
     public bool usePriority, randomizeSpawnRate;
 
     public float spawnDelay = 1.0f, spawnRateMin = 1.0f, spawnRateMax = 1.0f;
-    public int numToSpawn = 10;
+    
     [HideInInspector] public int waitingCount;
 
+    private int spawnCount
+    {
+        get => spawnerData.spawnCount;
+        set => spawnerData.spawnCount = value;
+    }
+    
+    public void IncrementSpawnCount() => spawnCount++;
+    
+    
     private int _poolSize;
 
     private int poolSize
@@ -145,9 +154,9 @@ public class SpawnManager : MonoBehaviour, INeedButton
             _waitForSpawnRate = new WaitForSeconds(spawnRate);
             return;
         }
-        if (numToSpawn < _spawnRates.Count) return;
+        if (spawnCount < _spawnRates.Count) return;
         
-        var count = numToSpawn - _spawnRates.Count;
+        var count = spawnCount - _spawnRates.Count;
         for (var i = 0; i < count; i++)
         {
             _spawnRates.Add(new WaitForSeconds(spawnRate));
@@ -162,14 +171,13 @@ public class SpawnManager : MonoBehaviour, INeedButton
     public void StartSpawn(int amount)
     {
         if (_spawnRoutine != null || waitingCount > 0) return;
-        numToSpawn = (amount > 0) ? amount : numToSpawn;
+        spawnCount = (amount > 0) ? amount : spawnCount;
         StartSpawn();
     }
 
     public void StartSpawn()
     {
         if (_spawnRoutine != null) return;
-        numToSpawn = numToSpawn > 0 ? numToSpawn : 1;
         if (spawnedCount > 0) spawnedCount = 0;
         _delaySpawnRoutine ??= StartCoroutine(DelaySpawn());
     }
@@ -198,13 +206,13 @@ public class SpawnManager : MonoBehaviour, INeedButton
     private IEnumerator Spawn()
     {
         yield return _waitLoadBuffer;
-        while (spawnedCount < numToSpawn)
+        while (spawnedCount < spawnCount)
         {
             var waitTime = GetWaitSpawnRate();
             SpawnerData.Spawner spawner = spawnerData.GetInactiveSpawner();
             if (allowDebug)
             {
-                Debug.Log($"Spawning Info...\nTotal Spawns Currently Active Count: {spawnedCount}\nTotal To Spawn: {numToSpawn}\nNum Left: {numToSpawn-spawnedCount}\nPoolSize: {_poolSize}\nPooledObjects: {_pooledObjects.Count}\nspawners: {spawnerData.spawners.Count}\nspawnRate: {waitTime}");
+                Debug.Log($"Spawning Info...\nTotal Spawns Currently Active Count: {spawnedCount}\nTotal To Spawn: {spawnCount}\nNum Left: {spawnCount-spawnedCount}\nPoolSize: {_poolSize}\nPooledObjects: {_pooledObjects.Count}\nspawners: {spawnerData.spawners.Count}\nspawnRate: {waitTime}");
                 Debug.Log((spawner == null) ? "No Spawners Available" : $"Spawner: {spawner.spawnerID}");
             }
             
@@ -212,7 +220,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
             
             if (spawner == null)
             {
-                waitingCount = numToSpawn - spawnedCount;
+                waitingCount = spawnCount - spawnedCount;
                 spawnedCount = 0;
                 if (allowDebug) Debug.Log($"All Spawners Active... Killing Process, {waitingCount} spawns waiting for next spawn cycle.");
                 yield break;
@@ -282,7 +290,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
         spawnerData.HandleSpawnRemoval(ref spawnerID);
         if (allowDebug) Debug.Log($"Notified of Death: passed {spawnerID} as spawnerID\nTotal active: {spawnerData.activeCount}");
         
-        if (spawnerData.activeCount <= 0 && numToSpawn - spawnedCount <= 0 && waitingCount <= 0)
+        if (spawnerData.activeCount <= 0 && spawnCount - spawnedCount <= 0 && waitingCount <= 0)
         {
             if (allowDebug) Debug.Log($"NOTIFIED: {spawnerID} WAS THE FINAL SPAWN");
             onFinalSpawnDefeated.Invoke();
@@ -307,7 +315,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
 
     public List<(System.Action, string)> GetButtonActions()
     {
-        return new List<(System.Action, string)> { (() => StartSpawn(numToSpawn), "Spawn") };
+        return new List<(System.Action, string)> { (() => StartSpawn(spawnCount), "Spawn") };
     }
 
 }

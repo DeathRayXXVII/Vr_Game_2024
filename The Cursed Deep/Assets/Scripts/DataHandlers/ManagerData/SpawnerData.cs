@@ -6,11 +6,31 @@ using System.Runtime.CompilerServices;
 [CreateAssetMenu (fileName = "SpawnerData", menuName = "Data/ManagerData/SpawnerData")]
 public class SpawnerData : ScriptableObject
 {
+#if UNITY_EDITOR
     [SerializeField] private bool allowDebug;
+#endif
     
+    public IntData numToSpawn;
     public IntData activeCount;
     public IntData globalLaneActiveLimit;
     public PrefabDataList prefabList;
+
+    public int spawnCount
+    {
+        get
+        {
+            if (!numToSpawn)
+            {
+#if UNITY_EDITOR
+                Debug.Log($"numToSpawn is null on {name}. Creating new IntData with value {spawners.Count}.", this);
+#endif
+                numToSpawn = CreateInstance<IntData>();
+                numToSpawn.value = spawners.Count;
+            }
+            return numToSpawn.value;
+        }
+        set => numToSpawn.value = value;
+    }
 
     [System.Serializable]
     public class Spawner
@@ -32,10 +52,11 @@ public class SpawnerData : ScriptableObject
 
     private void Awake()
     {
-        if (activeCount == null) Debug.LogError("Missing IntData for activeCount on SpawnerData" + name);
-        if (prefabList == null) Debug.LogError("Missing PrefabDataList for prefabList on SpawnerData" + name);
+#if UNITY_EDITOR
+        if (!activeCount) Debug.LogError("Missing IntData for activeCount on SpawnerData" + name, this);
+        if (!prefabList) Debug.LogError("Missing PrefabDataList for prefabList on SpawnerData" + name, this);
+#endif
     }
-
     public void ResetSpawnerData()
     {
         activeCount.value = 0;
@@ -57,7 +78,9 @@ public class SpawnerData : ScriptableObject
 
     internal Spawner GetInactiveSpawner()
     {
-        if (allowDebug) Debug.Log($"Checking for available spawners.\nPotential Spawners: {spawners.Count}");
+#if UNITY_EDITOR
+        if (allowDebug) Debug.Log($"Checking for available spawners.\nPotential Spawners: {spawners.Count}", this);
+#endif
         if (spawners.Count <= 0) return null;
         _availableSpawners.Clear();
         
@@ -68,17 +91,25 @@ public class SpawnerData : ScriptableObject
             {
                 _availableSpawners.Add(spawner);
             }
-            if (allowDebug) Debug.Log($"Spawner: {spawner.spawnerID} has {currentSpawnerActiveCount} active.");
+#if UNITY_EDITOR
+            if (allowDebug) Debug.Log($"Spawner: {spawner.spawnerID} has {currentSpawnerActiveCount} active.", this);
+#endif
         }
-        if (allowDebug) Debug.Log($"Found {_availableSpawners.Count} Available Spawners.");
+#if UNITY_EDITOR
+        if (allowDebug) Debug.Log($"Found {_availableSpawners.Count} Available Spawners.", this);
+#endif
         var output = (_availableSpawners.Count == 0) ? null: _availableSpawners[Random.Range(0, _availableSpawners.Count)];
-        if (allowDebug) Debug.Log($"Selected Spawner: {output?.spawnerID}.");
+#if UNITY_EDITOR
+        if (allowDebug) Debug.Log($"Selected Spawner: {output?.spawnerID}.", this);
+#endif
         return output;
     }
     
     public void HandleSpawnRemoval(ref Spawner spawnerID)
     {
+#if UNITY_EDITOR
         if (allowDebug) Debug.Log($"Handling removal of spawn from {spawnerID.spawnerID}.");
+#endif
         foreach (var spawner in spawners)
         {
             if (spawner != spawnerID) continue;

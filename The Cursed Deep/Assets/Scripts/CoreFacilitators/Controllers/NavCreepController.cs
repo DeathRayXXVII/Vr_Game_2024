@@ -24,13 +24,13 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
     private IEnumerator Setup()
     {
         var attempts = 0;
-        while (_agentBehavior == null && attempts < 5)
+        while (!_agentBehavior && attempts < 5)
         {
             _agentBehavior = GetComponent<NavAgentBehavior>();
             attempts++;
             yield return _wffu;
         }
-        if (_agentBehavior == null) { Debug.LogError("NavAgentBehavior not found in " + name); yield break; }
+        if (!_agentBehavior) { Debug.LogError("NavAgentBehavior not found in " + name); yield break; }
         _agentBehavior.SetSpeed(creepData.speed);
         _agentBehavior.SetRadius(creepData.radius);
         _agentBehavior.SetHeight(creepData.height);

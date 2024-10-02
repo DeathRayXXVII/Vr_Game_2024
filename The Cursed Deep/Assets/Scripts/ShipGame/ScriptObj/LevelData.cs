@@ -6,7 +6,7 @@ namespace ShipGame.ScriptObj
     public class LevelData : ScriptableObject
     {
         [System.Serializable]
-        public struct Level
+        private struct Level
         {
             public int spawnCount;
             public int laneActiveLimit;
@@ -20,9 +20,13 @@ namespace ShipGame.ScriptObj
         public IntData currentSpawnBounty;
 
         public int spawnCount => levels[currentLevel].spawnCount;
+        public int laneActiveLimit => levels[currentLevel].laneActiveLimit;
+        public int spawnBaseHealth => levels[currentLevel].spawnBaseHealth;
+        public int spawnBaseDamage => levels[currentLevel].spawnBaseDamage;
         public int spawnBounty => levels[currentLevel].spawnValue;
+        public int spawnScore => levels[currentLevel].spawnScore;
 
-        public Level[] levels;
+        [SerializeField] private Level[] levels;
 
         private void OnValidate()
         {

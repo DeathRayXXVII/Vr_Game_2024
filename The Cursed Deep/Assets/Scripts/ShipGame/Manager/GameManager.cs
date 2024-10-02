@@ -23,6 +23,11 @@ namespace ShipGame.Manager
             onLevelInitialized,
             onLevelComplete,
             onLevelFailed;
+        
+        private void SetGameVariables()
+        {
+            coreData.SetGameVariables();
+        }
 
         private void OnValidate()
         {
@@ -31,6 +36,15 @@ namespace ShipGame.Manager
             if (!initializeAmmoAction) Debug.LogError("Initialize Ammo Action is missing. One must be provided.", this);
             if (!levelCompleteAction) Debug.LogError("Level Complete Action is missing. One must be provided.", this);
             if (!levelFailedAction) Debug.LogError("Level Failed Action is missing. One must be provided.", this);
+        }
+
+        private void Awake()
+        {
+            
+            
+            onAwake.Invoke();
+            _shipInstancer = this.AddComponent<ObjectInstancer>();
+            _shipInstancer.SetInstancerData(coreData.shipInstancerData);
         }
         
         private void OnEnable()
@@ -43,13 +57,6 @@ namespace ShipGame.Manager
         {
             levelCompleteAction.Raise -= LevelComplete;
             levelFailedAction.Raise -= LevelFailed;
-        }
-
-        private void Awake()
-        {
-            onAwake.Invoke();
-            _shipInstancer = this.AddComponent<ObjectInstancer>();
-            _shipInstancer.SetInstancerData(coreData.shipInstancerData);
         }
 
         private void Start()
@@ -106,6 +113,7 @@ namespace ShipGame.Manager
 
         private void LevelFailed(GameAction action)
         {
+            coreData.LevelFailed();
             onLevelFailed.Invoke();
         }
     }
