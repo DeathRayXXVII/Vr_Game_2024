@@ -24,13 +24,13 @@ public class FloatData : ScriptableObject
         objectValue = (zeroOnEnable) ? 0 : objectValue;
     }
 
-    public void SetValue(int num) { objectValue = num; }
+    public void Set(float num) => objectValue = num;
+
+    public void IncrementValue() => ++objectValue;
     
-    public void IncrementValue() { ++objectValue; }
+    public void DecrementValue() => --objectValue;
     
-    public void DecrementValue() { --objectValue; }
-    
-    public void UpdateValue(int num) { objectValue += num; }
+    public void AdjustValue(int num) => objectValue += num;
 
     public float GetSavedValue()
     {

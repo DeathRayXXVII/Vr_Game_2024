@@ -1,7 +1,3 @@
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-
 using ShipGame.ScriptObj;
 using UnityEngine;
 
@@ -18,7 +14,6 @@ namespace ShipGame.Inventory
             get => levelData.currentLevel;
             set => levelData.currentLevel.value = value;
         }
-        public int spawnTotal => levelData.spawnCount * ship.laneCount;
         
         
         // Instancer that performs the instantiation of the ship
@@ -130,19 +125,52 @@ namespace ShipGame.Inventory
             if (!gameGlobals) Debug.LogError("Game Globals is null. Please assign a value.", this);
             if (!levelData) Debug.LogError("Level Data is null. Please assign a value.", this);
         }
-
-        public void Reset()
-        {
-            shipIndex = 0;
-            cannonIndex = 0;
-            ammoIndex = 0;
-            enemyIndex = 0;
-        }
         
         public void LevelCompleted()
         {
             // Increment the current level
             currentLevel++;
+        }
+        
+        public void LevelFailed()
+        {
+            // Reset the current level
+            currentLevel = 0;
+        }
+        
+        private void RandomizeEnemySelection()
+        {
+            // Randomize the enemy selection
+            currentEnemyIndex = Random.Range(0, enemySelections.Length);
+        }
+        
+        public void SetGameVariables()
+        {
+            RandomizeEnemySelection();
+            
+            gameGlobals.shipHealth.value = ship.health + gameGlobals.upgradeHealthLevel;
+            gameGlobals.ammoDamage.damage = cannon.damage + ammo.damage;
+            
+            gameGlobals.enemyLaneActiveLimit.value = levelData.laneActiveLimit;
+            gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.laneCount;
+            gameGlobals.enemyHealth.value = levelData.spawnBaseHealth + enemy.health;
+            gameGlobals.enemyDamage.value = levelData.spawnBaseDamage + enemy.damage;
+            gameGlobals.enemySpeed.value = enemy.speed;
+            gameGlobals.enemyBounty.value = levelData.spawnBounty + enemy.bounty;
+            gameGlobals.enemyScore.value = levelData.spawnScore + enemy.score;
+            
+            Debug.Log(
+                "-----Game Variables Set-----" +
+                $"Ship Health: {gameGlobals.shipHealth}\n" +
+                $"Ammo Damage: {gameGlobals.ammoDamage}\n\n" +
+                $"Lane Active Limit: {gameGlobals.enemyLaneActiveLimit}\n" +
+                $"Enemy Spawn Count: {gameGlobals.enemySpawnCount}\n" +
+                $"Enemy Health: {gameGlobals.enemyHealth}\n" +
+                $"Enemy Damage: {gameGlobals.enemyDamage}\n" +
+                $"Enemy Speed: {gameGlobals.enemySpeed}\n" +
+                $"Enemy Bounty: {gameGlobals.enemyBounty}\n" +
+                $"Enemy Score: {levelData.spawnScore}\n\n"
+            );
         }
     }
 }

@@ -23,7 +23,7 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
     private void OnCollisionEnter(Collision other)
     {
         var damagableObj = other.gameObject.GetComponent<IDamagable>();
-        if (damagableObj != null) { DealDamage(damagableObj); }
+        if (damagableObj != null) DealDamage(damagableObj);
     }
 
     public void TakeDamage(float amount)

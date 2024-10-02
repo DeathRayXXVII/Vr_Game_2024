@@ -24,13 +24,13 @@ public class IntData : ScriptableObject
         value = (zeroOnEnable) ? 0 : value;
     }
 
-    public void Set(int num) { value = num; }
+    public void Set(int num) => value = num;
     
-    public void Increment() { ++value; }
+    public void Increment() => ++value;
     
-    public void Decrement() { --value; }
+    public void Decrement() => --value;
     
-    public void UpdateValue(int num) { value += num; }
+    public void AdjustValue(int num) => value += num;
 
     public int GetSavedValue()
     {
@@ -43,6 +43,11 @@ public class IntData : ScriptableObject
     {
         PlayerPrefs.SetInt(_saveKey, value);
         PlayerPrefs.Save();
+    }
+    
+    public override string ToString()
+    {
+        return base.ToString() + ": " + value;
     }
     
     public static implicit operator int(IntData data)
