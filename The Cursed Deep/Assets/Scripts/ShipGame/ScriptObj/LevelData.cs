@@ -9,6 +9,7 @@ namespace ShipGame.ScriptObj
         private struct Level
         {
             public int spawnCount;
+            public float spawnRateMin, spawnRateMax;
             public int laneActiveLimit;
             public int spawnBaseHealth;
             public int spawnBaseDamage;

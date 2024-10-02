@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 928590206356770032}
   - component: {fileID: 258294720298365452}
-  - component: {fileID: 8674867502235740558}
   m_Layer: 0
   m_Name: Firing & Spawn Lanes
   m_TagString: Untagged
@@ -50,48 +49,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instancerData: {fileID: 11400000, guid: 63d4e0f6d2fe73b4db66c877e3e07707, type: 2}
   groupName: Cannons
---- !u!114 &8674867502235740558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 162536762571314890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3edc9008b6944d4aa28a67b31d284e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allowDebug: 0
-  onSpawn:
-    m_PersistentCalls:
-      m_Calls: []
-  onSpawningComplete:
-    m_PersistentCalls:
-      m_Calls: []
-  onFinalSpawnDefeated:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 7a09a20d6bfc3bb4cb416333ced333c3, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  spawnerData: {fileID: 11400000, guid: 10649db0b35fff843bc908de984e368b, type: 2}
-  usePriority: 0
-  randomizeSpawnRate: 0
-  spawnDelay: 0.1
-  spawnRateMin: 0.01
-  spawnRateMax: 0.01
-  numToSpawn: 6
-  waitingCount: 0
 --- !u!1 &368216457425220112
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +655,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3edc9008b6944d4aa28a67b31d284e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowDebug: 0
   onSpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -709,12 +665,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   spawnerData: {fileID: 11400000, guid: 10649db0b35fff843bc908de984e368b, type: 2}
-  usePriority: 0
-  randomizeSpawnRate: 0
-  spawnDelay: 0.1
-  spawnRateMin: 0.01
-  spawnRateMax: 0.01
-  numToSpawn: 6
   waitingCount: 0
 --- !u!1 &3343833173984464834
 GameObject:
@@ -792,7 +742,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 5941406311919339473}
           m_TargetAssemblyTypeName: SpawnManager, Assembly-CSharp
-          m_MethodName: StartSpawn
+          m_MethodName: ImmediateSpawn
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2490,7 +2440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3edc9008b6944d4aa28a67b31d284e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowDebug: 1
   onSpawn:
     m_PersistentCalls:
       m_Calls: []
@@ -2513,12 +2462,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   spawnerData: {fileID: 11400000, guid: 9996e784309b73740a5ccdb27d741e45, type: 2}
-  usePriority: 0
-  randomizeSpawnRate: 0
-  spawnDelay: 1
-  spawnRateMin: 3
-  spawnRateMax: 3
-  numToSpawn: 6
   waitingCount: 0
 --- !u!1 &6576168905850975509
 GameObject:
@@ -10026,103 +9969,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2949171475030135159}
     m_Modifications:
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 11400000, guid: 64d2a065675ec06459afe88e7946aa47,
-        type: 2}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 8445071307831689357}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 11400000, guid: 49e3e49d7194d9144be6cf8c7ddbeaff,
-        type: 2}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnDebug
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: StartWaitForSecondsEvent
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: RaiseAction
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Debugger, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: WaitBehavior, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: WaitBehavior, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Bait Set
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
-      value: despawn
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4737570587315217991, guid: e726f60490f13374bb20d1f09ebcf0e2,
-        type: 3}
-      propertyPath: triggerEnterMatches.Array.data[0].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 5946484324314291361, guid: e726f60490f13374bb20d1f09ebcf0e2,
         type: 3}
       propertyPath: endWaitForSeconds.Array.data[1].onWaitFinished.m_PersistentCalls.m_Calls.Array.size
