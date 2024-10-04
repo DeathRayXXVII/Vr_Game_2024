@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17431025, g: 0.21799237, b: 0.30021393, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 6e8c7295f085296458245aaa91b4cb41,
+  m_LightingSettings: {fileID: 4890085278179872738, guid: c91d89e6825b0334eaff671aab9fb05a,
     type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -996,13 +996,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 551047908}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.12925564, y: -0.6631639, z: 0.73524547, w: 0.054044742}
+  m_LocalRotation: {x: -0.72711897, y: -0.21005255, z: 0.1690885, w: 0.6313359}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 73.988, y: 288.388, z: -245.455}
+  m_LocalEulerAnglesHint: {x: -57.895, y: 254.095, z: -257.549}
 --- !u!114 &551047911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1947,10 +1947,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.8915094, g: 1, b: 0.9753257, a: 1}
-  m_Intensity: 8.5
+  m_Intensity: 7.57
   m_Range: 2.889784
-  m_SpotAngle: 122.08805
-  m_InnerSpotAngle: 110.07231
+  m_SpotAngle: 117.821815
+  m_InnerSpotAngle: 115.65174
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -1992,7 +1992,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 9.0916e-41, y: -4.1097192e-38, z: 8.95e-43, w: 1.08539e-40}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -2005,13 +2005,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139329519}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.70531344, y: -0.004323402, z: 0.007149947, w: 0.70884645}
   m_LocalPosition: {x: -9.414, y: 6.362, z: 5.438}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 89.635, y: 38.196, z: 39.126}
 --- !u!1001 &1218826989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2438,15 +2438,30 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: -5651739432489272203, guid: 1b6df68fd1ccc6445afdcee2f92c3567,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -3031199474028257152, guid: 1b6df68fd1ccc6445afdcee2f92c3567,
+        type: 3}
+      propertyPath: m_Layer
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: -3031199474028257152, guid: 1b6df68fd1ccc6445afdcee2f92c3567,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1456838641453030215, guid: 1b6df68fd1ccc6445afdcee2f92c3567,
         type: 3}
       propertyPath: m_Layer
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: -1456838641453030215, guid: 1b6df68fd1ccc6445afdcee2f92c3567,
         type: 3}
-      propertyPath: m_Layer
-      value: 20
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1b6df68fd1ccc6445afdcee2f92c3567,
         type: 3}
@@ -2709,7 +2724,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.9198113, g: 0.9928048, b: 1, a: 1}
-  m_Intensity: 8.5
+  m_Intensity: 5.82
   m_Range: 4.8744626
   m_SpotAngle: 179
   m_InnerSpotAngle: 111.16919
