@@ -9,6 +9,7 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     private float _previousCheckHealth;
     [SerializeField] private FloatData _maxHealth;
     [SerializeField] private GameObject floatingText;
+    [SerializeField] private GameObject textPivot;
 
     public float health { get => currentHealth; set => currentHealth = value; }
 
@@ -77,8 +78,11 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     
     private void ShowDamage(string text)
     {
-        if (!floatingText) return;
-        var textObj = Instantiate(floatingText, transform.position, Quaternion.identity);
+        if (floatingText == null) return;
+        var textObj = Instantiate(floatingText, textPivot.transform.position, Quaternion.identity);
+        string[] states = {"DamageTextVariant1", "DamageTextVariant2", "DamageTextVariant3", "DamageTextVariant4"};
+        var randomState = states[Random.Range(0, states.Length)];
+        floatingText.GetComponent<Animator>().Play(randomState); 
         textObj.GetComponentInChildren<TextMesh>().text = text;
     }
 }
