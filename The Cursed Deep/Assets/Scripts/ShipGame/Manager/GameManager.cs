@@ -32,11 +32,6 @@ namespace ShipGame.Manager
             if (!levelCompleteAction) Debug.LogError("Level Complete Action is missing. One must be provided.", this);
             if (!levelFailedAction) Debug.LogError("Level Failed Action is missing. One must be provided.", this);
         }
-        
-        private void SetGameVariables()
-        {
-            coreData.SetGameVariables();
-        }
 
         private void Awake()
         {
@@ -81,7 +76,7 @@ namespace ShipGame.Manager
             // Initialize the cannon and ammo only after the ship is done
             StartCoroutine(InitializeCannon());
             StartCoroutine(InitializeAmmo());
-            SetGameVariables();
+            coreData.SetGameVariables();
 
             onLevelInitialized.Invoke();
         }

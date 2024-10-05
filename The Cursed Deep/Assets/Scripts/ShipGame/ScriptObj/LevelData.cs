@@ -18,9 +18,10 @@ namespace ShipGame.ScriptObj
         }
         
         public IntData currentLevel;
-        public IntData currentSpawnBounty;
 
         public int spawnCount => levels[currentLevel].spawnCount;
+        public float spawnRateMin => levels[currentLevel].spawnRateMin;
+        public float spawnRateMax => levels[currentLevel].spawnRateMax;
         public int laneActiveLimit => levels[currentLevel].laneActiveLimit;
         public int spawnBaseHealth => levels[currentLevel].spawnBaseHealth;
         public int spawnBaseDamage => levels[currentLevel].spawnBaseDamage;
@@ -31,8 +32,9 @@ namespace ShipGame.ScriptObj
 
         private void OnValidate()
         {
+#if UNITY_EDITOR
             if (!currentLevel) Debug.LogError("Current Level is null. Please assign a value.", this);
-            if (!currentSpawnBounty) Debug.LogError("Current Spawn Value is null. Please assign a value.", this);
+#endif
         }
     }
 }

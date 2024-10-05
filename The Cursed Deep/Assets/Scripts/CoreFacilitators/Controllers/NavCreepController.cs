@@ -30,13 +30,20 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
             attempts++;
             yield return _wffu;
         }
-        if (!_agentBehavior) { Debug.LogError("NavAgentBehavior not found in " + name); yield break; }
-        _agentBehavior.SetSpeed(creepData.speed);
-        _agentBehavior.SetRadius(creepData.radius);
-        _agentBehavior.SetHeight(creepData.height);
+        
+        if (_agentBehavior)
+        {
+            _agentBehavior.SetSpeed(creepData.speed);
+            _agentBehavior.SetRadius(creepData.radius);
+            _agentBehavior.SetHeight(creepData.height);
+        } else {
+#if UNITY_EDITOR
+            Debug.LogError("NavAgentBehavior not found in " + name, this);
+#endif
+        }
+        
         _health.maxHealth = creepData.health;
         _health.health = creepData.health;
-        
     }
     
     public void StopMovement()
@@ -46,20 +53,20 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
 
     private void OnCollisionEnter(Collision other)
     {
-        var damagable = other.gameObject.GetComponent<IDamagable>();
-        if (damagable != null) { DealDamage(damagable); }
+        var damageable = other.gameObject.GetComponent<IDamagable>();
+        if (damageable != null) { DealDamage(damageable); }
     }
 
     public float damage
     {
         get => creepData.damage;
-        set => creepData.damage = value;
+        set => creepData.damage = (int) value;
     }
 
     public float health
     {
         get => creepData.health;
-        set => creepData.health = value;
+        set => creepData.health = (int) value;
     }
 
     public void DealDamage(IDamagable target, float amount)

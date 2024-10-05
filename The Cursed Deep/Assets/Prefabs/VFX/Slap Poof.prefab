@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7396123584988645046}
   - component: {fileID: 1188087488389731248}
   - component: {fileID: 7464545995264608762}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: Hit Smoke Poof_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4897,9 +4897,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7552106795475554998}
-  - component: {fileID: 6471296442969888309}
-  - component: {fileID: 3818344990271120574}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: Slap Poof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4914,7 +4912,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6664366139156186050}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4923,70 +4921,6 @@ Transform:
   - {fileID: 5989582155654125244}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &6471296442969888309
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6664366139156186050}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 5, z: 1}
-  m_Center: {x: 0, y: 2.5, z: 0}
---- !u!114 &3818344990271120574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6664366139156186050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 084cda31011b9ca4a806fa24ee9735db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: {fileID: 11400000, guid: 4724255d870a26b45b28cb37a595fa4b, type: 2}
-  debug: 0
-  triggerEnterMatches:
-  - id: {fileID: 11400000, guid: 9f5ff81a699609342b5b360edd1a0b78, type: 2}
-    triggerEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1188087488389731248}
-          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-          m_MethodName: Play
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 3094684578268362660}
-          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-          m_MethodName: Play
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &6826899902933290750
 GameObject:
   m_ObjectHideFlags: 0
@@ -4998,7 +4932,7 @@ GameObject:
   - component: {fileID: 5989582155654125244}
   - component: {fileID: 3094684578268362660}
   - component: {fileID: 7642375811235117572}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: Hit Smoke Poof_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}

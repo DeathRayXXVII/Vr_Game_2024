@@ -7,17 +7,20 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     
     [SerializeField] [InspectorReadOnly] private float currentHealth;
     private float _previousCheckHealth;
-    public float maxHealth;
+    [SerializeField] private FloatData _maxHealth;
     [SerializeField] private GameObject floatingText;
 
-    public float health
+    public float health { get => currentHealth; set => currentHealth = value; }
+
+    public float maxHealth
     {
-        get => currentHealth;
-        set => currentHealth = value;
+        get => _maxHealth;
+        set => _maxHealth.value = value;
     }
 
     private void Start()
     {
+        if (!_maxHealth) _maxHealth = ScriptableObject.CreateInstance<FloatData>();
         if (maxHealth <= 0) maxHealth = 1;
         health = maxHealth;
     }
@@ -74,7 +77,7 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     
     private void ShowDamage(string text)
     {
-        if (floatingText == null) return;
+        if (!floatingText) return;
         var textObj = Instantiate(floatingText, transform.position, Quaternion.identity);
         textObj.GetComponentInChildren<TextMesh>().text = text;
     }

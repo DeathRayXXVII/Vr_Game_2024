@@ -6,8 +6,21 @@ namespace ShipGame.ScriptObj
     public class GameGlobals : ScriptableObject
     {
         [Header("Game Data:")]
-        [SerializeField] private FloatData playerSpeed;
-        [SerializeField] private IntData playerScore;
+        public FloatData playerSpeed;
+        public IntData playerScore;
+        
+        [Header("Ship Data:")] 
+        public IntData shipHealth;
+        
+        [Header("Ammo Data:")]
+        public WeaponData ammoDamage;
+        public FloatData ammoRespawnTime;
+
+        [Header("Enemy Data:")]
+        public IntData enemySpawnCount;
+        public IntData enemyLaneActiveLimit;
+        public FloatData spawnRateMin;
+        public FloatData spawnRateMax;
         
         [Header("Upgrade Data:")]
         public IntData upgradeHealthLevel;
@@ -16,30 +29,14 @@ namespace ShipGame.ScriptObj
         public IntData upgradeAmmoDamageLevel;
         public IntData upgradeAmmoRespawnTimeLevel;
         
-        [Header("Ship Data:")] 
-        public IntData shipHealth;
-        
-        [Header("Ammo Data:")]
-        public WeaponData ammoDamage;
-        [SerializeField] private FloatData ammoRespawnTime;
-
-        [Header("Enemy Data:")]
-        public IntData enemySpawnCount;
-        public IntData enemyLaneActiveLimit;
-        public IntData enemyHealth;
-        public IntData enemyDamage;
-        public IntData enemySpeed;
-        public IntData enemyBounty;
-        public IntData enemyScore;
-        
         // All missing new game values not included below are handled elsewhere 
         [Header("New Game Values:")]
-        [SerializeField] private int _speed;
+        [SerializeField] private int _playerSpeed;
         [SerializeField] private float _ammoRespawnTime;
         
         public void ResetToNewGameValues()
         {
-            playerSpeed.Set(_speed);
+            playerSpeed.Set(_playerSpeed);
             playerScore.Set(0);
             ammoRespawnTime.Set(_ammoRespawnTime);
             
@@ -48,7 +45,6 @@ namespace ShipGame.ScriptObj
             upgradeCannonDamageLevel.Set(0);
             upgradeAmmoDamageLevel.Set(0);
             upgradeAmmoRespawnTimeLevel.Set(0);
-            
         }
     }
 }
