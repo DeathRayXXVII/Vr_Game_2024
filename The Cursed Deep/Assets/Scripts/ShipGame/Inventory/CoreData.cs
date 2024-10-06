@@ -9,7 +9,7 @@ namespace ShipGame.Inventory
         [SerializeField] private GameGlobals gameGlobals;
         [SerializeField] private LevelData levelData;
 
-        public int currentLevel
+        private int currentLevel
         {
             get => levelData.currentLevel;
             set => levelData.currentLevel.value = value;
@@ -44,7 +44,9 @@ namespace ShipGame.Inventory
             {
                 if (shipSelections == null || shipSelections.Length == 0)
                 {
+#if UNITY_EDITOR
                     Debug.LogError("shipSelections is not initialized or is empty.", this);
+#endif
                     return;
                 }
                 
@@ -66,7 +68,9 @@ namespace ShipGame.Inventory
             {
                 if (cannonSelections == null || cannonSelections.Length == 0)
                 {
+#if UNITY_EDITOR
                     Debug.LogError("cannonSelections is not initialized or is empty.", this);
+#endif
                     return;
                 }
                 
@@ -86,7 +90,9 @@ namespace ShipGame.Inventory
             {
                 if (ammoSelections == null || ammoSelections.Length == 0)
                 {
+#if UNITY_EDITOR
                     Debug.LogError("ammoSelections is not initialized or is empty.", this);
+#endif
                     return;
                 }
                 
@@ -105,7 +111,9 @@ namespace ShipGame.Inventory
             {
                 if (enemySelections == null || enemySelections.Length == 0)
                 {
+#if UNITY_EDITOR
                     Debug.LogError("enemySelections is not initialized or is empty.", this);
+#endif
                     return;
                 }
                 
@@ -120,28 +128,27 @@ namespace ShipGame.Inventory
 
         private void OnValidate()
         {
+#if UNITY_EDITOR
             if (!shipInstancerData) Debug.LogError("Ship Instancer Data is null. Please assign a value.", this);
             if (!gameGlobals) Debug.LogError("Game Globals is null. Please assign a value.", this);
             if (!levelData) Debug.LogError("Level Data is null. Please assign a value.", this);
+#endif
         }
         
-        public void LevelCompleted()
+        public void LevelCompleted() => currentLevel++;
+        public void LevelFailed() => ResetGameValues();
+
+        private void ResetGameValues()
         {
-            // Increment the current level
-            currentLevel++;
-        }
-        
-        public void LevelFailed()
-        {
-            // Reset the current level
+            gameGlobals.ResetToNewGameValues();
             currentLevel = 0;
+            shipIndex = 0;
+            cannonIndex = 0;
+            ammoIndex = 0;
+            enemyIndex = 0;
         }
         
-        private void RandomizeEnemySelection()
-        {
-            // Randomize the enemy selection
-            currentEnemyIndex = Random.Range(0, enemySelections.Length);
-        }
+        private void RandomizeEnemySelection() => currentEnemyIndex = Random.Range(0, enemySelections.Length);
         
         public void SetGameVariables()
         {
@@ -152,35 +159,43 @@ namespace ShipGame.Inventory
             
             gameGlobals.enemyLaneActiveLimit.value = levelData.laneActiveLimit;
             gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.laneCount;
-            gameGlobals.enemyHealth.value = levelData.spawnBaseHealth + enemy.health;
-            gameGlobals.enemyDamage.value = levelData.spawnBaseDamage + enemy.damage;
-            gameGlobals.enemySpeed.value = enemy.speed;
-            gameGlobals.enemyBounty.value = levelData.spawnBounty + enemy.bounty;
-            gameGlobals.enemyScore.value = levelData.spawnScore + enemy.score;
+            gameGlobals.spawnRateMin.value = levelData.spawnRateMin;
+            gameGlobals.spawnRateMax.value = levelData.spawnRateMax;
             
+            enemy.SetHealth(levelData.spawnBaseHealth + enemy.selectionHealth);
+            enemy.SetDamage(levelData.spawnBaseDamage + enemy.selectionDamage);
+            enemy.SetSpeed(enemy.selectionSpeed);
+            enemy.SetBounty(levelData.spawnBounty + enemy.selectionBounty);
+            enemy.SetScore(levelData.spawnScore + enemy.selectionScore);
+            
+#if UNITY_EDITOR
             Debug.Log(
-                "-----Game Variables Set-----\n" +
+                "-----Game Variables-----\n" +
+                $"Player Speed: {gameGlobals.playerSpeed}\n" +
+                $"Player Score: {gameGlobals.playerScore}\n" +
+                "\n" +
+                $"Ship Index: {shipIndex}\n" +
                 $"Ship Health: {gameGlobals.shipHealth}\n" +
-                $"Ammo Damage: {gameGlobals.ammoDamage.damage}\n\n" +
+                "\n" +
+                $"Ammo Index: {ammoIndex}\n" +
+                $"Ammo Damage: {gameGlobals.ammoDamage.damage}\n" +
+                $"Ammo Respawn Time: {gameGlobals.ammoRespawnTime}\n" +
+                "\n" +
+                $"Cannon Index: {cannonIndex}\n" +
+                "\n" +
+                $"Enemy Index: {enemyIndex}\n" +
                 $"Lane Active Limit: {gameGlobals.enemyLaneActiveLimit}\n" +
+                $"Spawn Rate MIN: {gameGlobals.spawnRateMin}\n" +
+                $"Spawn Rate MAX: {gameGlobals.spawnRateMax}\n" +
                 $"Enemy Spawn Count: {gameGlobals.enemySpawnCount}\n" +
-                $"Enemy Health: {gameGlobals.enemyHealth}\n" +
-                $"Enemy Damage: {gameGlobals.enemyDamage}\n" +
-                $"Enemy Speed: {gameGlobals.enemySpeed}\n" +
-                $"Enemy Bounty: {gameGlobals.enemyBounty}\n" +
-                $"Enemy Score: {levelData.spawnScore}\n\n"
+                $"Enemy Health: {enemy.health}\n" +
+                $"Enemy Damage: {enemy.damage}\n" +
+                $"Enemy Speed: {enemy.speed}\n" +
+                $"Enemy Bounty: {enemy.bounty}\n" +
+                $"Enemy Score: {levelData.spawnScore}\n" +
+                "\n"
             );
-        }
-        
-        public void ResetGameValues()
-        {
-            gameGlobals.ResetToNewGameValues();
-            currentLevel = 0;
-            shipIndex = 0;
-            cannonIndex = 0;
-            ammoIndex = 0;
-            enemyIndex = 0;
-            
+#endif
         }
     }
 }

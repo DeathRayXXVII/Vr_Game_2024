@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using ZPTools.Interface;
 
 public class DebugButton : MonoBehaviour, INeedButton
 {

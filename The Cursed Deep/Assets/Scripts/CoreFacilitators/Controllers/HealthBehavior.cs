@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEditor.AnimatedValues;
 using UnityEngine;
 using UnityEngine.Events;
+using ZPTools.Interface;
 
 public class HealthBehavior : MonoBehaviour, IDamagable
 {
@@ -9,18 +10,21 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     
     [SerializeField] [InspectorReadOnly] private float currentHealth;
     private float _previousCheckHealth;
-    public float maxHealth;
+    [SerializeField] private FloatData _maxHealth;
     [SerializeField] private GameObject floatingText;
     [SerializeField] private GameObject textPivot;
 
-    public float health
+    public float health { get => currentHealth; set => currentHealth = value; }
+
+    public float maxHealth
     {
-        get => currentHealth;
-        set => currentHealth = value;
+        get => _maxHealth;
+        set => _maxHealth.value = value;
     }
 
     private void Start()
     {
+        if (!_maxHealth) _maxHealth = ScriptableObject.CreateInstance<FloatData>();
         if (maxHealth <= 0) maxHealth = 1;
         health = maxHealth;
     }

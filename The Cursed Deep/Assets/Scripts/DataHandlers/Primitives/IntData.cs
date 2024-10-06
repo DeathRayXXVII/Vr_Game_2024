@@ -47,10 +47,15 @@ public class IntData : ScriptableObject
     
     public override string ToString()
     {
-        return base.ToString() + ": " + value;
+        return base.ToString() + $": {value}";
     }
     
     public static implicit operator int(IntData data)
+    {
+        return data.value;
+    }
+    
+    public static implicit operator float(IntData data)
     {
         return data.value;
     }

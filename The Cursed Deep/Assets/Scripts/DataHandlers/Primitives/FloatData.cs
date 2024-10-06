@@ -45,6 +45,11 @@ public class FloatData : ScriptableObject
         PlayerPrefs.Save();
     }
     
+    public override string ToString()
+    {
+        return base.ToString() + $": {value}";
+    }
+    
     public static implicit operator float(FloatData data)
     {
         return data.value;

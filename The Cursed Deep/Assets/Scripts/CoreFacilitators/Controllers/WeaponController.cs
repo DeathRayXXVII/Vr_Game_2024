@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using ZPTools.Interface;
 
 public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
 {

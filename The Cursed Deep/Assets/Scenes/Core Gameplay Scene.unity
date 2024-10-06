@@ -2387,9 +2387,9 @@ MonoBehaviour:
   onButtonPress:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
-        m_TargetAssemblyTypeName: ShipGame.Inventory.CoreData, Assembly-CSharp
-        m_MethodName: SetGameVariables
+      - m_Target: {fileID: 11400000, guid: 1d9e6e36cb4a68d408029b2900d7c471, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5642,6 +5642,18 @@ MonoBehaviour:
   onAwake:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 11400000, guid: 8c7f90ecad54fe641b481d6c9f229ea4, type: 2}
+        m_TargetAssemblyTypeName: ShipGame.ScriptObj.LevelData, Assembly-CSharp
+        m_MethodName: LoadOnStartup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
         m_TargetAssemblyTypeName: ShipGameInventoryData, Assembly-CSharp
         m_MethodName: set_shipIndex

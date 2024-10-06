@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using ZPTools.Interface;
 
 [CustomEditor(typeof(MonoBehaviour), true)]
 public class ButtonEditor : Editor
