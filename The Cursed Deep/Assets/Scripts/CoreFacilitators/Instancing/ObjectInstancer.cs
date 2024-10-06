@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using ZPTools.Interface;
 
 public class ObjectInstancer : MonoBehaviour, INeedButton
 {

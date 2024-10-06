@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using ZPTools.Interface;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(NavAgentBehavior))]

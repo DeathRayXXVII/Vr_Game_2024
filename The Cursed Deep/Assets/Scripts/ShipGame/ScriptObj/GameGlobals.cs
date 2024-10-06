@@ -10,7 +10,7 @@ namespace ShipGame.ScriptObj
         public IntData playerScore;
         
         [Header("Ship Data:")] 
-        public IntData shipHealth;
+        public FloatData shipHealth;
         
         [Header("Ammo Data:")]
         public WeaponData ammoDamage;
