@@ -10,6 +10,7 @@ namespace ShipGame.ScriptObj
 #if UNITY_EDITOR
         public bool _allowDebug;
 #endif
+        
         [System.Serializable]
         internal struct Level
         {
@@ -24,18 +25,18 @@ namespace ShipGame.ScriptObj
         }
         
         [System.Serializable]
-        public class LevelDataJson
+        internal class LevelDataJson
         {
             public int elements;
-            public int[] laneActiveLimit;
-            public int[] spawnCount;
-            public float[] spawnRateMin;
-            public float[] spawnRateMax;
-            public int[] spawnBaseHealth;
-            public int[] spawnBaseDamage;
-            public float[] spawnMovementSpeed;
-            public int[] spawnBounty;
-            public int[] spawnScore;
+            public int[] laneActiveLimitsByLevel;
+            public int[] spawnCountsByLevel;
+            public float[] spawnRateMinByLevel;
+            public float[] spawnRateMaxByLevel;
+            public int[] healthValuesByLevel;
+            public int[] damageValuesByLevel;
+            public float[] movementSpeedValuesByLevel;
+            public int[] bountyValuesByLevel;
+            public int[] scoreValuesByLevel;
         }
 
         
@@ -76,7 +77,7 @@ namespace ShipGame.ScriptObj
             if (!jsonFile)
             {
 #if UNITY_EDITOR
-                if (_allowDebug) Debug.LogError("JSON file not found.", this);
+                Debug.LogError("JSON file not found.", this);
 #endif
                 return;
             }
@@ -85,14 +86,14 @@ namespace ShipGame.ScriptObj
 #if UNITY_EDITOR
             if (_allowDebug) Debug.Log($"Loading level data from JSON file: {jsonFile.name}\n" +
                       $"Element Count: {data.elements}\n" +
-                      $"Lane Active Limit: {data.laneActiveLimit[currentLevel]}\n" +
-                      $"Spawn Count: {data.spawnCount[currentLevel]}\n" +
-                      $"Spawn Rate Min: {data.spawnRateMin[currentLevel]}\n" +
-                      $"Spawn Rate Max: {data.spawnRateMax[currentLevel]}\n" +
-                      $"Spawn Base Health: {data.spawnBaseHealth[currentLevel]}\n" +
-                      $"Spawn Base Damage: {data.spawnBaseDamage[currentLevel]}\n" +
-                      $"Spawn Bounty: {data.spawnBounty[currentLevel]}\n" +
-                      $"Spawn Score: {data.spawnScore[currentLevel]}\n" +
+                      $"Lane Active Limit: {data.laneActiveLimitsByLevel[currentLevel]}\n" +
+                      $"Spawn Count: {data.spawnCountsByLevel[currentLevel]}\n" +
+                      $"Spawn Rate Min: {data.spawnRateMinByLevel[currentLevel]}\n" +
+                      $"Spawn Rate Max: {data.spawnRateMaxByLevel[currentLevel]}\n" +
+                      $"Spawn Base Health: {data.healthValuesByLevel[currentLevel]}\n" +
+                      $"Spawn Base Damage: {data.damageValuesByLevel[currentLevel]}\n" +
+                      $"Spawn Bounty: {data.bountyValuesByLevel[currentLevel]}\n" +
+                      $"Spawn Score: {data.scoreValuesByLevel[currentLevel]}\n" +
                       "----------------------");
 #endif
             
@@ -104,14 +105,14 @@ namespace ShipGame.ScriptObj
             {
                 _levels[i] = new Level
                 {
-                    laneActiveLimit = data.laneActiveLimit[i],
-                    spawnCount = data.spawnCount[i],
-                    spawnRateMin = data.spawnRateMin[i],
-                    spawnRateMax = data.spawnRateMax[i],
-                    spawnBaseHealth = data.spawnBaseHealth[i],
-                    spawnBaseDamage = data.spawnBaseDamage[i],
-                    spawnBounty = data.spawnBounty[i],
-                    spawnScore = data.spawnScore[i]
+                    laneActiveLimit = data.laneActiveLimitsByLevel[i],
+                    spawnCount = data.spawnCountsByLevel[i],
+                    spawnRateMin = data.spawnRateMinByLevel[i],
+                    spawnRateMax = data.spawnRateMaxByLevel[i],
+                    spawnBaseHealth = data.healthValuesByLevel[i],
+                    spawnBaseDamage = data.damageValuesByLevel[i],
+                    spawnBounty = data.bountyValuesByLevel[i],
+                    spawnScore = data.scoreValuesByLevel[i]
                 };
             }
             
@@ -144,7 +145,7 @@ namespace ShipGame.ScriptObj
         private void OnValidate()
         {
 #if UNITY_EDITOR
-            if (!currentLevel) if (_allowDebug) Debug.LogError("Current Level is null. Please assign a value.", this);
+            if (!currentLevel) Debug.LogError("Current Level is null. Please assign a value.", this);
 #endif
         }
     }

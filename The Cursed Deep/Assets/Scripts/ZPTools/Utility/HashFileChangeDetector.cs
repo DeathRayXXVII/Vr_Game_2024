@@ -31,7 +31,7 @@ namespace ZPTools.Utility
             if (!File.Exists(filePath))
             {
 #if UNITY_EDITOR
-                if (_allowDebug) Debug.LogError($"File not found: {filePath}");
+                Debug.LogError($"File not found: {filePath}");
 #endif
                 return false;
             }
@@ -54,7 +54,7 @@ namespace ZPTools.Utility
             if (!File.Exists(filePath))
             {
 #if UNITY_EDITOR
-                if (_allowDebug) Debug.LogError($"File not found: {filePath}");
+                Debug.LogError($"File not found: {filePath}");
 #endif
                 return;
             }
@@ -87,7 +87,9 @@ namespace ZPTools.Utility
             }
             catch (IOException e)
             {
-                if (_allowDebug) Debug.LogError($"Failed to save hash: {e.Message}");
+#if UNITY_EDITOR
+                Debug.LogError($"Failed to save hash: {e.Message}");
+#endif
             }
         }
 
@@ -105,7 +107,9 @@ namespace ZPTools.Utility
                 }
                 catch (IOException e)
                 {
-                    if (_allowDebug) Debug.LogError($"Failed to load hash: {e.Message}");
+#if UNITY_EDITOR
+                    Debug.LogError($"Failed to load hash: {e.Message}");
+#endif
                 }
             }
             else

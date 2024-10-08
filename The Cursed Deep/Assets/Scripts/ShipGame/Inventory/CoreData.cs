@@ -8,6 +8,10 @@ namespace ShipGame.Inventory
     {
         [SerializeField] private GameGlobals gameGlobals;
         [SerializeField] private LevelData levelData;
+        [SerializeField] private ShipData ship;
+        [SerializeField] private CannonData cannon;
+        [SerializeField] private AmmoData ammo;
+        [SerializeField] private EnemyData enemy;
 
         private int currentLevel
         {
@@ -15,121 +19,61 @@ namespace ShipGame.Inventory
             set => levelData.currentLevel.value = value;
         }
         
-        // Instancer that performs the instantiation of the ship
-        // all other instancers and spawners are inside the instanced ship making them dependent on this instancer
-        public InstancerData shipInstancerData;
-
-        [SerializeField] [InspectorReadOnly] private int currentShipIndex;
-        [SerializeField] private ShipSelection[] shipSelections;
-        
-        [SerializeField] [InspectorReadOnly] private int currentCannonIndex;
-        [SerializeField] private CannonSelection[] cannonSelections;
-        
-        [SerializeField] [InspectorReadOnly] private int currentAmmoIndex;
-        [SerializeField] private AmmoSelection[] ammoSelections;
-        
-        [SerializeField] [InspectorReadOnly] private int currentEnemyIndex;
-        [SerializeField] private EnemySelection[] enemySelections;
-        
-        // Public accessors for current selections
-        private ShipSelection ship => shipSelections[shipIndex];
-        private CannonSelection cannon => cannonSelections[currentCannonIndex];
-        private AmmoSelection ammo => ammoSelections[currentAmmoIndex];
-        private EnemySelection enemy => enemySelections[currentEnemyIndex];
+        public InstancerData shipInstancerData => ship.shipInstancerData;
 
         public int shipIndex
         {
-            get => currentShipIndex;
+            get => ship.selectionIndex;
             set
             {
-                if (shipSelections == null || shipSelections.Length == 0)
-                {
-#if UNITY_EDITOR
-                    Debug.LogError("shipSelections is not initialized or is empty.", this);
-#endif
-                    return;
-                }
-                
-                // Index clamped between 0 and the length of the ship array
-                currentShipIndex = Mathf.Clamp(value, 0, shipSelections.Length - 1);
-                
-                // Pass the prefab to the ship's instancer
-                shipInstancerData.SetPrefabData(ship.prefab);
-                
-                // Update the current cannon prefab's offset to correspond with the new ship prefab
-                ship.cannonInstancerData.SetPrefabOffset(cannonPrefabOffset);
+                ship.selectionIndex = value;
+                ship.SetCannonPrefabData(cannon.prefab);
             }
         }
-
+        
+        // Current cannon prefab offset based on cannon prefab and ship prefab if ordered correctly in cannon selection's offset array
+        private Vector3Data cannonPrefabOffset => cannon.GetCannonOffset(shipIndex);
         public int cannonIndex
         {
-            get => currentCannonIndex;
+            get => cannon.selectionIndex;
             set
             {
-                if (cannonSelections == null || cannonSelections.Length == 0)
-                {
-#if UNITY_EDITOR
-                    Debug.LogError("cannonSelections is not initialized or is empty.", this);
-#endif
-                    return;
-                }
-                
-                // Index clamped between 0 and the length of the cannon array
-                currentCannonIndex = Mathf.Clamp(value, 0, cannonSelections.Length - 1);
+                cannon.selectionIndex = value;
                 
                 // Pass the prefab to the ship's cannon instancer with its correct offset
-                ship.cannonInstancerData.SetPrefabData(cannon.prefab);
-                ship.cannonInstancerData.SetPrefabOffset(cannonPrefabOffset);
+                ship.SetCannonPrefabData(cannon.prefab);
+                ship.SetCannonPrefabOffset(cannonPrefabOffset);
             }
         }
         
         public int ammoIndex
         {
-            get => currentAmmoIndex;
+            get => ammo.selectionIndex;
             set 
             {
-                if (ammoSelections == null || ammoSelections.Length == 0)
-                {
-#if UNITY_EDITOR
-                    Debug.LogError("ammoSelections is not initialized or is empty.", this);
-#endif
-                    return;
-                }
-                
-                // Index clamped between 0 and the length of the ammo array
-                currentAmmoIndex = Mathf.Clamp(value, 0, ammoSelections.Length - 1);
+                ammo.selectionIndex = value;
                 
                 // Pass the prefab list to the ship's ammo spawner
-                ship.ammoSpawnerData.SetPrefabDataList(ammo.prefabVariantList);
+                ship.SetAmmoPrefabDataList(ammo.prefabList);
             }
         }
 
         public int enemyIndex
         {
-            get => currentEnemyIndex;
+            get => ammo.selectionIndex;
             set 
             {
-                if (enemySelections == null || enemySelections.Length == 0)
-                {
-#if UNITY_EDITOR
-                    Debug.LogError("enemySelections is not initialized or is empty.", this);
-#endif
-                    return;
-                }
+                ammo.selectionIndex = value;
                 
-                // Index clamped between 0 and the length of the enemy array
-                currentEnemyIndex = Mathf.Clamp(value, 0, enemySelections.Length - 1);
-                ship.enemySpawnerData.SetPrefabDataList(enemy.prefabVariantList);
+                // Pass the prefab list to the ship's enemy spawner
+                ship.SetEnemyPrefabDataList(enemy.prefabList);
             }
         }
-        
-        // Current cannon prefab offset based on cannon prefab and ship prefab if ordered correctly in cannon selection's offset array
-        public Vector3Data cannonPrefabOffset => cannonSelections[currentCannonIndex].GetCannonOffset(shipIndex);
 
         private void OnValidate()
         {
 #if UNITY_EDITOR
-            if (!shipInstancerData) Debug.LogError("Ship Instancer Data is null. Please assign a value.", this);
+            if (!ship) Debug.LogError("Ship Selections is null. Please assign a value.", this);
             if (!gameGlobals) Debug.LogError("Game Globals is null. Please assign a value.", this);
             if (!levelData) Debug.LogError("Level Data is null. Please assign a value.", this);
 #endif
@@ -148,17 +92,16 @@ namespace ShipGame.Inventory
             enemyIndex = 0;
         }
         
-        private void RandomizeEnemySelection() => currentEnemyIndex = Random.Range(0, enemySelections.Length);
         
         public void SetGameVariables()
         {
-            RandomizeEnemySelection();
-            
-            gameGlobals.shipHealth.value = ship.health + gameGlobals.upgradeHealthLevel;
+            enemy.RandomizeEnemySelection();
+
+            gameGlobals.shipHealth.value = ship.health; // + gameGlobals.upgradeHealth;
             gameGlobals.ammoDamage.damage = cannon.damage + ammo.damage;
             
             gameGlobals.enemyLaneActiveLimit.value = levelData.laneActiveLimit;
-            gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.laneCount;
+            gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.numberOfLanes;
             gameGlobals.spawnRateMin.value = levelData.spawnRateMin;
             gameGlobals.spawnRateMax.value = levelData.spawnRateMax;
             
