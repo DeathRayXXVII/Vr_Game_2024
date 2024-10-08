@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using static ZpTools.UtilityFunctions;
+using static ZPTools.Utility.UtilityFunctions;
 using ZPTools.Interface;
 using Random = UnityEngine.Random;
 
@@ -326,25 +326,4 @@ public class SpawnManager : MonoBehaviour, INeedButton
         return new List<(System.Action, string)> { (() => StartSpawn(spawnCount), "Spawn") };
     }
 
-}
-
-namespace ZpTools
-{
-    public static class UtilityFunctions
-    {
-        public static float ToleranceCheck(float value, float newValue, float tolerance = 0.1f)
-        {
-            return System.Math.Abs(value - newValue) < tolerance ? value : newValue;
-        }
-        
-        public static T FetchFromList<T>(List<T> listToProcess, System.Func<T, bool> condition)
-        {
-            if (listToProcess == null || listToProcess.Count == 0) return default;
-            foreach (var obj in listToProcess)
-            {
-                if (condition(obj)) return obj;
-            }
-            return default;
-        }
-    }
 }

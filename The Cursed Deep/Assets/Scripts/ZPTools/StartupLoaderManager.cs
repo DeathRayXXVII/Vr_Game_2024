@@ -8,7 +8,7 @@ namespace ZPTools
     {
         public ScriptableObject[] scriptableObjectLoaders;
 
-        private void Awake()
+        private void Start()
         {
             foreach (var loader in scriptableObjectLoaders.OfType<IStartupLoader>())
             {
