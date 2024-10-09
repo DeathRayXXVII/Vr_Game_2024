@@ -1,21 +1,22 @@
 using UnityEngine;
 
-namespace ShipGame.Inventory
+namespace ShipGame.ScriptObj
 {
-    [CreateAssetMenu(fileName = "ShipData", menuName = "ShipGame/CannonData", order = 0)]
-    public class CannonData : GameSelectionData
+    [CreateAssetMenu(fileName = "CannonData", menuName = "Data/ShipGame/CannonData", order = 0)]
+    public class CannonData : ScriptableObjectStartupDataFromJson
     {
         [System.Serializable]
         internal struct CannonInstanceData
         {
-            public int damage;
+            public float damage;
         }
 
         [System.Serializable]
         internal struct CannonDataJson
         {
             public int elements;
-            public int[] cannonDamageValues;
+            public float[] cannonDamageValues;
+            public int[] upgradeCosts;
         }
         
         [System.Serializable]
@@ -45,10 +46,32 @@ namespace ShipGame.Inventory
                 return cannonOffsetsByShip[shipIndex].cannonOffset;
             }
         }
-
-        public override int selectionIndex
+        
+        [SerializeField] [InspectorReadOnly] private int currentUpgradeIndex;
+        private CannonInstanceData[] _cannonInstanceData;
+        public float damage => _cannonInstanceData[upgradeIndex].damage;
+        public int upgradeIndex
         {
-            get => currentIndex;
+            get => currentUpgradeIndex;
+            set 
+            {
+                if (_cannonInstanceData == null || _cannonInstanceData.Length == 0)
+                {
+#if UNITY_EDITOR
+                    Debug.LogError("cannonUpgradeStats is not initialized or is empty.", this);
+#endif
+                    return;
+                }
+                
+                // Index clamped between 0 and the length of the ammo array
+                currentUpgradeIndex = Mathf.Clamp(value, 0, _cannonInstanceData.Length - 1);
+            }
+        }
+
+        [SerializeField] [InspectorReadOnly] private int currentCannonIndex;
+        public int selectionIndex
+        {
+            get => currentCannonIndex;
             set
             {
                 if (_cannonData == null || _cannonData.Length == 0)
@@ -59,43 +82,52 @@ namespace ShipGame.Inventory
                     return;
                 }
                 // Index clamped between 0 and the length of the cannon array
-                currentIndex = Mathf.Clamp(value, 0, _cannonData.Length - 1);
+                currentCannonIndex = Mathf.Clamp(value, 0, _cannonData.Length - 1);
             }
         }
         
-        [SerializeField] private CannonInstanceData[] _cannonInstanceData;
-        private Cannon[] _cannonData;
-        private Cannon cannon => _cannonData[currentIndex];
+        [SerializeField] private Cannon[] _cannonData;
+        private Cannon cannon => _cannonData[selectionIndex];
         public PrefabData prefab => cannon.prefab;
-        public int damage => _cannonInstanceData[currentIndex].damage;
         public Vector3Data GetCannonOffset(int shipIndex) => cannon.GetCannonOffset(shipIndex);
 
         protected override string dataFilePath => Application.dataPath + "/Resources/GameData/CannonDataJson.json";
         protected override string resourcePath => "GameData/CannonDataJson";
+
+        private CannonDataJson _tempJsonData;
         
-        protected override void InitializeData(int count)
+        protected override object tempJsonData
         {
-            _cannonInstanceData = new CannonInstanceData[count];
+            get => _tempJsonData;
+            set => _tempJsonData = (CannonDataJson)value;
+        }
+
+        protected override void ParseJsonFile(TextAsset jsonObject)
+        {
+            _tempJsonData = ParseJsonData<CannonDataJson>(jsonObject.text);
         }
         
-        protected override int ParseJsonFile(string jsonContent)
+        protected override void InitializeData()
         {
-            var data = JsonUtility.FromJson<CannonDataJson>(jsonContent);
-            for (int i = 0; i < data.elements; i++)
+            if (_cannonInstanceData == null || _cannonInstanceData.Length != _tempJsonData.elements)
+            {
+                _cannonInstanceData = new CannonInstanceData[_tempJsonData.elements];
+            }
+            
+            for (int i = 0; i < _tempJsonData.elements; i++)
             {
                 _cannonInstanceData[i] = new CannonInstanceData
                 {
-                   damage = data.cannonDamageValues[i],
+                    damage = _tempJsonData.cannonDamageValues[i],
                 };
             }
-            return data.elements;
         }
         
         protected override void LogCurrentData()
         {
 #if UNITY_EDITOR
             if (_allowDebug) Debug.Log($"------Cannon Data------\n" +
-                                       $"Current Cannon Index: {currentIndex}\n" +
+                                       $"Current Cannon Index: {selectionIndex}\n" +
                                         $"Current Cannon Damage: {damage}\n" +
                                        $"----------------------", this);
 #endif

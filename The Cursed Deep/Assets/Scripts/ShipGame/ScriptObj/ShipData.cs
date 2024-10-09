@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace ShipGame.Inventory
+namespace ShipGame.ScriptObj
 {
-    [CreateAssetMenu(fileName = "ShipData", menuName = "ShipGame/ShipData", order = 0)]
-    public class ShipData : GameSelectionData
+    [CreateAssetMenu(fileName = "ShipData", menuName = "Data/ShipGame/ShipData", order = 0)]
+    public class ShipData : ScriptableObjectStartupDataFromJson
     {
         [System.Serializable]
         internal struct ShipInstanceData
@@ -18,6 +18,7 @@ namespace ShipGame.Inventory
             public int elements;
             public int[] shipLaneCounts;
             public float[] shipHealthValues;
+            public int[] shipPurchaseCosts;
         }
         
         [System.Serializable]
@@ -41,7 +42,8 @@ namespace ShipGame.Inventory
             public SpawnerData enemySpawnerData;
         }
         
-        public override int selectionIndex
+        [SerializeField] [InspectorReadOnly] private int currentIndex;
+        public int selectionIndex
         {
             get => currentIndex;
             set
@@ -67,15 +69,15 @@ namespace ShipGame.Inventory
             }
         }
         
-        [SerializeField] private ShipInstanceData[] _shipInstanceData;
-        private Ship[] _shipData;
-        private Ship ship => _shipData[currentIndex];
-        public int numberOfLanes => _shipInstanceData[currentIndex].numberOfLanes;
-        public float health => _shipInstanceData[currentIndex].health;
-        
         // Instancer that performs the instantiation of the ship
         // all other instancers and spawners are inside the instanced ship making them dependent on this instancer
         public InstancerData shipInstancerData;
+        
+        private ShipInstanceData[] _shipInstanceData;
+        [SerializeField] private Ship[] _shipData;
+        private Ship ship => _shipData[currentIndex];
+        public int numberOfLanes => _shipInstanceData[currentIndex].numberOfLanes;
+        public float health => _shipInstanceData[currentIndex].health;
         public void SetCannonPrefabData(PrefabData cannonPrefab) => ship.cannonInstancerData.SetPrefabData(cannonPrefab);
         public void SetCannonPrefabOffset(Vector3Data offset) => ship.cannonInstancerData.SetPrefabOffset(offset);
         public void SetAmmoPrefabDataList(PrefabDataList ammoPrefabList) => ship.ammoSpawnerData.SetPrefabDataList(ammoPrefabList);
@@ -83,24 +85,35 @@ namespace ShipGame.Inventory
 
         protected override string dataFilePath => Application.dataPath + "/Resources/GameData/ShipDataJson.json";
         protected override string resourcePath => "GameData/ShipDataJson";
+
+        private ShipDataJson _tempJsonData;
         
-        protected override void InitializeData(int count)
+        protected override object tempJsonData
         {
-            _shipInstanceData = new ShipInstanceData[count];
+            get => _tempJsonData;
+            set => _tempJsonData = (ShipDataJson)value;
+        }
+
+        protected override void ParseJsonFile(TextAsset jsonObject)
+        {
+            _tempJsonData = ParseJsonData<ShipDataJson>(jsonObject.text);
         }
         
-        protected override int ParseJsonFile(string jsonContent)
+        protected override void InitializeData()
         {
-            var data = JsonUtility.FromJson<ShipDataJson>(jsonContent);
-            for (int i = 0; i < data.elements; i++)
+            if (_shipInstanceData == null || _shipInstanceData.Length != _tempJsonData.elements)
+            {
+                _shipInstanceData = new ShipInstanceData[_tempJsonData.elements];
+            }
+            
+            for (int i = 0; i < _tempJsonData.elements; i++)
             {
                 _shipInstanceData[i] = new ShipInstanceData
                 {
-                    numberOfLanes = data.shipLaneCounts[i],
-                    health = data.shipHealthValues[i]
+                    numberOfLanes = _tempJsonData.shipLaneCounts[i],
+                    health = _tempJsonData.shipHealthValues[i]
                 };
             }
-            return data.elements;
         }
         
         protected override void LogCurrentData()

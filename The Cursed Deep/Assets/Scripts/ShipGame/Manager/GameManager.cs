@@ -2,7 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
-using ShipGame.Inventory;
+using ShipGame.ScriptObj;
 
 namespace ShipGame.Manager
 {

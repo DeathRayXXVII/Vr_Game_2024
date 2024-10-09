@@ -1,7 +1,6 @@
-using ShipGame.ScriptObj;
 using UnityEngine;
 
-namespace ShipGame.Inventory
+namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu (fileName = "CoreData", menuName = "Data/ManagerData/CoreData")]
     public class CoreData : ScriptableObject
@@ -98,7 +97,9 @@ namespace ShipGame.Inventory
             enemy.RandomizeEnemySelection();
 
             gameGlobals.shipHealth.value = ship.health; // + gameGlobals.upgradeHealth;
-            gameGlobals.ammoDamage.damage = cannon.damage + ammo.damage;
+            gameGlobals.ammoDamage.damage = cannon.damage + ammo.damage; // + gameGlobals.upgradeDamage;
+            gameGlobals.ammoRespawnRate.value = ammo.respawnRate;
+            // gameGlobals.playerSpeed = gameGlobals.shipSpeed;
             
             gameGlobals.enemyLaneActiveLimit.value = levelData.laneActiveLimit;
             gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.numberOfLanes;
@@ -122,7 +123,7 @@ namespace ShipGame.Inventory
                 "\n" +
                 $"Ammo Index: {ammoIndex}\n" +
                 $"Ammo Damage: {gameGlobals.ammoDamage.damage}\n" +
-                $"Ammo Respawn Time: {gameGlobals.ammoRespawnTime}\n" +
+                $"Ammo Respawn Time: {gameGlobals.ammoRespawnRate}\n" +
                 "\n" +
                 $"Cannon Index: {cannonIndex}\n" +
                 "\n" +

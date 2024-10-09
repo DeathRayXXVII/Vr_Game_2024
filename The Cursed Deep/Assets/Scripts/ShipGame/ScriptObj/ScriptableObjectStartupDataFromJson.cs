@@ -2,28 +2,35 @@ using UnityEngine;
 using ZPTools.Interface;
 using ZPTools.Utility;
 
-namespace ShipGame.Inventory
+namespace ShipGame.ScriptObj
 {
-    public abstract class GameSelectionData : ScriptableObject, IStartupLoader
+    public abstract class ScriptableObjectStartupDataFromJson : ScriptableObject, IStartupLoader
     {
 #if UNITY_EDITOR
         [SerializeField] protected bool _allowDebug;
 #endif
         
-        [SerializeField] [InspectorReadOnly] protected int currentIndex;
         private HashFileChangeDetector _hashFileChangeDetector;
-        
-        public abstract int selectionIndex { get; set; }
         public bool isLoaded { get; private set; }
-
-        // Common paths that derived classes should define
+        
+        // Hash file path
         protected abstract string dataFilePath { get; }
+        // Json file path
         protected abstract string resourcePath { get; }
+        
+        protected abstract object tempJsonData { get; set; }
+        
+        // Generic method to parse JSON into any type
+        protected T ParseJsonData<T>(string jsonContent)
+        {
+            return JsonUtility.FromJson<T>(jsonContent);
+        }
 
-        // Common data structure method to be implemented by derived classes
-        protected abstract void InitializeData(int count);
+        // Method to parse the JSON file, returning the number of elements (to be implemented by derived classes)
+        protected abstract void ParseJsonFile(TextAsset jsonObject);
 
-        // Common method for logging data, allowing derived classes to provide specific logging
+        protected abstract void InitializeData();
+
         protected abstract void LogCurrentData();
 
         public void LoadOnStartup()
@@ -48,24 +55,34 @@ namespace ShipGame.Inventory
             if (!jsonFile)
             {
 #if UNITY_EDITOR
-                if (_allowDebug) Debug.LogError($"JSON file not found at {resourcePath}.", this);
+                if (_allowDebug) Debug.LogError($"JSON file not found at ../Assets/Resources/{resourcePath}.", this);
 #endif
                 return;
             }
+#if UNITY_EDITOR
+            if (_allowDebug) Debug.Log($"Loading {name} from ../Assets/Resources/{resourcePath}.", this);
+#endif
 
-            var objectCount = ParseJsonFile(jsonFile.text);
+            ParseJsonFile(jsonFile);
             
-            InitializeData(objectCount);
+            InitializeData();
+            
+#if UNITY_EDITOR
+            if (_allowDebug) Debug.Log($"Initialized {name} data.", this);
+#endif
+            
             _hashFileChangeDetector.UpdateState();
             
             Resources.UnloadAsset(jsonFile);
 
             LogCurrentData();
             
+            
+#if UNITY_EDITOR
+            if (_allowDebug) Debug.Log($"Completed load of {name}.", this);
+#endif
+                
             isLoaded = true;
         }
-
-        // Method to parse the JSON file, returning the number of elements (to be implemented by derived classes)
-        protected abstract int ParseJsonFile(string jsonContent);
     }
 }

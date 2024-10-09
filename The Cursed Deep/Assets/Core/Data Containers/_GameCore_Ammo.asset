@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01153d278bb932940b00281957c904aa, type: 3}
-  m_Name: Ammo-Respawn Time
+  m_Script: {fileID: 11500000, guid: 7a7713e8de0cbdc4284906b93e2a6a7c, type: 3}
+  m_Name: _GameCore_Ammo
   m_EditorClassIdentifier: 
-  zeroOnEnable: 0
-  objectValue: 3
+  _allowDebug: 1
+  currentUpgradeIndex: 0
+  currentAmmoIndex: 0
+  _ammoData:
+  - name: Default
+    prefabVariantList: {fileID: 11400000, guid: cce5195886a2745459e8b36f9a378e97,
+      type: 2}

@@ -14,7 +14,7 @@ namespace ShipGame.ScriptObj
         
         [Header("Ammo Data:")]
         public WeaponData ammoDamage;
-        public FloatData ammoRespawnTime;
+        public FloatData ammoRespawnRate;
 
         [Header("Enemy Data:")]
         public IntData enemySpawnCount;
@@ -23,10 +23,9 @@ namespace ShipGame.ScriptObj
         public FloatData spawnRateMax;
         
         // [Header("Upgrade Data:")]
-        // public IntData upgradeHealth;
-        // public IntData upgradeSpeed;
-        // public IntData upgradeCannonDamage;
-        // public IntData upgradeAmmoDamage;
+        // public FloatData upgradeHealth;
+        // public FloatData upgradeDamage;
+        // public FloatData upgradeSpeed;
         // public IntData upgradeAmmoRespawnTime;
         
         public void ResetToNewGameValues()

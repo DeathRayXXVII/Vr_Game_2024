@@ -1,16 +1,10 @@
 using UnityEngine;
-using ZPTools.Interface;
-using ZPTools.Utility;
 
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu(fileName = "LevelData", menuName = "Data/ManagerData/LevelData")]
-    public class LevelData : ScriptableObject, IStartupLoader
+    public class LevelData : ScriptableObjectStartupDataFromJson
     {
-#if UNITY_EDITOR
-        public bool _allowDebug;
-#endif
-        
         [System.Serializable]
         internal struct Level
         {
@@ -18,8 +12,8 @@ namespace ShipGame.ScriptObj
             public float spawnRateMin;
             public float spawnRateMax;
             public int laneActiveLimit;
-            public int spawnBaseHealth;
-            public int spawnBaseDamage;
+            public float spawnBaseHealth;
+            public float spawnBaseDamage;
             public int spawnBounty;
             public int spawnScore;
         }
@@ -32,113 +26,78 @@ namespace ShipGame.ScriptObj
             public int[] spawnCountsByLevel;
             public float[] spawnRateMinByLevel;
             public float[] spawnRateMaxByLevel;
-            public int[] healthValuesByLevel;
-            public int[] damageValuesByLevel;
+            public float[] healthValuesByLevel;
+            public float[] damageValuesByLevel;
             public float[] movementSpeedValuesByLevel;
             public int[] bountyValuesByLevel;
             public int[] scoreValuesByLevel;
         }
-
         
         public IntData currentLevel;
 
-        private readonly string _dataFilePath = Application.dataPath + "/Resources/GameData/LevelDataJson.json";
-        private HashFileChangeDetector _hashFileChangeDetector;
+        protected override string dataFilePath => Application.dataPath + "/Resources/GameData/LevelDataJson.json";
+        protected override string resourcePath => "GameData/LevelDataJson";
         private Level[] _levels;
 
         public int spawnCount => _levels[currentLevel].spawnCount;
         public float spawnRateMin => _levels[currentLevel].spawnRateMin;
         public float spawnRateMax => _levels[currentLevel].spawnRateMax;
         public int laneActiveLimit => _levels[currentLevel].laneActiveLimit;
-        public int spawnBaseHealth => _levels[currentLevel].spawnBaseHealth;
-        public int spawnBaseDamage => _levels[currentLevel].spawnBaseDamage;
+        public float spawnBaseHealth => _levels[currentLevel].spawnBaseHealth;
+        public float spawnBaseDamage => _levels[currentLevel].spawnBaseDamage;
         public int spawnBounty => _levels[currentLevel].spawnBounty;
         public int spawnScore => _levels[currentLevel].spawnScore;
+
+        private LevelDataJson _tempJsonData;
         
-        public bool isLoaded { get; private set; }
-
-        public void LoadOnStartup()
+        protected override object tempJsonData
         {
-            _hashFileChangeDetector ??= new HashFileChangeDetector(_dataFilePath, _allowDebug);
-            var hasChanged = _hashFileChangeDetector.HasChanged();
-            
-            // Use the change detector to see if the JSON has changed
-            if (isLoaded && hasChanged == false)
-            {
-#if UNITY_EDITOR
-                if (_allowDebug) Debug.LogWarning("LevelData is already loaded, and the file has not changed.", this);
-                LogCurrentLevelData();
-#endif
-                return;
-            }
-            
-            var jsonFile = Resources.Load<TextAsset>("GameData/LevelDataJson");
+            get => _tempJsonData;
+            set => _tempJsonData = (LevelDataJson)value;
+        }
 
-            if (!jsonFile)
+        protected override void ParseJsonFile(TextAsset jsonObject)
+        {
+            _tempJsonData = ParseJsonData<LevelDataJson>(jsonObject.text);
+        }
+        
+        protected override void InitializeData()
+        {
+            if (_levels == null || _levels.Length != _tempJsonData.elements)
             {
-#if UNITY_EDITOR
-                Debug.LogError("JSON file not found.", this);
-#endif
-                return;
+                _levels = new Level[_tempJsonData.elements];
             }
-            var data = JsonUtility.FromJson<LevelDataJson>(jsonFile.text);
-            
-#if UNITY_EDITOR
-            if (_allowDebug) Debug.Log($"Loading level data from JSON file: {jsonFile.name}\n" +
-                      $"Element Count: {data.elements}\n" +
-                      $"Lane Active Limit: {data.laneActiveLimitsByLevel[currentLevel]}\n" +
-                      $"Spawn Count: {data.spawnCountsByLevel[currentLevel]}\n" +
-                      $"Spawn Rate Min: {data.spawnRateMinByLevel[currentLevel]}\n" +
-                      $"Spawn Rate Max: {data.spawnRateMaxByLevel[currentLevel]}\n" +
-                      $"Spawn Base Health: {data.healthValuesByLevel[currentLevel]}\n" +
-                      $"Spawn Base Damage: {data.damageValuesByLevel[currentLevel]}\n" +
-                      $"Spawn Bounty: {data.bountyValuesByLevel[currentLevel]}\n" +
-                      $"Spawn Score: {data.scoreValuesByLevel[currentLevel]}\n" +
-                      "----------------------");
-#endif
-            
-            // Populate levels based on parsed JSON data
-            var levelCount = data.elements;
-            _levels = new Level[levelCount];
 
-            for (var i = 0; i < levelCount; i++)
+            for (var i = 0; i < _tempJsonData.elements; i++)
             {
                 _levels[i] = new Level
                 {
-                    laneActiveLimit = data.laneActiveLimitsByLevel[i],
-                    spawnCount = data.spawnCountsByLevel[i],
-                    spawnRateMin = data.spawnRateMinByLevel[i],
-                    spawnRateMax = data.spawnRateMaxByLevel[i],
-                    spawnBaseHealth = data.healthValuesByLevel[i],
-                    spawnBaseDamage = data.damageValuesByLevel[i],
-                    spawnBounty = data.bountyValuesByLevel[i],
-                    spawnScore = data.scoreValuesByLevel[i]
+                    laneActiveLimit = _tempJsonData.laneActiveLimitsByLevel[i],
+                    spawnCount = _tempJsonData.spawnCountsByLevel[i],
+                    spawnRateMin = _tempJsonData.spawnRateMinByLevel[i],
+                    spawnRateMax = _tempJsonData.spawnRateMaxByLevel[i],
+                    spawnBaseHealth = _tempJsonData.healthValuesByLevel[i],
+                    spawnBaseDamage = _tempJsonData.damageValuesByLevel[i],
+                    spawnBounty = _tempJsonData.bountyValuesByLevel[i],
+                    spawnScore = _tempJsonData.scoreValuesByLevel[i]
                 };
             }
-            
-            _hashFileChangeDetector.UpdateState();
-            
-            Resources.UnloadAsset(jsonFile);
-
-            LogCurrentLevelData();
-            
-            isLoaded = true;
         }
         
-        private void LogCurrentLevelData()
+        protected override void LogCurrentData()
         {
 #if UNITY_EDITOR
             if (_allowDebug) Debug.Log($"------Level Data------\n" +
-                      $"Level: {currentLevel}\n" +
-                      $"Spawn Count: {spawnCount}\n" +
-                      $"Spawn Rate Min: {spawnRateMin}\n" +
-                      $"Spawn Rate Max: {spawnRateMax}\n" +
-                      $"Lane Active Limit: {laneActiveLimit}\n" +
-                      $"Spawn Base Health: {spawnBaseHealth}\n" +
-                      $"Spawn Base Damage: {spawnBaseDamage}\n" +
-                      $"Spawn Bounty: {spawnBounty}\n" +
-                      $"Spawn Score: {spawnScore}\n" +
-                      $"----------------------");
+                                       $"Level: {currentLevel}\n" +
+                                       $"Spawn Count: {spawnCount}\n" +
+                                       $"Spawn Rate Min: {spawnRateMin}\n" +
+                                       $"Spawn Rate Max: {spawnRateMax}\n" +
+                                       $"Lane Active Limit: {laneActiveLimit}\n" +
+                                       $"Spawn Base Health: {spawnBaseHealth}\n" +
+                                       $"Spawn Base Damage: {spawnBaseDamage}\n" +
+                                       $"Spawn Bounty: {spawnBounty}\n" +
+                                       $"Spawn Score: {spawnScore}\n" +
+                                       $"----------------------");
 #endif
         }
         

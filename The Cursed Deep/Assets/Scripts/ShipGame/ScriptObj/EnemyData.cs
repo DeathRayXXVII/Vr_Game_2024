@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace ShipGame.Inventory
+namespace ShipGame.ScriptObj
 {
-    [CreateAssetMenu(fileName = "ShipData", menuName = "ShipGame/EnemyData", order = 0)]
-    public class EnemyData : GameSelectionData
+    [CreateAssetMenu(fileName = "EnemyData", menuName = "Data/ShipGame/EnemyData", order = 0)]
+    public class EnemyData : ScriptableObjectStartupDataFromJson
     {
         [System.Serializable]
         internal struct EnemyInstanceData
@@ -37,7 +37,8 @@ namespace ShipGame.Inventory
             public CreepData creepData;
         }
 
-        public override int selectionIndex
+        [SerializeField] [InspectorReadOnly] private int currentIndex;
+        public int selectionIndex
         {
             get => currentIndex;
             set
@@ -55,14 +56,14 @@ namespace ShipGame.Inventory
             }
         }
 
-        [SerializeField] private EnemyInstanceData[] _enemyInstanceData;
+        private EnemyInstanceData[] _enemyInstanceData;
         public float selectionHealth => _enemyInstanceData[currentIndex].health;
         public float selectionDamage => _enemyInstanceData[currentIndex].damage;
         public float selectionSpeed => _enemyInstanceData[currentIndex].speed;
         public int selectionBounty => _enemyInstanceData[currentIndex].bounty;
         public int selectionScore => _enemyInstanceData[currentIndex].score;
 
-        private Enemy[] _enemyData;
+        [SerializeField] private Enemy[] _enemyData;
 
         private Enemy enemy => _enemyData[currentIndex];
         public PrefabDataList prefabList => enemy.prefabVariantList;
@@ -82,29 +83,45 @@ namespace ShipGame.Inventory
         protected override string dataFilePath => Application.dataPath + "/Resources/GameData/EnemyDataJson.json";
         protected override string resourcePath => "GameData/EnemyDataJson";
 
-        protected override void InitializeData(int count)
+        private EnemyDataJson _tempJsonData;
+        
+        protected override object tempJsonData
         {
-            _enemyInstanceData = new EnemyInstanceData[count];
+            get => _tempJsonData;
+            set => _tempJsonData = (EnemyDataJson)value;
         }
 
-        protected override int ParseJsonFile(string jsonContent)
+        protected override void ParseJsonFile(TextAsset jsonObject)
         {
-            var data = JsonUtility.FromJson<EnemyDataJson>(jsonContent);
-            for (int i = 0; i < data.elements; i++)
+            _tempJsonData = ParseJsonData<EnemyDataJson>(jsonObject.text);
+        }
+        
+        protected override void InitializeData()
+        {
+            if (_enemyInstanceData == null || _enemyInstanceData.Length != _tempJsonData.elements)
+            {
+                _enemyInstanceData = new EnemyInstanceData[_tempJsonData.elements];
+            }
+            
+            for (int i = 0; i < _tempJsonData.elements; i++)
             {
                 _enemyInstanceData[i] = new EnemyInstanceData
                 {
-                    health = data.enemyHealthValues[i],
-                    damage = data.enemyDamageValues[i],
-                    speed = data.enemySpeedValues[i],
-                    bounty = data.enemyBountyValues[i],
-                    score = data.enemyScoreValues[i]
+                    health = _tempJsonData.enemyHealthValues[i],
+                    damage = _tempJsonData.enemyDamageValues[i],
+                    speed = _tempJsonData.enemySpeedValues[i],
+                    bounty = _tempJsonData.enemyBountyValues[i],
+                    score = _tempJsonData.enemyScoreValues[i]
                 };
+
+                if (i != currentIndex) continue;
+                SetHealth(_tempJsonData.enemyHealthValues[i]);
+                SetDamage(_tempJsonData.enemyDamageValues[i]);
+                SetSpeed(_tempJsonData.enemySpeedValues[i]);
+                SetBounty(_tempJsonData.enemyBountyValues[i]);
+                SetScore(_tempJsonData.enemyScoreValues[i]);
             }
-
-            return data.elements;
         }
-
         protected override void LogCurrentData()
         {
 #if UNITY_EDITOR

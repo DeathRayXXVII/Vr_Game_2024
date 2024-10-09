@@ -25,32 +25,32 @@ public class Achievements : MonoBehaviour
         else
         {
             Debug.Log("Steam is not enabled");
-            UnlockAchievement(id);
+            // UnlockAchievement(id);
         }
         
     }
 
-    private void UnlockAchievement(string id)
-    {
-        if (isSteamEnabled)
-        {
-            // var ach = new Steamworks.Data.Achievement(id);
-            // ach.Trigger();
-            // Debug.Log($"Achievement {id} unlocked");
-        }
-        var ach = achievementData.achievements.Find(achievement => achievement.iD == id);
-        if (ach != null)
-        {
-            if (ach.isUnlocked) return;
-            ach.isUnlocked = true;
-            Debug.Log($"Achievement {id} unlocked");
-        }
-        else
-        {
-            Debug.Log($"Achievement {id} not found");
-        }
-        
-    }
+    // private void UnlockAchievement(string id)
+    // {
+    //     if (isSteamEnabled)
+    //     {
+    //         // var ach = new Steamworks.Data.Achievement(id);
+    //         // ach.Trigger();
+    //         // Debug.Log($"Achievement {id} unlocked");
+    //     }
+    //     var ach = achievementData.achievements.Find(achievement => achievement.iD == id);
+    //     if (ach != null)
+    //     {
+    //         if (ach.isUnlocked) return;
+    //         ach.isUnlocked = true;
+    //         Debug.Log($"Achievement {id} unlocked");
+    //     }
+    //     else
+    //     {
+    //         Debug.Log($"Achievement {id} not found");
+    //     }
+    //     
+    // }
     
     /*public void ResetSteamAchievement(string id)
     {

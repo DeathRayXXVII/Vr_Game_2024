@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Linq;
 using ZPTools.Interface;
@@ -12,7 +13,14 @@ namespace ZPTools
         {
             foreach (var loader in scriptableObjectLoaders.OfType<IStartupLoader>())
             {
-                loader.LoadOnStartup();
+                try
+                {
+                    loader.LoadOnStartup();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e, this);
+                }
             }
         }
     }

@@ -58,7 +58,7 @@ namespace ZPTools.Utility
 #endif
                 return;
             }
-
+            
             var fileData = File.ReadAllText(filePath);
             _lastFileHash = ComputeHashSHA(fileData);
 

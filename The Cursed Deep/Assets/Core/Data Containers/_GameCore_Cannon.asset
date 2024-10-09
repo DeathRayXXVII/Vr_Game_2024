@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17118cee0ede8a04daf5abe998c4b1bd, type: 3}
+  m_Name: _GameCore_Cannon
+  m_EditorClassIdentifier: 
+  _allowDebug: 1
+  currentUpgradeIndex: 0
+  currentCannonIndex: 0
+  _cannonData:
+  - name: Default
+    prefab: {fileID: 11400000, guid: 2c43e130e336adc4c8b3674a86f3e173, type: 2}
+    cannonOffsetsByShip:
+    - targetShip: Sloop
+      cannonOffset: {fileID: 11400000, guid: 7c1dd9d316615a24daf5dc21fb9a2d89, type: 2}
+    - targetShip: Galleon
+      cannonOffset: {fileID: 11400000, guid: 60bc8149a3d48064d87cc4668980d33b, type: 2}

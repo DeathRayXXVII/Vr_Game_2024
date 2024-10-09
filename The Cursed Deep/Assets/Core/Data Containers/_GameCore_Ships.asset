@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395e7546f9502794f8a5a5746092b7bc, type: 3}
+  m_Name: _GameCore_Ships
+  m_EditorClassIdentifier: 
+  _allowDebug: 1
+  currentIndex: 0
+  shipInstancerData: {fileID: 11400000, guid: 2e08ed6f792463941a754099a4740a6d, type: 2}
+  _shipData:
+  - name: Sloop
+    prefab: {fileID: 11400000, guid: 6ad3fc7c4f2476542bf2cd546c35756c, type: 2}
+    cannonInstancerData: {fileID: 11400000, guid: b127bcf214d229348a671eb485b731bc,
+      type: 2}
+    ammoSpawnerData: {fileID: 11400000, guid: fb52ea895bdb6a54b8f5ab0c1a7e2336, type: 2}
+    enemySpawnerData: {fileID: 11400000, guid: 28d700cc452ed0d4ebf6c052340ccd4e, type: 2}
+  - name: Galleon
+    prefab: {fileID: 11400000, guid: cd4a8931f8381814a89283e02082575e, type: 2}
+    cannonInstancerData: {fileID: 11400000, guid: 63d4e0f6d2fe73b4db66c877e3e07707,
+      type: 2}
+    ammoSpawnerData: {fileID: 11400000, guid: 10649db0b35fff843bc908de984e368b, type: 2}
+    enemySpawnerData: {fileID: 11400000, guid: 9996e784309b73740a5ccdb27d741e45, type: 2}
