@@ -48,14 +48,12 @@ public class SpawnerData : ScriptableObject
     {
         get
         {
-            if (!numToSpawn)
-            {
+            if (numToSpawn) return numToSpawn.value;
 #if UNITY_EDITOR
-                Debug.Log($"numToSpawn is null on {name}. Creating new IntData with value {spawners.Count}.", this);
+            Debug.LogWarning($"numToSpawn is null on {name}. Creating new IntData with value {spawners.Count}.", this);
 #endif
-                numToSpawn = CreateInstance<IntData>();
-                numToSpawn.value = spawners.Count;
-            }
+            numToSpawn = CreateInstance<IntData>();
+            numToSpawn.value = spawners.Count;
             return numToSpawn.value;
         }
         set => numToSpawn.value = value;
@@ -79,13 +77,20 @@ public class SpawnerData : ScriptableObject
     public List<Spawner> spawners = new();
     private readonly List<Spawner> _availableSpawners = new();
 
-    private void Awake()
+    private void OnValidate()
     {
 #if UNITY_EDITOR
         if (!activeCount) Debug.LogError("Missing IntData for activeCount on SpawnerData" + name, this);
         if (!prefabList) Debug.LogError("Missing PrefabDataList for prefabList on SpawnerData" + name, this);
 #endif
     }
+    
+    private void OnEnable()
+    {
+        if (!globalLaneActiveLimit) return;
+        if (globalLaneActiveLimit < 1) globalLaneActiveLimit.value = 1;
+    }
+    
     public void ResetSpawnerData()
     {
         activeCount.value = 0;

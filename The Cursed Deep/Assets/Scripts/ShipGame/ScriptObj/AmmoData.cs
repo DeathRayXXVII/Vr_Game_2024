@@ -105,6 +105,7 @@ namespace ShipGame.ScriptObj
                 _ammoInstanceData[i] = new AmmoInstanceData
                 {
                     damage = _tempJsonData.ammoDamageValues[i],
+                    respawnRate = _tempJsonData.ammoRespawnRates[i]
                 };
             }
         }
@@ -115,6 +116,7 @@ namespace ShipGame.ScriptObj
             if (_allowDebug) Debug.Log($"------Ammo Data------\n" +
                                        $"Current Ammo Index: {upgradeIndex}\n" +
                                        $"Current Ammo Damage: {damage}\n" +
+                                        $"Current Ammo Respawn Rate: {respawnRate}\n" +
                                        $"----------------------", this);
 #endif
         }

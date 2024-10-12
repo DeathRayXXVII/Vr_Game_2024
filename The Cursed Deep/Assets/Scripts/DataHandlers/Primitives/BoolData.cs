@@ -15,4 +15,9 @@ public class BoolData : ScriptableObject
     {
         return data.value;
     }
+    
+    public static implicit operator int(BoolData data)
+    {
+        return data.value ? 1 : 0;
+    }
 }

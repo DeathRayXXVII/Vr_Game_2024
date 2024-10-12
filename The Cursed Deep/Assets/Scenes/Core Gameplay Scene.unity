@@ -5569,6 +5569,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1795409403}
+  - component: {fileID: 1795409406}
   - component: {fileID: 1795409404}
   - component: {fileID: 1795409405}
   - component: {fileID: 1795409400}
@@ -5642,18 +5643,6 @@ MonoBehaviour:
   onAwake:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 8c7f90ecad54fe641b481d6c9f229ea4, type: 2}
-        m_TargetAssemblyTypeName: ShipGame.ScriptObj.LevelData, Assembly-CSharp
-        m_MethodName: LoadOnStartup
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
         m_TargetAssemblyTypeName: ShipGameInventoryData, Assembly-CSharp
         m_MethodName: set_shipIndex
@@ -5776,6 +5765,24 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1795409406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795409399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a08ce6fecb7bf04a90e260eb207eed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scriptableObjectLoaders:
+  - {fileID: 11400000, guid: 8c7f90ecad54fe641b481d6c9f229ea4, type: 2}
+  - {fileID: 11400000, guid: f8390c5eba72d184ca4a311a9f850676, type: 2}
+  - {fileID: 11400000, guid: 460da02ca72ad4b47b4f420d8875badc, type: 2}
+  - {fileID: 11400000, guid: 5dd646cc72f9fd244933df90cc4de974, type: 2}
+  - {fileID: 11400000, guid: 5ab07176a94420441898e97ce818a1ec, type: 2}
 --- !u!1001 &1862288956
 PrefabInstance:
   m_ObjectHideFlags: 0

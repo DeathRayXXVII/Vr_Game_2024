@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using ZPTools.Interface;
 using ZPTools.Utility;
@@ -31,7 +32,9 @@ namespace ShipGame.ScriptObj
 
         protected abstract void InitializeData();
 
+#if UNITY_EDITOR
         protected abstract void LogCurrentData();
+#endif
 
         public void LoadOnStartup()
         {

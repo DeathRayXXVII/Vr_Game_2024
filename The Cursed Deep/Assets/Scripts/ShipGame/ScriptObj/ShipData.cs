@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.tvOS;
 
 namespace ShipGame.ScriptObj
 {
@@ -48,6 +49,17 @@ namespace ShipGame.ScriptObj
             get => currentIndex;
             set
             {
+                if (_shipInstanceData == null)
+                    Debug.Log("shipSelections is not initialized.", this);
+                if (_shipInstanceData.Length == 0)
+                    Debug.Log("shipSelections is empty.", this);
+
+                if (_shipData == null)
+                    Debug.Log("shipSelections is not initialized.", this);
+
+                if (_shipData.Length == 0)
+                    Debug.Log("shipSelections is empty.", this);
+                
                 if (
                     _shipInstanceData == null ||
                     _shipInstanceData.Length == 0 ||
@@ -75,9 +87,9 @@ namespace ShipGame.ScriptObj
         
         private ShipInstanceData[] _shipInstanceData;
         [SerializeField] private Ship[] _shipData;
-        private Ship ship => _shipData[currentIndex];
-        public int numberOfLanes => _shipInstanceData[currentIndex].numberOfLanes;
-        public float health => _shipInstanceData[currentIndex].health;
+        private Ship ship => _shipData[selectionIndex];
+        public int numberOfLanes => _shipInstanceData[selectionIndex].numberOfLanes;
+        public float health => _shipInstanceData[selectionIndex].health;
         public void SetCannonPrefabData(PrefabData cannonPrefab) => ship.cannonInstancerData.SetPrefabData(cannonPrefab);
         public void SetCannonPrefabOffset(Vector3Data offset) => ship.cannonInstancerData.SetPrefabOffset(offset);
         public void SetAmmoPrefabDataList(PrefabDataList ammoPrefabList) => ship.ammoSpawnerData.SetPrefabDataList(ammoPrefabList);

@@ -15,7 +15,7 @@ namespace ShipGame.ScriptObj
         private int currentLevel
         {
             get => levelData.currentLevel;
-            set => levelData.currentLevel.value = value;
+            set => levelData.currentLevel = value;
         }
         
         public InstancerData shipInstancerData => ship.shipInstancerData;
@@ -84,7 +84,7 @@ namespace ShipGame.ScriptObj
         private void ResetGameValues()
         {
             gameGlobals.ResetToNewGameValues();
-            currentLevel = 0;
+            currentLevel = 1;
             shipIndex = 0;
             cannonIndex = 0;
             ammoIndex = 0;
@@ -95,11 +95,11 @@ namespace ShipGame.ScriptObj
         public void SetGameVariables()
         {
             enemy.RandomizeEnemySelection();
-
+            
             gameGlobals.shipHealth.value = ship.health; // + gameGlobals.upgradeHealth;
             gameGlobals.ammoDamage.damage = cannon.damage + ammo.damage; // + gameGlobals.upgradeDamage;
             gameGlobals.ammoRespawnRate.value = ammo.respawnRate;
-            // gameGlobals.playerSpeed = gameGlobals.shipSpeed;
+            gameGlobals.playerSpeed.value = 2.0f;
             
             gameGlobals.enemyLaneActiveLimit.value = levelData.laneActiveLimit;
             gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.numberOfLanes;
@@ -113,6 +113,7 @@ namespace ShipGame.ScriptObj
             enemy.SetScore(levelData.spawnScore + enemy.selectionScore);
             
 #if UNITY_EDITOR
+            /*
             Debug.Log(
                 "-----Game Variables-----\n" +
                 $"Player Speed: {gameGlobals.playerSpeed}\n" +
@@ -139,6 +140,7 @@ namespace ShipGame.ScriptObj
                 $"Enemy Score: {levelData.spawnScore}\n" +
                 "\n"
             );
+            */
 #endif
         }
     }

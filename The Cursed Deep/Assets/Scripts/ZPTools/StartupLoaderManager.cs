@@ -9,6 +9,17 @@ namespace ZPTools
     {
         public ScriptableObject[] scriptableObjectLoaders;
 
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            foreach (var loader in scriptableObjectLoaders)
+            {
+                if (loader is IStartupLoader || !loader) continue;
+                Debug.LogError($"{loader.name} does not implement IStartupLoader", this);
+            }
+        }
+#endif
+
         private void Start()
         {
             foreach (var loader in scriptableObjectLoaders.OfType<IStartupLoader>())
