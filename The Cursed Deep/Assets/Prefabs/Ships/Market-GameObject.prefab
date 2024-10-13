@@ -103,6 +103,59 @@ Transform:
   - {fileID: 340232076582830341}
   m_Father: {fileID: 8421141028514902859}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4737556984846679651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5977727712835261574}
+  - component: {fileID: 1275260669504689324}
+  m_Layer: 31
+  m_Name: Teleport Blocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &5977727712835261574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4737556984846679651}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.745089, y: 7.9, z: -9.98}
+  m_LocalScale: {x: 4.632181, y: 4.632181, z: 4.632181}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7969677237603681735}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1275260669504689324
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4737556984846679651}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6, y: 0.9, z: 2.5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7032657331025673033
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +240,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &396144836529777740
 Transform:
@@ -1806,9 +1859,58 @@ PrefabInstance:
       propertyPath: m_Name
       value: Market-Model
       objectReference: {fileID: 0}
+    - target: {fileID: 968450588467016761, guid: b7b75fbab8f81e84f8f4b42804248584,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1358425139288822176, guid: b7b75fbab8f81e84f8f4b42804248584,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 2272053606966748864, guid: b7b75fbab8f81e84f8f4b42804248584,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3533555501708431174, guid: b7b75fbab8f81e84f8f4b42804248584,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 4523558569986599005, guid: b7b75fbab8f81e84f8f4b42804248584,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891683159981573204, guid: b7b75fbab8f81e84f8f4b42804248584,
+        type: 3}
+      propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891683159981573204, guid: b7b75fbab8f81e84f8f4b42804248584,
+        type: 3}
+      propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Level Select Scene
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619070742581175185, guid: b7b75fbab8f81e84f8f4b42804248584,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 9088819234105702319, guid: b7b75fbab8f81e84f8f4b42804248584,
+        type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 32403861405377601, guid: b7b75fbab8f81e84f8f4b42804248584,
+        type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 5977727712835261574}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7b75fbab8f81e84f8f4b42804248584, type: 3}
 --- !u!4 &7969677237603681735 stripped

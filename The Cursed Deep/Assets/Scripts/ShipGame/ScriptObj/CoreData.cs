@@ -81,7 +81,7 @@ namespace ShipGame.ScriptObj
         public void LevelCompleted() => currentLevel++;
         public void LevelFailed() => ResetGameValues();
 
-        private void ResetGameValues()
+        public void ResetGameValues()
         {
             gameGlobals.ResetToNewGameValues();
             currentLevel = 1;

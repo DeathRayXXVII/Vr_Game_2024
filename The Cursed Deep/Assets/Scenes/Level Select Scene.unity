@@ -851,12 +851,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 142329231}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.959629, y: 0.016209114, z: -0.023079138, w: -0.27985132}
-  m_LocalPosition: {x: 0.24, y: 1.651, z: -1.71}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.6188163, y: -0.6212841, z: 0.3331824, w: -0.34649956}
+  m_LocalPosition: {x: -5.0060024, y: -0.89634824, z: 6.1158013}
+  m_LocalScale: {x: 4.0209274, y: 4.192816, z: 4.470825}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1962256398}
   m_LocalEulerAnglesHint: {x: 392.538, y: -182.395, z: -898.76404}
 --- !u!114 &142329234
 MonoBehaviour:
@@ -4699,7 +4699,6 @@ GameObject:
   - component: {fileID: 1131686468}
   - component: {fileID: 1131686465}
   - component: {fileID: 1131686469}
-  - component: {fileID: 1131686471}
   m_Layer: 0
   m_Name: Game Handlers
   m_TagString: Untagged
@@ -4748,8 +4747,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitionAnimator: {fileID: 1775872701}
   transitionOnLoad: 1
-  transitionInTrigger: TransitionIn
-  transitionOutTrigger: TransitionOut
+  transitionInTrigger: FadeIn
+  transitionOutTrigger: FadeOut
 --- !u!114 &1131686469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4814,69 +4813,6 @@ MonoBehaviour:
   onRestartGame:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1131686471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1131686463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endWaitForSeconds:
-  - id: to core gameplay
-    realTime: 1
-    seconds: 5
-    onWaitFinished:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-          m_MethodName: StartWaitForSecondsEvent
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: block vision
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1131686471}
-          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-          m_MethodName: StartWaitForSecondsEvent
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: load gameplay scene
-            m_BoolArgument: 0
-          m_CallState: 2
-  - id: load gameplay scene
-    realTime: 1
-    seconds: 3
-    onWaitFinished:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1131686468}
-          m_TargetAssemblyTypeName: SceneBehavior, Assembly-CSharp
-          m_MethodName: LoadScene
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Core Gameplay Scene
-            m_BoolArgument: 0
-          m_CallState: 2
-  endWaitForZero: []
-  endWaitForFixedUpdate: []
 --- !u!1 &1167373734
 GameObject:
   m_ObjectHideFlags: 0
@@ -5361,7 +5297,7 @@ MonoBehaviour:
           m_StringArgument: LandHo
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1131686471}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
         m_MethodName: StartWaitForSecondsEvent
         m_Mode: 5
@@ -6835,6 +6771,9 @@ Transform:
   m_Children:
   - {fileID: 289636519}
   - {fileID: 1015201831}
+  - {fileID: 1929996966}
+  - {fileID: 1962256398}
+  - {fileID: 1850169734}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1545611685
@@ -8177,7 +8116,7 @@ MonoBehaviour:
           m_StringArgument: Fade In
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1131686471}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
         m_MethodName: StartWaitForSecondsEvent
         m_Mode: 5
@@ -8943,7 +8882,7 @@ PrefabInstance:
     - target: {fileID: 3906399293454468433, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.133
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3906399293454468433, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -8953,7 +8892,7 @@ PrefabInstance:
     - target: {fileID: 3906399293454468433, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.238
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3906399293454468433, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -9003,7 +8942,7 @@ PrefabInstance:
     - target: {fileID: 8649240391875177710, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9521,6 +9460,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1838037864}
   m_CullTransparentMesh: 1
+--- !u!1 &1850169733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1850169734}
+  - component: {fileID: 1850169735}
+  m_Layer: 0
+  m_Name: PlayerInitPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1850169734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850169733}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.13, y: 0.1, z: -4.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1543262128}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1850169735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850169733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformTrackerSO: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa, type: 2}
+  singleTrackOnStart: 1
+  continuousTrackOnStart: 0
 --- !u!1 &1859628232
 GameObject:
   m_ObjectHideFlags: 0
@@ -10201,7 +10187,7 @@ Transform:
   m_LocalScale: {x: 20, y: 0.25, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1543262128}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1948474072 stripped
 Transform:
@@ -10235,14 +10221,15 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.5146257, y: -0.4849334, z: -0.4849334, w: -0.5146257}
   m_LocalPosition: {x: 0.08090507, y: 0.13, z: -2.79}
-  m_LocalScale: {x: 0.21347415, y: 0.24870005, z: 0.24870005}
+  m_LocalScale: {x: 0.21347414, y: 0.24870005, z: 0.24870005}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7280712}
   - {fileID: 935976813}
   - {fileID: 1963894757}
   - {fileID: 1778018252}
-  m_Father: {fileID: 0}
+  - {fileID: 142329233}
+  m_Father: {fileID: 1543262128}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1963894754
 GameObject:
@@ -12542,10 +12529,9 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 142329233}
+  - {fileID: 1131686467}
   - {fileID: 1881313537}
   - {fileID: 1594931838}
-  - {fileID: 1131686467}
   - {fileID: 1551269088}
   - {fileID: 2086329190}
   - {fileID: 475320306}
@@ -12553,6 +12539,4 @@ SceneRoots:
   - {fileID: 678691511}
   - {fileID: 1775872700}
   - {fileID: 1543262128}
-  - {fileID: 1929996966}
-  - {fileID: 1962256398}
   - {fileID: 770882356}

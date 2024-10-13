@@ -37,6 +37,12 @@ public class TransformTracker : MonoBehaviour, INeedButton
         }
     }
     
+    public void TrackCurrentTransform()
+    {
+        TrackCurrentPosition();
+        TrackCurrentRotation();
+    }
+    
     public void TrackCurrentPosition()
     {
         if (transformTrackerSO) { TrackCurrentPosition(transformTrackerSO); }
