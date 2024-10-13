@@ -247,8 +247,11 @@ public class SpawnManager : MonoBehaviour, INeedButton
             
             if (rb)
             {
-                rb.velocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
+                if (!rb.isKinematic)
+                {
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                }
             }
             
 #if UNITY_EDITOR

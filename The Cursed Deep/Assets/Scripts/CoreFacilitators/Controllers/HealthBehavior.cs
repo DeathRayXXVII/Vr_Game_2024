@@ -32,7 +32,7 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     private void CheckHealthEvents()
     {
         if (health > maxHealth) health = maxHealth;
-        if (health == maxHealth) return;
+        if (Mathf.Approximately(health, maxHealth)) return;
         if (health < 0) health = 0;
         
         if (health <= maxHealth * 0.75f && health >= maxHealth * 0.5f) onThreeQuarterHealth.Invoke();
@@ -72,16 +72,12 @@ public class HealthBehavior : MonoBehaviour, IDamagable
 
     public void TakeDamage(IDamageDealer dealer)
     {
-        ShowDamage(dealer.damage.ToString());
-        Debug.Log(dealer.damage);
-        var damage = dealer.damage;
-        if (damage > -1) damage *= -1;
-        AddAmountToHealth(damage);
+        TakeDamage(dealer.damage);
     }
     
     private void ShowDamage(string text)
     {
-        if (floatingText == null) return;
+        if (!floatingText) return;
         var textObj = Instantiate(floatingText, textPivot.transform.position, Quaternion.identity);
         string[] states = {"DamageTextVariant1", "DamageTextVariant2", "DamageTextVariant3", "DamageTextVariant4"};
         var randomState = states[Random.Range(0, states.Length)];
