@@ -171,9 +171,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7529716432286330854}
   - {fileID: 4613293567363318511}
   - {fileID: 2967301651291991201}
+  - {fileID: 7529716432286330854}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5663542307654176192
@@ -196,10 +196,11 @@ MonoBehaviour:
         - m_Target: {fileID: 7318557795535440095}
           m_TargetAssemblyTypeName: TransformTracker, Assembly-CSharp
           m_MethodName: TrackCurrentTransform
-          m_Mode: 1
+          m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_ObjectArgument: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: TransformData, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -212,10 +213,11 @@ MonoBehaviour:
         - m_Target: {fileID: 3608156006908490755}
           m_TargetAssemblyTypeName: TransformTracker, Assembly-CSharp
           m_MethodName: TrackCurrentTransform
-          m_Mode: 1
+          m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_ObjectArgument: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: TransformData, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -228,10 +230,11 @@ MonoBehaviour:
         - m_Target: {fileID: 5012169793633332126}
           m_TargetAssemblyTypeName: TransformTracker, Assembly-CSharp
           m_MethodName: TrackCurrentTransform
-          m_Mode: 1
+          m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_ObjectArgument: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: TransformData, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

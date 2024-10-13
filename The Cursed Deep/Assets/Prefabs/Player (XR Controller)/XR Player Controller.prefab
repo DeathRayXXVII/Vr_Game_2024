@@ -395,8 +395,60 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7024755661572440289, guid: c26bd7c9455a35849a842b4fa3ef5889,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4887932458795300851}
   m_SourcePrefab: {fileID: 100100000, guid: c26bd7c9455a35849a842b4fa3ef5889, type: 3}
+--- !u!114 &1322428564386322806 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7897440396980726504, guid: c26bd7c9455a35849a842b4fa3ef5889,
+    type: 3}
+  m_PrefabInstance: {fileID: 9206322971131032478}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2215665434495562623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1e8c997df241c1a67045eeac79b41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2215665434495562623 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7024755661572440289, guid: c26bd7c9455a35849a842b4fa3ef5889,
+    type: 3}
+  m_PrefabInstance: {fileID: 9206322971131032478}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4887932458795300851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2215665434495562623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56593a6888d7c7f4a923582ba7ab6167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedEvent: 0
+  eventActions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1322428564386322806}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets.DynamicMoveProvider,
+          Assembly-CSharp
+        m_MethodName: SetMovementSpeed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 219a518e95713d84f8ccb8d4e3040b4c,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: FloatData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &2765251063090609964 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6459086314133376178, guid: c26bd7c9455a35849a842b4fa3ef5889,
