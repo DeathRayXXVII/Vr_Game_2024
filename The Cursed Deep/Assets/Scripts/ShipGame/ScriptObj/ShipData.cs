@@ -50,26 +50,26 @@ namespace ShipGame.ScriptObj
             set
             {
                 if (_shipInstanceData == null)
-                    Debug.Log("shipSelections is not initialized.", this);
+                {
+                    ArrayError("shipSelections", "null");
+                    return;
+                }
+
                 if (_shipInstanceData.Length == 0)
-                    Debug.Log("shipSelections is empty.", this);
+                {
+                    ArrayError("shipSelections", "empty");
+                    return;
+                }
 
                 if (_shipData == null)
-                    Debug.Log("shipSelections is not initialized.", this);
+                {
+                    ArrayError("shipInstanceData", "null");
+                    return;
+                }
 
                 if (_shipData.Length == 0)
-                    Debug.Log("shipSelections is empty.", this);
-                
-                if (
-                    _shipInstanceData == null ||
-                    _shipInstanceData.Length == 0 ||
-                    _shipData == null ||
-                    _shipData.Length == 0
-                    )
                 {
-#if UNITY_EDITOR
-                    Debug.LogError("shipSelections is not initialized or is empty.", this);
-#endif
+                    ArrayError("shipInstanceData", "empty");
                     return;
                 }
                 
@@ -80,6 +80,15 @@ namespace ShipGame.ScriptObj
                 shipInstancerData.SetPrefabData(ship.prefab);
             }
         }
+        
+        private void ArrayError(string arrayName, string error)
+        {
+#if UNITY_EDITOR
+            Debug.LogError($"{arrayName} is {error}.", this);
+#endif
+        }
+        
+        
         
         // Instancer that performs the instantiation of the ship
         // all other instancers and spawners are inside the instanced ship making them dependent on this instancer

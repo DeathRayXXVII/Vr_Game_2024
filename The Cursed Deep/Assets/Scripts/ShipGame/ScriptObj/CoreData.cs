@@ -113,7 +113,6 @@ namespace ShipGame.ScriptObj
             enemy.SetScore(levelData.spawnScore + enemy.selectionScore);
             
 #if UNITY_EDITOR
-            /*
             Debug.Log(
                 "-----Game Variables-----\n" +
                 $"Player Speed: {gameGlobals.playerSpeed}\n" +
@@ -140,7 +139,6 @@ namespace ShipGame.ScriptObj
                 $"Enemy Score: {levelData.spawnScore}\n" +
                 "\n"
             );
-            */
 #endif
         }
     }

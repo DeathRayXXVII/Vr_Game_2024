@@ -40,6 +40,9 @@ namespace ShipGame.ScriptObj
         {
             get
             {
+                // if the current level is less than 1, set it to 1 (minimum level)
+                if (_currentLevel < 1) _currentLevel.value = 1;
+                
                 // boss fight occurs every 5 levels
                 var isBossFightLevel = _currentLevel % 5 == 0;
                 

@@ -30,7 +30,9 @@ namespace ZPTools
                 }
                 catch (Exception e)
                 {
+#if UNITY_EDITOR
                     Debug.LogError(e, this);
+#endif
                 }
             }
         }
