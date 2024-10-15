@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ namespace Achievements
         
         private ProgressiveAchievement prog;
         private Achievement achievement;
-    
+        
         public void SetAchievement(Achievement ach, ProgressiveAchievement progAch)
         {
             if (ach.isHidden && !ach.isUnlocked)
@@ -67,15 +68,27 @@ namespace Achievements
             UpdateUI();
         }
 
-        public void UpdateProgress(float progs)
+        // public void UpdateProgress(float progs)
+        // {
+        //     if (prog != null)
+        //     {
+        //         prog.progress = progs;
+        //         UpdateUI();
+        //     }
+        // }
+      
+        public void StartTimer()
         {
-            if (prog != null)
-            {
-                prog.progress = progs;
-                UpdateUI();
-            }
+            StartCoroutine(Wait());
         }
         
+        private IEnumerator Wait()
+        {
+            yield return new WaitForSeconds(AchievementManager.Instance.displayTime);
+            GetComponent<Animator>().SetTrigger("ScaleDown");
+            yield return new WaitForSeconds(0.1f);
+            achDisplay.CheckBacklog();
+        }
         private void UpdateUI()
         {
             name.text = achievement.name;
