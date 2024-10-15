@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Achievements
 {
     // -- Once we implement Steamworks Uncomment the -- //
-    // -- following lines to enable Achievements for Steam -- // 
+    // -- commented lines to enable Achievements for Steam -- // 
     // -- then modify the rest of the code to work with Steam -- //
     [System.Serializable]
     public class AchievementManager : MonoBehaviour
@@ -97,16 +97,16 @@ namespace Achievements
     
         public void UpdateProgress(string id, float progress)
         {
-            //UpdateProgress(FindAchievement(id), progress);
-            int index = FindAchievement(id);
-            if (index >= 0 && index < achievementData.achievements.Count)
-            {
-                Unlock(index);
-            }
-            else
-            {
-                Debug.LogWarning($"Achievement with id {id} not found, cannot update progress");
-            }
+            UpdateProgress(FindAchievement(id), progress);
+            // int index = FindAchievement(id);
+            // if (index >= 0 && index < achievementData.achievements.Count)
+            // {
+            //     Unlock(index);
+            // }
+            // else
+            // {
+            //     Debug.LogWarning($"Achievement with id {id} not found, cannot update progress");
+            // }
         }
         
         private void UpdateProgress(int id, float progress)
@@ -206,32 +206,32 @@ namespace Achievements
                 }
             }
         }
-       /*public void SaveAchievements()
+       public void SaveAchievements()
         {
-            for (int i = 0; i < progAch.Count; i++)
+            for (int i = 0; i < achievementData.achievements.Count; i++)
             {
-                PlayerPrefs.SetString("Achievements" + i, JsonUtility.ToJson(progAch[i]));
+                PlayerPrefs.SetString("Achievements" + i, JsonUtility.ToJson(achievementData.achievements[i]));
             }
             PlayerPrefs.Save();
         }
     
         public void LoadAchievements()
         {
-            progAch.Clear();
+            achievementData.achievements.Clear();
         
             for (int i = 0; i < achievementData.achievements.Count; i++)
             {
                 if(PlayerPrefs.HasKey("Achievements" + i))
                 {
                     var newProgAch = JsonUtility.FromJson<ProgressiveAchievement>(PlayerPrefs.GetString("AchievementState_" + i));
-                    progAch.Add(newProgAch);
+                    achievementData.achievements.Add(newProgAch);
                 }
                 else
                 {
-                    progAch.Add(new ProgressiveAchievement());
+                    achievementData.achievements.Add(new ProgressiveAchievement());
                 }
             }
-        }*/
+        }
     
         public void ResetAchievements()
         {
@@ -247,14 +247,14 @@ namespace Achievements
                 PlayerPrefs.DeleteKey("Achievements" + i);
                 achievementData.achievements.Add(new ProgressiveAchievement());
             }
-            //SaveAchievements();
+            SaveAchievements();
         }
     
         private void AutoSaveAchievements()
         {
             if (autoSave)
             {
-                //SaveAchievements();
+                SaveAchievements();
             }
         }
     }

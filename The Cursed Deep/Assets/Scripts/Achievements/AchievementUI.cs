@@ -1,3 +1,4 @@
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,9 @@ namespace Achievements
         [SerializeField] private GameObject hiddenOverlay;
         [SerializeField] private Text hiddenName;
         [HideInInspector] public AchievementUIDisplay achDisplay;
+        
+        private ProgressiveAchievement prog;
+        private Achievement achievement;
     
         public void SetAchievement(Achievement ach, ProgressiveAchievement progAch)
         {
@@ -57,6 +61,28 @@ namespace Achievements
                     progressBar.value = ach.isUnlocked ? 1 : 0;
                     progress.text = ach.isUnlocked ? "Achieved" : "Not Achieved";
                 }
+            }
+            achievement = ach;
+            prog = progAch;
+            UpdateUI();
+        }
+
+        public void UpdateProgress(float progs)
+        {
+            if (prog != null)
+            {
+                prog.progress = progs;
+                UpdateUI();
+            }
+        }
+        
+        private void UpdateUI()
+        {
+            name.text = achievement.name;
+            description.text = achievement.description;
+            if (prog != null)
+            {
+                progressBar.value = prog.progress / prog.goal;
             }
         }
     }
