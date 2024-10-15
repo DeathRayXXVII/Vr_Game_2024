@@ -12,7 +12,7 @@ namespace Achievements
         [SerializeField] private bool isSteamEnabled;
         [SerializeField] private bool autoSave;
         public AchievementData achievementData;
-        [SerializeField] private int displayTime;
+        public int displayTime;
         public bool achDisplay;
         public int achDisplayNum;
         public bool showProgress;
@@ -90,14 +90,15 @@ namespace Achievements
                 achievement.progress = achievementData.achievements[id].goal;
                 achievement.isUnlocked = true;
                 achDisplay = true;
+                DisplayUnlock(id);
                 //SaveAchievements();
                 Debug.Log($"Achievement {id} unlocked");
             }
         }
     
-        public void UpdateProgress(string id, float progress)
+        public void UpdateProgress(string id)
         {
-            UpdateProgress(FindAchievement(id), progress);
+            UpdateProgress(FindAchievement(id));
             // int index = FindAchievement(id);
             // if (index >= 0 && index < achievementData.achievements.Count)
             // {
@@ -109,14 +110,15 @@ namespace Achievements
             // }
         }
         
-        private void UpdateProgress(int id, float progress)
+        private void UpdateProgress(int id)
         {
+            float progress = 0;
             if (id < 0 || id >= achievementData.achievements.Count)
             {
                 Debug.LogWarning($"Achievement with index {id} out of range, cannot update progress");
                 return;
             }
-            
+            progress++;
             var achievement = achievementData.achievements[id] as ProgressiveAchievement;
             if (achievementData.achievements[id].isProgression)
             {
@@ -181,17 +183,22 @@ namespace Achievements
                 Debug.LogWarning($"Achievement with index {id} out of range, cannot display");
                 return;
             }
-
+            Debug.Log("0");
             if (achievementData.achievements[id] is ProgressiveAchievement achievement && (achDisplay && !achievementData.achievements[id].isHidden || achievement.isUnlocked))
             {
+                Debug.Log("1");
                 if (achievementData.achievements[id].isProgression && achievement.progress < achievementData.achievements[id].goal)
                 {
+                    Debug.Log("2");
                     int steps = (int)achievementData.achievements[id].goal / (int)achievementData.achievements[id].notify;
-
+                    Debug.Log($"Steps: {steps}, Progress: {achievement.progress}, Notify: {achievementData.achievements[id].notify}");
+                    Debug.Log("3");
                     for (int i = steps; i < achievement.progressUpdate; i++)
                     {
+                        Debug.Log($"Loop i: {i}, Progress: {achievement.progress}, Notify * i: {achievementData.achievements[id].notify * i}");
                         if (achievement.progress >= achievementData.achievements[id].notify * i)
                         {
+                            Debug.Log("5");
                             // play sound right here
                             achievement.progressUpdate = i;
                             displayUI.ScheduleAchievementDisplay(id);
@@ -201,6 +208,7 @@ namespace Achievements
                 }
                 else
                 {
+                    Debug.Log("16");
                     // play sound right here
                     displayUI.ScheduleAchievementDisplay(id);
                 }
