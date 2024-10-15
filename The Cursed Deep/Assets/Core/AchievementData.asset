@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievements:
   - rid: 8872319134103240709
+  - rid: 8872319204452990976
+  - rid: 8872319204452990977
   references:
     version: 2
     RefIds:
@@ -23,14 +25,48 @@ MonoBehaviour:
         id: Dice
         name: Dice
         description: This is a Dice
-        isUnlocked: 1
+        isUnlocked: 0
         lockedIcon: {fileID: 0}
         lockedOverlay: 0
         unlockedIcon: {fileID: 0}
         isHidden: 0
         isProgression: 1
-        goal: 2
+        goal: 3
         notify: 1
         progressSuffix: 
-        progress: 2
+        progress: 0
+        progressUpdate: 0
+    - rid: 8872319204452990976
+      type: {class: ProgressiveAchievement, ns: Achievements, asm: Assembly-CSharp}
+      data:
+        id: Test
+        name: Sup
+        description: Your suck
+        isUnlocked: 0
+        lockedIcon: {fileID: 0}
+        lockedOverlay: 0
+        unlockedIcon: {fileID: 0}
+        isHidden: 0
+        isProgression: 0
+        goal: 0
+        notify: 0
+        progressSuffix: 
+        progress: 0
+        progressUpdate: 0
+    - rid: 8872319204452990977
+      type: {class: ProgressiveAchievement, ns: Achievements, asm: Assembly-CSharp}
+      data:
+        id: 2
+        name: 249
+        description: 555555555
+        isUnlocked: 0
+        lockedIcon: {fileID: 0}
+        lockedOverlay: 0
+        unlockedIcon: {fileID: 0}
+        isHidden: 1
+        isProgression: 0
+        goal: 0
+        notify: 0
+        progressSuffix: 
+        progress: 0
         progressUpdate: 0
