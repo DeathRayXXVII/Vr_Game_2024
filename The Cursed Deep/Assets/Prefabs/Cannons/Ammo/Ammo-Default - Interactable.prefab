@@ -235,6 +235,7 @@ GameObject:
   - component: {fileID: 6345085156865375072}
   - component: {fileID: 919918478158659066}
   - component: {fileID: 1655934223155502546}
+  - component: {fileID: -6589656415407094019}
   - component: {fileID: 8596837145433627448}
   - component: {fileID: -1384171436132759502}
   - component: {fileID: -7157524752608855785}
@@ -513,19 +514,7 @@ MonoBehaviour:
   toggleGrabbersMeshVisibility: 1
   onGrab:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -7157524752608855785}
-        m_TargetAssemblyTypeName: PooledObjectBehavior, Assembly-CSharp
-        m_MethodName: TriggerRespawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onRelease:
     m_PersistentCalls:
       m_Calls:
@@ -539,6 +528,34 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: despawn
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-6589656415407094019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7281101536470286139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56593a6888d7c7f4a923582ba7ab6167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedEvent: 4
+  eventActions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &8596837145433627448

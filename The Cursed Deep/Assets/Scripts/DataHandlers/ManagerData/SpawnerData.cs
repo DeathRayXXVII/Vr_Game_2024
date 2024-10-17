@@ -30,25 +30,26 @@ public class SpawnerData : ScriptableObject
             _waitForSpawnRate = _spawnRates.Count > 0 ? _spawnRates[0] : new WaitForSeconds(spawnRate);
             return;
         }
-        if (totalCountToSpawn < _spawnRates.Count) return;
+        if (originalTotalCountToSpawn < _spawnRates.Count) return;
         
-        var count = totalCountToSpawn - _spawnRates.Count;
+        var count = originalTotalCountToSpawn - _spawnRates.Count;
         for (var i = 0; i < count; i++)
             _spawnRates.Add(new WaitForSeconds(spawnRate));
     }
     
     internal WaitForSeconds GetWaitForSpawnRate() => randomizeSpawnRate ? _spawnRates[Random.Range(0, _spawnRates.Count)] : _waitForSpawnRate;
     
-    internal int totalCountToSpawn { get; set; }
+    internal int originalTotalCountToSpawn { get; set; }
+    internal int currentTotalCountToSpawn { get; set; }
     internal int spawnedCount { get; set; }
-    internal int amountLeftToSpawn => totalCountToSpawn - spawnedCount;
+    internal int amountLeftToSpawn => currentTotalCountToSpawn - spawnedCount;
     internal int activeCount
     {
         get => _activeCount;
         set => _activeCount.value = value < 0 ? 0 : value;
     }
-    internal bool canSpawn => spawnedCount < totalCountToSpawn;
-    internal bool spawningComplete => spawnedCount >= totalCountToSpawn;
+    internal bool canSpawn => spawnedCount < originalTotalCountToSpawn;
+    internal bool spawningComplete => spawnedCount >= originalTotalCountToSpawn;
     
 
     [System.Serializable]
@@ -82,15 +83,15 @@ public class SpawnerData : ScriptableObject
         if (globalLaneActiveLimit)
             globalLaneActiveLimit.value = globalLaneActiveLimit < 1 ? globalLaneActiveLimit.value : 1;
         
-        if (!numToSpawn && totalCountToSpawn < 1)
+        if (!numToSpawn && originalTotalCountToSpawn < 1)
         {
 #if UNITY_EDITOR
             Debug.LogWarning($"numToSpawn is null on {name}. Setting spawn count to {spawners.Count}.", this);
 #endif
-            totalCountToSpawn = spawners.Count;
+            originalTotalCountToSpawn = spawners.Count;
             return;
         }
-        totalCountToSpawn = numToSpawn;
+        originalTotalCountToSpawn = numToSpawn;
     }
     
     public void ResetSpawnerData()
@@ -144,13 +145,13 @@ public class SpawnerData : ScriptableObject
         spawnedCount++;
     }
     
-    public void HandleSpawnRemoval(ref Spawner spawner, bool validDeath = true)
+    public void HandleSpawnRemoval(ref Spawner spawner, bool invalidDeath = false)
     {
 #if UNITY_EDITOR
-        if (allowDebug) Debug.Log($"Handling removal of spawn from {spawner.spawnerID}.", this);
+        if (allowDebug) Debug.Log($"Handling {(invalidDeath ? "invalid" : "valid")} removal of spawn from {spawner.spawnerID}.", this);
 #endif
         spawner.DecrementCount();
         activeCount--;
-        if (validDeath) spawnedCount--;
+        if (invalidDeath) spawnedCount--;
     }
 }

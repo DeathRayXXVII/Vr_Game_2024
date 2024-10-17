@@ -32,7 +32,7 @@ public class PooledObjectBehavior : MonoBehaviour
         _spawnManager.SetSpawnDelay(timeToRespawn ? timeToRespawn : 1);
         _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
         
-        _spawnManager.StartSpawn(1);
+        _spawnManager.StartSpawn(1, true);
     }
 
     private void OnEnable()

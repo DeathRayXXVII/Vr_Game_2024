@@ -5,6 +5,9 @@ namespace ShipGame.ScriptObj
     [CreateAssetMenu (fileName = "CoreData", menuName = "Data/ManagerData/CoreData")]
     public class CoreData : ScriptableObject
     {
+#if UNITY_EDITOR
+        [SerializeField] internal bool allowDebug;
+#endif
         [SerializeField] private GameGlobals gameGlobals;
         [SerializeField] private LevelData levelData;
         [SerializeField] private ShipData ship;
@@ -154,32 +157,35 @@ namespace ShipGame.ScriptObj
             SetEnemyData();
             
 #if UNITY_EDITOR
-            Debug.Log(
-                "-----Game Variables-----\n" +
-                $"Player Speed: {gameGlobals.playerSpeed}\n" +
-                $"Player Score: {gameGlobals.playerScore}\n" +
-                "\n" +
-                $"Ship Index: {shipIndex}\n" +
-                $"Ship Health: {gameGlobals.shipHealth}\n" +
-                "\n" +
-                $"Ammo Index: {ammoIndex}\n" +
-                $"Ammo Damage: {gameGlobals.ammoDamage.damage}\n" +
-                $"Ammo Respawn Time: {gameGlobals.ammoRespawnRate}\n" +
-                "\n" +
-                $"Cannon Index: {cannonIndex}\n" +
-                "\n" +
-                $"Enemy Index: {enemyIndex}\n" +
-                $"Lane Active Limit: {gameGlobals.enemyLaneActiveLimit}\n" +
-                $"Spawn Rate MIN: {gameGlobals.spawnRateMin}\n" +
-                $"Spawn Rate MAX: {gameGlobals.spawnRateMax}\n" +
-                $"Enemy Spawn Count: {gameGlobals.enemySpawnCount}\n" +
-                $"Enemy Health: {enemy.health}\n" +
-                $"Enemy Damage: {enemy.damage}\n" +
-                $"Enemy Speed: {enemy.speed}\n" +
-                $"Enemy Bounty: {enemy.bounty}\n" +
-                $"Enemy Score: {levelData.spawnScore}\n" +
-                "\n"
-            );
+            if (allowDebug)
+            {
+                Debug.Log(
+                    "-----Game Variables-----\n" +
+                    $"Player Speed: {gameGlobals.playerSpeed}\n" +
+                    $"Player Score: {gameGlobals.playerScore}\n" +
+                    "\n" +
+                    $"Ship Index: {shipIndex}\n" +
+                    $"Ship Health: {gameGlobals.shipHealth}\n" +
+                    "\n" +
+                    $"Ammo Index: {ammoIndex}\n" +
+                    $"Ammo Damage: {gameGlobals.ammoDamage.damage}\n" +
+                    $"Ammo Respawn Time: {gameGlobals.ammoRespawnRate}\n" +
+                    "\n" +
+                    $"Cannon Index: {cannonIndex}\n" +
+                    "\n" +
+                    $"Enemy Index: {enemyIndex}\n" +
+                    $"Lane Active Limit: {gameGlobals.enemyLaneActiveLimit}\n" +
+                    $"Spawn Rate MIN: {gameGlobals.spawnRateMin}\n" +
+                    $"Spawn Rate MAX: {gameGlobals.spawnRateMax}\n" +
+                    $"Enemy Spawn Count: {gameGlobals.enemySpawnCount}\n" +
+                    $"Enemy Health: {enemy.health}\n" +
+                    $"Enemy Damage: {enemy.damage}\n" +
+                    $"Enemy Speed: {enemy.speed}\n" +
+                    $"Enemy Bounty: {enemy.bounty}\n" +
+                    $"Enemy Score: {levelData.spawnScore}\n" +
+                    "\n"
+                );
+            }
 #endif
         }
     }

@@ -36,9 +36,11 @@ public class SpawnManager : MonoBehaviour, INeedButton
     }
 
     private float _spawnDelay = 0.5f;
-    
-    private WaitForSeconds _waitForSpawnDelay, _waitLoadBuffer;
-    private WaitForFixedUpdate _wffu;
+
+    private WaitForSecondsRealtime _waitForSpawnDelay;
+    private readonly WaitForSeconds _waitLoadBuffer = new(0.5f);
+    private readonly WaitForSeconds _immediateLoadBuffer = new(0.1f);
+    private readonly WaitForFixedUpdate _wffu = new();
     private Coroutine _lateStartRoutine,
         _delaySpawnRoutine,
         _spawnRoutine,
@@ -51,9 +53,6 @@ public class SpawnManager : MonoBehaviour, INeedButton
     {
         spawnerData.ResetSpawnerData();
         _parentObject = new GameObject($"SpawnedObjects_{name}");
-        
-        _wffu = new WaitForFixedUpdate();
-        _waitLoadBuffer = new WaitForSeconds(1.0f);
 
         _poolSize = poolSize;
         
@@ -67,7 +66,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
             return;
         }
 #endif
-        
+        spawnerData.currentTotalCountToSpawn = spawnerData.originalTotalCountToSpawn;
         _prefabSet = spawnerData.prefabList;
         _poolCreationRoutine ??= StartCoroutine(DelayPoolCreation());
     }
@@ -121,34 +120,41 @@ public class SpawnManager : MonoBehaviour, INeedButton
         obj.SetActive(false);
     }
 
-    private void SetSpawnDelay() => _waitForSpawnDelay = new WaitForSeconds(_spawnDelay);
+    private void SetSpawnDelay() => _waitForSpawnDelay = new WaitForSecondsRealtime(_spawnDelay);
     public void SetSpawnDelay(float newDelay)
     {
         newDelay = ToleranceCheck(_spawnDelay, newDelay);
         if (newDelay < 0) return;
         _spawnDelay = newDelay;
-        _waitForSpawnDelay = new WaitForSeconds(_spawnDelay);
+        _waitForSpawnDelay = new WaitForSecondsRealtime(_spawnDelay);
         SetSpawnDelay();
     }
     
-    public void StartSpawn(int amount)
+    public void StartSpawn(int amount, bool asynchronous = false)
     {
         if (_spawnRoutine != null || amount < 1) return;
-        spawnerData.totalCountToSpawn = amount;
-        StartSpawn();
+        spawnerData.originalTotalCountToSpawn = amount;
+        spawnerData.currentTotalCountToSpawn = amount;
+        StartSpawn(asynchronous);
     }
 
+    public void StartSpawn(bool asynchronous)
+    {
+        if (asynchronous) StartCoroutine(DelaySpawn(true));
+        StartSpawn();
+    }
+    
     public void StartSpawn()
     {
         if (_spawnRoutine != null) return;
-        if (spawnerData.spawnedCount > 0) spawnerData.spawnedCount = 0;
+        if (spawnerData.currentTotalCountToSpawn <= 0) spawnerData.currentTotalCountToSpawn = spawnerData.originalTotalCountToSpawn;
         _delaySpawnRoutine ??= StartCoroutine(DelaySpawn());
     }
 
     public void ImmediateSpawn()
     {
         if (_spawnRoutine != null) return;
-        if (spawnerData.spawnedCount > 0) spawnerData.spawnedCount = 0;
+        spawnerData.spawnedCount = 0;
         _spawnRoutine ??= StartCoroutine(Spawn(true));
     }
     
@@ -159,13 +165,18 @@ public class SpawnManager : MonoBehaviour, INeedButton
         _spawnRoutine = null;
     }
 
-    private IEnumerator DelaySpawn()
+    private IEnumerator DelaySpawn(bool asynchronous = false)
     {
+        spawnerData.spawnedCount = 0;
         spawnerData.GenerateSpawnRates();
-        while(_poolCreationRoutine != null) yield return _wffu;
         yield return _wffu;
         yield return _waitForSpawnDelay;
-        _spawnRoutine ??= StartCoroutine(Spawn());
+        if (!asynchronous) _spawnRoutine ??= StartCoroutine(Spawn());
+        else
+        {
+            StartCoroutine(Spawn());
+            yield break;
+        }
         yield return _wffu;
         _delaySpawnRoutine = null;
     }
@@ -173,22 +184,23 @@ public class SpawnManager : MonoBehaviour, INeedButton
     private IEnumerator Spawn(bool immediate = false)
     {
 #if UNITY_EDITOR
-        Debug.Log($"Starting Spawn on {name} with data from {spawnerData.name}: {spawnerData.canSpawn}", this);
+        if (allowDebug) Debug.Log($"Starting Spawn on {name} with data from {spawnerData.name}: {spawnerData.canSpawn}", this);
+        if (allowDebug) Debug.Log($"currentTotalCountToSpawn: {spawnerData.currentTotalCountToSpawn} originalTotalCountToSpawn: {spawnerData.originalTotalCountToSpawn}" +
+                                  $"spawnedCount: {spawnerData.spawnedCount} activeCount: {spawnerData.activeCount} amountLeftToSpawn: {spawnerData.amountLeftToSpawn}", this);
 #endif
-        Debug.Log($"spawnedCount: {spawnerData.spawnedCount} totalCountToSpawn: {spawnerData.totalCountToSpawn}", this);
         yield return _waitLoadBuffer;
         
         while(_pooling) yield return _waitLoadBuffer;
         
         while (spawnerData.canSpawn)
         {
-            var waitTime = immediate ? (YieldInstruction) _waitLoadBuffer : spawnerData.GetWaitForSpawnRate();
+            var waitTime = immediate ? (YieldInstruction) _immediateLoadBuffer : spawnerData.GetWaitForSpawnRate();
             SpawnerData.Spawner spawner = spawnerData.GetInactiveSpawner();
             
 #if UNITY_EDITOR
             if (allowDebug)
             {
-                Debug.Log($"Spawning Info...\nTotal Spawns Currently Active Count: {spawnerData.activeCount}\nTotal To Spawn: {spawnerData.totalCountToSpawn}\nNum Left: {spawnerData.amountLeftToSpawn}\n" +
+                Debug.Log($"Spawning Info...\nTotal Spawns Currently Active Count: {spawnerData.activeCount}\nTotal To Spawn: {spawnerData.originalTotalCountToSpawn}\nNum Left: {spawnerData.amountLeftToSpawn}\n" +
                           $"PoolSize: {_poolSize}\nPooledObjects: {_pooledObjects.Count}\nspawners: {spawnerData.spawners.Count}\nspawnRate: {waitTime}", this);
                 Debug.Log((spawner == null) ? "No Spawners Available" : $"Spawner: {spawner.spawnerID}", this);
             }
@@ -279,6 +291,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
     
     public void NotifyPoolObjectDisabled(ref SpawnerData.Spawner spawner)
     {
+        
         if (_destroying || _pooling) return;
         spawnerData.HandleSpawnRemoval(ref spawner);
         
@@ -290,7 +303,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
         if (spawnerData.activeCount <= 0 && spawnerData.amountLeftToSpawn <= 0)
         {
 #if UNITY_EDITOR
-            if (allowDebug) Debug.Log($"{spawner} was the final spawn. Raising event.", this);
+            if (allowDebug) Debug.Log($"{spawner.spawnerID} held the final spawn. Raising event.", this);
 #endif
             onFinalSpawnDefeated.Invoke();
         }
@@ -301,14 +314,14 @@ public class SpawnManager : MonoBehaviour, INeedButton
         }
     }
 
-    public void NotifyPoolObjectInvalidDeath(ref SpawnerData.Spawner spawnerID) => spawnerData.HandleSpawnRemoval(ref spawnerID, false);
+    public void NotifyPoolObjectInvalidDeath(ref SpawnerData.Spawner spawnerID) => spawnerData.HandleSpawnRemoval(ref spawnerID, true);
 
     private void OnDisable() => _destroying = true;
     private void OnDestroy() => _destroying = true;
 
     public List<(System.Action, string)> GetButtonActions()
     {
-        return new List<(System.Action, string)> { (() => StartSpawn(spawnerData.totalCountToSpawn), "Spawn") };
+        return new List<(System.Action, string)> { (() => StartSpawn(spawnerData.originalTotalCountToSpawn), "Spawn") };
     }
 
 }

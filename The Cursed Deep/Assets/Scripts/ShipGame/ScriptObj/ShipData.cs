@@ -100,7 +100,7 @@ namespace ShipGame.ScriptObj
         public void SetCannonPrefabData(PrefabData cannonPrefab) => ship.cannonInstancerData.SetPrefabData(cannonPrefab);
         public void SetCannonPrefabOffset(Vector3Data offset) => ship.cannonInstancerData.SetPrefabOffset(offset);
         public void SetAmmoPrefabDataList(PrefabDataList ammoPrefabList) => ship.ammoSpawnerData.SetPrefabDataList(ammoPrefabList);
-        public void SetAmmoSpawnCount() => ship.ammoSpawnerData.totalCountToSpawn = numberOfLanes;
+        public void SetAmmoSpawnCount() => ship.ammoSpawnerData.originalTotalCountToSpawn = numberOfLanes;
         public void SetEnemyPrefabDataList(PrefabDataList enemyPrefabList) => ship.enemySpawnerData.SetPrefabDataList(enemyPrefabList);
 
         protected override string dataFilePath => Application.dataPath + "/Resources/GameData/ShipDataJson.json";
