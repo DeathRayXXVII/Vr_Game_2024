@@ -54,12 +54,12 @@ public class MatchIDBehavior : IDBehavior
             
             if (triggerType == TriggerType.Enter)
             {
-                if (allowDebug) Debug.Log($"Triggering Enter Event on: '{this} (ID: {id})' with '{obj.id}'");
+                if (allowDebug) Debug.Log($"Triggering Enter Event on: '{this} (ID: {id})' with '{obj.id}'", this);
                 obj.triggerEnterEvent.Invoke();
             }
             else if (triggerType == TriggerType.Exit)
             {
-                if (allowDebug) Debug.Log($"Triggering Exit Event on: '{this} (ID: {id})' with '{obj.id}'");
+                if (allowDebug) Debug.Log($"Triggering Exit Event on: '{this} (ID: {id})' with '{obj.id}'", this);
                 obj.triggerExitEvent.Invoke();
             }
             
@@ -68,7 +68,7 @@ public class MatchIDBehavior : IDBehavior
 
         if (noMatch && allowDebug)
         {
-            Debug.Log($"No match found on: '{this} (ID: {id})' While checking for '{otherId}' in {possibleMatches.Count} possible matches.");
+            Debug.Log($"No match found on: '{this} (ID: {id})' While checking for '{otherId}' in {possibleMatches.Count} possible matches.", this);
         }
     }
 }

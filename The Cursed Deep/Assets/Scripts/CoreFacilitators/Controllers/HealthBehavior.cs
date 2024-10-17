@@ -13,6 +13,7 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     [SerializeField] private FloatData _maxHealth;
     [SerializeField] private GameObject floatingText;
     [SerializeField] private GameObject textPivot;
+    private bool _isDead;
 
     public float health { get => currentHealth; set => currentHealth = value; }
 
@@ -21,6 +22,8 @@ public class HealthBehavior : MonoBehaviour, IDamagable
         get => _maxHealth;
         set => _maxHealth.value = value;
     }
+    
+    private void OnEnable() => _isDead = false;
 
     private void Start()
     {
@@ -38,32 +41,35 @@ public class HealthBehavior : MonoBehaviour, IDamagable
         if (health <= maxHealth * 0.75f && health >= maxHealth * 0.5f) onThreeQuarterHealth.Invoke();
         else if (health <= maxHealth * 0.5f && health >= maxHealth * 0.25f) onHalfHealth.Invoke();
         else if (health <= maxHealth * 0.25f && health > maxHealth * 0) onQuarterHealth.Invoke();
-        else if (health <= 0) onHealthDepleted.Invoke();
+        else if (health <= 0)
+        {
+            _isDead = true;
+            onHealthDepleted.Invoke();
+        }
     }
     
     public void SetHealth(float newHealth)
     {
+        if (_isDead) return;
         health = newHealth;
         CheckHealthEvents();
     }
     
-    public void SetMaxHealth(float newMax)
-    {
-        maxHealth = newMax;
-    }
+    public void SetMaxHealth(float newMax) => maxHealth = newMax;
 
     public void AddAmountToHealth(float amount)
     {
+        if (_isDead) return;
         var previousHealth = health;
         health += amount;
-        var change = health - previousHealth;
-        if (change > 0) onHealthGained.Invoke();
+        if (health - previousHealth > 0) onHealthGained.Invoke();
         else if (health > 0) onHealthLost.Invoke();
         CheckHealthEvents();
     }
 
     public void TakeDamage(IDamageDealer dealer)
     {
+        if (_isDead) return;
         var amount = dealer.damage;
         ShowDamage(amount.ToString());
         // Debug.Log(amount);

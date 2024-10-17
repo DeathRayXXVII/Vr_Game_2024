@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ShipGame.ScriptObj
@@ -147,14 +148,37 @@ namespace ShipGame.ScriptObj
             enemy.SetScore(levelData.spawnScore + enemy.selectionScore);
         }
 
-        private void OnEnable()
+        private void Setup(bool attemptedReload)
         {
+            if (attemptedReload)
+            {
+                levelData.LoadOnStartup();
+                ship.LoadOnStartup();
+                ammo.LoadOnStartup();
+                cannon.LoadOnStartup();
+                enemy.LoadOnStartup();
+            }
             SetPlayerData();
             SetShipData();
             SetLevelData();
             SetAmmoData();
             SetCannonData();
             SetEnemyData();
+        }
+
+        public void Setup()
+        {
+            try
+            {
+                Setup(false);
+            }
+            catch (IndexOutOfRangeException e)
+            {
+#if UNITY_EDITOR
+                Debug.LogWarning("Attempted to load game data and got an index out of range exception. Attempting to initialize data and reload. Error: " + e.Message);
+#endif
+                Setup(true);
+            }
             
 #if UNITY_EDITOR
             if (allowDebug)
