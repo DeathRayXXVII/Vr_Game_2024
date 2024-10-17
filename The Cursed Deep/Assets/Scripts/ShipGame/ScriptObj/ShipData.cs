@@ -88,8 +88,6 @@ namespace ShipGame.ScriptObj
 #endif
         }
         
-        
-        
         // Instancer that performs the instantiation of the ship
         // all other instancers and spawners are inside the instanced ship making them dependent on this instancer
         public InstancerData shipInstancerData;
@@ -102,7 +100,8 @@ namespace ShipGame.ScriptObj
         public void SetCannonPrefabData(PrefabData cannonPrefab) => ship.cannonInstancerData.SetPrefabData(cannonPrefab);
         public void SetCannonPrefabOffset(Vector3Data offset) => ship.cannonInstancerData.SetPrefabOffset(offset);
         public void SetAmmoPrefabDataList(PrefabDataList ammoPrefabList) => ship.ammoSpawnerData.SetPrefabDataList(ammoPrefabList);
-        public void SetEnemyPrefabDataList(PrefabDataList enemyPrefabList) => ship.ammoSpawnerData.SetPrefabDataList(enemyPrefabList);
+        public void SetAmmoSpawnCount() => ship.ammoSpawnerData.totalCountToSpawn = numberOfLanes;
+        public void SetEnemyPrefabDataList(PrefabDataList enemyPrefabList) => ship.enemySpawnerData.SetPrefabDataList(enemyPrefabList);
 
         protected override string dataFilePath => Application.dataPath + "/Resources/GameData/ShipDataJson.json";
         protected override string resourcePath => "GameData/ShipDataJson";

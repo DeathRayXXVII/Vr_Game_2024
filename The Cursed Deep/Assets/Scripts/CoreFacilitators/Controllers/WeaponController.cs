@@ -6,6 +6,7 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
 {
     public WeaponData weaponData;
     public UnityEvent onDamageDealt, onDurabilityDepleted;
+    public bool canDealDamage { get; set; }
     
     public float damage
     {
@@ -18,8 +19,6 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
      get => weaponData.health;
      set => weaponData.health = value;
     }
-    
-    public bool canDealDamage { get; set; }
 
     private void OnCollisionEnter(Collision other)
     {
@@ -27,27 +26,19 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
         if (damagableObj != null) DealDamage(damagableObj);
     }
 
-    public void TakeDamage(float amount)
+    private void TakeDamage(float amount)
     {
         health -= amount;
         if (health <= 0) onDurabilityDepleted.Invoke();
     }
 
-    public void TakeDamage(IDamageDealer dealer)
-    {
-        TakeDamage(dealer.damage);
-    }
+    public void TakeDamage(IDamageDealer dealer) => TakeDamage(dealer.damage);
     
     public void DealDamage(IDamagable target)
     {
-        DealDamage(target, damage);
-    }
-
-    public void DealDamage(IDamagable target, float amount)
-    {
         if (!canDealDamage) return;
         onDamageDealt.Invoke();
-        target.TakeDamage(amount);
+        target.TakeDamage(this);
     }
 
     private void OnEnable()

@@ -62,17 +62,13 @@ public class HealthBehavior : MonoBehaviour, IDamagable
         CheckHealthEvents();
     }
 
-    public void TakeDamage(float amount)
-    {
-        ShowDamage(amount.ToString());
-        Debug.Log(amount);
-        if (amount > -1) amount *= -1;
-        AddAmountToHealth(amount);
-    }
-
     public void TakeDamage(IDamageDealer dealer)
     {
-        TakeDamage(dealer.damage);
+        var amount = dealer.damage;
+        ShowDamage(amount.ToString());
+        // Debug.Log(amount);
+        if (amount > -1) amount *= -1;
+        AddAmountToHealth(amount);
     }
     
     private void ShowDamage(string text)

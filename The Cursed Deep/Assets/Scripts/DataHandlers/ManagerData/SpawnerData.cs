@@ -14,50 +14,42 @@ public class SpawnerData : ScriptableObject
     public bool usePriority;
     public IntData numToSpawn;
     [SerializeField] private FloatData spawnRateMin, spawnRateMax;
-    public IntData activeCount;
+    [SerializeField] private  IntData _activeCount;
     public IntData globalLaneActiveLimit;
     public PrefabDataList prefabList;
-
-    private float spawnRate => spawnRateMin == spawnRateMax ? spawnRateMin : Random.Range(spawnRateMin, spawnRateMin);
+    public void SetPrefabDataList(PrefabDataList data) => prefabList = data;
 
     private readonly List<WaitForSeconds> _spawnRates = new();
     private WaitForSeconds _waitForSpawnRate;
-
-    internal void SetSpawnRate()
+    private float spawnRate => spawnRateMin == spawnRateMax || spawnRateMin < spawnRateMax ? spawnRateMin : Random.Range(spawnRateMin, spawnRateMin);
+    
+    internal void GenerateSpawnRates()
     {
         if (!randomizeSpawnRate)
         {
             _waitForSpawnRate = _spawnRates.Count > 0 ? _spawnRates[0] : new WaitForSeconds(spawnRate);
             return;
         }
-        if (spawnCount < _spawnRates.Count) return;
+        if (totalCountToSpawn < _spawnRates.Count) return;
         
-        var count = spawnCount - _spawnRates.Count;
+        var count = totalCountToSpawn - _spawnRates.Count;
         for (var i = 0; i < count; i++)
-        {
             _spawnRates.Add(new WaitForSeconds(spawnRate));
-        }
     }
     
-    internal WaitForSeconds GetWaitSpawnRate()
+    internal WaitForSeconds GetWaitForSpawnRate() => randomizeSpawnRate ? _spawnRates[Random.Range(0, _spawnRates.Count)] : _waitForSpawnRate;
+    
+    internal int totalCountToSpawn { get; set; }
+    internal int spawnedCount { get; set; }
+    internal int amountLeftToSpawn => totalCountToSpawn - spawnedCount;
+    internal int activeCount
     {
-        return randomizeSpawnRate ? _spawnRates[Random.Range(0, _spawnRates.Count)] : _waitForSpawnRate;
+        get => _activeCount;
+        set => _activeCount.value = value < 0 ? 0 : value;
     }
-
-    public int spawnCount
-    {
-        get
-        {
-            if (numToSpawn) return numToSpawn.value;
-#if UNITY_EDITOR
-            Debug.LogWarning($"numToSpawn is null on {name}. Creating new IntData with value {spawners.Count}.", this);
-#endif
-            numToSpawn = CreateInstance<IntData>();
-            numToSpawn.value = spawners.Count;
-            return numToSpawn.value;
-        }
-        set => numToSpawn.value = value;
-    }
+    internal bool canSpawn => spawnedCount < totalCountToSpawn;
+    internal bool spawningComplete => spawnedCount >= totalCountToSpawn;
+    
 
     [System.Serializable]
     public class Spawner
@@ -67,11 +59,11 @@ public class SpawnerData : ScriptableObject
         public TransformData spawnLocation, pathingTarget;
         private int _currentSpawnCount;
         
-        public int GetActiveLimit(int globalActiveLimit) { return globalActiveLimit + laneActiveLimitAdjustment; }
-        public int GetAliveCount() { return _currentSpawnCount; }
-        public void IncrementCount() { _currentSpawnCount++; }
-        public void DecrementCount() { _currentSpawnCount--; }
-        public void ResetCount() { _currentSpawnCount = 0; }
+        public int GetActiveLimit(int globalActiveLimit) => globalActiveLimit + laneActiveLimitAdjustment;
+        public int GetAliveCount() => _currentSpawnCount;
+        public void IncrementCount() => _currentSpawnCount++;
+        public void DecrementCount() => _currentSpawnCount--;
+        public void ResetCount() => _currentSpawnCount = 0;
     }
     
     public List<Spawner> spawners = new();
@@ -80,35 +72,38 @@ public class SpawnerData : ScriptableObject
     private void OnValidate()
     {
 #if UNITY_EDITOR
-        if (!activeCount) Debug.LogError("Missing IntData for activeCount on SpawnerData" + name, this);
+        if (!_activeCount) Debug.LogError("Missing IntData for activeCount on SpawnerData" + name, this);
         if (!prefabList) Debug.LogError("Missing PrefabDataList for prefabList on SpawnerData" + name, this);
 #endif
     }
     
     private void OnEnable()
     {
-        if (!globalLaneActiveLimit) return;
-        if (globalLaneActiveLimit < 1) globalLaneActiveLimit.value = 1;
+        if (globalLaneActiveLimit)
+            globalLaneActiveLimit.value = globalLaneActiveLimit < 1 ? globalLaneActiveLimit.value : 1;
+        
+        if (!numToSpawn && totalCountToSpawn < 1)
+        {
+#if UNITY_EDITOR
+            Debug.LogWarning($"numToSpawn is null on {name}. Setting spawn count to {spawners.Count}.", this);
+#endif
+            totalCountToSpawn = spawners.Count;
+            return;
+        }
+        totalCountToSpawn = numToSpawn;
     }
     
     public void ResetSpawnerData()
     {
-        activeCount.value = 0;
+        activeCount = 0;
         foreach (var spawner in spawners)
         {
             spawner.ResetCount();
         }
     }
     
-    public void SetPrefabDataList(PrefabDataList data)
-    {
-        prefabList = data;
-    }
     
-    internal int GetSpawnerActiveLimit(Spawner spawner)
-    {
-        return spawner.GetActiveLimit(globalLaneActiveLimit.value);
-    }
+    internal int GetSpawnerActiveLimit(Spawner spawner) => spawner.GetActiveLimit(globalLaneActiveLimit.value);
 
     internal Spawner GetInactiveSpawner()
     {
@@ -132,22 +127,30 @@ public class SpawnerData : ScriptableObject
 #if UNITY_EDITOR
         if (allowDebug) Debug.Log($"Found {_availableSpawners.Count} Available Spawners.", this);
 #endif
-        var output = (_availableSpawners.Count == 0) ? null: _availableSpawners[Random.Range(0, _availableSpawners.Count)];
+        var output = _availableSpawners.Count == 0 ? null: _availableSpawners[Random.Range(0, _availableSpawners.Count)];
 #if UNITY_EDITOR
-        if (allowDebug) Debug.Log($"Selected Spawner: {output?.spawnerID}.", this);
+        if (allowDebug) Debug.Log($"Selected Spawner: {output?.spawnerID}", this);
 #endif
         return output;
     }
     
-    public void HandleSpawnRemoval(ref Spawner spawnerID)
+    public void HandleSuccessfulSpawn(ref Spawner spawner)
     {
 #if UNITY_EDITOR
-        if (allowDebug) Debug.Log($"Handling removal of spawn from {spawnerID.spawnerID}.");
+        if (allowDebug) Debug.Log($"Handling removal of spawn from {spawner.spawnerID}.", this);
 #endif
-        foreach (var spawner in spawners)
-        {
-            if (spawner != spawnerID) continue;
-            spawner.DecrementCount();
-        }
+        spawner.IncrementCount();
+        activeCount++;
+        spawnedCount++;
+    }
+    
+    public void HandleSpawnRemoval(ref Spawner spawner, bool validDeath = true)
+    {
+#if UNITY_EDITOR
+        if (allowDebug) Debug.Log($"Handling removal of spawn from {spawner.spawnerID}.", this);
+#endif
+        spawner.DecrementCount();
+        activeCount--;
+        if (validDeath) spawnedCount--;
     }
 }

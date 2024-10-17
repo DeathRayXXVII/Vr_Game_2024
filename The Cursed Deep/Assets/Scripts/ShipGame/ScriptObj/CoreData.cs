@@ -15,7 +15,11 @@ namespace ShipGame.ScriptObj
         private int currentLevel
         {
             get => levelData.currentLevel;
-            set => levelData.currentLevel = value;
+            set 
+            {
+                levelData.currentLevel = value;
+                SetLevelData();
+            }
         }
         
         public InstancerData shipInstancerData => ship.shipInstancerData;
@@ -26,7 +30,7 @@ namespace ShipGame.ScriptObj
             set
             {
                 ship.selectionIndex = value;
-                ship.SetCannonPrefabData(cannon.prefab);
+                SetShipData();
             }
         }
         
@@ -38,10 +42,7 @@ namespace ShipGame.ScriptObj
             set
             {
                 cannon.selectionIndex = value;
-                
-                // Pass the prefab to the ship's cannon instancer with its correct offset
-                ship.SetCannonPrefabData(cannon.prefab);
-                ship.SetCannonPrefabOffset(cannonPrefabOffset);
+                SetCannonData();
             }
         }
         
@@ -51,9 +52,7 @@ namespace ShipGame.ScriptObj
             set 
             {
                 ammo.selectionIndex = value;
-                
-                // Pass the prefab list to the ship's ammo spawner
-                ship.SetAmmoPrefabDataList(ammo.prefabList);
+                SetAmmoData();
             }
         }
 
@@ -63,9 +62,7 @@ namespace ShipGame.ScriptObj
             set 
             {
                 ammo.selectionIndex = value;
-                
-                // Pass the prefab list to the ship's enemy spawner
-                ship.SetEnemyPrefabDataList(enemy.prefabList);
+                SetEnemyData();
             }
         }
 
@@ -91,16 +88,21 @@ namespace ShipGame.ScriptObj
             enemyIndex = 0;
         }
         
-        
-        public void SetGameVariables()
+        private void SetPlayerData()
         {
-            enemy.RandomizeEnemySelection();
-            
-            gameGlobals.shipHealth.value = ship.health; // + gameGlobals.upgradeHealth;
-            gameGlobals.ammoDamage.damage = cannon.damage + ammo.damage; // + gameGlobals.upgradeDamage;
-            gameGlobals.ammoRespawnRate.value = ammo.respawnRate;
             gameGlobals.playerSpeed.value = 2.0f;
-            
+        }
+        
+        private void SetShipData()
+        {
+            gameGlobals.shipHealth.value = ship.health; // + gameGlobals.upgradeHealth;
+            gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.numberOfLanes;
+            ship.SetCannonPrefabData(cannon.prefab);
+            ship.SetAmmoSpawnCount();
+        }
+        
+        private void SetLevelData()
+        {
             gameGlobals.enemyLaneActiveLimit.value = levelData.laneActiveLimit;
             gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.numberOfLanes;
             gameGlobals.spawnRateMin.value = levelData.spawnRateMin;
@@ -108,9 +110,48 @@ namespace ShipGame.ScriptObj
             
             enemy.SetHealth(levelData.spawnBaseHealth + enemy.selectionHealth);
             enemy.SetDamage(levelData.spawnBaseDamage + enemy.selectionDamage);
+            enemy.SetBounty(levelData.spawnBounty + enemy.selectionBounty);
+            enemy.SetScore(levelData.spawnScore + enemy.selectionScore);
+        }
+        
+        private void SetAmmoData()
+        {
+            gameGlobals.ammoDamage.damage = cannon.damage + ammo.damage; // + gameGlobals.upgradeDamage;
+            gameGlobals.ammoRespawnRate.value = ammo.respawnRate;
+            
+            // Pass the prefab list to the ship's ammo spawner
+            ship.SetAmmoPrefabDataList(ammo.prefabList);
+        }
+        
+        private void SetCannonData()
+        {
+            gameGlobals.ammoDamage.damage = cannon.damage + ammo.damage; // + gameGlobals.upgradeDamage;
+                
+            // Pass the prefab to the ship's cannon instancer with its correct offset
+            ship.SetCannonPrefabData(cannon.prefab);
+            ship.SetCannonPrefabOffset(cannonPrefabOffset);
+        }
+        
+        private void SetEnemyData()
+        {
+            // Pass the prefab list to the ship's enemy spawner
+            ship.SetEnemyPrefabDataList(enemy.prefabList);
+            
+            enemy.SetHealth(levelData.spawnBaseHealth + enemy.selectionHealth);
+            enemy.SetDamage(levelData.spawnBaseDamage + enemy.selectionDamage);
             enemy.SetSpeed(enemy.selectionSpeed);
             enemy.SetBounty(levelData.spawnBounty + enemy.selectionBounty);
             enemy.SetScore(levelData.spawnScore + enemy.selectionScore);
+        }
+
+        private void OnEnable()
+        {
+            SetPlayerData();
+            SetShipData();
+            SetLevelData();
+            SetAmmoData();
+            SetCannonData();
+            SetEnemyData();
             
 #if UNITY_EDITOR
             Debug.Log(

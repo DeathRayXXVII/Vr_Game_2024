@@ -76,7 +76,6 @@ namespace ShipGame.Manager
             // Initialize the cannon and ammo only after the ship is done
             StartCoroutine(InitializeCannon());
             StartCoroutine(InitializeAmmo());
-            coreData.SetGameVariables();
 
             onLevelInitialized.Invoke();
         }

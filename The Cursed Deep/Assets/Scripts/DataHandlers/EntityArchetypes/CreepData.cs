@@ -1,7 +1,10 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using ZPTools.Interface;
 
 [CreateAssetMenu (fileName = "CreepData", menuName = "Data/Entity/CreepData")]
-public class CreepData : ScriptableObject
+public class CreepData : ScriptableObject, INeedButton
 {
     [SerializeField] private string _unitName, _type;
 
@@ -35,12 +38,18 @@ public class CreepData : ScriptableObject
     [Tooltip("Score value of the creep. The base value will be used only if the corresponding IntData is not set.")]
     [SerializeField] private int _baseScore;
     
+    [Header("Current Stats")]
+    [SerializeField] [InspectorReadOnly] private float _currentHealth;
+    [SerializeField] [InspectorReadOnly] private float _currentDamage;
+    [SerializeField] [InspectorReadOnly] private float _currentSpeed;
+    [SerializeField] [InspectorReadOnly] private float _currentHeight;
+    [SerializeField] [InspectorReadOnly] private float _currentRadius;
+    [SerializeField] [InspectorReadOnly] private int _currentBounty;
+    [SerializeField] [InspectorReadOnly] private int _currentScore;
+    
     [Header("Total Stats")]
     [SerializeField] [InspectorReadOnly] private int totalKilled, totalSpawned, totalEscaped;
-    
-    private float _currentHealth, _currentDamage, _currentSpeed, _currentHeight, _currentRadius;
-    private int _currentBounty, _currentScore;
-    
+
     private void OnEnable()
     {
         if (!_health) _currentHealth = _baseHealth;
@@ -107,4 +116,19 @@ public class CreepData : ScriptableObject
     public void DecrementKilledTotal() => totalKilled--;
     public void DecrementSpawnedTotal() => totalSpawned--;
     public void DecrementEscapedTotal() => totalEscaped--;
+
+    public void ResetValues()
+    {
+        totalKilled = 0;
+        totalSpawned = 0;
+        totalEscaped = 0;
+    }
+    
+    public List<(Action, string)> GetButtonActions()
+    {
+        return new List<(Action, string)>
+        {
+            (ResetValues, "Reset Values")
+        };
+    }
 }

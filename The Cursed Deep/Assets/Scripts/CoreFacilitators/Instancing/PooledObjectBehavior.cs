@@ -11,10 +11,7 @@ public class PooledObjectBehavior : MonoBehaviour
     
     [SerializeField] private FloatData timeToRespawn;
 
-    private void Awake()
-    {
-        _justInstantiated = true;
-    }
+    private void Awake() => _justInstantiated = true;
 
     public void Setup(SpawnManager spawnManager, ref SpawnerData.Spawner spawner, ref bool allowDebug)
     {
@@ -27,12 +24,12 @@ public class PooledObjectBehavior : MonoBehaviour
     {
         if (_respawnTriggered) return;
         _respawnTriggered = true;
-        if (_spawnManager == null)
+        if (!_spawnManager)
         {
             Debug.LogWarning($"SpawnManager is null {name} SpawnedObjectBehavior.");
             return;
         }
-        _spawnManager.SetSpawnDelay(timeToRespawn != null ? timeToRespawn : 1);
+        _spawnManager.SetSpawnDelay(timeToRespawn ? timeToRespawn : 1);
         _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
         
         _spawnManager.StartSpawn(1);
@@ -52,13 +49,14 @@ public class PooledObjectBehavior : MonoBehaviour
 
     public void InvalidateDeath()
     {
-        _spawnManager.IncrementSpawnCount();
+        _spawned = false;
+        _spawnManager.NotifyPoolObjectInvalidDeath(ref _spawner);
     }
 
     private void OnDisable()
     {
         if (_beingDestroyed) return;
-        if (_allowDebug) Debug.Log($"OnDisable of {name} called");
+        if (_allowDebug) Debug.Log($"OnDisable of {name} called from {_spawner.spawnerID}.");
         if (!_spawned || _respawnTriggered) return;
         _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
         _spawned = false;
