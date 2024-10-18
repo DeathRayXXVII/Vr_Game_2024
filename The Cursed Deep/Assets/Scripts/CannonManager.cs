@@ -1,10 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using static ZPTools.Utility.UtilityFunctions;
 
 public class CannonManager : MonoBehaviour
 {
@@ -12,28 +13,37 @@ public class CannonManager : MonoBehaviour
     
     public UnityEvent onSuccessfulFire;
     
-    public GameObject ammoPrefab;
+    [Header("Ammo:")]
+    [SerializeField] private GameObject ammoEntity;
     private GameObject _socketedAmmo;
     private MeshFilter _ammoMeshFilter;
     private MeshRenderer _ammoMeshRenderer;
     
+    [Header("Fire Physics System:")]
     [SerializeField, Range(0.0f, 1000.0f), Step(0.01f)] private float propellantForce = 10.0f;
     [SerializeField] private Transform muzzlePosition, breechPosition;
     [SerializeField] private SocketMatchInteractor reloadSocket;
-    private Vector3 forceVector => CalculateFireDirection();
+    private Vector3 forceVector => !muzzlePosition || !breechPosition ? Vector3.zero : (ejectionPoint - ingitionPoint).normalized;
     private Vector3 momentumVector  => forceVector * propellantForce;
-    private Vector3 ingitionPoint => breechPosition.position;
-    private Vector3 ejectionPoint  => muzzlePosition.position;
+    private Vector3 ingitionPoint => !breechPosition ? Vector3.zero : breechPosition.position;
+    private Vector3 ejectionPoint  => !muzzlePosition ? Vector3.zero : muzzlePosition.position;
     
     private List <GameObject> _currentAmmoList;
     private bool _isLoaded;
     private GameObject _ammoObj;
-    private Coroutine _addForceCoroutine; 
+    private Coroutine _addForceCoroutine;
 
+    [Header("Model Animation:")]
+    [SerializeField] private Animator _modelAnimator;
+    [SerializeField] private string _fireAnimationTrigger = "Fire";
+    [SerializeField] private string _loadAnimationTrigger = "Load";
+    
     private void Awake()
     {
         _wffu = new WaitForFixedUpdate();
         _addForceCoroutine = null;
+        
+        if (!_modelAnimator) _modelAnimator = GetComponent<Animator>();
     } 
     
     private static bool _errorsLogged = false;
@@ -83,20 +93,43 @@ public class CannonManager : MonoBehaviour
         
         if (_addForceCoroutine != null){ _ammoObj.SetActive(false); return;}
         _ammoObj.SetActive(true);
+        _modelAnimator.SetTrigger(_fireAnimationTrigger);
         onSuccessfulFire.Invoke();
         _addForceCoroutine ??= StartCoroutine(AddForceToAmmo(ammoRb));
         UnloadCannon(null);
     }
 
-    public void LoadCannon(GameObject obj)
+    private void LoadCannon(GameObject obj)
     {
+        if (reloadSocket.socketScaleMode != SocketScaleMode.Fixed)
+            reloadSocket.socketScaleMode = SocketScaleMode.Fixed;
+        reloadSocket.fixedScale = Vector3.one * 0.01f;
         _isLoaded = true;
+        _modelAnimator.SetTrigger(_loadAnimationTrigger);
         _ammoObj = GetAmmo();
+        _ammoMeshFilter = GetObjectComponent<MeshFilter>(_ammoObj);
+        _ammoMeshRenderer = GetObjectComponent<MeshRenderer>(_ammoObj);
+        var objMeshFilter = GetObjectComponent<MeshFilter>(obj);
+        var objMeshRenderer = GetObjectComponent<MeshRenderer>(obj);
+        if (_ammoMeshFilter && objMeshFilter)
+        {
+            _ammoMeshFilter.mesh = objMeshFilter.mesh;
+        }
+        if (_ammoMeshRenderer && objMeshRenderer)
+        {
+            _ammoMeshRenderer.material = objMeshRenderer.material;
+        }
     }
 
     private void UnloadCannon([CanBeNull] GameObject obj)
     {
+        if (reloadSocket.socketScaleMode != SocketScaleMode.Fixed)
+            reloadSocket.socketScaleMode = SocketScaleMode.Fixed;
+        reloadSocket.fixedScale = Vector3.one / 0.01f;
+        reloadSocket.UnsocketObject();
         _isLoaded = false;
+        if (!obj) return;
+        GetObjectComponent<PooledObjectBehavior>(obj)?.TriggerRespawn();
     }
 
     private GameObject GetAmmo()
@@ -108,20 +141,10 @@ public class CannonManager : MonoBehaviour
             ammoObj.transform.rotation = muzzlePosition.rotation;
             return ammoObj;
         }
-        var newAmmo = Instantiate(ammoPrefab, muzzlePosition.position, muzzlePosition.rotation);
+        var newAmmo = Instantiate(ammoEntity, muzzlePosition.position, muzzlePosition.rotation);
+        newAmmo.SetActive(false);
         _currentAmmoList.Add(newAmmo);
         return newAmmo;
-    }
-    
-    private Vector3 CalculateFireDirection()
-    {
-        if (!muzzlePosition || !breechPosition) return Vector3.zero;
-        var x = ejectionPoint.x - ingitionPoint.x;
-        var y = ejectionPoint.y - ingitionPoint.y;
-        var z = ejectionPoint.z - ingitionPoint.z;
-        var direction = new Vector3(x, y, z).normalized;
-        
-        return direction;
     }
     
     private IEnumerator AddForceToAmmo(Rigidbody ammoRb)
@@ -146,29 +169,32 @@ public class CannonManager : MonoBehaviour
     private void OnDrawGizmos()
     {
     if (!muzzlePosition || !breechPosition) return;
+    
     Gizmos.color = Color.red;
-    Gizmos.DrawSphere(ingitionPoint, 0.1f);
+    Gizmos.DrawSphere(ingitionPoint, 0.2f);
     Gizmos.DrawLine(ingitionPoint, ejectionPoint);
 
     // Simulate the trajectory
-    
     Vector3 position = ejectionPoint;
     Vector3 newposition = position;
     Vector3 velocity = momentumVector;
-    float timeStep = 0.05f;
+    float timeStep = 0.025f;
     var count = Mathf.Clamp(propellantForce * (simulationTime * 0.01f), 0, 100);
     for (int i = 0; i < count; i++)
     {
-        Gizmos.color = Color.Lerp(Color.red, Color.clear, i / (count * 0.9f));
+        Gizmos.color = Color.Lerp(Color.red, Color.yellow, i / (count * 0.9f));
+        float radius = Mathf.Lerp(0.2f, 0.01f, i / (count * 0.9f));
         if (Physics.Raycast(position, velocity, out var hit, 0.1f))
         {
             newposition = hit.point;
-            Gizmos.DrawLine(position, newposition);
+            // Gizmos.DrawLine(position, newposition);
+            Gizmos.DrawSphere(position, radius);
             break;
+            
         }
-        // Gizmos.DrawSphere(position, 0.05f);
         newposition += velocity * timeStep;
-        Gizmos.DrawLine(position, newposition);
+        // Gizmos.DrawLine(position, newposition);
+        Gizmos.DrawSphere(position, radius);
         position = newposition;
         velocity += Physics.gravity * timeStep;
     }

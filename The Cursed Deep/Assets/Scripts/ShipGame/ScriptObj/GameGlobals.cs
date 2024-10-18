@@ -30,9 +30,8 @@ namespace ShipGame.ScriptObj
         
         public void ResetToNewGameValues()
         {
-            // playerSpeed.Set(_playerSpeed);
+            // playerSpeed.Set(0);
             // playerScore.Set(0);
-            // ammoRespawnTime.Set(_ammoRespawnTime);
             //
             // upgradeHealth.Set(0);
             // upgradeSpeedLevel.Set(0);

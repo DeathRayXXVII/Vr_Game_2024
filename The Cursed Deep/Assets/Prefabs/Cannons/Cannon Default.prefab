@@ -117,7 +117,7 @@ Transform:
   m_Children:
   - {fileID: 1758310678586127740}
   - {fileID: 7323743104195517700}
-  - {fileID: 8109631700924188140}
+  - {fileID: 4470628012392768832}
   - {fileID: 5032631625000350748}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -136,18 +136,6 @@ MonoBehaviour:
   onSuccessfulFire:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2370026578296386634}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Fire
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1327485773380175746}
         m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
         m_MethodName: Play
@@ -221,13 +209,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  ammoPrefab: {fileID: 7001261881460551479, guid: ddfc025fdb29c6f439a5c2f2c5762552,
+  ammoEntity: {fileID: 7001261881460551479, guid: ddfc025fdb29c6f439a5c2f2c5762552,
     type: 3}
   propellantForce: 55
   muzzlePosition: {fileID: 7323743104195517700}
-  breechPosition: {fileID: 8109631700924188140}
+  breechPosition: {fileID: 4470628012392768832}
   reloadSocket: {fileID: 4624554520326943738}
-  simulationTime: 100
+  _modelAnimator: {fileID: 0}
+  _fireAnimationTrigger: Fire
+  _loadAnimationTrigger: Load
+  _unloadAnimationTrigger: Unload
+  simulationTime: 80
 --- !u!95 &2370026578296386634
 Animator:
   serializedVersion: 5
@@ -377,37 +369,6 @@ Transform:
   m_Children:
   - {fileID: 9084296538981690299}
   m_Father: {fileID: 650107723440324014}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1710942447633999471
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8109631700924188140}
-  m_Layer: 0
-  m_Name: Pos Barrel Enter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8109631700924188140
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1710942447633999471}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.21999998, y: 9.7, z: 13.139999}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 6075315162622570851}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2385965456841893530
 GameObject:
@@ -5464,6 +5425,37 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &3398875452065412210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4470628012392768832}
+  m_Layer: 0
+  m_Name: Pos Barrel Enter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4470628012392768832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3398875452065412210}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.21999998, y: 9.949999, z: 13.139999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 6075315162622570851}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3786331702475880042
 GameObject:
   m_ObjectHideFlags: 0
@@ -21112,47 +21104,10 @@ MonoBehaviour:
   onObjectSocketed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9105805529164418268}
-        m_TargetAssemblyTypeName: CannonManager, Assembly-CSharp
-        m_MethodName: LoadCannon
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: trigger load animation
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2370026578296386634}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Load
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 6611880016742504851}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: Play
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4624554520326943738}
-        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.XRSocketInteractor,
-          Unity.XR.Interaction.Toolkit
-        m_MethodName: set_socketActive
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using ZPTools.Interface;
 
 public class SceneBehavior : MonoBehaviour
 {

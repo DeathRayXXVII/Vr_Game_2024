@@ -26,6 +26,18 @@ namespace ZPTools.Utility
             var hash = sha256.ComputeHash(bytes);
             return System.BitConverter.ToString(hash).Replace("-", "").ToLower();
         }
+    
+        public static T GetObjectComponent<T>(UnityEngine.GameObject obj) where T : UnityEngine.Component
+        {
+            var returnComponent = obj.GetComponent<T>();
+            if (!returnComponent) returnComponent = obj.GetComponentInChildren<T>();
+            if (!returnComponent) returnComponent = obj.GetComponentInParent<T>();
+            if (returnComponent) return returnComponent;
+            #if UNITY_EDITOR
+            UnityEngine.Debug.LogWarning($"No {typeof(T)} found in {obj.name}", obj);
+            #endif
+            return null;
+        }
 
     }
 }

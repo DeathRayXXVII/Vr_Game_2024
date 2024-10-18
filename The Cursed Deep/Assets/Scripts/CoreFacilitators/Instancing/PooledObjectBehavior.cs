@@ -33,6 +33,7 @@ public class PooledObjectBehavior : MonoBehaviour
         _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
         
         _spawnManager.StartSpawn(1, true);
+        gameObject.SetActive(false);
     }
 
     private void OnEnable()

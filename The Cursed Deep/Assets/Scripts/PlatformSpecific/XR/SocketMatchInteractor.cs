@@ -37,8 +37,6 @@ public class SocketMatchInteractor : XRSocketInteractor
     
     private Coroutine _removeAndMoveCoroutine;
     
-    
-    
     private new void Awake()
     {
         if (socketID)
@@ -50,8 +48,8 @@ public class SocketMatchInteractor : XRSocketInteractor
         _socketTrigger = GetComponent<Collider>();
         if (!_socketTrigger)
         {
-            if (allowDebug) Debug.LogWarning("Socket trigger appears to be null, Adding BoxCollider");
-            _socketTrigger = gameObject.AddComponent<BoxCollider>();
+            if (allowDebug) Debug.LogWarning("Socket trigger appears to be null, Adding SphereCollider");
+            _socketTrigger = gameObject.AddComponent<SphereCollider>();
         }
 
         if (_socketTrigger.isTrigger == false)
@@ -84,13 +82,13 @@ public class SocketMatchInteractor : XRSocketInteractor
     
     private void OnObjectSocketed(SelectEnterEventArgs args)
     {
-        ObjectSocketed?.Invoke(args.interactorObject.transform.gameObject);
+        ObjectSocketed?.Invoke(args.interactableObject.transform.gameObject);
         onObjectSocketed.Invoke();
     }
     
     private void OnObjectUnsocketed(SelectExitEventArgs args)
     {
-        ObjectUnsocketed?.Invoke(args.interactorObject.transform.gameObject);
+        ObjectUnsocketed?.Invoke(args.interactableObject.transform.gameObject);
         onObjectUnsocketed.Invoke();
     }
     
@@ -119,6 +117,7 @@ public class SocketMatchInteractor : XRSocketInteractor
     protected override bool StartSocketSnapping(XRGrabInteractable interactable)
     {
         _socketedObject = interactable;
+        _socketedObject.StopAllCoroutines();
         if (!disableObjectOnSocket) return base.StartSocketSnapping(interactable);
         StartCoroutine(DisableObject(interactable.gameObject));
         return false;
@@ -132,6 +131,13 @@ public class SocketMatchInteractor : XRSocketInteractor
         obj.SetActive(false);
     }
     
+    public void UnsocketObject()
+    {
+        if (!_socketedObject) return;
+        RemoveAndMoveSocketObject(Vector3.zero, Quaternion.identity);
+        _socketedObject = null;
+    }
+    
     protected override bool EndSocketSnapping(XRGrabInteractable interactable)
     {
         return base.EndSocketSnapping(interactable);
@@ -140,7 +146,7 @@ public class SocketMatchInteractor : XRSocketInteractor
     public void RemoveAndMoveSocketObject(Transform copyTransform)
     {
         if (!_socketedObject){Debug.LogWarning("SOCKET OBJECT APPEARS TO BE NULL"); return;}
-        var obj = _socketedObject.gameObject;
+        if (interactablesSelected.Count == 0) return;
         _socketTrigger.enabled = false;
         _removeAndMoveCoroutine ??= StartCoroutine(PerformRemoveAndMove(copyTransform.position, copyTransform.rotation));
     }
@@ -148,6 +154,7 @@ public class SocketMatchInteractor : XRSocketInteractor
     public GameObject RemoveAndMoveSocketObject(Vector3 position, Quaternion rotation)
     {
         if (!_socketedObject){Debug.LogWarning("SOCKET OBJECT APPEARS TO BE NULL"); return null;}
+        if (interactablesSelected.Count == 0) return null;
         var obj = _socketedObject.gameObject;
         _socketTrigger.enabled = false;
         _removeAndMoveCoroutine ??= StartCoroutine(PerformRemoveAndMove(position, rotation));
