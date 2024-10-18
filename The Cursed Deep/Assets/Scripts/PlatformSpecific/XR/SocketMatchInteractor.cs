@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -35,6 +37,8 @@ public class SocketMatchInteractor : XRSocketInteractor
     
     private Coroutine _removeAndMoveCoroutine;
     
+    
+    
     private new void Awake()
     {
         if (socketID)
@@ -44,55 +48,62 @@ public class SocketMatchInteractor : XRSocketInteractor
         }
         
         _socketTrigger = GetComponent<Collider>();
-        if (_socketTrigger == null)
+        if (!_socketTrigger)
         {
-            if (!allowDebug) Debug.LogWarning("Socket trigger appears to be null, Adding BoxCollider");
+            if (allowDebug) Debug.LogWarning("Socket trigger appears to be null, Adding BoxCollider");
             _socketTrigger = gameObject.AddComponent<BoxCollider>();
         }
 
         if (_socketTrigger.isTrigger == false)
         {
-            if (!allowDebug) Debug.LogWarning("Socket trigger appears to be a collider, Setting to Trigger");
+            if (allowDebug) Debug.LogWarning("Socket trigger appears to be a collider, Setting to Trigger");
             _socketTrigger.isTrigger = true;
         }
         _removeAndMoveCoroutine = null;
         base.Awake();
     }
+    
+    public delegate void ObjectSocketedEvent(GameObject obj);
+    public event ObjectSocketedEvent ObjectSocketed;
+    public delegate void ObjectUnsocketedEvent([CanBeNull] GameObject obj);
+    public event ObjectUnsocketedEvent ObjectUnsocketed;
 
     protected override void OnEnable()
     {
-        GetComponent<XRSocketInteractor>().selectEntered.AddListener(_ => OnObjectSocketed());
-        GetComponent<XRSocketInteractor>().selectExited.AddListener(_ => OnObjectUnsocketed());
+        GetComponent<XRSocketInteractor>().selectEntered.AddListener(OnObjectSocketed);
+        GetComponent<XRSocketInteractor>().selectExited.AddListener(OnObjectUnsocketed);
         base.OnEnable();
     }
 
     protected override void OnDisable()
     {
-        GetComponent<XRSocketInteractor>().selectEntered.RemoveListener(_ => OnObjectSocketed());
-        GetComponent<XRSocketInteractor>().selectExited.RemoveListener(_ => OnObjectUnsocketed());
+        GetComponent<XRSocketInteractor>().selectEntered.RemoveListener(OnObjectSocketed);
+        GetComponent<XRSocketInteractor>().selectExited.RemoveListener(OnObjectUnsocketed);
         base.OnDisable();
     }
     
-    private void OnObjectSocketed()
+    private void OnObjectSocketed(SelectEnterEventArgs args)
     {
+        ObjectSocketed?.Invoke(args.interactorObject.transform.gameObject);
         onObjectSocketed.Invoke();
     }
     
-    private void OnObjectUnsocketed()
+    private void OnObjectUnsocketed(SelectExitEventArgs args)
     {
+        ObjectUnsocketed?.Invoke(args.interactorObject.transform.gameObject);
         onObjectUnsocketed.Invoke();
     }
     
     private static ID FetchOtherID(GameObject interactable)
     {
         var idBehavior = interactable.transform.GetComponent<IDBehavior>();
-        return idBehavior != null ? idBehavior.id : null;
+        return idBehavior ? idBehavior.id : null;
     }
     
     private bool CheckId(Object nameId)
     {
         if (triggerID == null) return false;
-        return nameId != null && triggerID.Any(obj => nameId == obj.id);
+        return nameId && triggerID.Any(obj => nameId == obj.id);
     }
 
     public override bool CanHover(IXRHoverInteractable interactable)
@@ -128,21 +139,19 @@ public class SocketMatchInteractor : XRSocketInteractor
     
     public void RemoveAndMoveSocketObject(Transform copyTransform)
     {
-        if (_socketedObject == null){Debug.LogWarning("SOCKET OBJECT APPEARS TO BE NULL"); return;}
+        if (!_socketedObject){Debug.LogWarning("SOCKET OBJECT APPEARS TO BE NULL"); return;}
         var obj = _socketedObject.gameObject;
         _socketTrigger.enabled = false;
-        if (_removeAndMoveCoroutine != null) return;
-        _removeAndMoveCoroutine = StartCoroutine(PerformRemoveAndMove(copyTransform.position, copyTransform.rotation));
+        _removeAndMoveCoroutine ??= StartCoroutine(PerformRemoveAndMove(copyTransform.position, copyTransform.rotation));
     }
 
     public GameObject RemoveAndMoveSocketObject(Vector3 position, Quaternion rotation)
     {
-        if (_socketedObject == null){Debug.LogWarning("SOCKET OBJECT APPEARS TO BE NULL"); return null;}
+        if (!_socketedObject){Debug.LogWarning("SOCKET OBJECT APPEARS TO BE NULL"); return null;}
         var obj = _socketedObject.gameObject;
         _socketTrigger.enabled = false;
-        if (_removeAndMoveCoroutine != null) return null;
-        _removeAndMoveCoroutine = StartCoroutine(PerformRemoveAndMove(position, rotation));
-        return obj;
+        _removeAndMoveCoroutine ??= StartCoroutine(PerformRemoveAndMove(position, rotation));
+        return _removeAndMoveCoroutine == null ? null : obj;
     }
  
     private IEnumerator PerformRemoveAndMove(Vector3 position, Quaternion rotation)

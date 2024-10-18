@@ -116,6 +116,8 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1758310678586127740}
+  - {fileID: 7323743104195517700}
+  - {fileID: 8109631700924188140}
   - {fileID: 5032631625000350748}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -221,10 +223,11 @@ MonoBehaviour:
         m_CallState: 2
   ammoPrefab: {fileID: 7001261881460551479, guid: ddfc025fdb29c6f439a5c2f2c5762552,
     type: 3}
-  fireForce: 55
-  barrelExitVelocityPosition: {fileID: 7323743104195517700}
-  barrelInitialVelocityPosition: {fileID: 5032631625000350748}
-  reloadSocket: {fileID: 0}
+  propellantForce: 55
+  muzzlePosition: {fileID: 7323743104195517700}
+  breechPosition: {fileID: 8109631700924188140}
+  reloadSocket: {fileID: 4624554520326943738}
+  simulationTime: 100
 --- !u!95 &2370026578296386634
 Animator:
   serializedVersion: 5
@@ -374,6 +377,37 @@ Transform:
   m_Children:
   - {fileID: 9084296538981690299}
   m_Father: {fileID: 650107723440324014}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1710942447633999471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8109631700924188140}
+  m_Layer: 0
+  m_Name: Pos Barrel Enter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8109631700924188140
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710942447633999471}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.21999998, y: 9.7, z: 13.139999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 6075315162622570851}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2385965456841893530
 GameObject:
@@ -15681,7 +15715,7 @@ Transform:
   - {fileID: 7193140985638834492}
   - {fileID: 131132784263038522}
   - {fileID: 5056275947584379405}
-  m_Father: {fileID: 7817795705090348119}
+  m_Father: {fileID: 6075315162622570851}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &6698662207206378065
 GameObject:
@@ -15939,7 +15973,6 @@ Transform:
   - {fileID: 9082712337969207519}
   - {fileID: 7552885906197956091}
   - {fileID: 8163348348128312128}
-  - {fileID: 7323743104195517700}
   m_Father: {fileID: 1758310678586127740}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8107143562616667162
@@ -21074,7 +21107,7 @@ MonoBehaviour:
   triggerID:
   - id: {fileID: 11400000, guid: 0eba56e70948ccd4a8f10c4ad410c5be, type: 2}
   allowDebug: 0
-  disableObjectOnSocket: 1
+  disableObjectOnSocket: 0
   socketID: {fileID: 11400000, guid: ba3e9af1a9142f248a11616caed46456, type: 2}
   onObjectSocketed:
     m_PersistentCalls:
