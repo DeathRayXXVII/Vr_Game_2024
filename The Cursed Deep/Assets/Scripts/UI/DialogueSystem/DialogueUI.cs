@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.Events;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private InputActionReference inputAction;
     [SerializeField] private float autoAdvancedDelay = 5f;
     [SerializeField] private bool autoAdvance = false;
+    [SerializeField] private UnityEvent onDialogueEnd, onDialogueStart;
     
     public bool IsOpen { get; private set;}
     
@@ -35,6 +37,7 @@ public class DialogueUI : MonoBehaviour
     }
     private IEnumerator StepThroughDialogue(DialogueData dialogueObj)
     {
+        onDialogueStart.Invoke();
         for (int i = 0; i < dialogueObj.Dialogue.Length; i++)
         {
             string dialogue = dialogueObj.Dialogue[i];
@@ -53,6 +56,7 @@ public class DialogueUI : MonoBehaviour
                 yield return new WaitUntil(() => inputAction.action.triggered);
             }
         }
+        
 
         if (dialogueObj.hasResponses && dialogueObj.Responses.Length > 0)
         {
@@ -64,6 +68,7 @@ public class DialogueUI : MonoBehaviour
             yield return new WaitUntil(() => inputAction.action.triggered);
             CloseDialogueBox();
         }
+        onDialogueEnd.Invoke();
     }
     
     private IEnumerator RunTypingEffect(string dialogue)
