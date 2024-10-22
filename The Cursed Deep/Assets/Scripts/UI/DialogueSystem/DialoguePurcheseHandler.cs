@@ -7,6 +7,7 @@ public class DialoguePurcheseHandler : MonoBehaviour
     
     [SerializeField] private DialogueData successDialogue, failDialogue;
     [SerializeField] private DialogueResponseEvents response;
+    [SerializeField] public DialogueUI dialogueUI;
     
     
     public void Purchase()
@@ -28,5 +29,6 @@ public class DialoguePurcheseHandler : MonoBehaviour
     {
         Debug.Log("Continuing dialogue");
         response.UpdateResponseEvents(dialogueData);
+        //dialogueUI.ShowDialogue(dialogueData);
     }
 }
