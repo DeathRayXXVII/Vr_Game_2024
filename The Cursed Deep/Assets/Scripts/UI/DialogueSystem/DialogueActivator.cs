@@ -8,9 +8,9 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     public PlayerDialogueActivator playerActivator;
     [SerializeField] private UnityEvent onInteract;
     
-    public void UpdateDialogueObject(DialogueData dialogueData)
+    public void UpdateDialogueObject(DialogueData dData)
     {
-        this.dialogueData = dialogueData;
+        this.dialogueData = dData;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -58,7 +58,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     {
         foreach (DialogueResponseEvents responseEvents in GetComponents<DialogueResponseEvents>())
         {
-            if (responseEvents.DialogueData == dialogueData)
+            if (responseEvents.DialogueData)
             {
                 player.dialogueUI.AddResponseEvents(responseEvents.Events);
                 break;

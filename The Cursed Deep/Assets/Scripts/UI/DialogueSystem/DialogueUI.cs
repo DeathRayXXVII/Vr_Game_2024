@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.Events;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private InputActionReference inputAction;
     [SerializeField] private float autoAdvancedDelay = 5f;
     [SerializeField] private bool autoAdvance = false;
+    [SerializeField] private UnityEvent onDialogueStart, onDialogueEnd;
     
     public bool IsOpen { get; private set;}
     
@@ -25,6 +27,8 @@ public class DialogueUI : MonoBehaviour
     
     public void ShowDialogue(DialogueData dialogueObj)
     {
+        onDialogueStart.Invoke();
+        Debug.Log("open dialogue box");
         IsOpen = true;
         dialogueBox.SetActive(true);
         StartCoroutine(StepThroughDialogue(dialogueObj));
@@ -35,6 +39,7 @@ public class DialogueUI : MonoBehaviour
     }
     private IEnumerator StepThroughDialogue(DialogueData dialogueObj)
     {
+        
         for (int i = 0; i < dialogueObj.Dialogue.Length; i++)
         {
             string dialogue = dialogueObj.Dialogue[i];
@@ -53,6 +58,7 @@ public class DialogueUI : MonoBehaviour
                 yield return new WaitUntil(() => inputAction.action.triggered);
             }
         }
+        
 
         if (dialogueObj.hasResponses && dialogueObj.Responses.Length > 0)
         {
@@ -64,6 +70,7 @@ public class DialogueUI : MonoBehaviour
             yield return new WaitUntil(() => inputAction.action.triggered);
             CloseDialogueBox();
         }
+        
     }
     
     private IEnumerator RunTypingEffect(string dialogue)
@@ -85,6 +92,8 @@ public class DialogueUI : MonoBehaviour
         IsOpen = false;
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
+        onDialogueEnd.Invoke();
+        Debug.Log("Closing dialogue box");
     }
     
     public void OnEnable()

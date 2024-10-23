@@ -52,6 +52,7 @@ public class ResponseHandler : MonoBehaviour
 
    public void OnPickedResponse(Response response, int responseIndex)
    {
+      
       responseBox.gameObject.SetActive(false);
 
       foreach (GameObject button in tempResponseButtons)
@@ -66,7 +67,7 @@ public class ResponseHandler : MonoBehaviour
       }
 
       responseEvents = null;
-
+      
       if (response.DialogueData)
       {
          dialogueUI.ShowDialogue(response.DialogueData);
