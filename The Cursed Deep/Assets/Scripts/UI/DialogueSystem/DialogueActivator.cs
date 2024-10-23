@@ -7,6 +7,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     [SerializeField] private DialogueData dialogueData;
     public PlayerDialogueActivator playerActivator;
     [SerializeField] private UnityEvent onInteract;
+    [SerializeField] private UnityEvent onDialogueStart, onDialogueEnd;
     
     public void UpdateDialogueObject(DialogueData dData)
     {
@@ -19,6 +20,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
         {
             if (other.TryGetComponent(out PlayerDialogueActivator player))
             {
+                
                 player.interactable = this;
             }
         }
@@ -31,7 +33,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
             if (other.TryGetComponent(out PlayerDialogueActivator player))
             {
                 player.dialogueUI.typewriterEffect.Stop();
-                player.dialogueUI.CloseDialogueBox();
+                player.dialogueUI.CloseDialogueBox(dialogueData);
                 player.interactable = null;
             }
         }
@@ -41,6 +43,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     {
         if (playerActivator)
         {
+            
             playerActivator.interactable = this;
             onInteract.Invoke();
         }
@@ -49,8 +52,6 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     public void OffTrigger()
     {
         if (!playerActivator) return;
-        //playerActivator.dialogueUI.typewriterEffect.Stop();
-        //playerActivator.dialogueUI.CloseDialogueBox();
         playerActivator.interactable = null;
     }
 
@@ -65,5 +66,6 @@ public class DialogueActivator : MonoBehaviour, IInteractable
             }
         }
         player.dialogueUI.ShowDialogue(dialogueData);
+        dialogueData.StartDialogue();
     }
 }
