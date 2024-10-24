@@ -2,16 +2,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UI.DialogueSystem;
 using UnityEngine.Events;
 
 public class DialogueUI : MonoBehaviour
 {
+    [SerializeField] private GameAction action;
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private TMP_Text textLabel;
     [SerializeField] private InputActionReference inputAction;
     [SerializeField] private float autoAdvancedDelay = 5f;
-    [SerializeField] private bool autoAdvance = false;
-    [SerializeField] private UnityEvent onDialogueEnd;
+    [SerializeField] private bool autoAdvance;
     
     public bool IsOpen { get; private set;}
     public bool StartClosed { get; private set; }
@@ -24,7 +25,7 @@ public class DialogueUI : MonoBehaviour
         typewriterEffect = GetComponent<TypewriterEffect>();
         responseHandler = GetComponent<ResponseHandler>();
         StartClosed = true;
-        //CloseDialogueBox(dialogueObj);
+        CloseDialogueBox();
     }
     
     public void ShowDialogue(DialogueData dialogueObj)
@@ -87,24 +88,20 @@ public class DialogueUI : MonoBehaviour
             }
         }
     }
-    
+
+    private void CloseDialogueBox()
+    {
+        IsOpen = false;
+        dialogueBox.SetActive(false);
+        textLabel.text = string.Empty;
+    }
     public void CloseDialogueBox(DialogueData dialogueObj)
     {
         IsOpen = false;
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
-        dialogueObj.EndDialogue();
+        dialogueObj.DialogueEvent(action);
         //OnCloseDialogue();
-    }
-    
-    private void OnCloseDialogue()
-    {
-        if (!IsOpen)
-        {
-            onDialogueEnd.Invoke();
-            Debug.Log("Closing dialogue box");     
-        }
-
     }
     
     public void OnEnable()

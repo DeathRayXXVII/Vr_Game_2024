@@ -1,13 +1,14 @@
+using UI.DialogueSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class DialogueActivator : MonoBehaviour, IInteractable
 {
     public ID id;
+    [SerializeField] private GameAction action;
     [SerializeField] private DialogueData dialogueData;
     public PlayerDialogueActivator playerActivator;
     [SerializeField] private UnityEvent onInteract;
-    [SerializeField] private UnityEvent onDialogueStart, onDialogueEnd;
     
     public void UpdateDialogueObject(DialogueData dData)
     {
@@ -66,6 +67,6 @@ public class DialogueActivator : MonoBehaviour, IInteractable
             }
         }
         player.dialogueUI.ShowDialogue(dialogueData);
-        dialogueData.StartDialogue();
+        dialogueData.DialogueEvent(action);
     }
 }
