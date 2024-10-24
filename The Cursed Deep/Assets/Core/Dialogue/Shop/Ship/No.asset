@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: No
   m_EditorClassIdentifier: 
   dialogueName: 
-  action: {fileID: 0}
+  firstAction: {fileID: 0}
+  lastAction: {fileID: 0}
+  purchaseAction: {fileID: 0}
   dialogue:
   - "The sea is to big for you anyways\n\n\t\t\tPress B"
   responses: []
@@ -56,3 +58,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  firstTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  lastTrigger:
+    m_PersistentCalls:
+      m_Calls: []

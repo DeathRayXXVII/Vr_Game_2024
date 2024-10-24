@@ -67,6 +67,6 @@ public class DialogueActivator : MonoBehaviour, IInteractable
             }
         }
         player.dialogueUI.ShowDialogue(dialogueData);
-        dialogueData.DialogueEvent(action);
+        dialogueData.FirstDialogueEvent(action);
     }
 }

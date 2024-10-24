@@ -12,10 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3404fe7997435ef48bb669bf40f2f0b2, type: 3}
   m_Name: Buy
   m_EditorClassIdentifier: 
+  dialogueName: 
+  action: {fileID: 0}
+  purchaseAction: {fileID: 0}
   dialogue:
   - Are you sure?
   responses:
   - responseText: Yes
+    id: Ship
+    isPurchasable: 1
     dialogueData: {fileID: 11400000, guid: d85239ca8bac6d94297fe25bf84f529a, type: 2}
+    purchaseHandler: {fileID: 3022367994552071335, guid: 9cef0f105cce9484481481fc27dd0587,
+      type: 3}
   - responseText: No
+    id: 
+    isPurchasable: 0
     dialogueData: {fileID: 11400000, guid: 103dcf792bb928044bff2babc3295100, type: 2}
+    purchaseHandler: {fileID: 0}
+  onTrigger:
+    m_PersistentCalls:
+      m_Calls: []

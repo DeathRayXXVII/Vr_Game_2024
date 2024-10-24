@@ -13,6 +13,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private InputActionReference inputAction;
     [SerializeField] private float autoAdvancedDelay = 5f;
     [SerializeField] private bool autoAdvance;
+    [SerializeField] private UnityEvent OnOpenDialogue, OnCloseDialogue;
     
     public bool IsOpen { get; private set;}
     public bool StartClosed { get; private set; }
@@ -100,7 +101,7 @@ public class DialogueUI : MonoBehaviour
         IsOpen = false;
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
-        dialogueObj.DialogueEvent(action);
+        dialogueObj.LastDialogueEvent(action);
         //OnCloseDialogue();
     }
     

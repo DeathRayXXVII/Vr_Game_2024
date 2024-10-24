@@ -14,15 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueName: 
   action: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
+  purchaseAction: {fileID: 0}
   dialogue:
   - 'Upgrade your ship?
 
     $5000 Dabloons'
   responses:
   - responseText: Buy
+    id: 
+    isPurchasable: 0
     dialogueData: {fileID: 11400000, guid: 07e34aceeaa23c843ab83403070d844d, type: 2}
+    purchaseHandler: {fileID: 0}
   - responseText: Exit
+    id: 
+    isPurchasable: 0
     dialogueData: {fileID: 0}
+    purchaseHandler: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls:
