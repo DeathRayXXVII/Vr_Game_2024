@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using UI.DialogueSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,22 +9,23 @@ public class ResponseHandler : MonoBehaviour
    [SerializeField] private RectTransform responseBox;
    [SerializeField] private RectTransform responseButtonTemplate;
    [SerializeField] private RectTransform responseContainer;
-   
+   [SerializeField] private PurchaseHandlerManager purchaseHandlerManager;
+
    private DialogueUI dialogueUI;
    private ResponseEvent[] responseEvents;
-   
+
    private List<GameObject> tempResponseButtons = new List<GameObject>();
-   
+
    private void Start()
    {
       dialogueUI = GetComponent<DialogueUI>();
    }
-   
-   public void AddResponseEvents(ResponseEvent[] responseEvents)
+
+   public void AddResponseEvents(ResponseEvent[] events)
    {
-      this.responseEvents = responseEvents;
+      responseEvents = events;
    }
-   
+
    public void ShowResponses(Response[] responses)
    {
       foreach (GameObject button in tempResponseButtons)
@@ -31,13 +33,13 @@ public class ResponseHandler : MonoBehaviour
          Destroy(button);
       }
       tempResponseButtons.Clear();
-      
+
       float responseBoxHeight = 0;
       for (int i = 0; i < responses.Length; i++)
       {
          Response response = responses[i];
          int responseIndex = i;
-            
+
          GameObject responseButton = Instantiate(responseButtonTemplate.gameObject, responseContainer);
          responseButton.gameObject.SetActive(true);
          responseButton.GetComponentInChildren<TMP_Text>().text = response.ResponseText;
@@ -50,9 +52,8 @@ public class ResponseHandler : MonoBehaviour
       responseBox.gameObject.SetActive(true);
    }
 
-   public void OnPickedResponse(Response response, int responseIndex)
+   private void OnPickedResponse(Response response, int responseIndex)
    {
-      
       responseBox.gameObject.SetActive(false);
 
       foreach (GameObject button in tempResponseButtons)
@@ -61,20 +62,28 @@ public class ResponseHandler : MonoBehaviour
       }
       tempResponseButtons.Clear();
 
-      if (responseEvents != null && responseIndex <= responseEvents.Length)
+      if (responseEvents != null && responseIndex < responseEvents.Length)
       {
-         responseEvents[responseIndex].OnPickedResponse?.Invoke();
+         responseEvents[responseIndex]?.OnPickedResponse?.Invoke();
       }
 
       responseEvents = null;
-      
-      if (response.DialogueData)
+
+      if (response.IsPurchasable)
+      {
+         var purchaseHandler = purchaseHandlerManager.GetHandler(response.Id);
+         if (purchaseHandler != null)
+         {
+            purchaseHandler.Purchase();
+         }
+      }
+      else if (response.DialogueData != null)
       {
          dialogueUI.ShowDialogue(response.DialogueData);
       }
       else
       {
-         dialogueUI.CloseDialogueBox();
+         dialogueUI.CloseDialogueBox(response.DialogueData);
       }
    }
 }

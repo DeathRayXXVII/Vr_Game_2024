@@ -2,18 +2,21 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UI.DialogueSystem;
 using UnityEngine.Events;
 
 public class DialogueUI : MonoBehaviour
 {
+    [SerializeField] private GameAction action;
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private TMP_Text textLabel;
     [SerializeField] private InputActionReference inputAction;
     [SerializeField] private float autoAdvancedDelay = 5f;
-    [SerializeField] private bool autoAdvance = false;
-    [SerializeField] private UnityEvent onDialogueStart, onDialogueEnd;
+    [SerializeField] private bool autoAdvance;
+    [SerializeField] private UnityEvent OnOpenDialogue, OnCloseDialogue;
     
     public bool IsOpen { get; private set;}
+    public bool StartClosed { get; private set; }
     
     public TypewriterEffect typewriterEffect;
     private ResponseHandler responseHandler;
@@ -22,12 +25,12 @@ public class DialogueUI : MonoBehaviour
     {
         typewriterEffect = GetComponent<TypewriterEffect>();
         responseHandler = GetComponent<ResponseHandler>();
+        StartClosed = true;
         CloseDialogueBox();
     }
     
     public void ShowDialogue(DialogueData dialogueObj)
     {
-        onDialogueStart.Invoke();
         Debug.Log("open dialogue box");
         IsOpen = true;
         dialogueBox.SetActive(true);
@@ -68,7 +71,7 @@ public class DialogueUI : MonoBehaviour
         else
         {
             yield return new WaitUntil(() => inputAction.action.triggered);
-            CloseDialogueBox();
+            CloseDialogueBox(dialogueObj);
         }
         
     }
@@ -86,14 +89,20 @@ public class DialogueUI : MonoBehaviour
             }
         }
     }
-    
-    public void CloseDialogueBox()
+
+    private void CloseDialogueBox()
     {
         IsOpen = false;
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
-        onDialogueEnd.Invoke();
-        Debug.Log("Closing dialogue box");
+    }
+    public void CloseDialogueBox(DialogueData dialogueObj)
+    {
+        IsOpen = false;
+        dialogueBox.SetActive(false);
+        textLabel.text = string.Empty;
+        dialogueObj.LastDialogueEvent(action);
+        //OnCloseDialogue();
     }
     
     public void OnEnable()

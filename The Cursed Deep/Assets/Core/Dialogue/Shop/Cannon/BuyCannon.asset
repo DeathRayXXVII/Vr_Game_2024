@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3404fe7997435ef48bb669bf40f2f0b2, type: 3}
   m_Name: BuyCannon
   m_EditorClassIdentifier: 
+  dialogueName: 
+  action: {fileID: 0}
   dialogue:
   - Are you sure?
   responses:
   - responseText: Yes
+    isPurchasable: 1
     dialogueData: {fileID: 11400000, guid: f8f2e4310ed818c46b0b204c27914aff, type: 2}
   - responseText: No
+    isPurchasable: 0
     dialogueData: {fileID: 11400000, guid: 0bea39128f3f1064b97cbefd27e62276, type: 2}
+  onTrigger:
+    m_PersistentCalls:
+      m_Calls: []

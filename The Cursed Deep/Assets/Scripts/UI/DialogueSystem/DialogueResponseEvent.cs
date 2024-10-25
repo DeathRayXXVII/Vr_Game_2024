@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-using System.Collections.Generic;
+using UI.DialogueSystem;
 
 public class DialogueResponseEvents : MonoBehaviour
 {

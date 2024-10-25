@@ -12,8 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3404fe7997435ef48bb669bf40f2f0b2, type: 3}
   m_Name: Purchess
   m_EditorClassIdentifier: 
+  dialogueName: 
+  action: {fileID: 0}
   dialogue:
   - "Arrr a mighty ship fight for the sea\n\n\t\t\t\tPress B"
-  - "Arrr a mighty ship fight for the sea\n\n\t\t\t\tPress B"
-  - "Arrr a mighty ship fight for the sea\n\n\t\t\t\tPress B"
   responses: []
+  onTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 64d2a065675ec06459afe88e7946aa47, type: 2}
+        m_TargetAssemblyTypeName: Debugger, Assembly-CSharp
+        m_MethodName: OnDebug
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Purchess
+          m_BoolArgument: 0
+        m_CallState: 2
+  playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
+  cost: 50
+  successDialogue: {fileID: 11400000}
+  failDialogue: {fileID: 11400000, guid: 36abc90b4980518499be76003885119f, type: 2}
+  dialogueUI: {fileID: 441596881609555509, guid: 649fe54d61e08444ca3d34706142afea,
+    type: 3}
