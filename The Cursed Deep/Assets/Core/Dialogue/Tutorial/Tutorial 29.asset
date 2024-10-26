@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3404fe7997435ef48bb669bf40f2f0b2, type: 3}
-  m_Name: Tutorial 15
+  m_Name: Tutorial 29
   m_EditorClassIdentifier: 
   dialogueName: 
   firstAction: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
   lastAction: {fileID: 11400000, guid: 163b1d9019fbaa544a6e80836b1a957c, type: 2}
   purchaseAction: {fileID: 0}
   dialogue:
-  - "Ah, the smell o\u2019 rum, gunpowder, n more. before\n you is the merchant's
-    stock, here-I\u2019ll lend ye \nsome gold."
-  - Now buy yerself a repair kit.
+  - "Alas, the choice be upon thee. Will ye take the\n galleon and chase glory? Or
+    keep yer sloop, \nand keep yer good chances o\u2019 survival?"
   responses: []
   onTrigger:
     m_PersistentCalls:
@@ -30,7 +29,7 @@ MonoBehaviour:
   lastTrigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: a03f64e4991d2f84394dfe0e8d645fdc, type: 2}
+      - m_Target: {fileID: 11400000, guid: 0da19a20cb2bec846896504484cfd1c7, type: 2}
         m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
         m_MethodName: RaiseAction
         m_Mode: 1
