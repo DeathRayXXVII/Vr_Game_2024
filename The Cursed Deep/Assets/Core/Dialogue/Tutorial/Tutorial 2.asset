@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3404fe7997435ef48bb669bf40f2f0b2, type: 3}
+  m_Name: Tutorial 2
+  m_EditorClassIdentifier: 
+  dialogueName: 
+  firstAction: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
+  lastAction: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
+  purchaseAction: {fileID: 0}
+  dialogue:
+  - "Me name be Captain Moby! I have been a hunter of \nthose beasts for nigh thirty
+    years, it is high \ntime I pass the torch on.Let us begin! Our goal,  \nas I\u2019m
+    sure y\u2019know, is to hunt and killthe foul \nbeasts in the deep, and \rLay
+    claim to the treasure\n of the islands they guard. Now then! Let's make \nsure
+    ye have yer sea legs. Use the left joystick\n to  move yerself about the deck.\u201D
+    \r\n"
+  responses: []
+  onTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  firstTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  lastTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 5c63d9d497fe358469ab9dc293978f1b, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000}
+        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+        m_MethodName: FlipBool
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  hasPlayed: 0
