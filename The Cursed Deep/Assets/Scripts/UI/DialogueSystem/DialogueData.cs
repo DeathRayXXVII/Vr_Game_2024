@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,6 +19,13 @@ namespace UI.DialogueSystem
 
         public bool hasResponses => responses is { Length: > 0 };
         public Response[] Responses => responses;
+
+        public bool hasPlayed = false;
+
+        private void Awake()
+        {
+            hasPlayed = false;
+        }
 
         private void OnEnable()
         {
@@ -41,6 +49,11 @@ namespace UI.DialogueSystem
         public void LastDialogueEvent(GameAction _)
         {
             lastTrigger.Invoke();
+        }
+        
+        public void FlipBool()
+        {
+            hasPlayed = !hasPlayed;
         }
     }
 }
