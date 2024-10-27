@@ -70,6 +70,8 @@ namespace ShipGame.Manager
 
         private IEnumerator InitializeLevelCoroutine()
         {
+            coreData.Setup();
+            
             // Initialize the ship asynchronously using a coroutine
             yield return StartCoroutine(InitializeShipCoroutine());
 

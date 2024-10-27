@@ -35,6 +35,8 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
         
         if (_agentBehavior)
         {
+            // yield return _agentBehavior.Setup();
+            
             _agentBehavior.SetSpeed(creepData.speed);
             _agentBehavior.SetRadius(creepData.radius);
             _agentBehavior.SetHeight(creepData.height);
@@ -44,20 +46,35 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
 #endif
         }
         
-        _health.maxHealth = creepData.health;
-        _health.health = creepData.health;
+        _health.maxHealth = health;
+        _health.health = health;
     }
     
-    public void StopMovement()
-    {
-        _agentBehavior.StopMovement();
-    }
+    public void StopMovement() => _agentBehavior.StopMovement();
 
     private void OnCollisionEnter(Collision other)
     {
         var damageable = GetInterfaceComponent<IDamagable>(other.gameObject);
-        Debug.Log($"Dealing damage to Damageable: {damageable}, from DamageDealer: {this}");
-        if (damageable != null) { DealDamage(damageable); }
+        // if(damageable is not { canReceiveDamage: true }) return;
+        Debug.Log($"Collision detected with: {other.gameObject}\nDealing damage to Damageable: {other.gameObject.name}, from DamageDealer: {this}", this);
+        DealDamage(damageable);
+    }
+
+    private WaitForSeconds _damageWait;
+    private Coroutine _damageCoroutine;
+    [SerializeField] private float damageCooldown = 3f;
+    private IEnumerator ExecuteDamage(float amount)
+    {
+        // canReceiveDamage = false;
+        // Debug.Log($"Applying damage: {amount} to {gameObject.name}", this);
+        // ShowDamage(amount.ToString());
+        // if (amount > -1) amount *= -1;
+        // AddAmountToHealth(amount);
+        //
+        // yield return _damageWait;
+        // canReceiveDamage = true;
+        // _damageCoroutine = null;
+        yield return null;
     }
 
     public float damage

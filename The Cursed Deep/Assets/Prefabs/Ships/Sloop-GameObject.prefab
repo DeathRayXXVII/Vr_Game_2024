@@ -1666,12 +1666,12 @@ PrefabInstance:
     - target: {fileID: 1741959681726461743, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 1968375
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1741959681726461743, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
       propertyPath: m_IncludeLayers.m_Bits
-      value: 67108864
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1893036311351048143, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
@@ -1701,12 +1701,27 @@ PrefabInstance:
     - target: {fileID: 7350059072326350841, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 1968375
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7350059072326350841, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
       propertyPath: m_IncludeLayers.m_Bits
-      value: 67108864
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7493300760283990094, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 7493300760283990094, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7493300760283990094, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7838080584870581077, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
@@ -1819,19 +1834,7 @@ MonoBehaviour:
       m_Calls: []
   onHealthLost:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 64d2a065675ec06459afe88e7946aa47, type: 2}
-        m_TargetAssemblyTypeName: Debugger, Assembly-CSharp
-        m_MethodName: OnDebug
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ship hit
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onThreeQuarterHealth:
     m_PersistentCalls:
       m_Calls: []
@@ -1843,19 +1846,7 @@ MonoBehaviour:
       m_Calls: []
   onHealthDepleted:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 64d2a065675ec06459afe88e7946aa47, type: 2}
-        m_TargetAssemblyTypeName: Debugger, Assembly-CSharp
-        m_MethodName: OnDebug
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ship dead
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   currentHealth: 0
   _maxHealth: {fileID: 11400000, guid: f042f8a13dcd193489a979f84dea7491, type: 2}
   floatingText: {fileID: 0}

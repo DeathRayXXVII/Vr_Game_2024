@@ -25,15 +25,24 @@ public class NavAgentBehavior : MonoBehaviour
     
     public void SetSpeed(float speed)
     {
+#if UNITY_EDITOR
+        if(!_ai) Debug.LogError("NavMeshAgent not found in " + name, this);
+#endif
         _ai.speed = speed;
     }
     
     public void SetRadius(float radius){
+#if UNITY_EDITOR
+        if(!_ai) Debug.LogError("NavMeshAgent not found in " + name, this);
+#endif
         _ai.radius = radius;
     }
     
     public void SetHeight(float height)
     {
+#if UNITY_EDITOR
+        if(!_ai) Debug.LogError("NavMeshAgent not found in " + name, this);
+#endif
         _ai.height = height;
     }
 
@@ -41,6 +50,9 @@ public class NavAgentBehavior : MonoBehaviour
     {
         destination = dest;
         if (!_ai) _ai = GetComponent<NavMeshAgent>();
+#if UNITY_EDITOR
+        if(!_ai) Debug.LogError("NavMeshAgent not found in " + name, this);
+#endif
         if (_ai) _ai.SetDestination(destination);
     }
 

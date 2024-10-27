@@ -27,25 +27,24 @@ namespace ZPTools.Utility
             return System.BitConverter.ToString(hash).Replace("-", "").ToLower();
         }
     
-        public static T GetObjectComponent<T>(UnityEngine.GameObject obj) where T : UnityEngine.Component
+        public static T GetObjectComponent<T>(UnityEngine.GameObject obj, bool allowDebug = false) where T : UnityEngine.Component
         {
             var returnComponent = obj.GetComponent<T>();
             if (!returnComponent) returnComponent = obj.GetComponentInChildren<T>();
             if (!returnComponent) returnComponent = obj.GetComponentInParent<T>();
             if (returnComponent) return returnComponent;
             #if UNITY_EDITOR
-            UnityEngine.Debug.LogWarning($"No {typeof(T)} found in {obj.name}", obj);
+            if (allowDebug) UnityEngine.Debug.LogWarning($"No {typeof(T)} found in {obj.name}", obj);
             #endif
             return null;
         }
         
-        public static T GetInterfaceComponent<T>(UnityEngine.GameObject obj) where T : class
+        public static T GetInterfaceComponent<T>(UnityEngine.GameObject obj, bool allowDebug = false) where T : class
         {
             var returnComponent = (obj.GetComponent<T>() ?? obj.GetComponentInChildren<T>()) ?? obj.GetComponentInParent<T>();
-            UnityEngine.Debug.Log($"Got and returning {returnComponent} from {obj.name}");
             if (returnComponent != null) return returnComponent;
             #if UNITY_EDITOR
-            UnityEngine.Debug.LogWarning($"No {typeof(T)} found in {obj.name}", obj);
+            if (allowDebug) UnityEngine.Debug.LogWarning($"No {typeof(T)} found in {obj.name}", obj);
             #endif
             return null;
         }

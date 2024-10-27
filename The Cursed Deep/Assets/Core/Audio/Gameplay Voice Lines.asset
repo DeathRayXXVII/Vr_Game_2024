@@ -16,14 +16,26 @@ MonoBehaviour:
   - id: Game start
     clip: {fileID: 8300000, guid: d27e31bf663a6724c8fa3911fc8607d0, type: 3}
     played: 0
-    playOnAwake: 0
+    playOnAwake: 1
     priority: 128
     volume: 4.48
     pitch: 1
     delay: 0
     onComplete:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - id: Sword picked up
     clip: {fileID: 8300000, guid: 6d5f7258bafdb834f937c91621fcf3f8, type: 3}
     played: 0

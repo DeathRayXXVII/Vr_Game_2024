@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using Random = UnityEngine.Random;
 
 [assembly: InternalsVisibleTo("SpawnManager")]
 [CreateAssetMenu (fileName = "SpawnerData", menuName = "Data/ManagerData/SpawnerData")]
@@ -77,12 +79,17 @@ public class SpawnerData : ScriptableObject
         if (!prefabList) Debug.LogError("Missing PrefabDataList for prefabList on SpawnerData" + name, this);
 #endif
     }
-    
-    private void OnEnable()
+
+    private void SetupData()
     {
         if (globalLaneActiveLimit)
             globalLaneActiveLimit.value = globalLaneActiveLimit < 1 ? globalLaneActiveLimit.value : 1;
-        
+
+        if (numToSpawn && numToSpawn < 1)
+        {
+            numToSpawn.value = spawners.Count;
+        }
+
         if (!numToSpawn && originalTotalCountToSpawn < 1)
         {
 #if UNITY_EDITOR
@@ -101,6 +108,8 @@ public class SpawnerData : ScriptableObject
         {
             spawner.ResetCount();
         }
+
+        SetupData();
     }
     
     

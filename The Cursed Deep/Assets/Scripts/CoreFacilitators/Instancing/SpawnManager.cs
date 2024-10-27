@@ -140,8 +140,12 @@ public class SpawnManager : MonoBehaviour, INeedButton
 
     public void StartSpawn(bool asynchronous)
     {
-        if (asynchronous) StartCoroutine(DelaySpawn(true));
-        StartSpawn();
+        if (asynchronous)
+        {
+            if (spawnerData.currentTotalCountToSpawn <= 0) spawnerData.currentTotalCountToSpawn = spawnerData.originalTotalCountToSpawn;
+            StartCoroutine(DelaySpawn(true));
+        }
+        else StartSpawn();
     }
     
     public void StartSpawn()
@@ -185,8 +189,8 @@ public class SpawnManager : MonoBehaviour, INeedButton
     {
 #if UNITY_EDITOR
         if (allowDebug) Debug.Log($"Starting Spawn on {name} with data from {spawnerData.name}: {spawnerData.canSpawn}", this);
-        if (allowDebug) Debug.Log($"currentTotalCountToSpawn: {spawnerData.currentTotalCountToSpawn} originalTotalCountToSpawn: {spawnerData.originalTotalCountToSpawn}" +
-                                  $"spawnedCount: {spawnerData.spawnedCount} activeCount: {spawnerData.activeCount} amountLeftToSpawn: {spawnerData.amountLeftToSpawn}", this);
+        if (allowDebug) Debug.Log($"currentTotalCountToSpawn: {spawnerData.currentTotalCountToSpawn}\noriginalTotalCountToSpawn: {spawnerData.originalTotalCountToSpawn}\n" +
+                                  $"spawnedCount: {spawnerData.spawnedCount}\nactiveCount: {spawnerData.activeCount}\namountLeftToSpawn: {spawnerData.amountLeftToSpawn}", this);
 #endif
         yield return _waitLoadBuffer;
         

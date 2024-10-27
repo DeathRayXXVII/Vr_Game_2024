@@ -1,6 +1,9 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using ZPTools.Interface;
+using Random = UnityEngine.Random;
 
 public class HealthBehavior : MonoBehaviour, IDamagable
 {
@@ -20,7 +23,9 @@ public class HealthBehavior : MonoBehaviour, IDamagable
         get => _maxHealth;
         set => _maxHealth.value = value;
     }
-    
+
+    // private void Awake() => _damageWait = new WaitForSeconds(damageCooldown);
+
     private void OnEnable() => _isDead = false;
 
     private void Start()
@@ -65,14 +70,26 @@ public class HealthBehavior : MonoBehaviour, IDamagable
         CheckHealthEvents();
     }
 
+    private WaitForSeconds _damageWait;
+    private Coroutine _damageCoroutine;
+    private IEnumerator ApplyDamage(float amount)
+    {
+        // canReceiveDamage = false;
+        // Debug.Log($"Applying damage: {amount} to {gameObject.name}", this);
+        // ShowDamage(amount.ToString());
+        // if (amount > -1) amount *= -1;
+        // AddAmountToHealth(amount);
+        //
+        // yield return _damageWait;
+        // canReceiveDamage = true;
+        // _damageCoroutine = null;
+        yield return null;
+    }
+
     public void TakeDamage(IDamageDealer dealer)
     {
-        if (_isDead) return;
-        var amount = dealer.damage;
-        ShowDamage(amount.ToString());
-        // Debug.Log(amount);
-        if (amount > -1) amount *= -1;
-        AddAmountToHealth(amount);
+        // if (_isDead || !canReceiveDamage) return;
+        _damageCoroutine ??= StartCoroutine(ApplyDamage(dealer.damage));
     }
     
     private void ShowDamage(string text)

@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
 using ZPTools.Interface;
+using static ZPTools.Utility.UtilityFunctions;
 
 public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
 {
     public WeaponData weaponData;
     public UnityEvent onDamageDealt, onDurabilityDepleted;
-    public bool canDealDamage { get; set; }
+    public bool canDealDamage { get; set; } = true;
     
     public float damage
     {
@@ -22,8 +23,9 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
 
     private void OnCollisionEnter(Collision other)
     {
-        var damagableObj = other.gameObject.GetComponent<IDamagable>();
-        if (damagableObj != null) DealDamage(damagableObj);
+        var damageable = GetInterfaceComponent<IDamagable>(other.gameObject);
+        // if(damageable is not { canReceiveDamage: true }) return;
+        DealDamage(damageable);
     }
 
     private void TakeDamage(float amount)
@@ -39,10 +41,5 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
         if (!canDealDamage) return;
         onDamageDealt.Invoke();
         target.TakeDamage(this);
-    }
-
-    private void OnEnable()
-    {
-        canDealDamage = true;
     }
 }
