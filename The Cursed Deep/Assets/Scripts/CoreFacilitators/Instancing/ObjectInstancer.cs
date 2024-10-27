@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using ZPTools.Interface;
 
@@ -10,10 +11,13 @@ public class ObjectInstancer : MonoBehaviour, INeedButton
     private GameObject _groupObject;
     
     public void SetInstancerData(InstancerData data) => instancerData = data;
-    
+
+    private Transform parentObject => 
+        instancerData.noParent ? null : instancerData.hierarchyParent ? instancerData.hierarchyParent.transform : transform;
+
     private void Start()
     {
-        if (instancerData == null) 
+        if (!instancerData) 
         { 
             Debug.LogError("InstancerData is missing.", this);
         }
@@ -21,17 +25,19 @@ public class ObjectInstancer : MonoBehaviour, INeedButton
     
     public void InstantiateObjects()
     {
-        _groupObject = new GameObject();
-        _groupObject.transform.SetParent(transform);
+        var objectName = !string.IsNullOrEmpty(groupName) ? groupName :
+            parentObject ? $"{parentObject.name} - Instances" : "World - Instances";
+        _groupObject = GameObject.Find(objectName);
+        if (!_groupObject) _groupObject = new GameObject(objectName);
+        if (parentObject) _groupObject.transform.SetParent(parentObject.transform);
         _groupObject.transform.localPosition = Vector3.zero;
-        _groupObject.name = string.IsNullOrEmpty(groupName) ? $"{name} - Instances" : groupName;
         
         foreach (var instanceData in instancerData.instances)
         {
             var instanceOffset = Vector3.zero;
-            if (instanceData.instanceOffset != null) {instanceOffset = instanceData.instanceOffset;}
+            if (instanceData.instanceOffset) {instanceOffset = instanceData.instanceOffset;}
 
-            var finalOffset = !instanceData.excludePrefabOffset && instancerData.prefabOffset != null ? instanceOffset + instancerData.prefabOffset.value : instanceOffset;
+            var finalOffset = !instanceData.excludePrefabOffset && instancerData.prefabOffset ? instanceOffset + instancerData.prefabOffset.value : instanceOffset;
             InstantiateObject(instanceData.targetPosition, finalOffset);
         }
     }
