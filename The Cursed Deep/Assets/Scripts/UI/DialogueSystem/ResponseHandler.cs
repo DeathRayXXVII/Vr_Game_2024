@@ -19,6 +19,15 @@ public class ResponseHandler : MonoBehaviour
    private void Start()
    {
       dialogueUI = GetComponent<DialogueUI>();
+      
+      if(purchaseHandlerManager == null)
+      {
+         purchaseHandlerManager = FindObjectOfType<PurchaseHandlerManager>();
+         if (purchaseHandlerManager == null)
+         {
+            Debug.LogError("PurchaseHandlerManager not found in scene.");
+         }
+      }
    }
 
    public void AddResponseEvents(ResponseEvent[] events)
@@ -71,10 +80,25 @@ public class ResponseHandler : MonoBehaviour
 
       if (response.IsPurchasable)
       {
+         if (purchaseHandlerManager == null)
+         {
+            Debug.LogError("PurchaseHandlerManager is not assigned.");
+            return;
+         }
          var purchaseHandler = purchaseHandlerManager.GetHandler(response.Id);
+         if (string.IsNullOrEmpty(purchaseHandlerManager.GetHandler(response.Id).Id))
+         {
+            Debug.LogError("PurchaseHandler not found.");
+         }
+         
          if (purchaseHandler != null)
          {
-            purchaseHandler.Purchase();
+            purchaseHandler.Purchase(response.PurchaseDialogue);
+            Debug.Log($"Purchasing {response.Id}");
+         }
+         else
+         {
+            Debug.LogError($"PurchaseHandler with ID {response.Id} not found.");
          }
       }
       else if (response.DialogueData != null)

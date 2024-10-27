@@ -13,16 +13,28 @@ MonoBehaviour:
   m_Name: BuyCannon
   m_EditorClassIdentifier: 
   dialogueName: 
-  action: {fileID: 0}
+  firstAction: {fileID: 0}
+  lastAction: {fileID: 0}
   dialogue:
   - Are you sure?
   responses:
   - responseText: Yes
-    isPurchasable: 1
+    id: 
+    isPurchasable: 0
     dialogueData: {fileID: 11400000, guid: f8f2e4310ed818c46b0b204c27914aff, type: 2}
+    purchaseAction: {fileID: 0}
   - responseText: No
+    id: 
     isPurchasable: 0
     dialogueData: {fileID: 11400000, guid: 0bea39128f3f1064b97cbefd27e62276, type: 2}
+    purchaseAction: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
+  firstTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  lastTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  hasPlayed: 0

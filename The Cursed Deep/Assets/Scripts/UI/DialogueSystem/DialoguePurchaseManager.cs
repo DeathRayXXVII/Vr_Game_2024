@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PurchaseHandlerManager : MonoBehaviour
 {
-    private Dictionary<string, DialoguePurcheseHandler> purchaseHandlers = new Dictionary<string, DialoguePurcheseHandler>();
+    public Dictionary<string, DialoguePurcheseHandler> purchaseHandlers = new Dictionary<string, DialoguePurcheseHandler>();
 
     private void Awake()
     {

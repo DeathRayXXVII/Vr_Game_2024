@@ -7,13 +7,15 @@ namespace UI.DialogueSystem
     {
         [SerializeField] private string responseText;
         [SerializeField] private string id;
-        [SerializeField] private bool isPurchasable;
         [SerializeField] private DialogueData dialogueData;
-        [SerializeField] private DialoguePurcheseHandler purchaseHandler;
+        [SerializeField] private bool isPurchasable;
+        [SerializeField] private DialogueData purchaseDialogue;
+        [SerializeField] public GameAction purchaseAction;
         public string ResponseText => responseText;
         public string Id => id;
         public DialogueData DialogueData => dialogueData;
+        public DialogueData PurchaseDialogue => purchaseDialogue;
         public bool IsPurchasable => isPurchasable;
-        public DialoguePurcheseHandler PurchaseHandler => purchaseHandler;
+        public GameAction PurchaseAction => purchaseAction;
     }
 }
