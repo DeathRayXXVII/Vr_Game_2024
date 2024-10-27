@@ -13,22 +13,30 @@ MonoBehaviour:
   m_Name: Buy
   m_EditorClassIdentifier: 
   dialogueName: 
-  action: {fileID: 0}
-  purchaseAction: {fileID: 0}
+  firstAction: {fileID: 0}
+  lastAction: {fileID: 0}
   dialogue:
   - Are you sure?
   responses:
   - responseText: Yes
     id: Ship
+    dialogueData: {fileID: 11400000, guid: 36abc90b4980518499be76003885119f, type: 2}
     isPurchasable: 1
-    dialogueData: {fileID: 11400000, guid: d85239ca8bac6d94297fe25bf84f529a, type: 2}
-    purchaseHandler: {fileID: 3022367994552071335, guid: 9cef0f105cce9484481481fc27dd0587,
-      type: 3}
+    purchaseDialogue: {fileID: 11400000, guid: d85239ca8bac6d94297fe25bf84f529a, type: 2}
+    purchaseAction: {fileID: 0}
   - responseText: No
     id: 
-    isPurchasable: 0
     dialogueData: {fileID: 11400000, guid: 103dcf792bb928044bff2babc3295100, type: 2}
-    purchaseHandler: {fileID: 0}
+    isPurchasable: 0
+    purchaseDialogue: {fileID: 0}
+    purchaseAction: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
+  firstTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  lastTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  hasPlayed: 0

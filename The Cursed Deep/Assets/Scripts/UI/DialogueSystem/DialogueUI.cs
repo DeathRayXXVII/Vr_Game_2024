@@ -9,7 +9,7 @@ public class DialogueUI : MonoBehaviour
 {
     [SerializeField] private GameAction action;
     [SerializeField] private GameObject dialogueBox;
-    [SerializeField] private TMP_Text textLabel;
+    public  TMP_Text textLabel;
     [SerializeField] private InputActionReference inputAction;
     [SerializeField] private float autoAdvancedDelay = 5f;
     [SerializeField] private bool autoAdvance;

@@ -1,32 +1,32 @@
 using UI.DialogueSystem;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DialoguePurcheseHandler : MonoBehaviour
 {
     [SerializeField] private string id;
     [SerializeField] private IntData playerCoins;
     [SerializeField] private int cost;
-    [SerializeField] private DialogueData successDialogue, failDialogue;
     [SerializeField] private DialogueResponseEvents responseEvents;
     [SerializeField] private ResponseHandler responseHandler;
     [SerializeField] public DialogueUI dialogueUI;
+    [SerializeField] private UnityEvent onPurchase;
     
     public string Id => id;
-    
-    
-    public void Purchase()
+    public void Purchase(DialogueData dialogueData)
     {
         if (playerCoins >= cost)
         {
             Debug.Log($"- {cost} coins");
             playerCoins -= cost;
-            ContinueDialogue(successDialogue);
+            ContinueDialogue(dialogueData);
+            onPurchase.Invoke();
             
         }
         else
         {
             Debug.Log("Not enough coins");
-            ContinueDialogue(failDialogue);
+            ContinueDialogue(dialogueData);
         }
     }
     

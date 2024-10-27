@@ -10,7 +10,7 @@ namespace UI.DialogueSystem
         [Header("Dialogue Data")]
         [SerializeField] private string dialogueName;
         [SerializeField] private GameAction firstAction, lastAction;
-        public GameAction purchaseAction;
+        
         [SerializeField] [TextArea] private string[] dialogue;
         [SerializeField] private Response[] responses;
         [SerializeField] private UnityEvent onTrigger, firstTrigger, lastTrigger;
