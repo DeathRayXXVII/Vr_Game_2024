@@ -4,21 +4,26 @@ using UnityEngine;
 [CreateAssetMenu (fileName = "InstancerData", menuName = "Data/ManagerData/InstancerData")]
 public class InstancerData : ScriptableObject
 {
+    private GameObject _hierarchyParent;
+    [SerializeField] private bool _noParent;
     [SerializeField] private PrefabData prefabData;
     public Vector3Data prefabOffset;
     
     public GameObject prefab => prefabData.prefab;
     
-    public void SetPrefabData(PrefabData data)
-    {
-        prefabData = data;
-    }
+    public void SetPrefabData(PrefabData data) => prefabData = data;
     
-    public void SetPrefabOffset(Vector3Data data)
+    public void SetPrefabOffset(Vector3Data data) => prefabOffset = data;
+
+    public bool noParent => _noParent;
+    public Transform hierarchyParent => _hierarchyParent ? _hierarchyParent.transform : null;
+
+    public void SetHierarchyParent(GameObject parent)
     {
-        prefabOffset = data;
+        _noParent = false;
+        _hierarchyParent = parent;
     }
-    
+
     [System.Serializable]
     public class InstanceData
     {
@@ -31,6 +36,8 @@ public class InstancerData : ScriptableObject
 
     public void OnEnable()
     {
+#if UNITY_EDITOR
         if (!prefabData) Debug.LogError("Prefab Data is null. Please assign a value.", this);
+#endif
     }
 }

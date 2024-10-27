@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using ZPTools.Interface;
+using static ZPTools.Utility.UtilityFunctions;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(NavAgentBehavior))]
@@ -54,7 +55,8 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
 
     private void OnCollisionEnter(Collision other)
     {
-        var damageable = other.gameObject.GetComponent<IDamagable>();
+        var damageable = GetInterfaceComponent<IDamagable>(other.gameObject);
+        Debug.Log($"Dealing damage to Damageable: {damageable}, from DamageDealer: {this}");
         if (damageable != null) { DealDamage(damageable); }
     }
 

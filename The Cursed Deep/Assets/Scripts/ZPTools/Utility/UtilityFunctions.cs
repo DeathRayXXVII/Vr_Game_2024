@@ -38,6 +38,17 @@ namespace ZPTools.Utility
             #endif
             return null;
         }
+        
+        public static T GetInterfaceComponent<T>(UnityEngine.GameObject obj) where T : class
+        {
+            var returnComponent = (obj.GetComponent<T>() ?? obj.GetComponentInChildren<T>()) ?? obj.GetComponentInParent<T>();
+            UnityEngine.Debug.Log($"Got and returning {returnComponent} from {obj.name}");
+            if (returnComponent != null) return returnComponent;
+            #if UNITY_EDITOR
+            UnityEngine.Debug.LogWarning($"No {typeof(T)} found in {obj.name}", obj);
+            #endif
+            return null;
+        }
 
     }
 }
