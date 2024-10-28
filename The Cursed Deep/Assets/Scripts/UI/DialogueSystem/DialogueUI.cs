@@ -31,17 +31,21 @@ public class DialogueUI : MonoBehaviour
     
     public void ShowDialogue(DialogueData dialogueObj)
     {
+        if (!IsOpen)
+        {
+           StopCoroutine(StepThroughDialogue(dialogueObj)); 
+           IsOpen = true;
+        }
+        
         Debug.Log("open dialogue box");
-        IsOpen = true;
         dialogueBox.SetActive(true);
         StartCoroutine(StepThroughDialogue(dialogueObj));
     }
-    public void AddResponseEvents(ResponseEvent[] responseEvents)
-    {
-        responseHandler.AddResponseEvents(responseEvents);
-    }
+    public void AddResponseEvents(ResponseEvent[] responseEvents) => responseHandler.AddResponseEvents(responseEvents);
+    
     private IEnumerator StepThroughDialogue(DialogueData dialogueObj)
     {
+        IsOpen = false;
         
         for (int i = 0; i < dialogueObj.Dialogue.Length; i++)
         {
@@ -65,7 +69,6 @@ public class DialogueUI : MonoBehaviour
 
         if (dialogueObj.hasResponses && dialogueObj.Responses.Length > 0)
         {
-            
             responseHandler.ShowResponses(dialogueObj.Responses);
         }
         else
@@ -73,7 +76,7 @@ public class DialogueUI : MonoBehaviour
             yield return new WaitUntil(() => inputAction.action.triggered);
             CloseDialogueBox(dialogueObj);
         }
-        
+        IsOpen = true;
     }
     
     private IEnumerator RunTypingEffect(string dialogue)
@@ -92,13 +95,11 @@ public class DialogueUI : MonoBehaviour
 
     private void CloseDialogueBox()
     {
-        IsOpen = false;
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
     }
     public void CloseDialogueBox(DialogueData dialogueObj)
     {
-        IsOpen = false;
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
         dialogueObj.LastDialogueEvent(action);
