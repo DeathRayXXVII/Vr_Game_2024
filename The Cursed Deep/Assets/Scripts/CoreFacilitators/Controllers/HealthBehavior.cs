@@ -7,14 +7,26 @@ public class HealthBehavior : MonoBehaviour, IDamagable
 {
     public UnityEvent onHealthGained, onHealthLost, onThreeQuarterHealth, onHalfHealth, onQuarterHealth, onHealthDepleted;
     
-    [SerializeField] private FloatData currentHealth;
+    [SerializeField] [InspectorReadOnly] private float _currentHealth;
+    [SerializeField] private FloatData currentHealthData;
     private float _previousCheckHealth;
     [SerializeField] private FloatData _maxHealth;
     [SerializeField] private GameObject floatingText;
     [SerializeField] private GameObject textPivot;
     private bool _isDead;
 
-    public float health { get => currentHealth; set => currentHealth.value = value; }
+    public float health
+    {
+        get
+        {
+            return !currentHealthData ? _currentHealth : currentHealthData;
+        }
+        set
+        {
+            if (currentHealthData) currentHealthData.value = value;
+            _currentHealth = value;
+        }
+    }
 
     public float maxHealth
     {

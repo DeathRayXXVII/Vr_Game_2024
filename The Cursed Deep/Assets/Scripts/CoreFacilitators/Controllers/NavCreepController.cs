@@ -53,8 +53,6 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
         
         if (_agentBehavior)
         {
-            // yield return _agentBehavior.Setup();
-            
             _agentBehavior.SetSpeed(creepData.speed);
             _agentBehavior.SetRadius(creepData.radius);
             _agentBehavior.SetHeight(creepData.height);
