@@ -7,14 +7,14 @@ public class HealthBehavior : MonoBehaviour, IDamagable
 {
     public UnityEvent onHealthGained, onHealthLost, onThreeQuarterHealth, onHalfHealth, onQuarterHealth, onHealthDepleted;
     
-    [SerializeField] [InspectorReadOnly] private float currentHealth;
+    [SerializeField] private FloatData currentHealth;
     private float _previousCheckHealth;
     [SerializeField] private FloatData _maxHealth;
     [SerializeField] private GameObject floatingText;
     [SerializeField] private GameObject textPivot;
     private bool _isDead;
 
-    public float health { get => currentHealth; set => currentHealth = value; }
+    public float health { get => currentHealth; set => currentHealth.value = value; }
 
     public float maxHealth
     {
