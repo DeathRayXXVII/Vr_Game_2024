@@ -817,10 +817,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 67108864
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1968375
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -1353,7 +1353,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 2147485696
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2629,10 +2629,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 67108864
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1968375
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2836,16 +2836,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 9171256878206456856}
-  - {fileID: 1515697886761455407}
-  - {fileID: 4682664763037051171}
   - {fileID: 2171857886943274723}
   - {fileID: 1113339545951013457}
   - {fileID: 926652847210023279}
   - {fileID: 9111959535243589139}
   - {fileID: 7062222650158058837}
   - {fileID: 4330445315732534918}
+  - {fileID: 9171256878206456856}
   - {fileID: 8223475328426332002}
+  - {fileID: 1515697886761455407}
+  - {fileID: 4682664763037051171}
   m_InteractionLayers:
     m_Bits: 2147483648
   m_DistanceCalculationMode: 1
@@ -3852,7 +3852,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1998073315424495665}
-  - component: {fileID: 5406063052201461632}
   m_Layer: 11
   m_Name: Lower Fore Deck
   m_TagString: Untagged
@@ -3877,27 +3876,6 @@ Transform:
   - {fileID: 3800374608188163520}
   m_Father: {fileID: 6651629892776468079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5406063052201461632
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6697370211960272096}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 2048
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 6.5, y: 0.1, z: 5}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6929570884787826414
 GameObject:
   m_ObjectHideFlags: 0
@@ -5198,9 +5176,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &3563584273761829311
 MonoBehaviour:
@@ -5244,7 +5222,8 @@ MonoBehaviour:
   onHealthDepleted:
     m_PersistentCalls:
       m_Calls: []
-  currentHealth: {fileID: 11400000, guid: b9983e87410d3e74aa58a1a7be03060a, type: 2}
+  _currentHealth: 0
+  currentHealthData: {fileID: 11400000, guid: b9983e87410d3e74aa58a1a7be03060a, type: 2}
   _maxHealth: {fileID: 11400000, guid: f042f8a13dcd193489a979f84dea7491, type: 2}
   floatingText: {fileID: 0}
   textPivot: {fileID: 0}

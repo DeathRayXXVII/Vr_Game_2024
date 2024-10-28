@@ -17,10 +17,7 @@ public class HealthBehavior : MonoBehaviour, IDamagable
 
     public float health
     {
-        get
-        {
-            return !currentHealthData ? _currentHealth : currentHealthData;
-        }
+        get => !currentHealthData ? _currentHealth : currentHealthData;
         set
         {
             if (currentHealthData) currentHealthData.value = value;
@@ -76,7 +73,7 @@ public class HealthBehavior : MonoBehaviour, IDamagable
         var previousHealth = health;
         health += amount;
         if (health - previousHealth > 0) onHealthGained.Invoke();
-        else if (health > 0) onHealthLost.Invoke();
+        else if (health >= 0 && previousHealth > 0) onHealthLost.Invoke();
         CheckHealthEvents();
     }
     public void TakeDamage(IDamageDealer dealer)

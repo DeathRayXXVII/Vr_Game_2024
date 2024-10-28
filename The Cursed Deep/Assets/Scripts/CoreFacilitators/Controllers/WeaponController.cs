@@ -33,7 +33,7 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
     private void OnCollisionEnter(Collision other)
     {
         var damageable = GetInterfaceComponent<IDamagable>(other.gameObject);
-        if(!canDealDamage) return;
+        if(!canDealDamage || damageable == null) return;
         Debug.Log($"Collision detected with: {other.gameObject}\nDealing damage to Damageable: {other.gameObject.name}, from DamageDealer: {this}", this);
         DealDamage(damageable);
     }
