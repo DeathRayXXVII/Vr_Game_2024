@@ -1688,6 +1688,27 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onHealthLost.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: 6511743c5afcbc2428e686d63548ea53,
+        type: 2}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onHealthLost.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RaiseAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onHealthLost.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameAction, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onHealthLost.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4998084635212899271, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
       propertyPath: m_IsActive
@@ -1787,11 +1808,7 @@ PrefabInstance:
     - {fileID: 5406063052201461632, guid: 0a78bef89ec5dc443a3223491f56ee87, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8456979356729480022, guid: 0a78bef89ec5dc443a3223491f56ee87,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5749490198807416296}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a78bef89ec5dc443a3223491f56ee87, type: 3}
 --- !u!4 &47506177510327739 stripped
 Transform:
@@ -1811,46 +1828,6 @@ BoxCollider:
     type: 3}
   m_PrefabInstance: {fileID: 9132789714267376727}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &856552755879452417 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8456979356729480022, guid: 0a78bef89ec5dc443a3223491f56ee87,
-    type: 3}
-  m_PrefabInstance: {fileID: 9132789714267376727}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5749490198807416296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 856552755879452417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc92a87b298074469f00001545ae4ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onHealthGained:
-    m_PersistentCalls:
-      m_Calls: []
-  onHealthLost:
-    m_PersistentCalls:
-      m_Calls: []
-  onThreeQuarterHealth:
-    m_PersistentCalls:
-      m_Calls: []
-  onHalfHealth:
-    m_PersistentCalls:
-      m_Calls: []
-  onQuarterHealth:
-    m_PersistentCalls:
-      m_Calls: []
-  onHealthDepleted:
-    m_PersistentCalls:
-      m_Calls: []
-  currentHealth: 0
-  _maxHealth: {fileID: 11400000, guid: f042f8a13dcd193489a979f84dea7491, type: 2}
-  floatingText: {fileID: 0}
-  textPivot: {fileID: 0}
 --- !u!65 &910159122424775477 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 8223475328426332002, guid: 0a78bef89ec5dc443a3223491f56ee87,
