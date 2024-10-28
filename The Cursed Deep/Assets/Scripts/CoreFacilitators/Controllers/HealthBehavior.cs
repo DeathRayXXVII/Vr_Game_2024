@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using ZPTools.Interface;
@@ -69,27 +67,15 @@ public class HealthBehavior : MonoBehaviour, IDamagable
         else if (health > 0) onHealthLost.Invoke();
         CheckHealthEvents();
     }
-
-    private WaitForSeconds _damageWait;
-    private Coroutine _damageCoroutine;
-    private IEnumerator ApplyDamage(float amount)
-    {
-        // canReceiveDamage = false;
-        // Debug.Log($"Applying damage: {amount} to {gameObject.name}", this);
-        // ShowDamage(amount.ToString());
-        // if (amount > -1) amount *= -1;
-        // AddAmountToHealth(amount);
-        //
-        // yield return _damageWait;
-        // canReceiveDamage = true;
-        // _damageCoroutine = null;
-        yield return null;
-    }
-
     public void TakeDamage(IDamageDealer dealer)
     {
-        // if (_isDead || !canReceiveDamage) return;
-        _damageCoroutine ??= StartCoroutine(ApplyDamage(dealer.damage));
+        if (_isDead) return;
+        var amount = dealer.damage;
+        Debug.Log($"Applying damage: {amount} to {gameObject.name}", this);
+        
+        ShowDamage(amount.ToString());
+        if (amount > -1) amount *= -1;
+        AddAmountToHealth(amount);
     }
     
     private void ShowDamage(string text)

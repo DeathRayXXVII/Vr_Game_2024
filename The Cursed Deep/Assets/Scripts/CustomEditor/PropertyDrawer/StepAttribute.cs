@@ -1,11 +1,15 @@
 using UnityEngine;
 
-public class StepAttribute : PropertyAttribute
+public class SteppedRangeAttribute : PropertyAttribute
 {
-    public float Step;
+    public float min;
+    public float max;
+    public float step;
 
-    public StepAttribute(float step)
+    public SteppedRangeAttribute(float rangeMin, float rangeMax, float step)
     {
-        this.Step = step;
+        min = rangeMin;
+        max = rangeMax;
+        this.step = step;
     }
 }

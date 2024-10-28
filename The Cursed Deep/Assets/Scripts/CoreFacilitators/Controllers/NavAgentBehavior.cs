@@ -8,13 +8,12 @@ public class NavAgentBehavior : MonoBehaviour
 { 
     public UnityEvent onCreepReachedDestination;
     
-    private WaitForFixedUpdate _wffu;
+    private readonly WaitForFixedUpdate _wffu = new();
     private NavMeshAgent _ai;
     public Vector3 destination;
 
     private void Awake()
     {
-        _wffu = new WaitForFixedUpdate();
         _ai = GetComponent<NavMeshAgent>();
     }
 
@@ -29,6 +28,7 @@ public class NavAgentBehavior : MonoBehaviour
         if(!_ai) Debug.LogError("NavMeshAgent not found in " + name, this);
 #endif
         _ai.speed = speed;
+        Debug.Log($"Speed set to {speed}");
     }
     
     public void SetRadius(float radius){

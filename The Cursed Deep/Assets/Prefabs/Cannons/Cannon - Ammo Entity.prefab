@@ -199,25 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endWaitForSeconds:
-  - id: stopDealingDamage
-    realTime: 0
-    seconds: 0.5
-    onWaitFinished:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1686740603975731368}
-          m_TargetAssemblyTypeName: WeaponController, Assembly-CSharp
-          m_MethodName: set_canDealDamage
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  endWaitForSeconds: []
   endWaitForZero: []
   endWaitForFixedUpdate:
   - id: reset
@@ -279,22 +261,11 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: 6ee7b525777ae8b4790eccbdd6a77487, type: 2}
   onDamageDealt:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4176567598734683626}
-        m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-        m_MethodName: StartWaitForSecondsEvent
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: stopDealingDamage
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   onDurabilityDepleted:
     m_PersistentCalls:
       m_Calls: []
+  damageCooldown: 3
 --- !u!1 &7211310056540856430
 GameObject:
   m_ObjectHideFlags: 0

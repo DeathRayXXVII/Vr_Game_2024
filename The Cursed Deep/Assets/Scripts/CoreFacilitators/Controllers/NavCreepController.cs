@@ -13,18 +13,36 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
     
     private NavAgentBehavior _agentBehavior;
     private HealthBehavior _health;
+    public bool canDealDamage { get; private set;  } = true;
+
+    private WaitForSeconds _damageWait;
+    private readonly WaitForFixedUpdate _wffu = new();
+    private Coroutine _damageCoroutine;
+
+    [SerializeField, SteppedRange(rangeMin:0.5f, rangeMax:10f, step:0.1f)] private float damageCooldown = 3f;
     
-    private WaitForFixedUpdate _wffu;
+    public float damage
+    {
+        get => creepData.damage;
+        set => creepData.damage = value;
+    }
+    
+    public float health
+    {
+        get => creepData.health;
+        set => creepData.health = value;
+    }
 
     private void Awake()
     {
-        _health = GetComponent<HealthBehavior>();
-        _wffu = new WaitForFixedUpdate();
+        _damageWait = new WaitForSeconds(damageCooldown);
         StartCoroutine(Setup());
     }
     
     private IEnumerator Setup()
     {
+        _health = GetComponent<HealthBehavior>();
+        
         var attempts = 0;
         while (!_agentBehavior && attempts < 5)
         {
@@ -55,39 +73,25 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
     private void OnCollisionEnter(Collision other)
     {
         var damageable = GetInterfaceComponent<IDamagable>(other.gameObject);
-        // if(damageable is not { canReceiveDamage: true }) return;
+        if(!canDealDamage) return;
         Debug.Log($"Collision detected with: {other.gameObject}\nDealing damage to Damageable: {other.gameObject.name}, from DamageDealer: {this}", this);
         DealDamage(damageable);
     }
-
-    private WaitForSeconds _damageWait;
-    private Coroutine _damageCoroutine;
-    [SerializeField] private float damageCooldown = 3f;
-    private IEnumerator ExecuteDamage(float amount)
+    private IEnumerator HandleDealingDamage(IDamagable target)
     {
-        // canReceiveDamage = false;
-        // Debug.Log($"Applying damage: {amount} to {gameObject.name}", this);
-        // ShowDamage(amount.ToString());
-        // if (amount > -1) amount *= -1;
-        // AddAmountToHealth(amount);
-        //
-        // yield return _damageWait;
-        // canReceiveDamage = true;
-        // _damageCoroutine = null;
-        yield return null;
-    }
-
-    public float damage
-    {
-        get => creepData.damage;
-        set => creepData.damage = value;
-    }
-
-    public float health
-    {
-        get => creepData.health;
-        set => creepData.health = value;
+        canDealDamage = false;
+        Debug.Log($"Passing damage: {damage} to {gameObject.name}", this);
+        target.TakeDamage(this);
+        
+        yield return _damageWait;
+        canDealDamage = true;
+        yield return _wffu;
+        _damageCoroutine = null;
     }
     
-    public void DealDamage(IDamagable target) => target.TakeDamage(this);
+    public void DealDamage(IDamagable target)
+    {
+        if (!canDealDamage) return;
+        _damageCoroutine ??= StartCoroutine(HandleDealingDamage(target));
+    }
 }

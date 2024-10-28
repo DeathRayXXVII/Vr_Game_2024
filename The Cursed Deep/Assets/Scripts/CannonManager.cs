@@ -20,7 +20,7 @@ public class CannonManager : MonoBehaviour
     private MeshRenderer _ammoMeshRenderer;
     
     [Header("Fire Physics System:")]
-    [SerializeField, Range(0.0f, 1000.0f), Step(0.01f)] private float propellantForce = 10.0f;
+    [SerializeField, SteppedRange(rangeMin:0.0f, rangeMax:1000.0f, step:0.01f)] private float propellantForce = 10.0f;
     [SerializeField] private Transform muzzlePosition, breechPosition;
     [SerializeField] private SocketMatchInteractor reloadSocket;
     private Vector3 forceVector => !muzzlePosition || !breechPosition ? Vector3.zero : (ejectionPoint - ingitionPoint).normalized;

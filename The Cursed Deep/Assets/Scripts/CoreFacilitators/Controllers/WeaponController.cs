@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using ZPTools.Interface;
@@ -7,7 +8,15 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
 {
     public WeaponData weaponData;
     public UnityEvent onDamageDealt, onDurabilityDepleted;
-    public bool canDealDamage { get; set; } = true;
+    public bool canDealDamage { get; private set;  } = true;
+
+    private WaitForSeconds _damageWait;
+    private readonly WaitForFixedUpdate _wffu = new();
+    private Coroutine _damageCoroutine;
+
+    [SerializeField, SteppedRange(rangeMin:0.5f, rangeMax:10f, step:0.1f)] private float damageCooldown = 3f;
+    
+    private void Awake() => _damageWait = new WaitForSeconds(damageCooldown);
     
     public float damage
     {
@@ -24,7 +33,8 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
     private void OnCollisionEnter(Collision other)
     {
         var damageable = GetInterfaceComponent<IDamagable>(other.gameObject);
-        // if(damageable is not { canReceiveDamage: true }) return;
+        if(!canDealDamage) return;
+        Debug.Log($"Collision detected with: {other.gameObject}\nDealing damage to Damageable: {other.gameObject.name}, from DamageDealer: {this}", this);
         DealDamage(damageable);
     }
 
@@ -36,10 +46,22 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
 
     public void TakeDamage(IDamageDealer dealer) => TakeDamage(dealer.damage);
     
+    private IEnumerator HandleDealingDamage(IDamagable target)
+    {
+        canDealDamage = false;
+        Debug.Log($"Passing damage: {damage} to {gameObject.name}", this);
+        onDamageDealt.Invoke();
+        target.TakeDamage(this);
+        
+        yield return _damageWait;
+        canDealDamage = true;
+        yield return _wffu;
+        _damageCoroutine = null;
+    }
+    
     public void DealDamage(IDamagable target)
     {
         if (!canDealDamage) return;
-        onDamageDealt.Invoke();
-        target.TakeDamage(this);
+        _damageCoroutine ??= StartCoroutine(HandleDealingDamage(target));
     }
 }

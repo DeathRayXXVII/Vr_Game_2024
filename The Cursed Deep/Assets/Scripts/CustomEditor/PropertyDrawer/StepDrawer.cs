@@ -1,22 +1,24 @@
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
-[CustomPropertyDrawer(typeof(StepAttribute))]
+[CustomPropertyDrawer(typeof(SteppedRangeAttribute))]
 public class StepDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        var stepAttribute = attribute as StepAttribute;
+        SteppedRangeAttribute stepAttribute = attribute as SteppedRangeAttribute;
 
         if (property.propertyType == SerializedPropertyType.Float)
         {
-            EditorGUI.BeginChangeCheck();
-            float newValue = EditorGUI.Slider(position, label, property.floatValue, property.floatValue - stepAttribute.Step, property.floatValue + stepAttribute.Step);
-            if (EditorGUI.EndChangeCheck())
-            {
-                property.floatValue = Mathf.Round(newValue / stepAttribute.Step) * stepAttribute.Step;
-            }
+            EditorGUI.Slider(position, property, stepAttribute.min, stepAttribute.max, label);
+            property.floatValue = Mathf.Round(property.floatValue / stepAttribute.step) * stepAttribute.step;
+        }
+        else if (property.propertyType == SerializedPropertyType.Integer)
+        {
+            EditorGUI.IntSlider(position, property, (int)stepAttribute.min, (int)stepAttribute.max, label);
+            property.intValue = Mathf.RoundToInt(property.intValue / stepAttribute.step) * (int)stepAttribute.step;
         }
         else
         {
