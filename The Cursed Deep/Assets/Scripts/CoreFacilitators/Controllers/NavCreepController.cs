@@ -72,18 +72,18 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
     {
         var damageable = GetInterfaceComponent<IDamagable>(other.gameObject);
         if(!canDealDamage || damageable == null) return;
-        Debug.Log($"Collision detected with: {other.gameObject}\nDealing damage to Damageable: {other.gameObject.name}, from DamageDealer: {this}", this);
         DealDamage(damageable);
     }
+    
     private IEnumerator HandleDealingDamage(IDamagable target)
     {
         canDealDamage = false;
-        Debug.Log($"Passing damage: {damage} to {gameObject.name}", this);
         target.TakeDamage(this);
-        
         yield return _damageWait;
+        
         canDealDamage = true;
         yield return _wffu;
+        
         _damageCoroutine = null;
     }
     
