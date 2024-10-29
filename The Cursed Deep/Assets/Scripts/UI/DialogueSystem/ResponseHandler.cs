@@ -14,17 +14,19 @@ public class ResponseHandler : MonoBehaviour
    private DialogueUI dialogueUI;
    private ResponseEvent[] responseEvents;
 
-   private List<GameObject> tempResponseButtons = new();
+   private List<GameObject> tempResponseButtons = new List<GameObject>();
+   private Queue<GameObject> responseButtonPool = new Queue<GameObject>();
 
    private void Start()
    {
       dialogueUI = GetComponent<DialogueUI>();
-
-      if (purchaseHandlerManager != null) return;
-      purchaseHandlerManager = FindObjectOfType<PurchaseHandlerManager>();
       if (purchaseHandlerManager == null)
       {
-         Debug.LogError("PurchaseHandlerManager not found in scene.");
+         purchaseHandlerManager = FindObjectOfType<PurchaseHandlerManager>();
+         if (purchaseHandlerManager == null)
+         {
+            Debug.LogError("PurchaseHandlerManager is not assigned and could not be found in the scene.");
+         }
       }
    }
 
@@ -37,7 +39,8 @@ public class ResponseHandler : MonoBehaviour
    {
       foreach (GameObject button in tempResponseButtons)
       {
-         Destroy(button);
+         button.SetActive(false);
+         responseButtonPool.Enqueue(button);
       }
       tempResponseButtons.Clear();
 
@@ -47,9 +50,19 @@ public class ResponseHandler : MonoBehaviour
          Response response = responses[i];
          int responseIndex = i;
 
-         GameObject responseButton = Instantiate(responseButtonTemplate.gameObject, responseContainer);
-         responseButton.gameObject.SetActive(true);
+         GameObject responseButton;
+         if (responseButtonPool.Count > 0)
+         {
+            responseButton = responseButtonPool.Dequeue();
+         }
+         else
+         {
+            responseButton = Instantiate(responseButtonTemplate.gameObject, responseContainer);
+         }
+
+         responseButton.SetActive(true);
          responseButton.GetComponentInChildren<TMP_Text>().text = response.ResponseText;
+         responseButton.GetComponent<Button>().onClick.RemoveAllListeners();
          responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response, responseIndex));
          tempResponseButtons.Add(responseButton);
 
@@ -61,11 +74,18 @@ public class ResponseHandler : MonoBehaviour
 
    private void OnPickedResponse(Response response, int responseIndex)
    {
+      if (response == null)
+      {
+         Debug.LogError("Response is null.");
+         return;
+      }
+
       responseBox.gameObject.SetActive(false);
 
       foreach (GameObject button in tempResponseButtons)
       {
-         Destroy(button);
+         button.SetActive(false);
+         responseButtonPool.Enqueue(button);
       }
       tempResponseButtons.Clear();
 
@@ -83,16 +103,17 @@ public class ResponseHandler : MonoBehaviour
             Debug.LogError("PurchaseHandlerManager is not assigned.");
             return;
          }
-         var purchaseHandler = purchaseHandlerManager.GetHandler(response.Id);
-         if (string.IsNullOrEmpty(purchaseHandlerManager.GetHandler(response.Id).Id))
+
+         if (string.IsNullOrEmpty(response.Id))
          {
-            Debug.LogError("PurchaseHandler not found.");
+            Debug.LogError("PurchaseHandlerId is null or empty.");
+            return;
          }
-         
+
+         var purchaseHandler = purchaseHandlerManager.GetHandler(response.Id);
          if (purchaseHandler != null)
          {
-            purchaseHandler.Purchase(response.PurchaseDialogue);
-            Debug.Log($"Purchasing {response.Id}");
+            purchaseHandler.Purchase(response);
          }
          else
          {

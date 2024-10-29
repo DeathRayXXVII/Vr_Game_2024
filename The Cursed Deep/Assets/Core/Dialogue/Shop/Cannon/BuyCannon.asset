@@ -19,14 +19,16 @@ MonoBehaviour:
   - Are you sure?
   responses:
   - responseText: Yes
-    id: 
-    isPurchasable: 0
-    dialogueData: {fileID: 11400000, guid: f8f2e4310ed818c46b0b204c27914aff, type: 2}
+    id: Cannon
+    dialogueData: {fileID: 11400000, guid: 36abc90b4980518499be76003885119f, type: 2}
+    isPurchasable: 1
+    purchaseDialogue: {fileID: 11400000, guid: f8f2e4310ed818c46b0b204c27914aff, type: 2}
     purchaseAction: {fileID: 0}
   - responseText: No
     id: 
-    isPurchasable: 0
     dialogueData: {fileID: 11400000, guid: 0bea39128f3f1064b97cbefd27e62276, type: 2}
+    isPurchasable: 0
+    purchaseDialogue: {fileID: 0}
     purchaseAction: {fileID: 0}
   onTrigger:
     m_PersistentCalls:

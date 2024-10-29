@@ -12,8 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3404fe7997435ef48bb669bf40f2f0b2, type: 3}
   m_Name: NoMoney
   m_EditorClassIdentifier: 
+  dialogueName: 
+  firstAction: {fileID: 0}
+  lastAction: {fileID: 0}
   dialogue:
   - You booty seems to be lacking
-  responses:
-  - responseText: 
-    dialogueData: {fileID: 0}
+  responses: []
+  onTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  firstTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  lastTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  hasPlayed: 0

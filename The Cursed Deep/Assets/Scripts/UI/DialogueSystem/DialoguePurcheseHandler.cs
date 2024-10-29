@@ -13,26 +13,25 @@ public class DialoguePurcheseHandler : MonoBehaviour
     [SerializeField] private UnityEvent onPurchase;
     
     public string Id => id;
-    public void Purchase(DialogueData dialogueData)
+    public void Purchase(Response response)
     {
         if (playerCoins >= cost)
         {
             Debug.Log($"- {cost} coins");
             playerCoins -= cost;
-            ContinueDialogue(dialogueData);
+            ContinueDialogue(response.PurchaseDialogue);
             onPurchase.Invoke();
             
         }
         else
         {
             Debug.Log("Not enough coins");
-            ContinueDialogue(dialogueData);
+            ContinueDialogue(response.DialogueData);
         }
     }
     
     private void ContinueDialogue(DialogueData dialogueData)
     {
-        Debug.Log("Continuing dialogue");
         dialogueUI.ShowDialogue(dialogueData);
     }
 }
