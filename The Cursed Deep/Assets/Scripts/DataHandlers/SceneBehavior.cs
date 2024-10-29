@@ -88,23 +88,30 @@ public class SceneBehavior : MonoBehaviour
         _loadCoroutine ??= StartCoroutine(LoadSceneAsync(asyncLoad));
     }
     
-    private IEnumerator BackgroundLoad(AsyncOperation loadOperation)
-    {
-        while (!loadOperation.isDone && loadOperation.progress < 0.9f)
-            yield return _wait;
-    }
-    
     private IEnumerator LoadSceneAsync(AsyncOperation loadOperation)
     {
         loadOperation.allowSceneActivation = false;
         yield return BackgroundLoad(loadOperation);
         if (transitionAnimator) yield return ExecuteTransition();
+        yield return FixedUpdateBuffer(5);
         loadOperation.allowSceneActivation = true;
+    }
+    
+    private IEnumerator FixedUpdateBuffer(int frames)
+    {
+        for (var i = 0; i < frames; i++)
+            yield return _wait;
     }
     
     private IEnumerator ExecuteTransition()
     {
         transitionAnimator.SetTrigger(transitionOutTrigger);
         yield return new WaitForSeconds(transitionAnimator.GetCurrentAnimatorStateInfo(0).length);
+    }
+    
+    private IEnumerator BackgroundLoad(AsyncOperation loadOperation)
+    {
+        while (!loadOperation.isDone && loadOperation.progress < 0.9f)
+            yield return _wait;
     }
 }
