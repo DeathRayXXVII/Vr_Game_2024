@@ -15,9 +15,8 @@ MonoBehaviour:
   dialogueName: 
   firstAction: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
   lastAction: {fileID: 11400000, guid: 163b1d9019fbaa544a6e80836b1a957c, type: 2}
-  purchaseAction: {fileID: 0}
   dialogue:
-  - "\u201CNow, load the gob of the cannon!\u201D"
+  - "\u201CNow, load the cannonball through the gob of the cannon!\u201D"
   responses: []
   onTrigger:
     m_PersistentCalls:
@@ -29,12 +28,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 3f74daa932ee68041af9e6a560834924, type: 2}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
