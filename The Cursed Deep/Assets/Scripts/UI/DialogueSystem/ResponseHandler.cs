@@ -14,19 +14,17 @@ public class ResponseHandler : MonoBehaviour
    private DialogueUI dialogueUI;
    private ResponseEvent[] responseEvents;
 
-   private List<GameObject> tempResponseButtons = new List<GameObject>();
+   private List<GameObject> tempResponseButtons = new();
 
    private void Start()
    {
       dialogueUI = GetComponent<DialogueUI>();
-      
-      if(purchaseHandlerManager == null)
+
+      if (purchaseHandlerManager != null) return;
+      purchaseHandlerManager = FindObjectOfType<PurchaseHandlerManager>();
+      if (purchaseHandlerManager == null)
       {
-         purchaseHandlerManager = FindObjectOfType<PurchaseHandlerManager>();
-         if (purchaseHandlerManager == null)
-         {
-            Debug.LogError("PurchaseHandlerManager not found in scene.");
-         }
+         Debug.LogError("PurchaseHandlerManager not found in scene.");
       }
    }
 
