@@ -14,15 +14,9 @@ public class FloatData : ScriptableObject
         set => objectValue = value;
     }
 
-    private void Awake()
-    {
-        _saveKey = name;
-    }
+    private void Awake() => _saveKey = name;
 
-    private void OnEnable()
-    {
-        objectValue = (zeroOnEnable) ? 0 : objectValue;
-    }
+    private void OnEnable() => objectValue = (zeroOnEnable) ? 0 : objectValue;
 
     public void Set(float num) => objectValue = num;
 
@@ -45,15 +39,9 @@ public class FloatData : ScriptableObject
         PlayerPrefs.Save();
     }
     
-    public override string ToString()
-    {
-        return base.ToString() + $": {value}";
-    }
+    public override string ToString() => base.ToString() + $": {value}";
     
-    public static implicit operator float(FloatData data)
-    {
-        return data.value;
-    }
+    public static implicit operator float(FloatData data) => data.value;
 
     public static FloatData operator --(FloatData data)
     {
@@ -91,35 +79,12 @@ public class FloatData : ScriptableObject
         return data;
     }
     
-    public static bool operator ==(FloatData data, float other)
-    {
-        return data != null && Mathf.Approximately(data.value, other);
-    }
-
-    public static bool operator !=(FloatData data, float other)
-    {
-        return data != null && !Mathf.Approximately(data.value, other);
-    }
-
-    public static bool operator >(FloatData data, float other)
-    {
-        return data.value > other;
-    }
-
-    public static bool operator <(FloatData data, float other)
-    {
-        return data.value < other;
-    }
-
-    public static bool operator >=(FloatData data, float other)
-    {
-        return data.value >= other;
-    }
-
-    public static bool operator <=(FloatData data, float other)
-    {
-        return data.value <= other;
-    }
+    public static bool operator ==(FloatData data, float other) => data != null && Mathf.Approximately(data.value, other);
+    public static bool operator !=(FloatData data, float other) => data != null && !Mathf.Approximately(data.value, other);
+    public static bool operator >(FloatData data, float other) => data.value > other;
+    public static bool operator <(FloatData data, float other) => data.value < other;
+    public static bool operator >=(FloatData data, float other) => data.value >= other;
+    public static bool operator <=(FloatData data, float other) => data.value <= other;
 
     public override bool Equals(object obj)
     {
@@ -134,8 +99,5 @@ public class FloatData : ScriptableObject
         }
     }
 
-    public override int GetHashCode()
-    {
-        return value.GetHashCode();
-    }
+    public override int GetHashCode() => value.GetHashCode();
 }
