@@ -80,9 +80,9 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     {
         if (_isDead) return;
         var amount = dealer.damage;
-        Debug.Log($"Applying damage: {amount} to {gameObject.name}", this);
         
         ShowDamage(amount.ToString());
+        // Debug.Log($"Applying damage: {amount} to {name}\nPrevious Health: {health} | New Health: {health + (amount > -1 ? amount * -1 : amount)}", this);
         if (amount > -1) amount *= -1;
         AddAmountToHealth(amount);
     }
