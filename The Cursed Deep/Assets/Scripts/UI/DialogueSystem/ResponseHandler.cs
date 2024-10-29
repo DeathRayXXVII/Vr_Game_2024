@@ -86,19 +86,10 @@ public class ResponseHandler : MonoBehaviour
             return;
          }
          var purchaseHandler = purchaseHandlerManager.GetHandler(response.Id);
-         if (string.IsNullOrEmpty(purchaseHandlerManager.GetHandler(response.Id).Id))
-         {
-            Debug.LogError("PurchaseHandler not found.");
-         }
          
          if (purchaseHandler != null)
          {
-            purchaseHandler.Purchase(response.PurchaseDialogue);
-            Debug.Log($"Purchasing {response.Id}");
-         }
-         else
-         {
-            Debug.LogError($"PurchaseHandler with ID {response.Id} not found.");
+            purchaseHandler.Purchase(response);
          }
       }
       else if (response.DialogueData != null)

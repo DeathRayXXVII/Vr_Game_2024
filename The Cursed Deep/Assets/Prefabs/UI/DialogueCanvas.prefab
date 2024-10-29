@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 441596881609555509}
   - component: {fileID: 7460964573559354573}
   - component: {fileID: 8077017081197276252}
+  - component: {fileID: 6303498099112694383}
   m_Layer: 5
   m_Name: DialogueCanvas
   m_TagString: Untagged
@@ -412,6 +413,12 @@ MonoBehaviour:
     type: 3}
   autoAdvancedDelay: 3
   autoAdvance: 0
+  OnOpenDialogue:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCloseDialogue:
+    m_PersistentCalls:
+      m_Calls: []
   typewriterEffect: {fileID: 7460964573559354573}
 --- !u!114 &7460964573559354573
 MonoBehaviour:
@@ -441,7 +448,19 @@ MonoBehaviour:
   responseBox: {fileID: 7330567884777542528}
   responseButtonTemplate: {fileID: 7538680485779596874}
   responseContainer: {fileID: 1217047325058138839}
-  purchaseHandlerManager: {fileID: 0}
+  purchaseHandlerManager: {fileID: 6303498099112694383}
+--- !u!114 &6303498099112694383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4476019926780125542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fe3e43eada23964ba26c374a5c5da6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5646919236514143624
 GameObject:
   m_ObjectHideFlags: 0

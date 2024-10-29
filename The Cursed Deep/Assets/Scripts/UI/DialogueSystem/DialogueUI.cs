@@ -14,6 +14,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private float autoAdvancedDelay = 5f;
     [SerializeField] private bool autoAdvance;
     [SerializeField] private UnityEvent OnOpenDialogue, OnCloseDialogue;
+    public DialogueData dialogueData;
     
     public bool IsOpen { get; private set;}
     public bool StartClosed { get; private set; }
@@ -31,13 +32,6 @@ public class DialogueUI : MonoBehaviour
     
     public void ShowDialogue(DialogueData dialogueObj)
     {
-        if (!IsOpen)
-        {
-           StopCoroutine(StepThroughDialogue(dialogueObj)); 
-           IsOpen = true;
-        }
-        
-        Debug.Log("open dialogue box");
         dialogueBox.SetActive(true);
         StartCoroutine(StepThroughDialogue(dialogueObj));
     }
@@ -45,28 +39,25 @@ public class DialogueUI : MonoBehaviour
     
     private IEnumerator StepThroughDialogue(DialogueData dialogueObj)
     {
-        IsOpen = false;
-        
+        IsOpen = true;
         for (int i = 0; i < dialogueObj.Dialogue.Length; i++)
         {
             string dialogue = dialogueObj.Dialogue[i];
             yield return RunTypingEffect(dialogue);
             textLabel.text = dialogue;
-            
             if (i == dialogueObj.Dialogue.Length - 1 && dialogueObj.hasResponses) break;
             
             yield return null;
             if (autoAdvance)
             {
                 yield return new WaitForSeconds(autoAdvancedDelay);
+                
             }
             else
             {
                 yield return new WaitUntil(() => inputAction.action.triggered);
             }
         }
-        
-
         if (dialogueObj.hasResponses && dialogueObj.Responses.Length > 0)
         {
             responseHandler.ShowResponses(dialogueObj.Responses);
@@ -76,7 +67,7 @@ public class DialogueUI : MonoBehaviour
             yield return new WaitUntil(() => inputAction.action.triggered);
             CloseDialogueBox(dialogueObj);
         }
-        IsOpen = true;
+        IsOpen = false;
     }
     
     private IEnumerator RunTypingEffect(string dialogue)
@@ -85,7 +76,6 @@ public class DialogueUI : MonoBehaviour
         while (typewriterEffect.IsRunning)
         {
             yield return null;
-            //Add input for skipping dialogue at some point
             if (inputAction.action.triggered)
             {
                 typewriterEffect.Stop();
@@ -103,7 +93,6 @@ public class DialogueUI : MonoBehaviour
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
         dialogueObj.LastDialogueEvent(action);
-        //OnCloseDialogue();
     }
     
     public void OnEnable()
