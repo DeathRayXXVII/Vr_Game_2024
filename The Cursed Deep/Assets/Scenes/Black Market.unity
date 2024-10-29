@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b357f7999efef0541a80482b8d5d4f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowDebug: 0
   transitionAnimator: {fileID: 747982458}
   transitionOnLoad: 1
   transitionInTrigger: FadeIn
@@ -3407,6 +3408,36 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 273184130}
     m_Modifications:
+    - target: {fileID: 200060876993060092, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 200060876993060092, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 33574441}
+    - target: {fileID: 200060876993060092, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: LoadScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 200060876993060092, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SceneBehavior, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 200060876993060092, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Level Select Scene
+      objectReference: {fileID: 0}
+    - target: {fileID: 200060876993060092, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 247135161608250834, guid: cd26d6acc477f9142962c0be7be9462a,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3462,6 +3493,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 559580612382486702, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_text
+      value: Return to Ship?
+      objectReference: {fileID: 0}
+    - target: {fileID: 559580612382486702, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 559580612382486702, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 32
+      objectReference: {fileID: 0}
     - target: {fileID: 1155031263191180462, guid: cd26d6acc477f9142962c0be7be9462a,
         type: 3}
       propertyPath: m_Color.a
@@ -3476,6 +3522,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3119727952482503352, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 4260792067501426763, guid: cd26d6acc477f9142962c0be7be9462a,
         type: 3}
@@ -3521,6 +3572,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.858
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705316380892040796, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6012271989449426228, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 6206667167118132409, guid: cd26d6acc477f9142962c0be7be9462a,
         type: 3}
@@ -3576,6 +3637,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.451191
+      objectReference: {fileID: 0}
+    - target: {fileID: 9215784316127596209, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

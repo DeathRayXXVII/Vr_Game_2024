@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.29236817, g: 0.3414502, b: 0.48847285, a: 1}
+  m_IndirectSpecularColor: {r: 0.12674484, g: 0.14802152, b: 0.21176031, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1114,7 +1114,7 @@ PrefabInstance:
     - target: {fileID: 8649240391875177710, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2316,7 +2316,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 886990009}
         m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
@@ -2328,7 +2328,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &488405550
 MonoBehaviour:
@@ -2467,7 +2467,7 @@ MonoBehaviour:
       - m_Target: {fileID: 525364871}
         m_TargetAssemblyTypeName: SceneBehavior, Assembly-CSharp
         m_MethodName: LoadScene
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2558,6 +2558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b357f7999efef0541a80482b8d5d4f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowDebug: 0
   transitionAnimator: {fileID: 941231765}
   transitionOnLoad: 1
   transitionInTrigger: FadeIn
@@ -6898,7 +6899,7 @@ MonoBehaviour:
       - m_Target: {fileID: 525364871}
         m_TargetAssemblyTypeName: SceneBehavior, Assembly-CSharp
         m_MethodName: LoadScene
-        m_Mode: 3
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

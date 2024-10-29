@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneBehavior : MonoBehaviour
 {
+#if UNITY_EDITOR
+    [SerializeField] private bool allowDebug;
+#endif
     [Tooltip("Animator that will be used to transition between scenes.")]
     [SerializeField] private Animator transitionAnimator;
     
@@ -33,9 +36,7 @@ public class SceneBehavior : MonoBehaviour
         if (!transitionAnimator) yield break;
         
         while (transitionAnimator.isInitialized && transitionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
-        {
             yield return _wait;
-        }
         
         transitionAnimator.SetTrigger(transitionInTrigger);
     } 
@@ -48,14 +49,16 @@ public class SceneBehavior : MonoBehaviour
         _loadCoroutine = null;
     }
     
+    public void RestartActiveScene() => LoadScene(SceneManager.GetActiveScene().name);
+    
     public void LoadScene(string scene)
     {
         var sceneIndex = SceneUtility.GetBuildIndexByScenePath(scene);
-        var sceneAt = SceneManager.GetSceneAt(sceneIndex);
-        Debug.Log($"Scene: {sceneAt.name}, Index: {sceneAt.buildIndex}");
-        Debug.Log($"Loading Scene: {scene}, Index: {sceneIndex}");
-        if (sceneIndex >= 0)
+        if (sceneIndex >= 0 && sceneIndex < SceneManager.sceneCountInBuildSettings)
         {
+#if UNITY_EDITOR
+            if (allowDebug) Debug.Log($"Attempting to load Scene: {scene}", this);
+#endif
             LoadScene(sceneIndex);
         }
         else
@@ -66,58 +69,49 @@ public class SceneBehavior : MonoBehaviour
     
     public void LoadScene(int sceneIndex)
     {
-        if (transitionAnimator)
+        if (_loadCoroutine != null)
         {
-            _loadCoroutine ??= StartCoroutine(LoadSceneWithTransitionAsync(sceneIndex));
+            Debug.LogWarning("Scene loading already in progress.", this);
+            return;
         }
-        else
-        {
-            _loadCoroutine ??= StartCoroutine(LoadSceneAsync(sceneIndex));
-        }
-    }
-    
-    public void RestartActiveScene()
-    {
-        LoadScene(SceneManager.GetActiveScene().name);
-    }
-    
-    private IEnumerator LoadSceneAsync(int sceneIndex)
-    {
+#if UNITY_EDITOR
+        var scene = SceneUtility.GetScenePathByBuildIndex(sceneIndex);
+        if (!string.IsNullOrEmpty(scene) && allowDebug)
+            Debug.Log($"Loading Scene: {scene}, Index: {sceneIndex}", this);
+#endif
         var asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
         if (asyncLoad == null)
         {
-            Debug.LogError($"Scene Index: '{sceneIndex}' not found.", this);
-            yield break;
+            Debug.LogError($"Scene at Index: '{sceneIndex}' not found.", this);
+            return;
         }
-        asyncLoad.allowSceneActivation = false;
-        
-        while (!asyncLoad.isDone && asyncLoad.progress < 0.9f)
-        {
-            yield return null;
-        }
-        
-        asyncLoad.allowSceneActivation = true;
-        _loadCoroutine = null;
+        _loadCoroutine ??= StartCoroutine(LoadSceneAsync(asyncLoad));
     }
     
-    private IEnumerator LoadSceneWithTransitionAsync(int sceneIndex)
+    private IEnumerator LoadSceneAsync(AsyncOperation loadOperation)
     {
-        var asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
-        if (asyncLoad == null)
-        {
-            Debug.LogError($"Scene Index: '{sceneIndex}' not found.", this);
-            yield break;
-        }
-        asyncLoad.allowSceneActivation = false;
-        
-        while (!asyncLoad.isDone && asyncLoad.progress < 0.9f)
-        {
-            yield return null;
-        }
-        
+        loadOperation.allowSceneActivation = false;
+        yield return BackgroundLoad(loadOperation);
+        if (transitionAnimator) yield return ExecuteTransition();
+        yield return FixedUpdateBuffer(5);
+        loadOperation.allowSceneActivation = true;
+    }
+    
+    private IEnumerator FixedUpdateBuffer(int frames)
+    {
+        for (var i = 0; i < frames; i++)
+            yield return _wait;
+    }
+    
+    private IEnumerator ExecuteTransition()
+    {
         transitionAnimator.SetTrigger(transitionOutTrigger);
         yield return new WaitForSeconds(transitionAnimator.GetCurrentAnimatorStateInfo(0).length);
-        asyncLoad.allowSceneActivation = true;
-        _loadCoroutine = null;
+    }
+    
+    private IEnumerator BackgroundLoad(AsyncOperation loadOperation)
+    {
+        while (!loadOperation.isDone && loadOperation.progress < 0.9f)
+            yield return _wait;
     }
 }

@@ -179,6 +179,13 @@ namespace ShipGame.ScriptObj
 #endif
                 Setup(true);
             }
+            catch (NullReferenceException e)
+            {
+#if UNITY_EDITOR
+                Debug.LogWarning("Attempted to load game data and got a null reference exception. Attempting to initialize data and reload. Error: " + e.Message);
+#endif
+                Setup(true);
+            }
             
 #if UNITY_EDITOR
             if (allowDebug)
