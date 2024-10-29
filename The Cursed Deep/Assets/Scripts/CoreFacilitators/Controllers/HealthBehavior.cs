@@ -7,14 +7,23 @@ public class HealthBehavior : MonoBehaviour, IDamagable
 {
     public UnityEvent onHealthGained, onHealthLost, onThreeQuarterHealth, onHalfHealth, onQuarterHealth, onHealthDepleted;
     
-    [SerializeField] private FloatData currentHealth;
+    [SerializeField] [InspectorReadOnly] private float _currentHealth;
+    [SerializeField] private FloatData currentHealthData;
     private float _previousCheckHealth;
     [SerializeField] private FloatData _maxHealth;
     [SerializeField] private GameObject floatingText;
     [SerializeField] private GameObject textPivot;
     private bool _isDead;
 
-    public float health { get => currentHealth; set => currentHealth.value = value; }
+    public float health
+    {
+        get => !currentHealthData ? _currentHealth : currentHealthData;
+        set
+        {
+            if (currentHealthData) currentHealthData.value = value;
+            _currentHealth = value;
+        }
+    }
 
     public float maxHealth
     {
@@ -64,16 +73,16 @@ public class HealthBehavior : MonoBehaviour, IDamagable
         var previousHealth = health;
         health += amount;
         if (health - previousHealth > 0) onHealthGained.Invoke();
-        else if (health > 0) onHealthLost.Invoke();
+        else if (health >= 0 && previousHealth > 0) onHealthLost.Invoke();
         CheckHealthEvents();
     }
     public void TakeDamage(IDamageDealer dealer)
     {
         if (_isDead) return;
         var amount = dealer.damage;
-        Debug.Log($"Applying damage: {amount} to {gameObject.name}", this);
         
         ShowDamage(amount.ToString());
+        // Debug.Log($"Applying damage: {amount} to {name}\nPrevious Health: {health} | New Health: {health + (amount > -1 ? amount * -1 : amount)}", this);
         if (amount > -1) amount *= -1;
         AddAmountToHealth(amount);
     }

@@ -29,9 +29,7 @@ namespace ZPTools.Utility
     
         public static T GetObjectComponent<T>(UnityEngine.GameObject obj, bool allowDebug = false) where T : UnityEngine.Component
         {
-            var returnComponent = obj.GetComponent<T>();
-            if (!returnComponent) returnComponent = obj.GetComponentInChildren<T>();
-            if (!returnComponent) returnComponent = obj.GetComponentInParent<T>();
+            var returnComponent = (obj.GetComponent<T>() ?? obj.GetComponentInChildren<T>()) ?? obj.GetComponentInParent<T>();
             if (returnComponent) return returnComponent;
             #if UNITY_EDITOR
             if (allowDebug) UnityEngine.Debug.LogWarning($"No {typeof(T)} found in {obj.name}", obj);

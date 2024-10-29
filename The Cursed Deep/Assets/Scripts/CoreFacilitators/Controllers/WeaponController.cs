@@ -33,8 +33,8 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
     private void OnCollisionEnter(Collision other)
     {
         var damageable = GetInterfaceComponent<IDamagable>(other.gameObject);
-        if(!canDealDamage) return;
-        Debug.Log($"Collision detected with: {other.gameObject}\nDealing damage to Damageable: {other.gameObject.name}, from DamageDealer: {this}", this);
+        if(!canDealDamage || damageable == null) return;
+        // Debug.Log($"Collision detected with: {other.gameObject}\nDealing damage to Damageable: {other.gameObject.name}, from DamageDealer: {this}", this);
         DealDamage(damageable);
     }
 
@@ -49,13 +49,13 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
     private IEnumerator HandleDealingDamage(IDamagable target)
     {
         canDealDamage = false;
-        Debug.Log($"Passing damage: {damage} to {gameObject.name}", this);
-        onDamageDealt.Invoke();
+        // Debug.Log($"Passing damage: {damage}", this);
         target.TakeDamage(this);
-        
         yield return _damageWait;
+        
         canDealDamage = true;
         yield return _wffu;
+        
         _damageCoroutine = null;
     }
     

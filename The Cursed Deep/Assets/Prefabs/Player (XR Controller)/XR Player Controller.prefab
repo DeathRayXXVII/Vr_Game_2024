@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3906399293454468433}
   - component: {fileID: 5811494933797512011}
+  - component: {fileID: 4501492557277102831}
   m_Layer: 17
   m_Name: XR Player Controller
   m_TagString: Untagged
@@ -68,36 +69,67 @@ MonoBehaviour:
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: febedde4d4cd76a4d8fafea30fda3d4b, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
-          m_Mode: 1
+        - m_Target: {fileID: 4501492557277102831}
+          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
+          m_MethodName: StartWaitForFixedUpdateEvent
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: RaiseReadyToInitialize
             m_BoolArgument: 0
           m_CallState: 2
   - actionObj: {fileID: 11400000, guid: 026f553ce937ecd4c881ee26eeb50a72, type: 2}
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: febedde4d4cd76a4d8fafea30fda3d4b, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
-          m_Mode: 1
+        - m_Target: {fileID: 4501492557277102831}
+          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
+          m_MethodName: StartWaitForFixedUpdateEvent
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: RaiseReadyToInitialize
             m_BoolArgument: 0
           m_CallState: 2
   - actionObj: {fileID: 11400000, guid: 21048bc4168d3bc44a525f3d76e59046, type: 2}
     onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4501492557277102831}
+          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
+          m_MethodName: StartWaitForFixedUpdateEvent
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: RaiseReadyToInitialize
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &4501492557277102831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90578268901752321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endWaitForSeconds: []
+  endWaitForZero: []
+  endWaitForFixedUpdate:
+  - id: RaiseReadyToInitialize
+    onWaitFinished:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 11400000, guid: febedde4d4cd76a4d8fafea30fda3d4b, type: 2}
@@ -357,6 +389,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2364575006709624031, guid: c26bd7c9455a35849a842b4fa3ef5889,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.00018163
+      objectReference: {fileID: 0}
+    - target: {fileID: 2364575006709624031, guid: c26bd7c9455a35849a842b4fa3ef5889,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000015258789
+      objectReference: {fileID: 0}
+    - target: {fileID: 2364575006709624031, guid: c26bd7c9455a35849a842b4fa3ef5889,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.00022888184
+      objectReference: {fileID: 0}
     - target: {fileID: 3282962057055350122, guid: c26bd7c9455a35849a842b4fa3ef5889,
         type: 3}
       propertyPath: m_Interactable
@@ -390,13 +437,18 @@ PrefabInstance:
     - target: {fileID: 4948765914027788159, guid: c26bd7c9455a35849a842b4fa3ef5889,
         type: 3}
       propertyPath: m_Type
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4948765914027788159, guid: c26bd7c9455a35849a842b4fa3ef5889,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 4948765914027788159, guid: c26bd7c9455a35849a842b4fa3ef5889,
+        type: 3}
+      propertyPath: m_FillCenter
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4948765914027788159, guid: c26bd7c9455a35849a842b4fa3ef5889,
         type: 3}
       propertyPath: m_FillMethod
@@ -517,10 +569,24 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5704216116682262513, guid: c26bd7c9455a35849a842b4fa3ef5889, type: 3}
+    - {fileID: 7488723072000344346, guid: c26bd7c9455a35849a842b4fa3ef5889, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5019459212946967998, guid: c26bd7c9455a35849a842b4fa3ef5889,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9144302521021436514}
+    - targetCorrespondingSourceObject: {fileID: 5019459212946967998, guid: c26bd7c9455a35849a842b4fa3ef5889,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8905512488977509429}
+    - targetCorrespondingSourceObject: {fileID: 5019459212946967998, guid: c26bd7c9455a35849a842b4fa3ef5889,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2764079957319436472}
     - targetCorrespondingSourceObject: {fileID: 1944468642555533296, guid: c26bd7c9455a35849a842b4fa3ef5889,
         type: 3}
       insertIndex: -1
@@ -654,6 +720,78 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!1 &4209702885120589344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5019459212946967998, guid: c26bd7c9455a35849a842b4fa3ef5889,
+    type: 3}
+  m_PrefabInstance: {fileID: 9206322971131032478}
+  m_PrefabAsset: {fileID: 0}
+--- !u!222 &9144302521021436514
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4209702885120589344}
+  m_CullTransparentMesh: 1
+--- !u!114 &8905512488977509429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4209702885120589344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05707e9e96e756549a1cd94d572b4a20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8905512488977509429}
+        m_TargetAssemblyTypeName: ImageBehavior, Assembly-CSharp
+        m_MethodName: UpdateImage
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: b9983e87410d3e74aa58a1a7be03060a,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: FloatData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  maxHealth: {fileID: 11400000, guid: f042f8a13dcd193489a979f84dea7491, type: 2}
+--- !u!114 &2764079957319436472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4209702885120589344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f72b3679fd822d4f8acc86e01fd5433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: {fileID: 11400000, guid: 6511743c5afcbc2428e686d63548ea53, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8905512488977509429}
+        m_TargetAssemblyTypeName: ImageBehavior, Assembly-CSharp
+        m_MethodName: UpdateImage
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: b9983e87410d3e74aa58a1a7be03060a,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: FloatData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6230196818379332007 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3005439204152601145, guid: c26bd7c9455a35849a842b4fa3ef5889,

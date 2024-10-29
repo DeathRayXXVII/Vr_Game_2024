@@ -11,8 +11,6 @@ public class CannonManager : MonoBehaviour
 {
     private WaitForFixedUpdate _wffu;
     
-    public UnityEvent onSuccessfulFire;
-    
     [Header("Ammo:")]
     [SerializeField] private GameObject ammoEntity;
     private GameObject _socketedAmmo;
@@ -20,6 +18,9 @@ public class CannonManager : MonoBehaviour
     private MeshRenderer _ammoMeshRenderer;
     
     [Header("Fire Physics System:")]
+#if UNITY_EDITOR
+    [Range(0, 100)] public int simulationTime = 80;
+#endif
     [SerializeField, SteppedRange(rangeMin:0.0f, rangeMax:1000.0f, step:0.01f)] private float propellantForce = 10.0f;
     [SerializeField] private Transform muzzlePosition, breechPosition;
     [SerializeField] private SocketMatchInteractor reloadSocket;
@@ -37,6 +38,10 @@ public class CannonManager : MonoBehaviour
     [SerializeField] private Animator _modelAnimator;
     [SerializeField] private string _fireAnimationTrigger = "Fire";
     [SerializeField] private string _loadAnimationTrigger = "Load";
+    
+    [Header("State Events:")]
+    public UnityEvent onSuccessfulFire;
+    public UnityEvent onLoaded;
     
     private void Awake()
     {
@@ -119,6 +124,7 @@ public class CannonManager : MonoBehaviour
         {
             _ammoMeshRenderer.material = objMeshRenderer.material;
         }
+        onLoaded.Invoke();
     }
 
     private void UnloadCannon([CanBeNull] GameObject obj)
@@ -164,8 +170,6 @@ public class CannonManager : MonoBehaviour
     }
     
 #if UNITY_EDITOR
-    [Range(0, 100)] public int simulationTime = 80;
-    
     private void OnDrawGizmos()
     {
     if (!muzzlePosition || !breechPosition) return;

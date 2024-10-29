@@ -53,8 +53,6 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
         
         if (_agentBehavior)
         {
-            // yield return _agentBehavior.Setup();
-            
             _agentBehavior.SetSpeed(creepData.speed);
             _agentBehavior.SetRadius(creepData.radius);
             _agentBehavior.SetHeight(creepData.height);
@@ -73,19 +71,19 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
     private void OnCollisionEnter(Collision other)
     {
         var damageable = GetInterfaceComponent<IDamagable>(other.gameObject);
-        if(!canDealDamage) return;
-        Debug.Log($"Collision detected with: {other.gameObject}\nDealing damage to Damageable: {other.gameObject.name}, from DamageDealer: {this}", this);
+        if(!canDealDamage || damageable == null) return;
         DealDamage(damageable);
     }
+    
     private IEnumerator HandleDealingDamage(IDamagable target)
     {
         canDealDamage = false;
-        Debug.Log($"Passing damage: {damage} to {gameObject.name}", this);
         target.TakeDamage(this);
-        
         yield return _damageWait;
+        
         canDealDamage = true;
         yield return _wffu;
+        
         _damageCoroutine = null;
     }
     
