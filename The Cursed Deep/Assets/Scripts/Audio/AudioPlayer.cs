@@ -5,18 +5,19 @@ using UnityEngine.Events;
 
 public class AudioPlayer : MonoBehaviour
 {
-    public AudioShotManager audioShotManager;
-    public AudioMixerGroup mixerGroup;
+    [SerializeField] private AudioShotManager audioShotManager;
+    [SerializeField] private AudioMixerGroup mixerGroup;
+    [SerializeField] private bool resetAudioOnAwake, resetAudioOnDestroy;
     
     private AudioSource _audioSource;
     private UnityEvent _onComplete;
     private Coroutine _waitForEndCoroutine, _waitForStartCoroutine;
     private WaitForSeconds _clipLength, _delay;
     private int _shotIndex;
-    
-    private void Awake()
+
+    private void Awake() 
     {
-        ResetAllAudioShots();
+        if (resetAudioOnDestroy) ResetAllAudioShots();
     }
 
     private void Start()
@@ -130,6 +131,6 @@ public class AudioPlayer : MonoBehaviour
     public void OnDestroy()
     {
         StopAudio();
-        ResetAllAudioShots();
+        if (resetAudioOnDestroy) ResetAllAudioShots();
     }
 }

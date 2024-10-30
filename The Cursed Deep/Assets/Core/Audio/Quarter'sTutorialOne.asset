@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a25fef3a68407c4d86271a16c895806, type: 3}
-  m_Name: Tutorial Voice Lines
+  m_Name: Quarter'sTutorialOne
   m_EditorClassIdentifier: 
   audioShots:
-  - id: How to move
-    clip: {fileID: 8300000, guid: 61e9441c13951364b91c7b0c8683e6e6, type: 3}
+  - id: Welcome To Quarters
+    clip: {fileID: 8300000, guid: 4fd4791da014bca4884d16e1b3b35b61, type: 3}
     played: 0
     playOnAwake: 0
     priority: 128
@@ -36,8 +36,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: How to perform grab
-    clip: {fileID: 8300000, guid: 593e5ec2ba745fc4899a69cf96c57aae, type: 3}
+  - id: Scurry
+    clip: {fileID: 8300000, guid: e85657225a951fe4697b09449b8dc703, type: 3}
     played: 0
     playOnAwake: 0
     priority: 128
@@ -47,9 +47,9 @@ MonoBehaviour:
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: eb45c53679186474ab6db5ab0e91dd5b, type: 2}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+          m_MethodName: 
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -59,8 +59,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: How to use cannon
-    clip: {fileID: 8300000, guid: d2ad54b3ad56d7947a683b3f68b3b92a, type: 3}
+  - id: Welcome To Table
+    clip: {fileID: 8300000, guid: f2b676842f14dad4bb533be2fd9a7f68, type: 3}
     played: 0
     playOnAwake: 0
     priority: 128
@@ -70,8 +70,8 @@ MonoBehaviour:
     onComplete:
       m_PersistentCalls:
         m_Calls: []
-  - id: Fire the cannon
-    clip: {fileID: 8300000, guid: f1fcc1ca590779b4dac3b88184dd09cb, type: 3}
+  - id: Stab Merchant
+    clip: {fileID: 8300000, guid: 54f1434c3a532684d95ec1da32968714, type: 3}
     played: 0
     playOnAwake: 0
     priority: 128
@@ -82,40 +82,6 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 11400000, guid: c60a4adeaa839de49867b0c037968ed1, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - id: Instruct to go grab sword
-    clip: {fileID: 8300000, guid: 6a63b02b990f8d9488f8ff68e6cef1dd, type: 3}
-    played: 0
-    playOnAwake: 0
-    priority: 128
-    volume: 1
-    pitch: 1
-    delay: 1
-    onComplete:
-      m_PersistentCalls:
-        m_Calls: []
-  - id: Sword grabbed
-    clip: {fileID: 8300000, guid: 4a03883c57064cd47944f0790677f4f4, type: 3}
-    played: 0
-    playOnAwake: 0
-    priority: 128
-    volume: 1
-    pitch: 1
-    delay: 0
-    onComplete:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11400000, guid: 2833df83d5181a64f93d85c6a6f0e553, type: 2}
           m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
           m_MethodName: RaiseAction
           m_Mode: 1

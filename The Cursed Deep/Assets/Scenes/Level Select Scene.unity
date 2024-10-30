@@ -4291,7 +4291,7 @@ MonoBehaviour:
   onObjectSocketed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1131686468}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SceneBehavior, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 3
@@ -4824,7 +4824,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1131686467}
   - component: {fileID: 1131686470}
-  - component: {fileID: 1131686468}
   - component: {fileID: 1131686465}
   - component: {fileID: 1131686469}
   m_Layer: 0
@@ -4861,23 +4860,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 8.532, y: 0, z: 0}
---- !u!114 &1131686468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1131686463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b357f7999efef0541a80482b8d5d4f85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allowDebug: 0
-  transitionAnimator: {fileID: 1775872701}
-  transitionOnLoad: 1
-  transitionInTrigger: FadeIn
-  transitionOutTrigger: FadeOut
 --- !u!114 &1131686469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4920,6 +4902,19 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
+        m_TargetAssemblyTypeName: ShipGame.ScriptObj.CoreData, Assembly-CSharp
+        m_MethodName: set_playerInitializePositionAction
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: ba59ea91fa0decf4e98ad914c2bbb046,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameAction, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7013,6 +7008,7 @@ MonoBehaviour:
   OnCloseDialogue:
     m_PersistentCalls:
       m_Calls: []
+  dialogueData: {fileID: 0}
   typewriterEffect: {fileID: 1551269087}
 --- !u!114 &1551269087
 MonoBehaviour:
@@ -8813,12 +8809,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9633f4a35242b454783ef9a0d2324a5f, type: 3}
---- !u!95 &1775872701 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3039706558307376582, guid: 9633f4a35242b454783ef9a0d2324a5f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1775872700}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1778018249
 GameObject:
   m_ObjectHideFlags: 0
@@ -10588,11 +10578,6 @@ PrefabInstance:
       propertyPath: m_ExcludeLayers.m_Bits
       value: 64
       objectReference: {fileID: 0}
-    - target: {fileID: 4428222223446362674, guid: 6a116ea0eba08a04ea54bf63a0b60942,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1131686468}
     - target: {fileID: 4521894879818209208, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10658,11 +10643,6 @@ PrefabInstance:
       propertyPath: m_ExcludeLayers.m_Bits
       value: 64
       objectReference: {fileID: 0}
-    - target: {fileID: 7225178689760160457, guid: 6a116ea0eba08a04ea54bf63a0b60942,
-        type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 921694780}
     - target: {fileID: 7484510388935458787, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
