@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16282053, g: 0.19015229, b: 0.27203125, a: 1}
+  m_IndirectSpecularColor: {r: 0.2827702, g: 0.33023968, b: 0.47244036, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3598,6 +3598,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
+        m_TargetAssemblyTypeName: ShipGame.ScriptObj.CoreData, Assembly-CSharp
+        m_MethodName: set_playerInitializePositionAction
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 026f553ce937ecd4c881ee26eeb50a72,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameAction, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: bff2a9948a3ccf5419df3d8fbb84775e, type: 2}
         m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
         m_MethodName: RaiseAction
@@ -4824,7 +4837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 0}
-  allowDebug: 1
+  allowDebug: 0
   triggerEnterMatches:
   - id: {fileID: 11400000, guid: b1248dc0261effe40b46761673244b02, type: 2}
     triggerEnterEvent:

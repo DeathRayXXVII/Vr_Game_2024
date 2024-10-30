@@ -80,6 +80,9 @@ namespace ShipGame.Manager
             StartCoroutine(InitializeAmmo());
 
             onLevelInitialized.Invoke();
+            
+            if (coreData.playerInitializePositionAction)
+                coreData.playerInitializePositionAction.RaiseAction();
         }
 
         private IEnumerator InitializeShipCoroutine()

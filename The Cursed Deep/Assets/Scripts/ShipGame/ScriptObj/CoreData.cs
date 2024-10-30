@@ -9,12 +9,19 @@ namespace ShipGame.ScriptObj
 #if UNITY_EDITOR
         [SerializeField] internal bool allowDebug;
 #endif
+        [SerializeField] private GameAction _playerInitializePositionAction;
         [SerializeField] private GameGlobals gameGlobals;
         [SerializeField] private LevelData levelData;
         [SerializeField] private ShipData ship;
         [SerializeField] private CannonData cannon;
         [SerializeField] private AmmoData ammo;
         [SerializeField] private EnemyData enemy;
+
+        public GameAction playerInitializePositionAction
+        {
+            get => _playerInitializePositionAction;
+            set => _playerInitializePositionAction = value;
+        }
 
         private int currentLevel
         {
@@ -79,7 +86,13 @@ namespace ShipGame.ScriptObj
 #endif
         }
         
-        public void LevelCompleted() => currentLevel++;
+        public void LevelCompleted()
+        {
+            currentLevel++;
+#if UNITY_EDITOR
+            PrintGameVariables();
+#endif
+        }
         public void LevelFailed() => ResetGameValues();
 
         public void ResetGameValues()
@@ -175,18 +188,37 @@ namespace ShipGame.ScriptObj
             catch (IndexOutOfRangeException e)
             {
 #if UNITY_EDITOR
-                Debug.LogWarning("Attempted to load game data and got an index out of range exception. Attempting to initialize data and reload. Error: " + e.Message);
+                Debug.LogWarning(
+                    "Attempted to load game data and got an index out of range exception. Attempting to initialize data and reload. Error: " +
+                    e.Message);
 #endif
                 Setup(true);
             }
             catch (NullReferenceException e)
             {
 #if UNITY_EDITOR
-                Debug.LogWarning("Attempted to load game data and got a null reference exception. Attempting to initialize data and reload. Error: " + e.Message);
+                Debug.LogWarning(
+                    "Attempted to load game data and got a null reference exception. Attempting to initialize data and reload. Error: " +
+                    e.Message);
 #endif
                 Setup(true);
             }
-            
+            catch (Exception e)
+            {
+#if UNITY_EDITOR
+                Debug.LogWarning(
+                    "Attempted to load game data and got an unexpected exception type. Attempting to initialize data and reload. Error: " +
+                    e.Message);
+#endif
+                Setup(true);
+            }
+#if UNITY_EDITOR
+            PrintGameVariables();
+#endif
+        }
+
+        private void PrintGameVariables()
+        {
 #if UNITY_EDITOR
             if (allowDebug)
             {
