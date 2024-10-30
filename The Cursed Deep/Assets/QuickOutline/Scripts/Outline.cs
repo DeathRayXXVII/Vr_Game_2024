@@ -10,11 +10,8 @@ public class Outline : MonoBehaviour
 
     public enum Mode
     {
-        OutlineAll,
         OutlineVisible,
-        OutlineHidden,
-        OutlineAndSilhouette,
-        SilhouetteOnly
+        OutlineHidden
     }
 
     public Mode OutlineMode
@@ -263,12 +260,6 @@ public class Outline : MonoBehaviour
 
         switch (outlineMode)
         {
-            case Mode.OutlineAll:
-                outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
-                break;
-
             case Mode.OutlineVisible:
                 outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
                 outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
@@ -279,18 +270,6 @@ public class Outline : MonoBehaviour
                 outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
                 outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Greater);
                 outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
-                break;
-
-            case Mode.OutlineAndSilhouette:
-                outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
-                outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
-                break;
-
-            case Mode.SilhouetteOnly:
-                outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
-                outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Greater);
-                outlineFillMaterial.SetFloat("_OutlineWidth", 0f);
                 break;
         }
     }
