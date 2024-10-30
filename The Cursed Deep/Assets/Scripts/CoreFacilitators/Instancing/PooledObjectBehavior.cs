@@ -56,9 +56,9 @@ public class PooledObjectBehavior : MonoBehaviour
 
     private void OnDisable()
     {
+        if (!_spawned || _respawnTriggered) return;
         if (_beingDestroyed) return;
         if (_allowDebug) Debug.Log($"OnDisable of {name} called from {_spawner.spawnerID}.");
-        if (!_spawned || _respawnTriggered) return;
         _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
         _spawned = false;
     }
