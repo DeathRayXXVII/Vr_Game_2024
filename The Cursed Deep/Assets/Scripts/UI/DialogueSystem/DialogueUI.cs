@@ -90,9 +90,9 @@ public class DialogueUI : MonoBehaviour
     }
     public void CloseDialogueBox(DialogueData dialogueObj)
     {
-        dialogueObj.LastDialogueEvent(action);
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
+        dialogueObj.LastDialogueEvent(action);
     }
     
     public void OnEnable()
