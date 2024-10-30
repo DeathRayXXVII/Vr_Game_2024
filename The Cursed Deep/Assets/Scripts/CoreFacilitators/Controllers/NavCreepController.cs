@@ -70,7 +70,7 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
 
     private void OnCollisionEnter(Collision other)
     {
-        var damageable = GetInterfaceComponent<IDamagable>(other.gameObject);
+        var damageable = AdvancedGetComponent<IDamagable>(other.gameObject);
         if(!canDealDamage || damageable == null) return;
         DealDamage(damageable);
     }

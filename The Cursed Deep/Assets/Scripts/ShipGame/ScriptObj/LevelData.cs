@@ -40,28 +40,25 @@ namespace ShipGame.ScriptObj
         {
             get
             {
-                // if the current level is less than 1, set it to 1 (minimum level)
-                if (_currentLevel < 1) _currentLevel.value = 1;
-                
                 // boss fight occurs every 5 levels
-                var isBossFightLevel = _currentLevel % 5 == 0;
+                var isBossFightLevel = currentLevel % 5 == 0;
                 
                 // if not fighting a boss, we are on a normal level so _fightingBoss is false
                 if (!isBossFightLevel) 
                     fightingBoss = false;
                 
                 // the current level - 1 to make it 0 based indexed (Since levels start at 1, indexBase 's minimum value is 0)
-                var indexBase = _currentLevel.value - 1;
+                var indexBase = currentLevel - 1;
                 
                 // if _currentLevel is less than 5, return index base
-                if (_currentLevel < 5) return indexBase;
+                if (currentLevel < 5) return indexBase;
                 
                 // increase the index by 1 for every 5 levels (this bypasses the non-boss fight level every 5 levels)
                 // Level 0:5 = indexBase+0, Level 6:10 = indexBase+1, Level 11:15 = indexBase+2, etc.
                 var modifiedIndex = indexBase + Mathf.FloorToInt((float) indexBase / 5);
                 
 #if UNITY_EDITOR
-                Debug.Log($"Level: {_currentLevel}, Index Base: {indexBase}, Modified Index: {modifiedIndex + (fightingBoss ? 0 : 1)}");
+                Debug.Log($"Level: {currentLevel}, Index Base: {indexBase}, Modified Index: {modifiedIndex + (fightingBoss ? 0 : 1)}");
 #endif
                 // if the current level is a multiple of 5 and the player has selected to do the boss fight,
                 // then the index is the same as the modified index (boss fight)

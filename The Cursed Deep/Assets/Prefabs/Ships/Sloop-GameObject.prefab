@@ -224,7 +224,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7325196990524475235
 Transform:
@@ -492,7 +492,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &355379548162820222
 Transform:
@@ -823,6 +823,7 @@ GameObject:
   m_Component:
   - component: {fileID: 14907829742092776}
   - component: {fileID: 425432050655578215}
+  - component: {fileID: 1843545795237172399}
   m_Layer: 0
   m_Name: Firing & Spawn Lanes
   m_TagString: Untagged
@@ -861,6 +862,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instancerData: {fileID: 11400000, guid: b127bcf214d229348a671eb485b731bc, type: 2}
   groupName: Cannons
+  onCompleted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1843545795237172399}
+        m_TargetAssemblyTypeName: CannonInstancerHelper, Assembly-CSharp
+        m_MethodName: TieAmmoSocketsToCannons
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1843545795237172399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809934676073817134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1d39a9b0fcfa3b439d568905e6d2f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cannonInstancerData: {fileID: 11400000, guid: b127bcf214d229348a671eb485b731bc,
+    type: 2}
+  _ammoSockets:
+  - {fileID: 5145059414814943255}
+  - {fileID: 1812045925082835337}
 --- !u!1 &5907241764157637758
 GameObject:
   m_ObjectHideFlags: 0

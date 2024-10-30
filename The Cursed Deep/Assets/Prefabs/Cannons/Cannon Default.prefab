@@ -133,6 +133,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c2ec1520ccf4846a56ab30c80349f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammoEntity: {fileID: 7001261881460551479, guid: ddfc025fdb29c6f439a5c2f2c5762552,
+    type: 3}
+  _ammoSpawnSocket: {fileID: 0}
+  despawnTime: 30
+  solidLine: 0
+  simulationTime: 80
+  propellantForce: 55
+  muzzlePosition: {fileID: 7323743104195517700}
+  breechPosition: {fileID: 4470628012392768832}
+  reloadSocket: {fileID: 4624554520326943738}
+  _modelAnimator: {fileID: 2370026578296386634}
+  _fireAnimationTrigger: Fire
+  _loadAnimationTrigger: Load
   onSuccessfulFire:
     m_PersistentCalls:
       m_Calls:
@@ -196,29 +209,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 4624554520326943738}
-        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.XRSocketInteractor,
-          Unity.XR.Interaction.Toolkit
-        m_MethodName: set_socketActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  ammoEntity: {fileID: 7001261881460551479, guid: ddfc025fdb29c6f439a5c2f2c5762552,
-    type: 3}
-  propellantForce: 55
-  muzzlePosition: {fileID: 7323743104195517700}
-  breechPosition: {fileID: 4470628012392768832}
-  reloadSocket: {fileID: 4624554520326943738}
-  _modelAnimator: {fileID: 0}
-  _fireAnimationTrigger: Fire
-  _loadAnimationTrigger: Load
-  simulationTime: 80
+  onLoaded:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!95 &2370026578296386634
 Animator:
   serializedVersion: 5

@@ -32,7 +32,8 @@ public class InstancerData : ScriptableObject
         public bool excludePrefabOffset;
     }
     
-    public List<InstanceData> instances = new();
+    [HideInInspector] public List<GameObject> instances = new();
+    public List<InstanceData> instancesData = new();
 
     public void OnEnable()
     {
@@ -40,4 +41,6 @@ public class InstancerData : ScriptableObject
         if (!prefabData) Debug.LogError("Prefab Data is null. Please assign a value.", this);
 #endif
     }
+
+    public void OnDisable() => instances.Clear();
 }
