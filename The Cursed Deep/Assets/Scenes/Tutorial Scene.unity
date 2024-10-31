@@ -1491,6 +1491,8 @@ MonoBehaviour:
   audioShotManager: {fileID: 11400000, guid: f3b6cc65db565a04d95dd38dbcaaf2af, type: 2}
   mixerGroup: {fileID: -6073963964718969515, guid: f7b70a8997f608c46a18f5404f632d2b,
     type: 2}
+  resetAudioOnAwake: 0
+  resetAudioOnDestroy: 0
 --- !u!1 &337269183
 GameObject:
   m_ObjectHideFlags: 0
@@ -3170,6 +3172,12 @@ PrefabInstance:
       propertyPath: autoAdvance
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 441596881609555509, guid: 649fe54d61e08444ca3d34706142afea,
+        type: 3}
+      propertyPath: dialogueData
+      value: 
+      objectReference: {fileID: 11400000, guid: 9a113fff2081d0944ad143ab24533d1b,
+        type: 2}
     - target: {fileID: 1168422632045598400, guid: 649fe54d61e08444ca3d34706142afea,
         type: 3}
       propertyPath: m_Camera
@@ -6274,7 +6282,7 @@ Transform:
   m_GameObject: {fileID: 1556117557}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.014, y: 2.2990036, z: 5.491}
+  m_LocalPosition: {x: -1.12, y: 1.65, z: -2.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6395,18 +6403,6 @@ MonoBehaviour:
       - m_Target: {fileID: 2145473421}
         m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
         m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2145473428}
-        m_TargetAssemblyTypeName: DialogueActivator, Assembly-CSharp
-        m_MethodName: OnTrigger
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8045,7 +8041,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1999590651
 Transform:
   m_ObjectHideFlags: 0
@@ -9726,7 +9722,7 @@ PrefabInstance:
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
@@ -9736,7 +9732,7 @@ PrefabInstance:
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.51
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
