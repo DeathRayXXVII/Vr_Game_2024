@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a25fef3a68407c4d86271a16c895806, type: 3}
+  m_Name: BlackMarketTutorial
+  m_EditorClassIdentifier: 
+  audioShots:
+  - id: EnterShopTutorial
+    clip: {fileID: 8300000, guid: bc74c9939950aa74bb0d4a35226edc3a, type: 3}
+    played: 0
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 0
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
