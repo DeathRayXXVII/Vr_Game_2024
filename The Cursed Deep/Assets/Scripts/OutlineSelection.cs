@@ -2,34 +2,6 @@ using UnityEngine;
 
 public class OutlineSelection : MonoBehaviour
 {
-    private Transform selectedObj;
-    private Transform highlightedObj;
-    private RaycastHit hit;
-    [SerializeField] private LayerMask layerMask;
-
-    /*public void Update()
-    {
-        if (highlightedObj != null)
-        {
-            DisableOutline(highlightedObj);
-            highlightedObj = null;
-        }
-
-        if (Camera.main == null) return;
-        if (layerMask == 20)
-        {
-            highlightedObj = hit.transform;
-            if (highlightedObj != selectedObj)
-            {
-                EnableOutline(highlightedObj);
-            }
-            else
-            {
-                highlightedObj = null;
-            }
-        }
-    }*/
-
     public void EnableOutline(Transform obj)
     {
         var outline = obj.GetComponent<Outline>();
