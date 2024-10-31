@@ -2,48 +2,24 @@ using UnityEngine;
 
 public class OutlineSelection : MonoBehaviour
 {
-    private Transform selectedObj;
-    private Transform highlightedObj;
-    private RaycastHit hit;
-    private LayerMask layerMask;
-
-    private void Start()
+    public void EnableOutline(Transform obj)
     {
-        layerMask = LayerMask.GetMask("PlayerInteractables");
+        var outline = obj.GetComponent<Outline>();
+        if (outline == null)
+        {
+            outline = obj.gameObject.AddComponent<Outline>();
+            outline.OutlineColor = Color.yellow;
+            outline.OutlineWidth = 5;
+        }
+        outline.enabled = true;
     }
 
-    public void Update()
+    public void DisableOutline(Transform obj)
     {
-        if (highlightedObj != null)
+        var outline = obj.GetComponent<Outline>();
+        if (outline != null)
         {
-            var outline = highlightedObj.GetComponent<Outline>();
-            if (outline != null)
-            {
-                outline.enabled = false;
-            }
-            highlightedObj = null;
-        }
-
-        if (Camera.main == null) return;
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
-        {
-            highlightedObj = hit.transform;
-            if (highlightedObj != selectedObj)
-            {
-                var outline = highlightedObj.GetComponent<Outline>();
-                if (outline == null)
-                {
-                    outline = highlightedObj.gameObject.AddComponent<Outline>();
-                    outline.OutlineColor = Color.yellow;
-                    outline.OutlineWidth = 5;
-                }
-                outline.enabled = true;
-            }
-            else
-            {
-                highlightedObj = null;
-            }
+            outline.enabled = false;
         }
     }
 }
