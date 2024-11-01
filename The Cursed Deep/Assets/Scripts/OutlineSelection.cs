@@ -2,19 +2,17 @@ using UnityEngine;
 
 public class OutlineSelection : MonoBehaviour
 {
-    public void EnableOutline(Transform obj)
+    public void EnableOutline(MeshRenderer obj)
     {
         var outline = obj.GetComponent<Outline>();
-        if (outline == null)
-        {
-            outline = obj.gameObject.AddComponent<Outline>();
-            outline.OutlineColor = Color.yellow;
-            outline.OutlineWidth = 5;
-        }
+        if (outline == null) return;
+        
         outline.enabled = true;
+        outline.OutlineColor = Color.yellow;
+        outline.OutlineWidth = 5;
     }
 
-    public void DisableOutline(Transform obj)
+    public void DisableOutline(MeshRenderer obj)
     {
         var outline = obj.GetComponent<Outline>();
         if (outline != null)
