@@ -233,6 +233,18 @@ MonoBehaviour:
   onLateInit:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 11400000, guid: 1f5e461eb9bb4ce49baaee5da9363cc2, type: 2}
+        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+        m_MethodName: set_hasPlayed
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1852286048}
         m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
         m_MethodName: ShowDialogue
@@ -728,7 +740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f36268bedc119c64e97e7c69f76e993e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioShotManager: {fileID: 11400000, guid: 25fdd8c53c2f60046a90836bbe8e5e96, type: 2}
+  audioShotManager: {fileID: 11400000, guid: 0c552af60ee49a342b12198a6fce4e44, type: 2}
   mixerGroup: {fileID: -6073963964718969515, guid: f7b70a8997f608c46a18f5404f632d2b,
     type: 2}
   resetAudioOnAwake: 0
@@ -3511,6 +3523,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Audio Source
+      objectReference: {fileID: 0}
+    - target: {fileID: 2890941747182864758, guid: 00077355e9eeb5c46b4af1c49bde066e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2890941747182864758, guid: 00077355e9eeb5c46b4af1c49bde066e,
         type: 3}

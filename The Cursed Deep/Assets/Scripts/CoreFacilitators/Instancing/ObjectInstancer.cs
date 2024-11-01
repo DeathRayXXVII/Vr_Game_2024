@@ -57,5 +57,4 @@ public class ObjectInstancer : MonoBehaviour, INeedButton
     {
         return new List<(System.Action, string)> {(InstantiateObjects, "Instantiate Objects")};
     }
-
 }

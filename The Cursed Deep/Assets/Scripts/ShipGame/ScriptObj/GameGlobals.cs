@@ -1,9 +1,10 @@
 using UnityEngine;
+using ZPTools.Interface;
 
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu(fileName = "GameGlobals", menuName = "Data/ManagerData/GameGlobals")]
-    public class GameGlobals : ScriptableObject
+    public class GameGlobals : ScriptableObject, IResetOnNewGame
     {
         [Header("Game Data:")]
         public FloatData playerSpeed;
@@ -28,8 +29,9 @@ namespace ShipGame.ScriptObj
         // public FloatData upgradeSpeed;
         // public IntData upgradeAmmoRespawnTime;
         
-        public void ResetToNewGameValues()
+        public void ResetToNewGameValues(int tier = 1)
         {
+            if (tier < 1) return;
             // playerSpeed.Set(0);
             // playerScore.Set(0);
             //
