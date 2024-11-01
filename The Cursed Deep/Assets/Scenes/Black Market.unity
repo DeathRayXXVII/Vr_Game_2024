@@ -124,18 +124,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &10575593 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4902227921423452160, guid: a26d31f4aa8aa5c43aaeda36b0988d1b,
-    type: 3}
-  m_PrefabInstance: {fileID: 7014100818602004338}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &11702727 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3410345280943041523, guid: 3e23f383e8748b647a44d2c2a5341f8b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5245233627773701002}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &33574440
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +134,6 @@ GameObject:
   m_Component:
   - component: {fileID: 33574442}
   - component: {fileID: 33574443}
-  - component: {fileID: 33574444}
   - component: {fileID: 33574445}
   m_Layer: 0
   m_Name: GameHandlers
@@ -200,18 +187,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &33574444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 33574440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3febdb04b8386ea4ea18fe35cf28d9ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &33574445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -771,12 +746,6 @@ Transform:
   - {fileID: 515126180}
   m_Father: {fileID: 940550790}
   m_LocalEulerAnglesHint: {x: 0, y: -122.276, z: 0}
---- !u!4 &811295444 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5734208087380550890, guid: 6e6fb10a129feb6488bdf52bbab157f9,
-    type: 3}
-  m_PrefabInstance: {fileID: 4694681073837480635}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &858131632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -862,6 +831,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5302685825176670738, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
+      propertyPath: interactAction
+      value: 
+      objectReference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f,
+        type: 3}
+    - target: {fileID: 5302685825176670738, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
       propertyPath: onInteract.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -937,12 +912,6 @@ Transform:
   - {fileID: 543450652286305662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &973552687 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4422160050100027697, guid: 7ee1c61bdedd11643844bda112780f3a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1035871823491773137}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1032921205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,13 +955,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 919132148295442373}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: EnableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 167318015}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1013,13 +982,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 919132148295442373}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: DisableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 167318015}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1721,13 +1690,13 @@ MonoBehaviour:
   m_HoverEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 1483064266}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: EnableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 515126180}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1748,13 +1717,13 @@ MonoBehaviour:
   m_HoverExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 1483064266}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: DisableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 515126180}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1891,8 +1860,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 1
+  outlineColor: {r: 0.88122773, g: 1, b: 0, a: 1}
+  outlineWidth: 4
+  outlineContinuously: 0
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
@@ -2502,12 +2472,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!4 &1939608318 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 552679909389400324, guid: 438c6bb529f6f9d4d80e05319194553a,
-    type: 3}
-  m_PrefabInstance: {fileID: 6038573245265107756}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2110464498
 GameObject:
   m_ObjectHideFlags: 0
@@ -2685,6 +2649,7 @@ GameObject:
   - component: {fileID: 1032921207}
   - component: {fileID: 1032921212}
   - component: {fileID: 1032921205}
+  - component: {fileID: 919132148295442373}
   m_Layer: 5
   m_Name: CannonDefault
   m_TagString: Untagged
@@ -2692,6 +2657,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!114 &919132148295442373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148295442372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.88122773, g: 1, b: 0, a: 1}
+  outlineWidth: 4
+  outlineContinuously: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &1035871823491773137
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2814,6 +2798,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1035871823491773142}
+    - targetCorrespondingSourceObject: {fileID: 4496087475665480403, guid: 7ee1c61bdedd11643844bda112780f3a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1035871823491773147}
   m_SourcePrefab: {fileID: 100100000, guid: 7ee1c61bdedd11643844bda112780f3a, type: 3}
 --- !u!4 &1035871823491773138 stripped
 Transform:
@@ -2834,7 +2822,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1035871823491773140}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a35f6cfbfba9b548aaa00d52cfe8a50, type: 3}
   m_Name: 
@@ -2876,13 +2864,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 1035871823491773147}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: EnableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 973552687}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2903,13 +2891,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 1035871823491773147}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: DisableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 973552687}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3031,6 +3019,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.6, y: 3.38, z: 5.87}
   m_Center: {x: 0, y: 0.58, z: -1.92}
+--- !u!114 &1035871823491773147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035871823491773140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.88122773, g: 1, b: 0, a: 1}
+  outlineWidth: 4
+  outlineContinuously: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!33 &1525341522394274626
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3274,6 +3281,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4694681073837480638}
+    - targetCorrespondingSourceObject: {fileID: 7022622232700833827, guid: 6e6fb10a129feb6488bdf52bbab157f9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4694681073837480643}
   m_SourcePrefab: {fileID: 100100000, guid: 6e6fb10a129feb6488bdf52bbab157f9, type: 3}
 --- !u!4 &4694681073837480636 stripped
 Transform:
@@ -3336,13 +3347,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 4694681073837480643}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: EnableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 811295444}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3363,13 +3374,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 4694681073837480643}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: DisableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 811295444}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3491,6 +3502,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.68, y: 7.4, z: 6.18}
   m_Center: {x: -0.64, y: -7.23, z: 8.2}
+--- !u!114 &4694681073837480643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4694681073837480637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.88122773, g: 1, b: 0, a: 1}
+  outlineWidth: 4
+  outlineContinuously: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!33 &4716366377161000245
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3699,6 +3729,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5245233627773701005}
+    - targetCorrespondingSourceObject: {fileID: 3199840971369431057, guid: 3e23f383e8748b647a44d2c2a5341f8b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5245233627773701010}
   m_SourcePrefab: {fileID: 100100000, guid: 3e23f383e8748b647a44d2c2a5341f8b, type: 3}
 --- !u!4 &5245233627773701003 stripped
 Transform:
@@ -3761,13 +3795,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 5245233627773701010}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: EnableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 11702727}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3788,13 +3822,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 5245233627773701010}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: DisableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 11702727}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3916,6 +3950,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.66, y: 0.48, z: 4.4}
   m_Center: {x: 1.98, y: 1, z: 4.25}
+--- !u!114 &5245233627773701010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5245233627773701004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.88122773, g: 1, b: 0, a: 1}
+  outlineWidth: 4
+  outlineContinuously: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &6038573245265107756
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4013,6 +4066,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6038573245265107758}
+    - targetCorrespondingSourceObject: {fileID: 3881063824923504331, guid: 438c6bb529f6f9d4d80e05319194553a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6038573245265107763}
   m_SourcePrefab: {fileID: 100100000, guid: 438c6bb529f6f9d4d80e05319194553a, type: 3}
 --- !u!1 &6038573245265107757 stripped
 GameObject:
@@ -4069,13 +4126,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 6038573245265107763}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: EnableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1939608318}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4096,13 +4153,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 6038573245265107763}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: DisableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1939608318}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4224,6 +4281,25 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.4
   m_Center: {x: 0.07, y: 1.53, z: 0.1}
+--- !u!114 &6038573245265107763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038573245265107757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.88122773, g: 1, b: 0, a: 1}
+  outlineWidth: 4
+  outlineContinuously: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &6192172562101191189
 GameObject:
   m_ObjectHideFlags: 0
@@ -4374,6 +4450,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7014100818602004340}
+    - targetCorrespondingSourceObject: {fileID: 2339632447098178685, guid: a26d31f4aa8aa5c43aaeda36b0988d1b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7014100818602004345}
   m_SourcePrefab: {fileID: 100100000, guid: a26d31f4aa8aa5c43aaeda36b0988d1b, type: 3}
 --- !u!1 &7014100818602004339 stripped
 GameObject:
@@ -4430,13 +4510,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 7014100818602004345}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: EnableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 10575593}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4457,13 +4537,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 33574444}
-        m_TargetAssemblyTypeName: OutlineSelection, Assembly-CSharp
+      - m_Target: {fileID: 7014100818602004345}
+        m_TargetAssemblyTypeName: Outline, Assembly-CSharp
         m_MethodName: DisableOutline
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 10575593}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4585,6 +4665,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.83, y: 6.72, z: 4.1}
   m_Center: {x: -2.67, y: 0.8, z: -4.45}
+--- !u!114 &7014100818602004345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014100818602004339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0.88122773, g: 1, b: 0, a: 1}
+  outlineWidth: 4
+  outlineContinuously: 0
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7766533394676483628
 GameObject:
   m_ObjectHideFlags: 0
