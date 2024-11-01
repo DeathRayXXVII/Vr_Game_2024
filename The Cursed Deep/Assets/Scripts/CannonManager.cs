@@ -124,6 +124,7 @@ public class CannonManager : MonoBehaviour
         
         if (_addForceCoroutine != null){ _ammoObj.SetActive(false); return;}
         _ammoObj.SetActive(true);
+        if (_modelAnimator.GetBool(_loadAnimationTrigger)) _modelAnimator.ResetTrigger(_loadAnimationTrigger);
         _modelAnimator.SetTrigger(_fireAnimationTrigger);
         onSuccessfulFire.Invoke();
         _addForceCoroutine ??= StartCoroutine(AddForceToAmmo(ammoRb));
