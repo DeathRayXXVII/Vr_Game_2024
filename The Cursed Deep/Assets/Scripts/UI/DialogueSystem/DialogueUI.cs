@@ -32,6 +32,8 @@ public class DialogueUI : MonoBehaviour
     
     public void ShowDialogue(DialogueData dialogueObj)
     {
+        if (dialogueObj.hasPlayed && dialogueObj.playOnlyOncePerGame) return;
+        dialogueObj.hasPlayed = true;
         dialogueBox.SetActive(true);
         StartCoroutine(StepThroughDialogue(dialogueObj));
     }

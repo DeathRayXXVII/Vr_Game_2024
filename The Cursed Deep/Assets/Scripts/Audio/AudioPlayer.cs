@@ -58,7 +58,7 @@ public class AudioPlayer : MonoBehaviour
         
         _shotIndex = index;
         var audioShot = audioShotManager.audioShots[index];
-        if (audioShot.clip == null || audioShot.played) return;
+        if (audioShot.clip == null || (audioShot.hasPlayed && audioShot.playOnlyOncePerGame)) return;
         
         ConfigureAudioSource(audioShot.priority, audioShot.volume, audioShot.pitch);
         if (audioShot.delay > 0)
@@ -99,7 +99,7 @@ public class AudioPlayer : MonoBehaviour
         {
             StopCoroutine(_waitForStartCoroutine);
             _waitForStartCoroutine = null;
-            audioShotManager.audioShots[_shotIndex].played = true;
+            audioShotManager.audioShots[_shotIndex].hasPlayed = true;
         }
 
         if (_waitForEndCoroutine == null) return;

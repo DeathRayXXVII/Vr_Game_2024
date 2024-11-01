@@ -19,6 +19,34 @@ namespace ZPTools.Utility
             return default;
         }
         
+        public static void PerformActionOnInterface<T>(System.Action<T> action) where T : class
+        {
+            var matchingObjects = new List<T>();
+            foreach (var obj in UnityEngine.Resources.FindObjectsOfTypeAll<UnityEngine.MonoBehaviour>())
+            {
+                if (obj is T match) matchingObjects.Add(match);
+            }
+
+            foreach (var obj in UnityEngine.Resources.FindObjectsOfTypeAll<UnityEngine.ScriptableObject>())
+            {
+                if (obj is T match) matchingObjects.Add(match);
+            }
+
+            foreach (var loader in matchingObjects)
+            {
+                try
+                {
+                    action(loader);
+                }
+                catch (System.Exception e)
+                {
+#if UNITY_EDITOR
+                    UnityEngine.Debug.LogError(e, null);
+#endif
+                }
+            }
+        }
+        
         public static string ComputeHashSHA(string input)
         {
             var bytes = System.Text.Encoding.UTF8.GetBytes(input);

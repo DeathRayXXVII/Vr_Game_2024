@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
+using ZPTools.Interface;
 
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu (fileName = "CoreData", menuName = "Data/ManagerData/CoreData")]
-    public class CoreData : ScriptableObject
+    public class CoreData : ScriptableObject, IResetOnNewGame
     {
 #if UNITY_EDITOR
         [SerializeField] internal bool allowDebug;
@@ -93,10 +94,11 @@ namespace ShipGame.ScriptObj
             PrintGameVariables();
 #endif
         }
-        public void LevelFailed() => ResetGameValues();
+        public void LevelFailed() => ResetToNewGameValues();
 
-        public void ResetGameValues()
+        public void ResetToNewGameValues(int tier = 1)
         {
+            if (tier < 1) return;
             gameGlobals.ResetToNewGameValues();
             currentLevel = 1;
             shipIndex = 0;

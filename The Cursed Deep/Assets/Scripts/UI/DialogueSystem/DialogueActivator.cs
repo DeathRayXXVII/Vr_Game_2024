@@ -58,6 +58,8 @@ public class DialogueActivator : MonoBehaviour, IInteractable
 
     public void Interact(PlayerDialogueActivator player)
     {
+        if (dialogueData.hasPlayed && dialogueData.playOnlyOncePerGame) return;
+        dialogueData.hasPlayed = true;
         foreach (DialogueResponseEvents responseEvents in GetComponents<DialogueResponseEvents>())
         {
             if (responseEvents.DialogueData)

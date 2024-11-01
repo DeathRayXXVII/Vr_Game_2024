@@ -1,16 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using ZPTools.Interface;
 
 [CreateAssetMenu(fileName = "AudioShotManager", menuName = "Audio/Audio Shot Manager", order = 0)]
-public class AudioShotManager : ScriptableObject
+public class AudioShotManager : ScriptableObject, IResetOnNewGame, INeedButton
 {
     [System.Serializable]
     public class AudioShot
     {
         public string id;
         public AudioClip clip;
-        public bool played, playOnAwake;
+        public bool playOnlyOncePerGame;
+        public bool hasPlayed;
+        public bool playOnAwake;
         [Range(0, 256)] public int priority = 128;
         [Range(0, 1)] public float volume = 1.0f;
         [Range(-3, 3)] public float pitch = 1.0f;
@@ -31,16 +34,16 @@ public class AudioShotManager : ScriptableObject
     {
         if (index < 0 || index >= audioShots.Count) return;
         var shot = audioShots[index];
-        if (shot.played || shot.clip == null || audioSource == null) return;
+        if ((shot.hasPlayed && shot.playOnlyOncePerGame) || shot.clip == null || audioSource == null) return;
         audioSource.PlayOneShot(shot.clip);
-        shot.played = true;
+        shot.hasPlayed = true;
     }
 
     public void ResetAllAudioShots()
     {
         foreach (var shot in audioShots)
         {
-            shot.played = false;
+            shot.hasPlayed = false;
         }
     }
 
@@ -59,6 +62,17 @@ public class AudioShotManager : ScriptableObject
     {
         if (index < 0 || index >= audioShots.Count) return;
 
-        audioShots[index].played = setTo;
+        audioShots[index].hasPlayed = setTo;
+    }
+
+    public void ResetToNewGameValues(int tier = 2)
+    {
+        if (tier < 2) return;
+        ResetAllAudioShots();
+    }
+
+    public List<(System.Action, string)> GetButtonActions()
+    {
+        return new List<(System.Action, string)> {(ResetAllAudioShots, "Reset All Audio Shots")};
     }
 }

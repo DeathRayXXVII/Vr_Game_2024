@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2827702, g: 0.33023968, b: 0.47244036, a: 1}
+  m_IndirectSpecularColor: {r: 0.26366863, g: 0.3079293, b: 0.44052, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2452,14 +2452,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
-        m_TargetAssemblyTypeName: ShipGame.ScriptObj.CoreData, Assembly-CSharp
-        m_MethodName: ResetGameValues
-        m_Mode: 1
+      - m_Target: {fileID: 525364875}
+        m_TargetAssemblyTypeName: ZPTools.NewGameManager, Assembly-CSharp
+        m_MethodName: ResetToNewGame
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2526,6 +2526,7 @@ GameObject:
   - component: {fileID: 525364872}
   - component: {fileID: 525364870}
   - component: {fileID: 525364874}
+  - component: {fileID: 525364875}
   m_Layer: 0
   m_Name: Game Handlers
   m_TagString: Untagged
@@ -2619,12 +2620,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a08ce6fecb7bf04a90e260eb207eed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptableObjectLoaders:
-  - {fileID: 11400000, guid: 8c7f90ecad54fe641b481d6c9f229ea4, type: 2}
-  - {fileID: 11400000, guid: f8390c5eba72d184ca4a311a9f850676, type: 2}
-  - {fileID: 11400000, guid: 460da02ca72ad4b47b4f420d8875badc, type: 2}
-  - {fileID: 11400000, guid: 5dd646cc72f9fd244933df90cc4de974, type: 2}
-  - {fileID: 11400000, guid: 5ab07176a94420441898e97ce818a1ec, type: 2}
+--- !u!114 &525364875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525364869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f20b7480c9b6c41962db3b7121622b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &591370319
 GameObject:
   m_ObjectHideFlags: 0
@@ -3588,7 +3595,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
         m_TargetAssemblyTypeName: ShipGame.ScriptObj.CoreData, Assembly-CSharp
-        m_MethodName: ResetGameValues
+        m_MethodName: ResetToNewGameValues
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3607,6 +3614,18 @@ MonoBehaviour:
             type: 2}
           m_ObjectArgumentAssemblyTypeName: GameAction, Assembly-CSharp
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 525364875}
+        m_TargetAssemblyTypeName: ZPTools.NewGameManager, Assembly-CSharp
+        m_MethodName: ResetToNewGame
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

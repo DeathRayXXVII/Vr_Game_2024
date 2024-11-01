@@ -1,40 +1,12 @@
-using System;
 using UnityEngine;
-using System.Linq;
 using ZPTools.Interface;
+using static ZPTools.Utility.UtilityFunctions;
 
 namespace ZPTools
 {
     public class StartupLoaderManager : MonoBehaviour
     {
-        public ScriptableObject[] scriptableObjectLoaders;
-
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            foreach (var loader in scriptableObjectLoaders)
-            {
-                if (loader is IStartupLoader || !loader) continue;
-                Debug.LogError($"{loader.name} does not implement IStartupLoader", this);
-            }
-        }
-#endif
-
-        private void Start()
-        {
-            foreach (var loader in scriptableObjectLoaders.OfType<IStartupLoader>())
-            {
-                try
-                {
-                    loader.LoadOnStartup();
-                }
-                catch (Exception e)
-                {
-#if UNITY_EDITOR
-                    Debug.LogError(e, this);
-#endif
-                }
-            }
-        }
+        private static void ExecuteLoadOnStartup(IStartupLoader loader) => loader.LoadOnStartup();
+        private void Start() => PerformActionOnInterface((IStartupLoader objectToLoad) => ExecuteLoadOnStartup(objectToLoad));
     }
 }

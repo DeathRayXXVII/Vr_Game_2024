@@ -15,22 +15,23 @@ MonoBehaviour:
   audioShots:
   - id: EnterShopTutorial
     clip: {fileID: 8300000, guid: bc74c9939950aa74bb0d4a35226edc3a, type: 3}
-    played: 0
+    playOnlyOncePerGame: 0
+    hasPlayed: 1
     playOnAwake: 0
     priority: 128
     volume: 1
-    pitch: 0
+    pitch: 1
     delay: 0
     onComplete:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
           m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: 
+          m_MethodName: RaiseAction
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
