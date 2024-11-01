@@ -105,12 +105,15 @@ public class Outline : MonoBehaviour
         _outlineFillMaterial.name = "OutlineFill (Instance)";
 
         LoadSmoothNormals();
-        
-            _needsUpdate = true;
+
+        enabled = false;
+
     }
 
     private void OnEnable()
     {
+        if (!enabled) return;
+        
         foreach (var rend in _renderers)
         {
             var materials = rend.sharedMaterials.ToList();
@@ -138,11 +141,9 @@ public class Outline : MonoBehaviour
 
     private void Update()
     {
-        if (_needsUpdate)
-        {
-            _needsUpdate = false;
-            UpdateMaterialProperties();
-        }
+        if (!_needsUpdate) return;
+        _needsUpdate = false;
+        UpdateMaterialProperties();
     }
 
     private void OnDisable()
@@ -155,7 +156,7 @@ public class Outline : MonoBehaviour
             rend.materials = materials.ToArray();
         }
     }
-    
+
     public void EnableOutline()
     {
         enabled = true;
