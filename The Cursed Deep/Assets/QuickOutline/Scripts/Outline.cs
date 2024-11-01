@@ -162,13 +162,15 @@ public class Outline : MonoBehaviour
         enabled = true;
         OutlineColor = outlineColor;
         OutlineWidth = outlineWidth;
-        _needsUpdate = true;
+        //_needsUpdate = true;
+        UpdateMaterialProperties();
     }
 
     public void DisableOutline()
     {
         enabled = false;
-        _needsUpdate = true;
+        //_needsUpdate = true;
+        UpdateMaterialProperties();
     }
 
     private void OnDestroy()
