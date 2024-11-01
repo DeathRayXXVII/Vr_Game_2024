@@ -35,11 +35,11 @@ public class HealthBehavior : MonoBehaviour, IDamagable
 
     private void OnEnable() => _isDead = false;
 
-    private void Start()
+    private void Awake()
     {
         if (!_maxHealth) _maxHealth = ScriptableObject.CreateInstance<FloatData>();
         if (maxHealth <= 0) maxHealth = 1;
-        health = maxHealth;
+        if (health <= 0 || health > maxHealth) health = maxHealth;
     }
     
     private void CheckHealthEvents()
