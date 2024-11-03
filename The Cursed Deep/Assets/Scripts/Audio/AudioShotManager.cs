@@ -9,14 +9,19 @@ public class AudioShotManager : ScriptableObject, IResetOnNewGame, INeedButton
     [System.Serializable]
     public class AudioShot
     {
+        [Header("Audio Shot")]
         public string id;
+        [Header("Audio Clip Settings")]
         public AudioClip clip;
         public bool playOnlyOncePerGame;
         public bool hasPlayed;
         public bool playOnAwake;
+        [Header("Audio Settings")]
         [Range(0, 256)] public int priority = 128;
         [Range(0, 1)] public float volume = 1.0f;
         [Range(-3, 3)] public float pitch = 1.0f;
+        [Range(0, 1)] public float spatialBlend;
+        [Header("Runtime Settings")]
         public float delay;
         public UnityEvent onComplete;
     }
@@ -47,10 +52,10 @@ public class AudioShotManager : ScriptableObject, IResetOnNewGame, INeedButton
         }
     }
 
-    public void ResetAudioShot(string id) { ProcessAudioShot(id, false); }
-    public void ResetAudioShot(int index) { ProcessAudioShot(index, false); }
-    public void LockAudioShot(string id) { ProcessAudioShot(id, true); }
-    public void LockAudioShot(int index) { ProcessAudioShot(index, true); }
+    public void ResetAudioShot(string id) => ProcessAudioShot(id, false);
+    public void ResetAudioShot(int index) => ProcessAudioShot(index, false);
+    public void LockAudioShot(string id) => ProcessAudioShot(id, true);
+    public void LockAudioShot(int index) => ProcessAudioShot(index, true);
     
     private void ProcessAudioShot(string id, bool setTo)
     {

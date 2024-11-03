@@ -21,6 +21,7 @@ MonoBehaviour:
     priority: 131
     volume: 1
     pitch: 1
+    spatialBlend: 0
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -37,3 +38,94 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - id: LeviathanSpawned
+    clip: {fileID: 8300000, guid: d01377c021732b143b5f71ecfc30de57, type: 3}
+    playOnlyOncePerGame: 0
+    hasPlayed: 0
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 1
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: LeviathanSpotted
+    clip: {fileID: 8300000, guid: bae2aa9d266859a4ab686e7a28b42aa3, type: 3}
+    playOnlyOncePerGame: 0
+    hasPlayed: 1
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 1
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: LeviathanHurt
+    clip: {fileID: 8300000, guid: eb801fa6ad4fde4439a89989580b28d1, type: 3}
+    playOnlyOncePerGame: 0
+    hasPlayed: 0
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 1
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: LeviathanDeath
+    clip: {fileID: 8300000, guid: 77144cb5675c0fb469b8866721c58d7c, type: 3}
+    playOnlyOncePerGame: 0
+    hasPlayed: 0
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 1
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: Splash
+    clip: {fileID: 8300000, guid: fd4441aa03e63b94c8f7e8b995a91bbb, type: 3}
+    playOnlyOncePerGame: 0
+    hasPlayed: 1
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 1
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: ShipHit
+    clip: {fileID: 8300000, guid: 4a7c39ec055fec446853a20e2df7802a, type: 3}
+    playOnlyOncePerGame: 0
+    hasPlayed: 0
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 1
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: ShipDestroyed
+    clip: {fileID: 8300000, guid: 5d94d9f1581a1994fb1918516d5eda41, type: 3}
+    playOnlyOncePerGame: 0
+    hasPlayed: 0
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 1
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []

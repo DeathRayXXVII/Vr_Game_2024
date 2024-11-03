@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 5987575482204344921}
   - component: {fileID: 317485514063133717}
   - component: {fileID: 217373820820668727}
-  - component: {fileID: 453423135970158518}
   - component: {fileID: 4176567598734683626}
   - component: {fileID: 1686740603975731368}
   m_Layer: 19
@@ -172,21 +171,6 @@ MonoBehaviour:
     triggerExitEvent:
       m_PersistentCalls:
         m_Calls: []
---- !u!114 &453423135970158518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7001261881460551479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb823966f35bb7d48b01c48b9876196f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allowDebug: 0
-  rigidBody: {fileID: 317485514063133717}
-  useGravity: 1
 --- !u!114 &4176567598734683626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,18 +190,6 @@ MonoBehaviour:
     onWaitFinished:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1686740603975731368}
-          m_TargetAssemblyTypeName: WeaponController, Assembly-CSharp
-          m_MethodName: set_canDealDamage
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
         - m_Target: {fileID: 4176567598734683626}
           m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
           m_MethodName: StartWaitForFixedUpdateEvent

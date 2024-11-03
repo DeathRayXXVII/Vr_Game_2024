@@ -33,6 +33,8 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
         set => creepData.health = value;
     }
 
+    public Vector3 hitPoint { get; private set; }
+
     private void Awake()
     {
         _damageWait = new WaitForSeconds(damageCooldown);
@@ -71,7 +73,8 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
     private void OnCollisionEnter(Collision other)
     {
         var damageable = AdvancedGetComponent<IDamagable>(other.gameObject);
-        if(!canDealDamage || damageable == null) return;
+        if(damageable == null) return;
+        hitPoint = other.GetContact(0).point;
         DealDamage(damageable);
     }
     

@@ -28,12 +28,13 @@ public class AudioPlayer : MonoBehaviour
         PlayAwakeAudio();
     }
 
-    void ConfigureAudioSource(int priority, float volume, float pitch)
+    private void ConfigureAudioSource(int priority, float volume, float pitch, float spatialBlend)
     {
         StopAudio();
         _audioSource.priority = priority;
         _audioSource.volume = volume;
         _audioSource.pitch = pitch;
+        _audioSource.spatialBlend = spatialBlend;
     }
     
     private void PlayAwakeAudio()
@@ -41,7 +42,7 @@ public class AudioPlayer : MonoBehaviour
         foreach (var audioShot in audioShotManager.audioShots)
         {
             if (!audioShot.playOnAwake) continue;
-            ConfigureAudioSource(audioShot.priority, audioShot.volume, audioShot.pitch);
+            ConfigureAudioSource(audioShot.priority, audioShot.volume, audioShot.pitch, audioShot.spatialBlend);
             _audioSource.PlayOneShot(audioShot.clip);
         }
     }
@@ -49,6 +50,11 @@ public class AudioPlayer : MonoBehaviour
     public void PlayAudioShot(string id)
     {
         _shotIndex = audioShotManager.audioShots.FindIndex(shot => shot.id == id);
+        if (_shotIndex == -1)
+        {
+            Debug.LogError($"Audio Shot with ID {id} not found in Audio Shot Manager.", this);
+            return;
+        }
         PlayAudioShot(_shotIndex);
     }
     
@@ -60,7 +66,7 @@ public class AudioPlayer : MonoBehaviour
         var audioShot = audioShotManager.audioShots[index];
         if (audioShot.clip == null || (audioShot.hasPlayed && audioShot.playOnlyOncePerGame)) return;
         
-        ConfigureAudioSource(audioShot.priority, audioShot.volume, audioShot.pitch);
+        ConfigureAudioSource(audioShot.priority, audioShot.volume, audioShot.pitch, audioShot.spatialBlend);
         if (audioShot.delay > 0)
         {
             _delay = new WaitForSeconds(audioShot.delay);

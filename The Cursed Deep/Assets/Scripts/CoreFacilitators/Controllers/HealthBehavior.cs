@@ -1,20 +1,81 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using ZPTools.Interface;
+using static ZPTools.Utility.UtilityFunctions;
 using Random = UnityEngine.Random;
 
 public class HealthBehavior : MonoBehaviour, IDamagable
 {
-    public UnityEvent onHealthGained, onHealthLost, onThreeQuarterHealth, onHalfHealth, onQuarterHealth, onHealthDepleted;
+    private struct TextPoolObject
+    {
+        private readonly GameObject _textObject;
+        private readonly TextMesh _textMesh;
+        private readonly HealthBehavior _owner;
+        private const float AnimationTime = 2f;
+
+        public TextPoolObject(GameObject newTextObject, HealthBehavior owner)
+        {
+            _textObject = newTextObject;
+            _textMesh = AdvancedGetComponent<TextMesh>(_textObject, true);
+            _owner = owner;
+            _textObject.transform.SetParent(_owner.transform);
+        }
+
+        public void SetLocation(Vector3 location)
+        {
+            _textObject.transform.position = location;
+            _textObject.transform.rotation = _mainCamera.transform.rotation;
+        }
+        
+        public void ActivateText(string displayText = "")
+        {
+            if(_textMesh) _textMesh.text = displayText;
+            _textObject.SetActive(true);
+            _owner.StartCoroutine(WaitForAnimationToEnd());
+        }
+        
+        private Vector3 GetRandomUpwardVector() => new(Random.Range(-1f, 1f), 1, 0);
+
+        private IEnumerator WaitForAnimationToEnd()
+        {
+            var time = Time.deltaTime;
+            var upVector = GetRandomUpwardVector();
+            while (time < AnimationTime)
+            {
+                time += Time.deltaTime;
+                _textObject.transform.position += upVector * Time.deltaTime;
+                yield return null;
+            }
+            _textObject.SetActive(false);
+        }
+
+        public void SetActive(bool isActive) => _textObject.SetActive(isActive);
+        public bool activeInHierarchy => _textObject.activeInHierarchy;
+    }
     
+    [Header("Health Events")]
+    public UnityEvent onHealthGained;
+    public UnityEvent onHealthLost;
+    public UnityEvent onThreeQuarterHealth;
+    public UnityEvent onHalfHealth;
+    public UnityEvent onQuarterHealth;
+    public UnityEvent onHealthDepleted;
+    
+    [Header("Health Variables")]
     [SerializeField] [InspectorReadOnly] private float _currentHealth;
     [SerializeField] private FloatData currentHealthData;
     private float _previousCheckHealth;
     [SerializeField] private FloatData _maxHealth;
-    [SerializeField] private GameObject floatingText;
-    [SerializeField] private GameObject textPivot;
-    private bool _isDead;
-
+    
+    [Header("Damage Text Variables")]
+    [SerializeField] private bool _showDamageDealt;
+    [SerializeField] private GameObject _damageTextPrefab;
+    private static Camera _mainCamera;
+    private List<TextPoolObject> _textObjectPool;
+    private Vector3 _textOrigin;
     public float health
     {
         get => !currentHealthData ? _currentHealth : currentHealthData;
@@ -30,13 +91,18 @@ public class HealthBehavior : MonoBehaviour, IDamagable
         get => _maxHealth;
         set => _maxHealth.value = value;
     }
-
-    // private void Awake() => _damageWait = new WaitForSeconds(damageCooldown);
+    
+    private bool _isDead;
 
     private void OnEnable() => _isDead = false;
 
     private void Awake()
     {
+        if (!_damageTextPrefab)
+        {
+            _showDamageDealt = false;
+            _mainCamera ??= Camera.main;
+        }
         if (!_maxHealth) _maxHealth = ScriptableObject.CreateInstance<FloatData>();
         if (maxHealth <= 0) maxHealth = 1;
         if (health <= 0 || health > maxHealth) health = maxHealth;
@@ -76,24 +142,40 @@ public class HealthBehavior : MonoBehaviour, IDamagable
         else if (health >= 0 && previousHealth > 0) onHealthLost.Invoke();
         CheckHealthEvents();
     }
+
+    private TextPoolObject GetTextPoolObject()
+    {
+        _textObjectPool ??= new List<TextPoolObject>();
+        foreach (var textObj in _textObjectPool.Where(textObj => !textObj.activeInHierarchy))
+        {
+            textObj.SetLocation(_textOrigin);
+            return textObj;
+        }
+        var newTextPoolObject = new TextPoolObject(Instantiate(_damageTextPrefab), this);
+        newTextPoolObject.SetLocation(_textOrigin);
+        newTextPoolObject.SetActive(false);
+        _textObjectPool.Add(newTextPoolObject);
+        return newTextPoolObject;
+    }
+    
     public void TakeDamage(IDamageDealer dealer)
     {
         if (_isDead) return;
         var amount = dealer.damage;
         
-        ShowDamage(amount.ToString());
-        // Debug.Log($"Applying damage: {amount} to {name}\nPrevious Health: {health} | New Health: {health + (amount > -1 ? amount * -1 : amount)}", this);
+        if(_showDamageDealt)
+        {
+            _textOrigin = dealer.hitPoint;
+            ShowDamage(amount.ToString());
+        }
         if (amount > -1) amount *= -1;
         AddAmountToHealth(amount);
     }
     
     private void ShowDamage(string text)
     {
-        if (!floatingText) return;
-        var textObj = Instantiate(floatingText, textPivot.transform.position, Quaternion.identity);
-        string[] states = {"DamageTextVariant1", "DamageTextVariant2", "DamageTextVariant3", "DamageTextVariant4"};
-        var randomState = states[Random.Range(0, states.Length)];
-        floatingText.GetComponent<Animator>().Play(randomState); 
-        textObj.GetComponentInChildren<TextMesh>().text = text;
+        if (!_showDamageDealt) return;
+        var textObj = GetTextPoolObject();
+        textObj.ActivateText(text);
     }
 }

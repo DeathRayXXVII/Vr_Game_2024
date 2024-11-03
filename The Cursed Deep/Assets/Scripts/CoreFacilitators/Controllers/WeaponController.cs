@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,7 +18,9 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
     [SerializeField, SteppedRange(rangeMin:0.5f, rangeMax:10f, step:0.1f)] private float damageCooldown = 3f;
     
     private void Awake() => _damageWait = new WaitForSeconds(damageCooldown);
-    
+
+    private void OnEnable() => canDealDamage = true;
+
     public float damage
     {
      get => weaponData.damage;
@@ -30,11 +33,13 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
      set => weaponData.health = value;
     }
 
+    public Vector3 hitPoint { get; private set; }
+
     private void OnCollisionEnter(Collision other)
     {
         var damageable = AdvancedGetComponent<IDamagable>(other.gameObject);
-        if(!canDealDamage || damageable == null) return;
-        // Debug.Log($"Collision detected with: {other.gameObject}\nDealing damage to Damageable: {other.gameObject.name}, from DamageDealer: {this}", this);
+        if(damageable == null) return;
+        hitPoint = other.GetContact(0).point;
         DealDamage(damageable);
     }
 
@@ -49,7 +54,6 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
     private IEnumerator HandleDealingDamage(IDamagable target)
     {
         canDealDamage = false;
-        // Debug.Log($"Passing damage: {damage}", this);
         target.TakeDamage(this);
         yield return _damageWait;
         
