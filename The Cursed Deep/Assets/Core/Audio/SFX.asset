@@ -22,6 +22,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     spatialBlend: 0
+    minDistance: 0
+    maxDistance: 0
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -41,12 +43,14 @@ MonoBehaviour:
   - id: LeviathanSpawned
     clip: {fileID: 8300000, guid: d01377c021732b143b5f71ecfc30de57, type: 3}
     playOnlyOncePerGame: 0
-    hasPlayed: 0
+    hasPlayed: 1
     playOnAwake: 0
     priority: 128
     volume: 1
     pitch: 1
-    spatialBlend: 1
+    spatialBlend: 0.7
+    minDistance: 10
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -59,7 +63,9 @@ MonoBehaviour:
     priority: 128
     volume: 1
     pitch: 1
-    spatialBlend: 1
+    spatialBlend: 0.7
+    minDistance: 10
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -72,7 +78,9 @@ MonoBehaviour:
     priority: 128
     volume: 1
     pitch: 1
-    spatialBlend: 1
+    spatialBlend: 0.7
+    minDistance: 10
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -80,12 +88,14 @@ MonoBehaviour:
   - id: LeviathanDeath
     clip: {fileID: 8300000, guid: 77144cb5675c0fb469b8866721c58d7c, type: 3}
     playOnlyOncePerGame: 0
-    hasPlayed: 0
+    hasPlayed: 1
     playOnAwake: 0
     priority: 128
     volume: 1
     pitch: 1
-    spatialBlend: 1
+    spatialBlend: 0.7
+    minDistance: 10
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -98,7 +108,9 @@ MonoBehaviour:
     priority: 128
     volume: 1
     pitch: 1
-    spatialBlend: 1
+    spatialBlend: 0.7
+    minDistance: 10
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -112,6 +124,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     spatialBlend: 1
+    minDistance: 0
+    maxDistance: 0
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -125,6 +139,8 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     spatialBlend: 1
+    minDistance: 0
+    maxDistance: 0
     delay: 0
     onComplete:
       m_PersistentCalls:

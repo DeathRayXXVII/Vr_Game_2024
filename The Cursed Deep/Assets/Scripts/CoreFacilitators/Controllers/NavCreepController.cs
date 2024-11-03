@@ -35,6 +35,8 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
 
     public Vector3 hitPoint { get; private set; }
 
+    private void OnEnable() => canDealDamage = true;
+
     private void Awake()
     {
         _damageWait = new WaitForSeconds(damageCooldown);
@@ -83,10 +85,9 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
         canDealDamage = false;
         target.TakeDamage(this);
         yield return _damageWait;
-        
-        canDealDamage = true;
         yield return _wffu;
         
+        canDealDamage = true;
         _damageCoroutine = null;
     }
     

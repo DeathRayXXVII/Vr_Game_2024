@@ -5723,12 +5723,6 @@ MonoBehaviour:
   _showDamageDealt: 1
   _damageTextPrefab: {fileID: 51259392871185019, guid: dbaaa7315e1db7a4cac1133333475c64,
     type: 3}
-  _offsetZ: 0.15
-  _textCharacterSize: 0.1
-  _textFontSize: 186
-  _textFont: {fileID: 12800000, guid: 1b5effe7b43bb3142ae690ab9cf73a16, type: 3}
-  _textStyle: 2
-  _textColor: {r: 1, g: 0, b: 0.16260576, a: 0}
 --- !u!114 &2929105483588171912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5748,6 +5742,18 @@ MonoBehaviour:
     onWaitFinished:
       m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 6856031701504733252}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: StopPlayback
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
         - m_Target: {fileID: 251029785398977055}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_MethodName: SetActive
@@ -5874,6 +5880,18 @@ MonoBehaviour:
   onSpawn:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 6856031701504733252}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: TentSpawn
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: f1f9bac4b1c5d8c49a907f4d95b28b3a, type: 2}
         m_TargetAssemblyTypeName: CreepData, Assembly-CSharp
         m_MethodName: IncrementSpawnedTotal
@@ -5884,6 +5902,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2447077365598734518}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: LeviathanSpawned
           m_BoolArgument: 0
         m_CallState: 2
   timeToRespawn: {fileID: 0}

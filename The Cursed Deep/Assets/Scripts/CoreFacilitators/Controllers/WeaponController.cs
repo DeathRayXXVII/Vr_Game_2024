@@ -15,11 +15,23 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
     private readonly WaitForFixedUpdate _wffu = new();
     private Coroutine _damageCoroutine;
 
-    [SerializeField, SteppedRange(rangeMin:0.5f, rangeMax:10f, step:0.1f)] private float damageCooldown = 3f;
+    [SerializeField, SteppedRange(rangeMin:0.5f, rangeMax:10f, step:0.1f)] private float damageCooldown = 1f;
     
     private void Awake() => _damageWait = new WaitForSeconds(damageCooldown);
 
     private void OnEnable() => canDealDamage = true;
+
+    private void OnDisable()
+    {
+        if (_damageCoroutine != null) StopCoroutine(_damageCoroutine);
+        _damageCoroutine = null;
+    }
+
+    private void OnDestroy()
+    {
+        if (_damageCoroutine != null) StopCoroutine(_damageCoroutine);
+        _damageCoroutine = null;
+    }
 
     public float damage
     {
@@ -38,6 +50,7 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
     private void OnCollisionEnter(Collision other)
     {
         var damageable = AdvancedGetComponent<IDamagable>(other.gameObject);
+        Debug.Log($"[WeaponController] Collision of {name} with {other.gameObject.name}\ndamageable: {damageable != null}\ncanDealDamage: {canDealDamage}", this);
         if(damageable == null) return;
         hitPoint = other.GetContact(0).point;
         DealDamage(damageable);
@@ -56,16 +69,22 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
         canDealDamage = false;
         target.TakeDamage(this);
         yield return _damageWait;
-        
-        canDealDamage = true;
         yield return _wffu;
         
+        canDealDamage = true;
         _damageCoroutine = null;
     }
     
     public void DealDamage(IDamagable target)
     {
-        if (!canDealDamage) return;
+        if (!canDealDamage)
+        {
+            Debug.Log($"[WeaponController] Cannot deal damage to {target} yet.", this);
+            return;
+        }
+        Debug.Log($"[WeaponController] Dealing damage to {target}, coroutine: {(_damageCoroutine == null ? "correctly is null" : "incorrectly is not null")}", this);
         _damageCoroutine ??= StartCoroutine(HandleDealingDamage(target));
     }
+    
+    
 }

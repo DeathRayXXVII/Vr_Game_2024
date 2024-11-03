@@ -28,13 +28,16 @@ public class AudioPlayer : MonoBehaviour
         PlayAwakeAudio();
     }
 
-    private void ConfigureAudioSource(int priority, float volume, float pitch, float spatialBlend)
+    private void ConfigureAudioSource(int priority, float volume, float pitch, float spatialBlend,
+        float minDistance, float maxDistance)
     {
         StopAudio();
         _audioSource.priority = priority;
         _audioSource.volume = volume;
         _audioSource.pitch = pitch;
         _audioSource.spatialBlend = spatialBlend;
+        _audioSource.minDistance = minDistance;
+        _audioSource.maxDistance = maxDistance;
     }
     
     private void PlayAwakeAudio()
@@ -42,7 +45,8 @@ public class AudioPlayer : MonoBehaviour
         foreach (var audioShot in audioShotManager.audioShots)
         {
             if (!audioShot.playOnAwake) continue;
-            ConfigureAudioSource(audioShot.priority, audioShot.volume, audioShot.pitch, audioShot.spatialBlend);
+            ConfigureAudioSource(audioShot.priority, audioShot.volume, audioShot.pitch, audioShot.spatialBlend,
+                audioShot.minDistance, audioShot.maxDistance);
             _audioSource.PlayOneShot(audioShot.clip);
         }
     }
@@ -66,7 +70,8 @@ public class AudioPlayer : MonoBehaviour
         var audioShot = audioShotManager.audioShots[index];
         if (audioShot.clip == null || (audioShot.hasPlayed && audioShot.playOnlyOncePerGame)) return;
         
-        ConfigureAudioSource(audioShot.priority, audioShot.volume, audioShot.pitch, audioShot.spatialBlend);
+        ConfigureAudioSource(audioShot.priority, audioShot.volume, audioShot.pitch, audioShot.spatialBlend,
+            audioShot.minDistance, audioShot.maxDistance);
         if (audioShot.delay > 0)
         {
             _delay = new WaitForSeconds(audioShot.delay);

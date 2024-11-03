@@ -1244,16 +1244,16 @@ MonoBehaviour:
             m_StringArgument: LeviathanSpotted
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 7167791880411152644}
-          m_TargetAssemblyTypeName: SpawnManager, Assembly-CSharp
-          m_MethodName: StartSpawn
-          m_Mode: 1
+        - m_Target: {fileID: 2216665755654570107}
+          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
+          m_MethodName: StartWaitForSecondsEvent
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: StartSpawning
             m_BoolArgument: 0
           m_CallState: 2
   - actionObj: {fileID: 11400000, guid: 49e3e49d7194d9144be6cf8c7ddbeaff, type: 2}
@@ -1270,6 +1270,18 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Splash
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 979391305291432036}
+          m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+          m_MethodName: Play
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &5809934676073817134
@@ -1548,6 +1560,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2211085526517424747}
   - component: {fileID: 7167791880411152644}
+  - component: {fileID: 2216665755654570107}
   m_Layer: 0
   m_Name: Enemy Spawn Handler
   m_TagString: Untagged
@@ -1604,6 +1617,39 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2216665755654570107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8037688101571340828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endWaitForSeconds:
+  - id: StartSpawning
+    realTime: 0
+    seconds: 1
+    onWaitFinished:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7167791880411152644}
+          m_TargetAssemblyTypeName: SpawnManager, Assembly-CSharp
+          m_MethodName: StartSpawn
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  endWaitForZero: []
+  endWaitForFixedUpdate: []
 --- !u!1 &8230282829892390552
 GameObject:
   m_ObjectHideFlags: 0

@@ -160,6 +160,7 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     
     public void TakeDamage(IDamageDealer dealer)
     {
+        Debug.Log($"Taking Damage: {dealer.damage}, at: {dealer.hitPoint}, current health: {health}, will take damage: {!_isDead}");
         if (_isDead) return;
         var amount = dealer.damage;
         

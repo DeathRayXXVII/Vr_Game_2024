@@ -20,7 +20,10 @@ public class AudioShotManager : ScriptableObject, IResetOnNewGame, INeedButton
         [Range(0, 256)] public int priority = 128;
         [Range(0, 1)] public float volume = 1.0f;
         [Range(-3, 3)] public float pitch = 1.0f;
-        [Range(0, 1)] public float spatialBlend;
+        [LabeledRange(0, 1, "2D", "3D")] public float spatialBlend;
+        public float minDistance = 1f;
+        public float maxDistance = 500f;
+        
         [Header("Runtime Settings")]
         public float delay;
         public UnityEvent onComplete;

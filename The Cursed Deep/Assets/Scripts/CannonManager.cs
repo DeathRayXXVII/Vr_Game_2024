@@ -51,6 +51,8 @@ public class CannonManager : MonoBehaviour
     private void Awake()
     {
         if (!_modelAnimator) _modelAnimator = GetComponent<Animator>();
+        if (reloadSocket.socketScaleMode != SocketScaleMode.Fixed)
+            reloadSocket.socketScaleMode = SocketScaleMode.Fixed;
     } 
     
     private static bool _errorsLogged;
@@ -133,11 +135,9 @@ public class CannonManager : MonoBehaviour
 
     private void LoadCannon(GameObject obj)
     {
-        if (reloadSocket.socketScaleMode != SocketScaleMode.Fixed)
-            reloadSocket.socketScaleMode = SocketScaleMode.Fixed;
-        reloadSocket.fixedScale = Vector3.one * 0.01f;
         _isLoaded = true;
         _loadedAmmo = obj;
+        reloadSocket.fixedScale = Vector3.one * 0.01f;
         _modelAnimator.SetTrigger(_loadAnimationTrigger);
         _ammoObj = GetAmmo();
         _ammoMeshFilter = AdvancedGetComponent<MeshFilter>(_ammoObj);
