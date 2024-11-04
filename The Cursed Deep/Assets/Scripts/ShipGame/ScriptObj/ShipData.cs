@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.tvOS;
 
 namespace ShipGame.ScriptObj
 {
@@ -81,25 +80,6 @@ namespace ShipGame.ScriptObj
             }
         }
         
-        [SerializeField] [InspectorReadOnly] private int currentUpgradeIndex;
-        public int upgradeIndex
-        {
-            get => currentUpgradeIndex;
-            set 
-            {
-                if (_shipInstanceData == null || _shipInstanceData.Length == 0)
-                {
-#if UNITY_EDITOR
-                    Debug.LogError("shipUpgrading is not initialized or is empty.", this);
-#endif
-                    return;
-                }
-                
-                // Index clamped between 0 and the length of the ammo array
-                currentUpgradeIndex = Mathf.Clamp(value, 0, _shipInstanceData.Length - 1);
-            }
-        }
-        
         private void ArrayError(string arrayName, string error)
         {
 #if UNITY_EDITOR
@@ -115,7 +95,7 @@ namespace ShipGame.ScriptObj
         [SerializeField] private Ship[] _shipData;
         private Ship ship => _shipData[selectionIndex];
         public int numberOfLanes => _shipInstanceData[selectionIndex].numberOfLanes;
-        public float health => _shipInstanceData[upgradeIndex].health;
+        public float health => _shipInstanceData[selectionIndex].health;
         public void SetCannonPrefabData(PrefabData cannonPrefab) => ship.cannonInstancerData.SetPrefabData(cannonPrefab);
         public void SetCannonPrefabOffset(Vector3Data offset) => ship.cannonInstancerData.SetPrefabOffset(offset);
         public void SetAmmoPrefabDataList(PrefabDataList ammoPrefabList) => ship.ammoSpawnerData.SetPrefabDataList(ammoPrefabList);

@@ -65,8 +65,8 @@ public class ResponseHandler : MonoBehaviour
          responseButton.SetActive(true);
          responseButton.GetComponentInChildren<TMP_Text>().text = response.ResponseText;
          responseButton.GetComponent<XRSimpleInteractable>().selectEntered.RemoveAllListeners();
-         responseButton.GetComponent<XRSimpleInteractable>().selectEntered.AddListener(OnPickedResponse);  
-         responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse());
+         // responseButton.GetComponent<XRSimpleInteractable>().selectEntered.AddListener(OnPickedResponse);  
+         // responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse());
          //collider, onSelect
          tempResponseButtons.Add(responseButton);
 
@@ -76,6 +76,7 @@ public class ResponseHandler : MonoBehaviour
       responseBox.gameObject.SetActive(true);
    }
 
+   /*
    // private void OnPickedResponse(Response response, int responseIndex)
    private void OnPickedResponse(SelectEnterEventArgs args)
    {
@@ -134,4 +135,5 @@ public class ResponseHandler : MonoBehaviour
          dialogueUI.CloseDialogueBox(response.DialogueData);
       }
    }
+   */
 }
