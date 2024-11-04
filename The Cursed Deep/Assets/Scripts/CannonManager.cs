@@ -34,6 +34,7 @@ public class CannonManager : MonoBehaviour
     private List <GameObject> _currentAmmoList;
     private bool _isLoaded;
     private GameObject _ammoObj;
+    private Rigidbody _ammoRb;
     private Coroutine _addForceCoroutine;
 
     [Header("Model Animation:")]
@@ -75,9 +76,9 @@ public class CannonManager : MonoBehaviour
         if (reloadSocket)
         {
             reloadSocket.ObjectSocketed += LoadCannon;
-            reloadSocket.ObjectUnsocketed += UnloadCannon;
+            // reloadSocket.ObjectUnsocketed += UnloadCannon;
         }
-        if (_ammoSpawnSocket) _ammoSpawnSocket.ObjectUnsocketed += HandleActivatedAmmo;
+        // if (_ammoSpawnSocket) _ammoSpawnSocket.ObjectUnsocketed += HandleActivatedAmmo;
     }
 
     private void OnDisable()
@@ -85,9 +86,9 @@ public class CannonManager : MonoBehaviour
         if (reloadSocket)
         {
             reloadSocket.ObjectSocketed -= LoadCannon;
-            reloadSocket.ObjectUnsocketed -= UnloadCannon;
+            // reloadSocket.ObjectUnsocketed -= UnloadCannon;
         }
-        if (_ammoSpawnSocket) _ammoSpawnSocket.ObjectUnsocketed -= HandleActivatedAmmo;
+        // if (_ammoSpawnSocket) _ammoSpawnSocket.ObjectUnsocketed -= HandleActivatedAmmo;
         _despawningAmmoList.Clear();
     }
 
@@ -98,12 +99,12 @@ public class CannonManager : MonoBehaviour
         {
             if (_ammoSpawnSocket)
             {
-                _ammoSpawnSocket.ObjectUnsocketed -= HandleActivatedAmmo;
+                // _ammoSpawnSocket.ObjectUnsocketed -= HandleActivatedAmmo;
             }
             _ammoSpawnSocket = value;
             if (_ammoSpawnSocket)
             {
-                _ammoSpawnSocket.ObjectUnsocketed += HandleActivatedAmmo;
+                // _ammoSpawnSocket.ObjectUnsocketed += HandleActivatedAmmo;
             }
         }
     }
@@ -122,49 +123,45 @@ public class CannonManager : MonoBehaviour
             return;
         }
         
-        var ammoRb = _ammoObj.GetComponent<Rigidbody>();
-        
         if (_addForceCoroutine != null){ _ammoObj.SetActive(false); return;}
         _ammoObj.SetActive(true);
         if (_modelAnimator.GetBool(_loadAnimationTrigger)) _modelAnimator.ResetTrigger(_loadAnimationTrigger);
         _modelAnimator.SetTrigger(_fireAnimationTrigger);
         onSuccessfulFire.Invoke();
-        _addForceCoroutine ??= StartCoroutine(AddForceToAmmo(ammoRb));
-        UnloadCannon(null);
+        _addForceCoroutine ??= StartCoroutine(AddForceToAmmo());
+        UnloadCannon();
     }
 
+    private const float ResizeFactor = 0.1f;
     private void LoadCannon(GameObject obj)
     {
+        if (_isLoaded) return;
         _isLoaded = true;
         _loadedAmmo = obj;
-        reloadSocket.fixedScale = Vector3.one * 0.01f;
+        reloadSocket.fixedScale = Vector3.one * ResizeFactor;
         _modelAnimator.SetTrigger(_loadAnimationTrigger);
         _ammoObj = GetAmmo();
+        _ammoRb = AdvancedGetComponent<Rigidbody>(_ammoObj);
         _ammoMeshFilter = AdvancedGetComponent<MeshFilter>(_ammoObj);
         _ammoMeshRenderer = AdvancedGetComponent<MeshRenderer>(_ammoObj);
         var objMeshFilter = AdvancedGetComponent<MeshFilter>(obj);
         var objMeshRenderer = AdvancedGetComponent<MeshRenderer>(obj);
         if (_ammoMeshFilter && objMeshFilter)
-        {
             _ammoMeshFilter.mesh = objMeshFilter.mesh;
-        }
+            
         if (_ammoMeshRenderer && objMeshRenderer)
-        {
             _ammoMeshRenderer.material = objMeshRenderer.material;
-        }
+        
         onLoaded.Invoke();
     }
 
-    private void UnloadCannon([CanBeNull] GameObject obj)
+    private void UnloadCannon()
     {
-        if (reloadSocket.socketScaleMode != SocketScaleMode.Fixed)
-            reloadSocket.socketScaleMode = SocketScaleMode.Fixed;
-        reloadSocket.fixedScale = Vector3.one / 0.01f;
-        reloadSocket.UnsocketObject();
+        reloadSocket.fixedScale = Vector3.one / ResizeFactor;
+        reloadSocket.RemoveAndMoveSocketObject(Vector3.zero, Quaternion.identity);
+        if (_loadedAmmo) AdvancedGetComponent<PooledObjectBehavior>(_loadedAmmo)?.TriggerRespawn();
         _loadedAmmo = null;
         _isLoaded = false;
-        if (!obj) return;
-        AdvancedGetComponent<PooledObjectBehavior>(obj)?.TriggerRespawn();
     }
 
     private GameObject GetAmmo()
@@ -182,23 +179,33 @@ public class CannonManager : MonoBehaviour
         return newAmmo;
     }
     
-    private IEnumerator AddForceToAmmo(Rigidbody ammoRb)
+    private IEnumerator AddForceToAmmo()
     {
-        ammoRb.isKinematic = false;
-        ammoRb.useGravity = true;
-        ammoRb.velocity = Vector3.zero;
-        ammoRb.angularVelocity = Vector3.zero;
+        if (!_ammoRb) yield break;
+        _ammoRb.isKinematic = false;
+        _ammoRb.useGravity = true;
+        _ammoRb.velocity = Vector3.zero;
+        _ammoRb.angularVelocity = Vector3.zero;
         
         yield return _waitFixedUpdate;
         yield return _waitFixedUpdate;
         yield return _waitFixedUpdate;
         yield return null;
         
-        ammoRb.AddForce(momentumVector, ForceMode.Impulse);
+        _ammoRb.AddForce(momentumVector, ForceMode.Impulse);
         _addForceCoroutine = null; 
     }
 
-    private void HandleActivatedAmmo(GameObject ammo) => StartCoroutine(DespawnAmmo(ammo));
+    private void HandleActivatedAmmo(GameObject ammo)
+    {
+        if (_despawningAmmoList.Contains(ammo))
+        {
+            Debug.LogWarning($"Ammo is already despawning: {ammo.name}", this);
+            return;
+        }
+        
+        StartCoroutine(DespawnAmmo(ammo));
+    }
     
     private IEnumerator DespawnAmmo(GameObject ammo)
     {
@@ -218,6 +225,7 @@ public class CannonManager : MonoBehaviour
             time++;
             yield return _waitSingleSecond;
         }
+        // WaitUntil(() => _despawningAmmoList.Contains(ammo));
         AdvancedGetComponent<PooledObjectBehavior>(ammo)?.TriggerRespawn();
         _despawningAmmoList.Remove(ammo);
         yield return _waitFixedUpdate;

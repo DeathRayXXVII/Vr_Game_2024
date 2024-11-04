@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6765261163820983108}
   - component: {fileID: 7049470538225090465}
   - component: {fileID: 248059003528508671}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: Geo Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 9105805529164418268}
   - component: {fileID: 2370026578296386634}
   - component: {fileID: 5421103630551125079}
-  m_Layer: 11
+  m_Layer: 19
   m_Name: Cannon Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -453,7 +453,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3447436285584498489}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: Lid Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,7 +486,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8163348348128312128}
   - component: {fileID: 6172718303267128026}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: Collider Wheels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15265,7 +15265,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1758310678586127740}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15502,7 +15502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7552885906197956091}
   - component: {fileID: 5171148451745548218}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: Collider Cradle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15712,7 +15712,7 @@ GameObject:
   - component: {fileID: 8731933157068426529}
   - component: {fileID: 6216984190795243056}
   - component: {fileID: 1023993256602860125}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: Geo Cart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15794,7 +15794,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1243274639372205933}
   - component: {fileID: 5240843114848675322}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: Collider Lid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15932,7 +15932,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7817795705090348119}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20857,7 +20857,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9082712337969207519}
   - component: {fileID: 665123775049196597}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: Collider Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20913,7 +20913,7 @@ GameObject:
   - component: {fileID: 6921489728631688627}
   - component: {fileID: 828025290245711094}
   - component: {fileID: 8553493320925562856}
-  m_Layer: 11
+  m_Layer: 6
   m_Name: Geo Lid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21055,7 +21055,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayers:
-    m_Bits: 2
+    m_Bits: 4
   m_Handedness: 0
   m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
@@ -21090,8 +21090,9 @@ MonoBehaviour:
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
   triggerID:
   - id: {fileID: 11400000, guid: 0eba56e70948ccd4a8f10c4ad410c5be, type: 2}
-  allowDebug: 0
+  allowDebug: 1
   disableObjectOnSocket: 0
+  deactivateInteractionOnSocket: 1
   socketID: {fileID: 11400000, guid: ba3e9af1a9142f248a11616caed46456, type: 2}
   onObjectSocketed:
     m_PersistentCalls:

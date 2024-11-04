@@ -106,6 +106,7 @@ public class HealthBehavior : MonoBehaviour, IDamagable
         if (!_maxHealth) _maxHealth = ScriptableObject.CreateInstance<FloatData>();
         if (maxHealth <= 0) maxHealth = 1;
         if (health <= 0 || health > maxHealth) health = maxHealth;
+        _currentHealth = health;
     }
     
     private void CheckHealthEvents()
@@ -160,7 +161,6 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     
     public void TakeDamage(IDamageDealer dealer)
     {
-        Debug.Log($"Taking Damage: {dealer.damage}, at: {dealer.hitPoint}, current health: {health}, will take damage: {!_isDead}");
         if (_isDead) return;
         var amount = dealer.damage;
         

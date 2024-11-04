@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
-
+using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
 public class SocketMatchInteractor : XRSocketInteractor
@@ -18,20 +18,22 @@ public class SocketMatchInteractor : XRSocketInteractor
         public ID id;
     }
 
-    [SerializeField]
-    private List<PossibleMatch> triggerID;
+    [SerializeField] private List<PossibleMatch> triggerID;
     
-    public bool allowDebug;
-    public bool disableObjectOnSocket;
+    [SerializeField] private bool allowDebug;
+    [SerializeField] private bool disableObjectOnSocket;
+    [SerializeField] private bool deactivateGrabInteractionOnSocket;
 
-    public ID socketID;
+    [SerializeField] private ID socketID;
     
     public UnityEvent onObjectSocketed;
     public UnityEvent onObjectUnsocketed;
     
     private IDBehavior _idBehavior;
-    private WaitForFixedUpdate _wffu = new WaitForFixedUpdate();
+    private readonly WaitForFixedUpdate _wait = new();
     
+    private InteractionLayerMask _originalInteractableLayerMask;
+    private InteractionLayerMask _isolatedLayerMask;
     private XRGrabInteractable _socketedObject;
     private Collider _socketTrigger;
     
@@ -39,6 +41,9 @@ public class SocketMatchInteractor : XRSocketInteractor
     
     private new void Awake()
     {
+        interactionLayers = 6;
+        _isolatedLayerMask.value = 4;
+        
         if (socketID)
         {
             _idBehavior = gameObject.AddComponent<IDBehavior>();
@@ -118,29 +123,36 @@ public class SocketMatchInteractor : XRSocketInteractor
     {
         _socketedObject = interactable;
         _socketedObject.StopAllCoroutines();
-        if (!disableObjectOnSocket) return base.StartSocketSnapping(interactable);
-        StartCoroutine(DisableObject(interactable.gameObject));
-        return false;
-    }
-    
-    private IEnumerator DisableObject(GameObject obj)
-    {
-        yield return _wffu;
-        yield return _wffu;
-        yield return _wffu;
-        obj.SetActive(false);
-    }
-    
-    public void UnsocketObject()
-    {
-        if (!_socketedObject) return;
-        RemoveAndMoveSocketObject(Vector3.zero, Quaternion.identity);
-        _socketedObject = null;
+        
+        if (disableObjectOnSocket)
+        {
+            StartCoroutine(DisableObject(interactable.gameObject));
+            return false;
+        }
+        if (deactivateGrabInteractionOnSocket)
+        {
+            _originalInteractableLayerMask = interactable.interactionLayers;
+            interactable.interactionLayers = _isolatedLayerMask;
+        }
+
+        return base.StartSocketSnapping(interactable);
     }
     
     protected override bool EndSocketSnapping(XRGrabInteractable interactable)
     {
+        if (deactivateGrabInteractionOnSocket)
+        {
+            interactable.interactionLayers = _originalInteractableLayerMask;
+        }
         return base.EndSocketSnapping(interactable);
+    }
+    
+    private IEnumerator DisableObject(GameObject obj)
+    {
+        yield return _wait;
+        yield return _wait;
+        yield return _wait;
+        obj.SetActive(false);
     }
     
     public void RemoveAndMoveSocketObject(Transform copyTransform)
@@ -164,14 +176,14 @@ public class SocketMatchInteractor : XRSocketInteractor
     private IEnumerator PerformRemoveAndMove(Vector3 position, Quaternion rotation)
     {
         var obj = _socketedObject.gameObject;
-        yield return _wffu;
-        interactionManager.CancelInteractableSelection(interactablesSelected[0]);
-        yield return _wffu;
+        yield return _wait;
+        if (interactablesSelected.Count != 0) interactionManager.CancelInteractableSelection(interactablesSelected[0]);
+        yield return _wait;
         obj.transform.position = position;
         obj.transform.rotation = rotation;
-        yield return _wffu;
+        yield return _wait;
         _socketedObject = null;
-        yield return _wffu;
+        yield return _wait;
         _socketTrigger.enabled = true;
         _removeAndMoveCoroutine = null;
     }

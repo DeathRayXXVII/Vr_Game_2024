@@ -91,7 +91,7 @@ namespace ShipGame.ScriptObj
         {
             currentLevel++;
 #if UNITY_EDITOR
-            PrintGameVariables();
+            PrintGameVariables("Called From LevelCompleted");
 #endif
         }
         public void LevelFailed() => ResetToNewGameValues();
@@ -215,40 +215,44 @@ namespace ShipGame.ScriptObj
                 Setup(true);
             }
 #if UNITY_EDITOR
-            PrintGameVariables();
+            PrintGameVariables("Called From Setup");
 #endif
         }
 
-        private void PrintGameVariables()
+        private void PrintGameVariables(string header = "")
         {
 #if UNITY_EDITOR
             if (allowDebug)
             {
                 Debug.Log(
                     "-----Game Variables-----\n" +
-                    $"Player Speed: {gameGlobals.playerSpeed}\n" +
-                    $"Player Score: {gameGlobals.playerScore}\n" +
+                    $"{(header == "" ? "" : "      -" + header + "-\n\n")}" +
+                    $"      -Level Index: {currentLevel}-\n" +
                     "\n" +
-                    $"Ship Index: {shipIndex}\n" +
-                    $"Ship Health: {gameGlobals.shipHealth}\n" +
+                    $"Player Speed:\n    {gameGlobals.playerSpeed}\n" +
+                    $"Player Score:\n    {gameGlobals.playerScore}\n" +
                     "\n" +
-                    $"Ammo Index: {ammoIndex}\n" +
+                    $"      -Ship Index: {shipIndex}-\n" +
+                    $"Ship Health:\n    {gameGlobals.shipHealth}\n" +
+                    "\n" +
+                    $"      -Ammo Index: {ammoIndex}-\n" +
                     $"Ammo Damage: {gameGlobals.ammoDamage.damage}\n" +
-                    $"Ammo Respawn Time: {gameGlobals.ammoRespawnRate}\n" +
+                    $"Ammo Respawn Time:\n    {gameGlobals.ammoRespawnRate}\n" +
                     "\n" +
-                    $"Cannon Index: {cannonIndex}\n" +
+                    $"      -Cannon Index: {cannonIndex}-\n" +
                     "\n" +
-                    $"Enemy Index: {enemyIndex}\n" +
-                    $"Lane Active Limit: {gameGlobals.enemyLaneActiveLimit}\n" +
-                    $"Spawn Rate MIN: {gameGlobals.spawnRateMin}\n" +
-                    $"Spawn Rate MAX: {gameGlobals.spawnRateMax}\n" +
-                    $"Enemy Spawn Count: {gameGlobals.enemySpawnCount}\n" +
+                    $"      -Enemy Index: {enemyIndex}-\n" +
+                    $"Lane Active Limit:\n    {gameGlobals.enemyLaneActiveLimit}\n" +
+                    $"Spawn Rate MIN:\n    {gameGlobals.spawnRateMin}\n" +
+                    $"Spawn Rate MAX:\n    {gameGlobals.spawnRateMax}\n" +
+                    $"Enemy Spawn Count:\n    {gameGlobals.enemySpawnCount}\n" +
                     $"Enemy Health: {enemy.health}\n" +
                     $"Enemy Damage: {enemy.damage}\n" +
                     $"Enemy Speed: {enemy.speed}\n" +
                     $"Enemy Bounty: {enemy.bounty}\n" +
                     $"Enemy Score: {levelData.spawnScore}\n" +
                     "\n"
+                    , this
                 );
             }
 #endif

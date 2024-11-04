@@ -50,7 +50,6 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
     private void OnCollisionEnter(Collision other)
     {
         var damageable = AdvancedGetComponent<IDamagable>(other.gameObject);
-        Debug.Log($"[WeaponController] Collision of {name} with {other.gameObject.name}\ndamageable: {damageable != null}\ncanDealDamage: {canDealDamage}", this);
         if(damageable == null) return;
         hitPoint = other.GetContact(0).point;
         DealDamage(damageable);
@@ -77,12 +76,7 @@ public class WeaponController : MonoBehaviour, IDamagable, IDamageDealer
     
     public void DealDamage(IDamagable target)
     {
-        if (!canDealDamage)
-        {
-            Debug.Log($"[WeaponController] Cannot deal damage to {target} yet.", this);
-            return;
-        }
-        Debug.Log($"[WeaponController] Dealing damage to {target}, coroutine: {(_damageCoroutine == null ? "correctly is null" : "incorrectly is not null")}", this);
+        if (!canDealDamage) return;
         _damageCoroutine ??= StartCoroutine(HandleDealingDamage(target));
     }
     
