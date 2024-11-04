@@ -31,7 +31,7 @@ public class AudioShotManager : ScriptableObject, IResetOnNewGame, INeedButton
 
     public List<AudioShot> audioShots;
     private Coroutine _waitForEndCoroutine;
-
+    
     public void PlayAudio(AudioSource audioSource, string id)
     {
         var index = audioShots.FindIndex(shot => shot.id == id);
