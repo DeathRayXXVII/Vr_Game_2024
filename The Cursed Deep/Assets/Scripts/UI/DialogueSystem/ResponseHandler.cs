@@ -3,6 +3,8 @@ using TMPro;
 using UI.DialogueSystem;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class ResponseHandler : MonoBehaviour
 {
@@ -62,8 +64,10 @@ public class ResponseHandler : MonoBehaviour
 
          responseButton.SetActive(true);
          responseButton.GetComponentInChildren<TMP_Text>().text = response.ResponseText;
-         responseButton.GetComponent<Button>().onClick.RemoveAllListeners();
-         responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response, responseIndex));
+         responseButton.GetComponent<XRSimpleInteractable>().selectEntered.RemoveAllListeners();
+         responseButton.GetComponent<XRSimpleInteractable>().selectEntered.AddListener(OnPickedResponse);  
+         responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse());
+         //collider, onSelect
          tempResponseButtons.Add(responseButton);
 
          responseBoxHeight += responseButtonTemplate.sizeDelta.y;
@@ -72,7 +76,8 @@ public class ResponseHandler : MonoBehaviour
       responseBox.gameObject.SetActive(true);
    }
 
-   private void OnPickedResponse(Response response, int responseIndex)
+   // private void OnPickedResponse(Response response, int responseIndex)
+   private void OnPickedResponse(SelectEnterEventArgs args)
    {
       if (response == null)
       {
