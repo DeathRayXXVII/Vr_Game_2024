@@ -3960,6 +3960,8 @@ MonoBehaviour:
   audioShotManager: {fileID: 0}
   mixerGroup: {fileID: -6073963964718969515, guid: e277e69d8c87af14ba83427fbcdddc7d,
     type: 2}
+  resetAudioOnAwake: 0
+  resetAudioOnDestroy: 0
 --- !u!82 &2126129412
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4201,8 +4203,65 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8720551224490387902, guid: 7a3db70e9fd3eca46b3216e9dcfe86bd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7010431941232742565}
+    - targetCorrespondingSourceObject: {fileID: 8720551224490387902, guid: 7a3db70e9fd3eca46b3216e9dcfe86bd,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7010431941232742564}
   m_SourcePrefab: {fileID: 100100000, guid: 7a3db70e9fd3eca46b3216e9dcfe86bd, type: 3}
+--- !u!1 &7010431941232742563 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8720551224490387902, guid: 7a3db70e9fd3eca46b3216e9dcfe86bd,
+    type: 3}
+  m_PrefabInstance: {fileID: 7010431941232742562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7010431941232742564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7010431941232742563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084cda31011b9ca4a806fa24ee9735db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: {fileID: 11400000, guid: d18387a3061f58d4db09127b101f428f, type: 2}
+  allowDebug: 0
+  triggerEnterMatches:
+  - id: {fileID: 11400000, guid: 524fb3f573a236740969de4566385041, type: 2}
+    triggerEnterEvent:
+      m_PersistentCalls:
+        m_Calls: []
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!65 &7010431941232742565
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7010431941232742563}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.83957815, y: 11.170117, z: 0.9067812}
+  m_Center: {x: -7.327472e-15, y: 5.091993, z: -0.0000006109477}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
