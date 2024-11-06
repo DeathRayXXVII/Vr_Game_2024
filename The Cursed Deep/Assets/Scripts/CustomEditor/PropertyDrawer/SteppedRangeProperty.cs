@@ -1,10 +1,12 @@
-#if UNITY_EDITOR
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 // Custom attribute to create a range with a step value
 public class SteppedRangeAttribute : PropertyAttribute
 {
+#if UNITY_EDITOR
     public float min;
     public float max;
     public float step;
@@ -15,12 +17,14 @@ public class SteppedRangeAttribute : PropertyAttribute
         max = rangeMax;
         this.step = step;
     }
+#endif
 }
 
 // Custom drawer for the SteppedRangeAttribute
 [CustomPropertyDrawer(typeof(SteppedRangeAttribute))]
 public class SteppedRangeDrawer : PropertyDrawer
 {
+#if UNITY_EDITOR
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         SteppedRangeAttribute stepAttribute = attribute as SteppedRangeAttribute;
@@ -40,5 +44,5 @@ public class SteppedRangeDrawer : PropertyDrawer
             EditorGUI.LabelField(position, label.text, "Use Step with float.");
         }
     }
-}
 #endif
+}

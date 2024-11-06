@@ -1,11 +1,13 @@
+using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
-using UnityEngine;
 using ZPTools.Interface;
+#endif
 
 [CustomEditor(typeof(UpgradeData))]
 public class UpgradeDataEditor : Editor
 {
+#if UNITY_EDITOR
     private string _lastFocusedControl = "";
     private Vector2 blobScrollPosition = Vector2.zero; 
     
@@ -129,15 +131,19 @@ public class UpgradeDataEditor : Editor
             switch (costTypeEnum)
             {
                 case UpgradeData.DataType.Float:
-                    currentCostProperty = EditorGUILayout.FloatField("Current Cost", currentCostProperty is float floatCost ? floatCost : 0f);
+                    // EditorGUILayout.FloatField("Current Cost", currentCostProperty is float floatCost ? floatCost : 0f);
+                    EditorGUILayout.FloatField("Current Cost", (float)currentCostProperty);
                     break;
                 case UpgradeData.DataType.Int:
-                    currentCostProperty = EditorGUILayout.IntField("Current Cost", currentCostProperty is int intCost ? intCost : 0);
+                    // EditorGUILayout.IntField("Current Cost", currentCostProperty is int intCost ? intCost : 0);
+                    EditorGUILayout.IntField("Current Cost", (int)currentCostProperty);
                     break;
             }
         }
-    
-        // Debug.Log($"Current Upgrade Property: {currentUpgradeProperty} of type {currentUpgradeProperty.GetType()}\nfloat = {currentUpgradeProperty is float} ({typeof(float)}\nint = {currentUpgradeProperty is int} ({typeof(int)}");
+
+        var output = currentCostProperty;
+        // Debug.Log($"Current Upgrade Property: {output} of type {output.GetType()}\nfloat = {output is float} ({typeof(float)}\nint = {output is int} ({typeof(int)}", this);
+        
         EditorGUI.indentLevel--;
         GUI.enabled = true;
         EditorGUILayout.EndVertical();
@@ -340,5 +346,5 @@ public class UpgradeDataEditor : Editor
         if (!string.IsNullOrEmpty(debugString) && allowDebugProperty.boolValue)
             Debug.Log("Changes detected.\n" + debugString, target);
     }
-}
 #endif
+}

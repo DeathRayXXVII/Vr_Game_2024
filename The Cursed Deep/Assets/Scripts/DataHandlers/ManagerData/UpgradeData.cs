@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 using UnityEngine.PlayerLoop;
 using ZPTools.Interface;
 using ZPTools.Utility;
+using Debug = UnityEngine.Debug;
 
 [CreateAssetMenu(fileName = "UpgradeData", menuName = "Data/UpgradeData", order = 0)]
 public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
@@ -64,13 +66,13 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         switch(_upgradeType)
         {
             case DataType.Float:
-                if (_valueFloat != null) _valueFloat.value = upgradeValue == null ? 0f : (float)upgradeValue;
-                if (_upgradeFloatValues.Count == 0) _valueIsLoaded = false;
+                if (_valueFloat != null) _valueFloat.value = upgradeValue is float floatCost ? floatCost : 0f;
+                if (_upgradeFloatValues?.Count == 0) _valueIsLoaded = false;
                 // Debug.Log($"Value: {upgradeValue}");
                 break;
             case DataType.Int:
-                if (_valueInt != null) _valueInt.value = upgradeValue == null ? 0 : (int)upgradeValue;
-                if (_upgradeIntValues.Count == 0) _valueIsLoaded = false;
+                if (_valueInt != null) _valueInt.value = upgradeValue is int intCost ? intCost : 0;
+                if (_upgradeIntValues?.Count == 0) _valueIsLoaded = false;
                 // Debug.Log($"Value: {upgradeValue}");
                 break;
             default:
@@ -80,12 +82,12 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         switch(_costType)
         {
             case DataType.Float:
-                if (_costFloat != null) _costFloat.value = upgradeCost == null ? 0f : (float)upgradeCost;
+                if (_costFloat != null) _costFloat.value = upgradeCost is float floatCost ? floatCost : 0f;
                 if (_upgradeFloatCosts.Count == 0) _costIsLoaded = false;
                 // Debug.Log($"Cost: {upgradeCost}");
                 break;
             case DataType.Int:
-                if (_costInt != null) _costInt.value = upgradeCost == null ? 0 : (int)upgradeCost;
+                if (_costInt != null) _costInt.value = upgradeCost is int intCost ? intCost : 0;
                 if (_upgradeIntCosts.Count == 0) _costIsLoaded = false;
                 // Debug.Log($"Cost: {upgradeCost}");
                 break;
@@ -148,7 +150,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     private bool _valueIsLoaded;
     private bool _costIsLoaded;
 
-    public object upgradeValue 
+    public object upgradeValue
     { 
         get
         {
@@ -159,8 +161,8 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
                 //           $"Upgrade Value: {(_upgradeType == DataType.Float ? _upgradeFloatValues[upgradeLevel] : _upgradeIntValues[upgradeLevel])}\n" +
                 //           $"Data Type: {_upgradeType}");
                return (_upgradeType == DataType.Float)
-                    ? (float)baseValue + _upgradeFloatValues[upgradeLevel]
-                    : (int)baseValue + _upgradeIntValues[upgradeLevel];
+                    ? (float)(object)baseValue + _upgradeFloatValues[upgradeLevel]
+                    : (int)(object)baseValue + _upgradeIntValues[upgradeLevel];
             }
             catch (Exception)
             {
@@ -169,23 +171,23 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         }
     }
 
-    public object upgradeCost 
-    { 
+    public object upgradeCost
+    {
         get
         {
-            try 
+            try
             {
-                return upgradeLevel+1 <= GetMaxUpgradeLevel() ? 
-                    _costType == DataType.Float ? _upgradeFloatCosts[upgradeLevel+1] : _upgradeIntCosts[upgradeLevel+1] :
-                    _costType == DataType.Float ? _upgradeFloatCosts[upgradeLevel] : _upgradeIntCosts[upgradeLevel];
+                return upgradeLevel + 1 <= GetMaxUpgradeLevel() ? 
+                    (_costType == DataType.Float ? (float)(object)_upgradeFloatCosts[upgradeLevel + 1] : (int)(object)_upgradeIntCosts[upgradeLevel + 1]) :
+                    (_costType == DataType.Float ? (float)(object)_upgradeFloatCosts[upgradeLevel] : (int)(object)_upgradeIntCosts[upgradeLevel]);
             }
             catch (Exception)
             {
                 return null;
             }
         }
-    }  
-    
+    }
+
     public object baseValue => _upgradeType == DataType.Float ? _baseValueFloat : _baseValueInt;
     private int GetMaxUpgradeLevel() => _upgradeType == DataType.Float ? _upgradeFloatValues.Count : _upgradeIntValues.Count;
 
@@ -226,9 +228,12 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         }
         
         _hashFileChangeDetector ??= new HashFileChangeDetector(GetJsonPath(), _allowDebug);
-        if (!isLoaded && !string.IsNullOrEmpty(_jsonBlob)) AttemptParseFromJsonBlob();
-        else if (!isLoaded || _hashFileChangeDetector.HasChanged())
+        var changeState = _hashFileChangeDetector.HasChanged();
+        Debug.Log($"JSON Path: {GetJsonPath()} JSON: {_jsonFile}\n", this);
+        if (!isLoaded && !string.IsNullOrEmpty(_jsonBlob) && !_blobNeedsUpdate && !changeState) AttemptParseFromJsonBlob();
+        if (!isLoaded || changeState)
             InitializeDataFromJson();
+        else Debug.LogWarning("Data already loaded.", this);
         
         isLoaded = _valueIsLoaded && _costIsLoaded;
         if (_blobNeedsUpdate) UpdateJsonBlob();
@@ -254,7 +259,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         ParseUpgradeList(jsonData);
         ParseCostList(jsonData);
         
-        _hashFileChangeDetector.UpdateState();
+        _hashFileChangeDetector?.UpdateState();
 #if UNITY_EDITOR
         if (_allowDebug)
             Debug.Log(
@@ -295,6 +300,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
 
         if (jsonSelection is JArray valuesArray)
         {
+            _blobNeedsUpdate = true;
             targetList.Clear();
             foreach (var value in valuesArray)
             {
@@ -302,7 +308,6 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
             }
             _valueIsLoaded = key == _valueKey || _valueIsLoaded;
             _costIsLoaded = key == _costKey || _costIsLoaded;
-            _blobNeedsUpdate = true;
 #if UNITY_EDITOR
             if (_allowDebug) Debug.Log($"Loaded JSON Key: ['{key}']\nContents: {string.Join(", ", targetList)}", this);
 #endif
@@ -317,12 +322,21 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         }
     }
 
+    private void ForceUpdate()
+    {
+        _blobNeedsUpdate = true;
+        LoadOnStartup();
+        Debug.Log($"JSON Blob: {_jsonBlob}", this);
+    }
+
     public List<(Action, string)> GetButtonActions()
     {
         return new List<(Action, string)>
         {
             (() => upgradeLevel++, "Increase Upgrade Level"),
-            (() => upgradeLevel--, "Decrease Upgrade Level")
+            (() => upgradeLevel--, "Decrease Upgrade Level"),
+            (ForceUpdate, "Force Update"),
+            (() => Debug.Log($"upgradeList: {string.Join(", ", _upgradeFloatValues)}\ncostList: {string.Join(", ", _upgradeFloatCosts)}", this), "Output Upgrade and Cost Lists"),
         };
     }
 }
