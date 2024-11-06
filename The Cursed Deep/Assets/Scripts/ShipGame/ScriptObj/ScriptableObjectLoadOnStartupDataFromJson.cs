@@ -1,11 +1,10 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using ZPTools.Interface;
 using ZPTools.Utility;
 
 namespace ShipGame.ScriptObj
 {
-    public abstract class ScriptableObjectStartupDataFromJson : ScriptableObject, IStartupLoader
+    public abstract class ScriptableObjectLoadOnStartupDataFromJson : ScriptableObject, ILoadOnStartup
     {
 #if UNITY_EDITOR
         [SerializeField] protected bool _allowDebug;
@@ -18,8 +17,6 @@ namespace ShipGame.ScriptObj
         protected abstract string dataFilePath { get; }
         // Json file path
         protected abstract string resourcePath { get; }
-        
-        protected abstract object tempJsonData { get; set; }
         
         // Generic method to parse JSON into any type
         protected T ParseJsonData<T>(string jsonContent)
@@ -86,6 +83,15 @@ namespace ShipGame.ScriptObj
 #endif
                 
             isLoaded = true;
+        }
+        
+        public event System.Action LoadError;
+        public void ArrayError(string arrayName, string error, Object context = null)
+        {
+#if UNITY_EDITOR
+            Debug.LogError($"{arrayName} is {error}.", context);
+#endif
+            LoadError?.Invoke();
         }
     }
 }

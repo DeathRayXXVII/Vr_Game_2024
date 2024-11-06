@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu(fileName = "CannonData", menuName = "Data/ShipGame/CannonData", order = 0)]
-    public class CannonData : ScriptableObjectStartupDataFromJson
+    public class CannonData : ScriptableObjectLoadOnStartupDataFromJson
     {
         [System.Serializable]
         internal struct CannonInstanceData
@@ -58,7 +58,7 @@ namespace ShipGame.ScriptObj
                 if (_cannonInstanceData == null || _cannonInstanceData.Length == 0)
                 {
 #if UNITY_EDITOR
-                    Debug.LogError("cannonUpgradeStats is not initialized or is empty.", this);
+                    ArrayError("cannonUpgradeArray", "not initialized or is empty", this);
 #endif
                     return;
                 }
@@ -77,7 +77,7 @@ namespace ShipGame.ScriptObj
                 if (_cannonData == null || _cannonData.Length == 0)
                 {
 #if UNITY_EDITOR
-                    Debug.LogError("cannonSelections is not initialized or is empty.", this);
+                    ArrayError("cannonSelectionArray", "not initialized or is empty", this);
 #endif
                     return;
                 }
@@ -95,12 +95,6 @@ namespace ShipGame.ScriptObj
         protected override string resourcePath => "GameData/CannonDataJson";
 
         private CannonDataJson _tempJsonData;
-        
-        protected override object tempJsonData
-        {
-            get => _tempJsonData;
-            set => _tempJsonData = (CannonDataJson)value;
-        }
 
         protected override void ParseJsonFile(TextAsset jsonObject)
         {

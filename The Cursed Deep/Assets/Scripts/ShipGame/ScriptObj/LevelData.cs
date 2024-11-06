@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu(fileName = "LevelData", menuName = "Data/ManagerData/LevelData")]
-    public class LevelData : ScriptableObjectStartupDataFromJson
+    public class LevelData : ScriptableObjectLoadOnStartupDataFromJson
     {
         [System.Serializable]
         internal struct Level
@@ -35,6 +35,12 @@ namespace ShipGame.ScriptObj
         
         [SerializeField] private IntData _currentLevel;
         public bool fightingBoss { private get; set; }
+
+        public int currentLevel
+        {
+            get => _currentLevel;
+            set => _currentLevel.value = value < 1 ? 1 : value;
+        }
 
         private int currentIndex
         {
@@ -68,12 +74,6 @@ namespace ShipGame.ScriptObj
             }
         }
 
-        public int currentLevel
-        {
-            get => _currentLevel;
-            set => _currentLevel.value = value < 1 ? 1 : value;
-        }
-
         protected override string dataFilePath => Application.dataPath + "/Resources/GameData/LevelDataJson.json";
         protected override string resourcePath => "GameData/LevelDataJson";
         private Level[] _levels;
@@ -88,12 +88,6 @@ namespace ShipGame.ScriptObj
         public int spawnScore => _levels[currentIndex].spawnScore;
 
         private LevelDataJson _tempJsonData;
-        
-        protected override object tempJsonData
-        {
-            get => _tempJsonData;
-            set => _tempJsonData = (LevelDataJson)value;
-        }
 
         protected override void ParseJsonFile(TextAsset jsonObject)
         {

@@ -70,6 +70,5 @@ namespace ZPTools.Utility
 #endif
             return null;
         }
-
     }
 }

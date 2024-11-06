@@ -23,11 +23,6 @@ public class Debugger : ScriptableObject
         HandleDebug(obj);
     }
        
-    public void OnDebug(object obj)
-    {
-        HandleDebug(obj);
-    }
-       
     public void OnDebug(int obj)
     {
         HandleDebug(obj);

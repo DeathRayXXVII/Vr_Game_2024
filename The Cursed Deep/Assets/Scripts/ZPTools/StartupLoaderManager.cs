@@ -6,7 +6,7 @@ namespace ZPTools
 {
     public class StartupLoaderManager : MonoBehaviour
     {
-        private static void ExecuteLoadOnStartup(IStartupLoader loader) => loader.LoadOnStartup();
-        private void Start() => PerformActionOnInterface((IStartupLoader objectToLoad) => ExecuteLoadOnStartup(objectToLoad));
+        private static void ExecuteLoadOnStartup(ILoadOnStartup loader) => loader.LoadOnStartup();
+        private void Start() => PerformActionOnInterface((ILoadOnStartup objectToLoad) => ExecuteLoadOnStartup(objectToLoad));
     }
 }

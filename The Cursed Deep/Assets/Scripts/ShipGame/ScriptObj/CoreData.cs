@@ -81,15 +81,37 @@ namespace ShipGame.ScriptObj
         private void OnValidate()
         {
 #if UNITY_EDITOR
-            if (!ship) Debug.LogError("Ship Selections is null. Please assign a value.", this);
             if (!gameGlobals) Debug.LogError("Game Globals is null. Please assign a value.", this);
             if (!levelData) Debug.LogError("Level Data is null. Please assign a value.", this);
+            if (!ship) Debug.LogError("Ship Selections is null. Please assign a value.", this);
+            if (!cannon) Debug.LogError("Cannon Selections is null. Please assign a value.", this);
+            if (!ammo) Debug.LogError("Ammo Selections is null. Please assign a value.", this);
+            if (!enemy) Debug.LogError("Enemy Selections is null. Please assign a value.", this);
 #endif
+        }
+
+        private void OnEnable()
+        {
+            levelData.LoadError += LoadLevelData;
+            ship.LoadError += LoadShipData;
+            cannon.LoadError += LoadCannonData;
+            ammo.LoadError += LoadAmmoData;
+            enemy.LoadError += LoadEnemyData;
+        }
+
+        private void OnDisable()
+        {
+            levelData.LoadError -= LoadLevelData;
+            ship.LoadError -= LoadShipData;
+            cannon.LoadError -= LoadCannonData;
+            ammo.LoadError -= LoadAmmoData;
+            enemy.LoadError -= LoadEnemyData;
         }
         
         public void LevelCompleted()
         {
             currentLevel++;
+            // SetEnemyData();
 #if UNITY_EDITOR
             PrintGameVariables("Called From LevelCompleted");
 #endif
@@ -109,12 +131,12 @@ namespace ShipGame.ScriptObj
         
         private void SetPlayerData()
         {
-            gameGlobals.playerSpeed.value = 2.0f;
+            gameGlobals.playerSpeed.value = gameGlobals.playerSpeedBase + gameGlobals.upgradeSpeed;
         }
         
         private void SetShipData()
         {
-            gameGlobals.shipHealth.value = ship.health; // + gameGlobals.upgradeHealth;
+            gameGlobals.shipHealth.value = ship.health + gameGlobals.upgradeHealth;
             gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.numberOfLanes;
             ship.SetCannonPrefabData(cannon.prefab);
             ship.SetAmmoSpawnCount();
@@ -122,6 +144,7 @@ namespace ShipGame.ScriptObj
         
         private void SetLevelData()
         {
+            Debug.Log("Setting Level Data");
             gameGlobals.enemyLaneActiveLimit.value = levelData.laneActiveLimit;
             gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.numberOfLanes;
             gameGlobals.spawnRateMin.value = levelData.spawnRateMin;
@@ -163,15 +186,26 @@ namespace ShipGame.ScriptObj
             enemy.SetScore(levelData.spawnScore + enemy.selectionScore);
         }
 
-        private void Setup(bool attemptedReload)
+        private void LoadLevelData() => levelData.LoadOnStartup();
+        private void LoadShipData() => ship.LoadOnStartup();
+        private void LoadAmmoData() => ammo.LoadOnStartup();
+        private void LoadCannonData() => cannon.LoadOnStartup();
+        private void LoadEnemyData() => enemy.LoadOnStartup();
+        private void LoadAllData()
         {
-            if (attemptedReload)
+            LoadLevelData();
+            LoadShipData();
+            LoadAmmoData();
+            LoadCannonData();
+            LoadEnemyData();
+        }
+
+        private void Setup(bool attemptingReload)
+        {
+            if (attemptingReload)
             {
-                levelData.LoadOnStartup();
-                ship.LoadOnStartup();
-                ammo.LoadOnStartup();
-                cannon.LoadOnStartup();
-                enemy.LoadOnStartup();
+                LoadAllData();
+                return;
             }
             SetPlayerData();
             SetShipData();

@@ -1,10 +1,10 @@
+#if UNITY_EDITOR
 using UnityEngine;
-
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
-#if UNITY_EDITOR
+public class InspectorReadOnlyAttribute : PropertyAttribute { }
+
+
 [CustomPropertyDrawer(typeof(InspectorReadOnlyAttribute))]
 public class InspectorReadOnlyDrawer : PropertyDrawer
 {

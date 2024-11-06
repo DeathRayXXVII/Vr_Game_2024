@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu(fileName = "ShipData", menuName = "Data/ShipGame/ShipData", order = 0)]
-    public class ShipData : ScriptableObjectStartupDataFromJson
+    public class ShipData : ScriptableObjectLoadOnStartupDataFromJson
     {
         [System.Serializable]
         internal struct ShipInstanceData
@@ -48,27 +48,15 @@ namespace ShipGame.ScriptObj
             get => currentIndex;
             set
             {
-                if (_shipInstanceData == null)
+                if (_shipInstanceData == null || _shipInstanceData.Length == 0)
                 {
-                    ArrayError("shipSelections", "null");
+                    ArrayError("shipSelectionArray", "not initialized or is empty", this);
                     return;
                 }
 
-                if (_shipInstanceData.Length == 0)
+                if (_shipData == null || _shipData.Length == 0)
                 {
-                    ArrayError("shipSelections", "empty");
-                    return;
-                }
-
-                if (_shipData == null)
-                {
-                    ArrayError("shipInstanceData", "null");
-                    return;
-                }
-
-                if (_shipData.Length == 0)
-                {
-                    ArrayError("shipInstanceData", "empty");
+                    ArrayError("shipInstanceArray", "not initialized or is empty", this);
                     return;
                 }
                 
@@ -78,13 +66,6 @@ namespace ShipGame.ScriptObj
                 // Pass the prefab to the ship's instancer
                 shipInstancerData.SetPrefabData(ship.prefab);
             }
-        }
-        
-        private void ArrayError(string arrayName, string error)
-        {
-#if UNITY_EDITOR
-            Debug.LogError($"{arrayName} is {error}.", this);
-#endif
         }
         
         // Instancer that performs the instantiation of the ship
@@ -106,12 +87,6 @@ namespace ShipGame.ScriptObj
         protected override string resourcePath => "GameData/ShipDataJson";
 
         private ShipDataJson _tempJsonData;
-        
-        protected override object tempJsonData
-        {
-            get => _tempJsonData;
-            set => _tempJsonData = (ShipDataJson)value;
-        }
 
         protected override void ParseJsonFile(TextAsset jsonObject)
         {

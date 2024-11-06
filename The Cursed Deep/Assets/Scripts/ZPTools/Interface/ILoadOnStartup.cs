@@ -1,6 +1,6 @@
 namespace ZPTools.Interface
 {
-    public interface IStartupLoader
+    public interface ILoadOnStartup
     {
         bool isLoaded { get; }
         void LoadOnStartup();

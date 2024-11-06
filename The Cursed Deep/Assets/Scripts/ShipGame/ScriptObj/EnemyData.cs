@@ -3,7 +3,7 @@ using UnityEngine;
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu(fileName = "EnemyData", menuName = "Data/ShipGame/EnemyData", order = 0)]
-    public class EnemyData : ScriptableObjectStartupDataFromJson
+    public class EnemyData : ScriptableObjectLoadOnStartupDataFromJson
     {
         [System.Serializable]
         internal struct EnemyInstanceData
@@ -46,7 +46,7 @@ namespace ShipGame.ScriptObj
                 if (_enemyData == null || _enemyData.Length == 0)
                 {
 #if UNITY_EDITOR
-                    Debug.LogError("enemySelections is not initialized or is empty.", this);
+                    ArrayError("enemyArray", "not initialized or is empty", this);
 #endif
                     return;
                 }
@@ -57,15 +57,15 @@ namespace ShipGame.ScriptObj
         }
 
         private EnemyInstanceData[] _enemyInstanceData;
-        public float selectionHealth => _enemyInstanceData[currentIndex].health;
-        public float selectionDamage => _enemyInstanceData[currentIndex].damage;
-        public float selectionSpeed => _enemyInstanceData[currentIndex].speed;
-        public int selectionBounty => _enemyInstanceData[currentIndex].bounty;
-        public int selectionScore => _enemyInstanceData[currentIndex].score;
+        public float selectionHealth => _enemyInstanceData[selectionIndex].health;
+        public float selectionDamage => _enemyInstanceData[selectionIndex].damage;
+        public float selectionSpeed => _enemyInstanceData[selectionIndex].speed;
+        public int selectionBounty => _enemyInstanceData[selectionIndex].bounty;
+        public int selectionScore => _enemyInstanceData[selectionIndex].score;
 
         [SerializeField] private Enemy[] _enemyData;
 
-        private Enemy enemy => _enemyData[currentIndex];
+        private Enemy enemy => _enemyData[selectionIndex];
         public PrefabDataList prefabList => enemy.prefabVariantList;
         public float health => enemy.creepData.health;
         public void SetHealth(float newHealth) => enemy.creepData.health = newHealth;
@@ -84,12 +84,6 @@ namespace ShipGame.ScriptObj
         protected override string resourcePath => "GameData/EnemyDataJson";
 
         private EnemyDataJson _tempJsonData;
-        
-        protected override object tempJsonData
-        {
-            get => _tempJsonData;
-            set => _tempJsonData = (EnemyDataJson)value;
-        }
 
         protected override void ParseJsonFile(TextAsset jsonObject)
         {
