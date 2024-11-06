@@ -64,10 +64,15 @@ public class ResponseHandler : MonoBehaviour
 
          responseButton.SetActive(true);
          responseButton.GetComponentInChildren<TMP_Text>().text = response.ResponseText;
-         responseButton.GetComponent<XRSimpleInteractable>().selectEntered.RemoveAllListeners();
-         // responseButton.GetComponent<XRSimpleInteractable>().selectEntered.AddListener(OnPickedResponse);  
-         // responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse());
-         //collider, onSelect
+         
+         var interactable = responseButton.GetComponent<XRSimpleInteractable>();
+         interactable.selectEntered.RemoveAllListeners();
+         interactable.selectEntered.AddListener(args => OnPickedResponse(args, response, responseIndex));
+         
+         /* - - Swap lines 74 and 75 with lines 68-70 for non-XR Toolkit - - */
+         
+         // responseButton.GetComponent<Button>().onClick.RemoveAllListeners(); 
+         // responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse( response, responseIndex));
          tempResponseButtons.Add(responseButton);
 
          responseBoxHeight += responseButtonTemplate.sizeDelta.y;
@@ -75,10 +80,9 @@ public class ResponseHandler : MonoBehaviour
       responseBox.sizeDelta = new Vector2(responseBox.sizeDelta.x, responseBoxHeight);
       responseBox.gameObject.SetActive(true);
    }
-
-   /*
-   // private void OnPickedResponse(Response response, int responseIndex)
-   private void OnPickedResponse(SelectEnterEventArgs args)
+   /* - - Swap line 84 with 85 for non-XR Toolkit - - */
+   // private void OnPickedResponse(Response response, int responseIndex) 
+   private void OnPickedResponse(SelectEnterEventArgs args, Response response, int responseIndex)
    {
       if (response == null)
       {
@@ -135,5 +139,4 @@ public class ResponseHandler : MonoBehaviour
          dialogueUI.CloseDialogueBox(response.DialogueData);
       }
    }
-   */
 }
