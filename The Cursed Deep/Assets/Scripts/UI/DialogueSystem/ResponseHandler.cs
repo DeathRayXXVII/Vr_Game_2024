@@ -68,10 +68,11 @@ public class ResponseHandler : MonoBehaviour
          var interactable = responseButton.GetComponent<XRSimpleInteractable>();
          interactable.selectEntered.RemoveAllListeners();
          interactable.selectEntered.AddListener(args => OnPickedResponse(args, response, responseIndex));
-         // responseButton.GetComponent<XRSimpleInteractable>().selectEntered.RemoveAllListeners();
-         // responseButton.GetComponent<XRSimpleInteractable>().selectEntered.AddListener(OnPickedResponse);  
+         
+         /* - - Swap lines 74 and 75 with lines 68-70 for non-XR Toolkit - - */
+         
+         // responseButton.GetComponent<Button>().onClick.RemoveAllListeners(); 
          // responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse( response, responseIndex));
-         //collider, onSelect
          tempResponseButtons.Add(responseButton);
 
          responseBoxHeight += responseButtonTemplate.sizeDelta.y;
@@ -79,8 +80,8 @@ public class ResponseHandler : MonoBehaviour
       responseBox.sizeDelta = new Vector2(responseBox.sizeDelta.x, responseBoxHeight);
       responseBox.gameObject.SetActive(true);
    }
-
-   // private void OnPickedResponse(Response response, int responseIndex)
+   /* - - Swap line 84 with 85 for non-XR Toolkit - - */
+   // private void OnPickedResponse(Response response, int responseIndex) 
    private void OnPickedResponse(SelectEnterEventArgs args, Response response, int responseIndex)
    {
       if (response == null)
