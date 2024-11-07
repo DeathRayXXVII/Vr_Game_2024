@@ -9,7 +9,7 @@ using ZPTools.Interface;
 [CustomPropertyDrawer(typeof(UpgradeData), true)]
 public class UpgradeDataEditor : PropertyDrawer
 {
-    private string _lastFocusedControl = "";
+    // private string _lastFocusedControl = "";
     private Vector2 blobScrollPosition = Vector2.zero;
 
     private void GUILine(VisualElement container)
@@ -70,7 +70,7 @@ public class UpgradeDataEditor : PropertyDrawer
         SerializedProperty jsonBlob = obj.FindProperty("_jsonBlob");
         bool blobNeedsUpdate = false;
 
-        var debugString = "";
+        // var debugString = "";
 
         // Draw the default script field
         var scriptField = new PropertyField(scriptProperty);

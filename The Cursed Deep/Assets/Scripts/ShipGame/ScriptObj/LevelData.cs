@@ -117,9 +117,9 @@ namespace ShipGame.ScriptObj
             }
         }
         
-#if UNITY_EDITOR
         protected override void LogCurrentData()
         {
+#if UNITY_EDITOR
             if (_allowDebug) Debug.Log($"------Level Data------\n" +
                                        $"Level: {currentLevel}\n" +
                                        $"Spawn Count: {spawnCount}\n" +
@@ -131,8 +131,8 @@ namespace ShipGame.ScriptObj
                                        $"Spawn Bounty: {spawnBounty}\n" +
                                        $"Spawn Score: {spawnScore}\n" +
                                        $"----------------------");
-        }
 #endif
+        }
         
 #if UNITY_EDITOR
         private void OnValidate()
