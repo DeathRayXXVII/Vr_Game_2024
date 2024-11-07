@@ -1,13 +1,11 @@
-using UnityEngine;
 #if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
 using ZPTools.Interface;
-#endif
  
 [CustomEditor(typeof(MonoBehaviour), true)]
 public class MonoButtonEditor : Editor
 {
-#if UNITY_EDITOR
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -22,13 +20,11 @@ public class MonoButtonEditor : Editor
             }
         }
     }
-#endif
 }
 
 [CustomEditor(typeof(ScriptableObject), true)]
 public class ScriptableObjButtonEditor : Editor
 {
-#if UNITY_EDITOR
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -43,5 +39,5 @@ public class ScriptableObjButtonEditor : Editor
             }
         }
     }
-#endif
 }
+#endif

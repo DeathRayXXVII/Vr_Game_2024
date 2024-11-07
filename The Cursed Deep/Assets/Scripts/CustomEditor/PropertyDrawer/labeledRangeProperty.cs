@@ -1,11 +1,9 @@
-using UnityEngine;
 #if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
-#endif
 
 public class LabeledRangeAttribute : PropertyAttribute
 {
-#if UNITY_EDITOR
     public float min;
     public float max;
     public string leftLabel;
@@ -14,11 +12,9 @@ public class LabeledRangeAttribute : PropertyAttribute
     private string ConfirmString(string label) => string.IsNullOrEmpty(label) ?
         " " : label.Length <= 1 ?
             " " + label : label;
-#endif
 
     public LabeledRangeAttribute(float min, float max, string leftLabel, string rightLabel)
     {
-#if UNITY_EDITOR
         if (min > max)
         {
             this.min = max;
@@ -33,13 +29,11 @@ public class LabeledRangeAttribute : PropertyAttribute
         this.leftLabel = ConfirmString(leftLabel);
         this.rightLabel = ConfirmString(rightLabel);
     }
-#endif
 }
 
 [CustomPropertyDrawer(typeof(LabeledRangeAttribute))]
 public class LabeledRangeDrawer : PropertyDrawer
 {
-#if UNITY_EDITOR
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         Color originalColor = GUI.color;
@@ -101,5 +95,5 @@ public class LabeledRangeDrawer : PropertyDrawer
     }
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label) => EditorGUIUtility.singleLineHeight * 1.7f;
-#endif
 }
+#endif
