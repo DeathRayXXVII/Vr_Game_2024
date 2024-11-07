@@ -45,9 +45,18 @@ namespace UI.DialogueSystem
             lastAction.Raise += LastDialogueEvent;
         }
 
-        public void DialogueEvent(GameAction _) => onTrigger.Invoke();
-        public void FirstDialogueEvent(GameAction _) => firstTrigger.Invoke();
-        public void LastDialogueEvent(GameAction _) => lastTrigger.Invoke();
+        public void DialogueEvent(GameAction _)
+        {
+            if (!_hasPlayed) onTrigger?.Invoke();
+        }
+        public void FirstDialogueEvent(GameAction _)
+        {
+            if (!_hasPlayed) firstTrigger?.Invoke();
+        }
+        public void LastDialogueEvent(GameAction _)
+        {
+            if (!_hasPlayed) lastTrigger?.Invoke();
+        }
         
         public List<(System.Action, string)> GetButtonActions()
         {
