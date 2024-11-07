@@ -1,8 +1,8 @@
-#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using ZPTools.Interface;
  
+// Custom Editor for MonoBehaviours
 [CustomEditor(typeof(MonoBehaviour), true)]
 public class MonoButtonEditor : Editor
 {
@@ -22,6 +22,7 @@ public class MonoButtonEditor : Editor
     }
 }
 
+// Custom Editor for ScriptableObjects
 [CustomEditor(typeof(ScriptableObject), true)]
 public class ScriptableObjButtonEditor : Editor
 {
@@ -40,4 +41,3 @@ public class ScriptableObjButtonEditor : Editor
         }
     }
 }
-#endif

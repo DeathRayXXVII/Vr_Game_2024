@@ -1,7 +1,10 @@
-#if UNITY_EDITOR
 using UnityEngine;
-using UnityEditor;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+// Attributes should not be in the UNITY_EDITOR assembly directive block
 // Custom attribute to create a range with a step value
 public class SteppedRangeAttribute : PropertyAttribute
 {
@@ -17,6 +20,7 @@ public class SteppedRangeAttribute : PropertyAttribute
     }
 }
 
+#if UNITY_EDITOR
 // Custom drawer for the SteppedRangeAttribute
 [CustomPropertyDrawer(typeof(SteppedRangeAttribute))]
 public class SteppedRangeDrawer : PropertyDrawer
