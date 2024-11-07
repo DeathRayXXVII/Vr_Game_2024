@@ -31,9 +31,9 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     [SerializeField] private List<int> _costsIntList;
 
     [SerializeField] private TextAsset _jsonFile;
-    [SerializeField] private string _upgradeKey = "values";
+    [SerializeField] private string _upgradeKey = "upgrade";
     [SerializeField] private string _previousUpgradeKey;
-    [SerializeField] private string _costKey = "costs";
+    [SerializeField] private string _costKey = "cost";
     [SerializeField] private string _previousCostKey;
     
     [SerializeField] private string _jsonBlob;
