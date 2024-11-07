@@ -8,9 +8,7 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu (fileName = "SpawnerData", menuName = "Data/ManagerData/SpawnerData")]
 public class SpawnerData : ScriptableObject
 {
-#if UNITY_EDITOR
     [SerializeField] internal bool allowDebug;
-#endif
     
     [SerializeField] private bool randomizeSpawnRate;
     public bool usePriority;

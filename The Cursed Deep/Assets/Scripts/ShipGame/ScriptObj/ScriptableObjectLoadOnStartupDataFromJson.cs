@@ -6,9 +6,7 @@ namespace ShipGame.ScriptObj
 {
     public abstract class ScriptableObjectLoadOnStartupDataFromJson : ScriptableObject, ILoadOnStartup
     {
-#if UNITY_EDITOR
         [SerializeField] protected bool _allowDebug;
-#endif
         
         private HashFileChangeDetector _hashFileChangeDetector;
         public bool isLoaded { get; private set; }

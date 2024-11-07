@@ -7,9 +7,7 @@ namespace ShipGame.ScriptObj
     [CreateAssetMenu (fileName = "CoreData", menuName = "Data/ManagerData/CoreData")]
     public class CoreData : ScriptableObject, IResetOnNewGame
     {
-#if UNITY_EDITOR
         [SerializeField] internal bool allowDebug;
-#endif
         [SerializeField] private GameAction _playerInitializePositionAction;
         [SerializeField] private GameGlobals gameGlobals;
         [SerializeField] private LevelData levelData;

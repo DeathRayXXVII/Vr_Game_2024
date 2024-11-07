@@ -10,9 +10,7 @@ using Random = UnityEngine.Random;
 public class SpawnManager : MonoBehaviour, INeedButton
 {
     private bool _destroying, _pooling;
-#if UNITY_EDITOR
     private bool allowDebug => spawnerData.allowDebug;
-#endif
 
     public SpawnerData spawnerData;
     

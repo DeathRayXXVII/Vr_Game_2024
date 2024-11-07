@@ -4,9 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneBehavior : MonoBehaviour
 {
-#if UNITY_EDITOR
     [SerializeField] private bool allowDebug;
-#endif
     [Tooltip("Animator that will be used to transition between scenes.")]
     [SerializeField] private Animator transitionAnimator;
     
