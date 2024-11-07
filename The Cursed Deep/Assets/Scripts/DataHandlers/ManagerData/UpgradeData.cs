@@ -232,8 +232,16 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         if (_blobNeedsUpdate) UpdateJsonBlob();
         UpdateData();
     }
+    
+    private string GetJsonPath()
+    {
+#if UNITY_EDITOR
+        return UnityEditor.AssetDatabase.GetAssetPath(_jsonFile);
+#else
+        return System.IO.Path.Combine(Application.streamingAssetsPath, _jsonFile.name + ".json");
+#endif
+    }
 
-    private string GetJsonPath() => UnityEditor.AssetDatabase.GetAssetPath(_jsonFile);
 
     private void InitializeDataFromJson()
     {
