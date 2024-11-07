@@ -1,10 +1,13 @@
-#if UNITY_EDITOR
 using UnityEngine;
-using UnityEditor;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+// Attributes should not be in the UNITY_EDITOR assembly directive block
 public class InspectorReadOnlyAttribute : PropertyAttribute { }
 
-
+#if UNITY_EDITOR
 [CustomPropertyDrawer(typeof(InspectorReadOnlyAttribute))]
 public class InspectorReadOnlyDrawer : PropertyDrawer
 {
