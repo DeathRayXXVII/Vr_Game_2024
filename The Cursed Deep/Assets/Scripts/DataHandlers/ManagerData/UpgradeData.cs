@@ -12,7 +12,6 @@ using Debug = UnityEngine.Debug;
 [CreateAssetMenu(fileName = "UpgradeData", menuName = "Data/UpgradeData", order = 0)]
 public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
 {
-
     [SerializeField] private DataType _upgradeDataType;
     [SerializeField] private DataType _costDataType;
 
