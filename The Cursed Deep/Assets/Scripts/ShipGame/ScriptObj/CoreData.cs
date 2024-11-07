@@ -129,12 +129,12 @@ namespace ShipGame.ScriptObj
         
         private void SetPlayerData()
         {
-            gameGlobals.playerSpeed.value = gameGlobals.playerSpeedBase + gameGlobals.upgradeSpeed;
+            gameGlobals.playerSpeed.value = gameGlobals.playerSpeedBase; // + gameGlobals.upgradeSpeed;
         }
         
         private void SetShipData()
         {
-            gameGlobals.shipHealth.value = ship.health + gameGlobals.upgradeHealth;
+            gameGlobals.shipHealth.value = ship.health; // + gameGlobals.upgradeHealth;
             gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.numberOfLanes;
             ship.SetCannonPrefabData(cannon.prefab);
             ship.SetAmmoSpawnCount();
@@ -142,7 +142,7 @@ namespace ShipGame.ScriptObj
         
         private void SetLevelData()
         {
-            Debug.Log("Setting Level Data");
+            Debug.Log("Setting Level Data", this);
             gameGlobals.enemyLaneActiveLimit.value = levelData.laneActiveLimit;
             gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.numberOfLanes;
             gameGlobals.spawnRateMin.value = levelData.spawnRateMin;

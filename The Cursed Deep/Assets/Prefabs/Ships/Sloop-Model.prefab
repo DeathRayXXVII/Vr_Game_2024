@@ -1,5 +1,60 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &40722146888409852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9013862637691012903}
+  - component: {fileID: 4056846299532989504}
+  m_Layer: 20
+  m_Name: Collider (22)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9013862637691012903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40722146888409852}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.3469356, z: -0, w: 0.937889}
+  m_LocalPosition: {x: 0.724, y: 14.887, z: 0.469}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4237254649195038174}
+  m_LocalEulerAnglesHint: {x: 0, y: 40.6, z: 0}
+--- !u!136 &4056846299532989504
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40722146888409852}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.08
+  m_Height: 0.76
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.09, z: 0}
 --- !u!1 &68300503483387232
 GameObject:
   m_ObjectHideFlags: 0
@@ -4550,6 +4605,8 @@ Transform:
   - {fileID: 5381545468560117597}
   - {fileID: 4568219155147985704}
   - {fileID: 8966138438632976409}
+  - {fileID: 9013862637691012903}
+  - {fileID: 7778320355442625420}
   m_Father: {fileID: 7782973267935334503}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3222738733215653310
@@ -4615,6 +4672,8 @@ MonoBehaviour:
   - {fileID: 4294103581761161346}
   - {fileID: 2324370970505333297}
   - {fileID: 1960033429681579998}
+  - {fileID: 4056846299532989504}
+  - {fileID: 434105148976413182}
   m_InteractionLayers:
     m_Bits: 2
   m_DistanceCalculationMode: 2
@@ -5852,6 +5911,61 @@ Transform:
   - {fileID: 7539798623913287667}
   m_Father: {fileID: 3800374608188163520}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6931094644094764741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7778320355442625420}
+  - component: {fileID: 434105148976413182}
+  m_Layer: 20
+  m_Name: Collider (23)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7778320355442625420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6931094644094764741}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.3469356, z: -0, w: 0.937889}
+  m_LocalPosition: {x: -0.724, y: 14.887, z: 0.469}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4237254649195038174}
+  m_LocalEulerAnglesHint: {x: 0, y: 40.6, z: 0}
+--- !u!136 &434105148976413182
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6931094644094764741}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.08
+  m_Height: 0.76
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.09, z: 0}
 --- !u!1 &6961399453972321710
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,22 +15,28 @@ public class ImageBehavior : MonoBehaviour
     //You can toggle between bar and radial health on the image object itself.
     public FloatData maxHealth; //right now this reads a float Scriptable object, but you could probably change it to just a float if you felt like it.
     
-    
-    
     void Start()
     {
         //imageObj = GetComponent<Image>();
         ImageSlider = GetComponent<Slider>();
         startEvent.Invoke();// this just opens up an in-editor start event. it's not necessary for the code,but it's here if you want to do anything.
     }
-
     
     public void UpdateImage(FloatData data) //this is the main part of the code, you'll want to call this method every time you want the health bar to update,
         //after you've already added/subtracted health. I usually call on it using either a unity event or a game action object.
     {
-       //imageObj.fillAmount = (data.value / maxHealth.value);
-        ImageSlider.value = (data.value / maxHealth.value);
+        if (data == null)
+        {
+            Debug.LogError("Current value is null", this);
+            return;
+        }
         
-
+        if (maxHealth == null)
+        {
+            Debug.LogError("Max value is null", this);
+            return;           
+        }
+        //imageObj.fillAmount = (data.value / maxHealth.value);
+        ImageSlider.value = data.value / maxHealth.value;
     }
 }
