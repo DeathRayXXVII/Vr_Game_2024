@@ -9,18 +9,24 @@ namespace UI.DialogueSystem
     public class DialogueData : ScriptableObject, IResetOnNewGame, INeedButton
     {
         public bool playOnlyOncePerGame;
-        [SerializeField, InspectorReadOnly] private bool _hasPlayed;
+        [SerializeField, InspectorReadOnly] private bool _locked;
         
         public void ResetToNewGameValues(int tier = 2)
         {
             if (tier < 2) return;
-            _hasPlayed = false;
+            _locked = false;
         }
 
-        public bool hasPlayed
+        public bool locked
         {
-            get => _hasPlayed;
-            set => _hasPlayed = value;
+            get => playOnlyOncePerGame && _locked;
+            set => _locked = playOnlyOncePerGame && value;
+        }
+        
+        public void SetLocked(bool lockState)
+        {
+            if (lockState) playOnlyOncePerGame = true;
+            _locked = lockState;
         }
         
         [Header("Dialogue Data")]
@@ -47,20 +53,20 @@ namespace UI.DialogueSystem
 
         public void DialogueEvent(GameAction _)
         {
-            if (!_hasPlayed) onTrigger?.Invoke();
+            if (!locked) onTrigger?.Invoke();
         }
         public void FirstDialogueEvent(GameAction _)
         {
-            if (!_hasPlayed) firstTrigger?.Invoke();
+            if (!locked) firstTrigger?.Invoke();
         }
         public void LastDialogueEvent(GameAction _)
         {
-            if (!_hasPlayed) lastTrigger?.Invoke();
+            if (!locked) lastTrigger?.Invoke();
         }
         
         public List<(System.Action, string)> GetButtonActions()
         {
-            return new List<(System.Action, string)> { (() => {_hasPlayed = false;}, "Set Has Played to False") };
+            return new List<(System.Action, string)> { (() => {locked = false;}, "Set Has Played to False") };
         }
     }
 }
