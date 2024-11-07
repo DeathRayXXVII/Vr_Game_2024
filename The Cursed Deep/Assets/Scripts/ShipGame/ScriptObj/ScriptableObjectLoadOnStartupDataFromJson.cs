@@ -29,9 +29,7 @@ namespace ShipGame.ScriptObj
 
         protected abstract void InitializeData();
 
-#if UNITY_EDITOR
         protected abstract void LogCurrentData();
-#endif
 
         public void LoadOnStartup()
         {
