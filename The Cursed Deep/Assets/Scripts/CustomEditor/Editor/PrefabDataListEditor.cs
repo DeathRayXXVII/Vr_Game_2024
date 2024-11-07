@@ -1,12 +1,10 @@
-using UnityEngine;
 #if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
-#endif
 
 [CustomEditor(typeof(PrefabDataList))]
 public class PrefabDataListEditor : Editor
 {
-#if UNITY_EDITOR
     public GameObject prefabToAdd;
     public int priority;
     private bool _showPrefabList;
@@ -114,5 +112,5 @@ public class PrefabDataListEditor : Editor
             }
         }
     }
-#endif
 }
+#endif

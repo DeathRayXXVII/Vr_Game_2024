@@ -12,45 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a52ccc6191361469efaacce9fcc82c, type: 3}
   m_Name: UpgradeData-Health
   m_EditorClassIdentifier: 
-  _upgradeType: 0
-  _costType: 1
+  _upgradeDataType: 0
+  _costDataType: 0
   _allowDebug: 1
-  _upgradeLevel: 4
-  _baseValueFloat: 2.65
-  _baseValueInt: 5
-  _valueFloat: {fileID: 11400000, guid: f042f8a13dcd193489a979f84dea7491, type: 2}
-  _valueInt: {fileID: 11400000, guid: 6e38c277140854a46a7a30ead7e2003b, type: 2}
-  _upgradeFloatValues:
+  _upgradeLevel: -1
+  _baseUpgradeFloat: 0
+  _baseUpgradeInt: 0
+  _upgradeFloatContainer: {fileID: 0}
+  _upgradeIntContainer: {fileID: 0}
+  _upgradeFloatList: []
+  _upgradeIntList: 
+  _costFloatContainer: {fileID: 0}
+  _costIntContainer: {fileID: 0}
+  _costsFloatList:
   - 0
-  - 1
-  - 2
-  - 3
-  - 4
-  - 5
-  - 6
-  - 7
-  - 8
-  - 9
   - 10
-  _upgradeIntValues: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a000000
-  _costFloat: {fileID: 0}
-  _costInt: {fileID: 11400000, guid: 6e38c277140854a46a7a30ead7e2003b, type: 2}
-  _upgradeFloatCosts:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  _upgradeIntCosts: 000000000a000000140000001e00000028000000320000003c00000046000000500000005a00000064000000
+  - 20
+  - 30
+  - 40
+  - 50
+  - 60
+  - 70
+  - 80
+  - 90
+  - 100
+  _costsIntList: 000000000a000000140000001e00000028000000320000003c00000046000000500000005a00000064000000
   _jsonFile: {fileID: 4900000, guid: 16cf77701e3107f46881cb968cf620ce, type: 3}
-  _valueKey: Health
-  _previousValueKey: Health
+  _upgradeKey: values
+  _previousUpgradeKey: values
   _costKey: healthUpgradeCosts
   _previousCostKey: healthUpgradeCosts
   _jsonBlob: "{\r\n  \"Health\": [\r\n    0.0,\r\n    1.0,\r\n    2.0,\r\n    3.0,\r\n   

@@ -1,4 +1,4 @@
-/*#if UNITY_EDITOR
+﻿#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -6,34 +6,16 @@ using UnityEngine.UIElements;
 using ZPTools;
 using ZPTools.Interface;
 
-[CustomEditor(typeof(UpgradeData), true)]
-public class UpgradeDataEditor : Editor
+[CustomPropertyDrawer(typeof(UpgradeData), true)]
+public class UpgradeDataEditor : PropertyDrawer
 {
 
-    #region Visual Tree Elements
-    [SerializeField] private VisualTreeAsset VisualTree;
-    #endregion
-
-    // public override VisualElement CreateInspectorGUI()
-    // {
-    //     VisualElement inspector = new();
-    //     // inspector.Add(VisualTree.Instantiate());
-    //     // Toggle toggle = new("Test Toggle");
-    //     // inspector.Add(toggle);
-    //     //
-    //     // // Create divider
-    //     // VisualElement divider = new();
-    //     // divider.AddToClassList("divider");
-    //     // inspector.Add(divider);
-    //     
-    //     
-    //     return inspector;
-    // }
+    private VisualElement PropertyContainer;
 
     public override VisualElement CreatePropertyGUI(SerializedProperty Property)
     {
         VisualElement root = new();
-        root.AddToClassList("panel");
+        // root.AddToClassList("panel"); // Add a xml class to the root element
 
         if (Property.objectReferenceValue != null)
         {
@@ -42,6 +24,75 @@ public class UpgradeDataEditor : Editor
 
         return root;
     }
+
+    private void HandleSOChange(VisualElement ContentRoot, SerializedProperty Property, ChangeEvent<Object> ChangeEvent)
+    {
+        if (ChangeEvent.newValue == null && PropertyContainer != null)
+        {
+            ContentRoot.Remove(PropertyContainer);
+            PropertyContainer = null;
+        }
+        else if (ChangeEvent.newValue != null && PropertyContainer == null)
+        {
+            ContentRoot.Add(BuildPropertyUI(Property));
+        }
+    }
+    
+
+    private VisualElement BuildPropertyUI(SerializedProperty Property)
+    {
+        PropertyContainer = new VisualElement();
+
+        SerializedObject serializedObject = new(Property.objectReferenceValue);
+
+        IntegerField maxAmmoField = new("Max Ammo");
+        maxAmmoField.BindProperty(serializedObject.FindProperty("MaxAmmo"));
+        PropertyContainer.Add(maxAmmoField);
+
+        IntegerField clipSizeField = new("Clip Size");
+        clipSizeField.BindProperty(serializedObject.FindProperty("ClipSize"));
+        PropertyContainer.Add(clipSizeField);
+
+        // CurrentAmmoField = new("Current Ammo");
+        // CurrentAmmoField.BindProperty(serializedObject.FindProperty("CurrentAmmo"));
+        //
+        // CurrentClipAmmoField = new("Current Clip Ammo");
+        // CurrentClipAmmoField.BindProperty(serializedObject.FindProperty("CurrentClipAmmo"));
+        // if (!EditorApplication.isPlaying && UseMaxAmmoAsCurrentAmmo)
+        // {
+        //     CurrentClipAmmoField.AddToClassList("hidden");
+        //     CurrentAmmoField.AddToClassList("hidden");
+        // }
+
+        Toggle defaultToMaxToggle = new("Default to Max Ammo");
+        // defaultToMaxToggle.value = UseMaxAmmoAsCurrentAmmo;
+        // defaultToMaxToggle.RegisterValueChangedCallback((changeEvent) =>
+        // {
+        //     if (!EditorApplication.isPlaying)
+        //     {
+        //         if (changeEvent.newValue)
+        //         {
+        //             CurrentClipAmmoField.AddToClassList("hidden");
+        //             CurrentAmmoField.AddToClassList("hidden");
+        //         }
+        //         else
+        //         {
+        //             CurrentClipAmmoField.RemoveFromClassList("hidden");
+        //             CurrentAmmoField.RemoveFromClassList("hidden");
+        //         }
+        //     }
+        // });
+        // PropertyContainer.Add(defaultToMaxToggle);
+        //
+        // Label overrideLabel = new("Current Clip Info");
+        // PropertyContainer.Add(CurrentAmmoField);
+        // PropertyContainer.Add(CurrentClipAmmoField);
+        //
+        // EditorApplication.playModeStateChanged += HandlePlayModeStateChanged;
+
+        return PropertyContainer;
+    }
+    
 //     private string _lastFocusedControl = "";
 //     private Vector2 blobScrollPosition = Vector2.zero; 
 //     
@@ -384,4 +435,3 @@ public class UpgradeDataEditor : Editor
 //     }
 }
 #endif
-*/
