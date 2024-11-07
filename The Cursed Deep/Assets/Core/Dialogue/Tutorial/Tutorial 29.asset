@@ -13,14 +13,26 @@ MonoBehaviour:
   m_Name: Tutorial 29
   m_EditorClassIdentifier: 
   playOnlyOncePerGame: 1
-  _hasPlayed: 0
+  _hasPlayed: 1
   dialogueName: 
   firstAction: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
   lastAction: {fileID: 11400000, guid: 163b1d9019fbaa544a6e80836b1a957c, type: 2}
   dialogue:
   - "Alas, the choice be upon thee. Will ye take the\n galleon and chase glory? Or
     keep yer sloop, \nand keep yer good chances o\u2019 survival?"
-  responses: []
+  responses:
+  - responseText: Galleon
+    id: 
+    dialogueData: {fileID: 11400000, guid: 13094ba1fb381ef4fa3d48960e4406df, type: 2}
+    isPurchasable: 0
+    purchaseDialogue: {fileID: 0}
+    purchaseAction: {fileID: 0}
+  - responseText: Sloop
+    id: 
+    dialogueData: {fileID: 11400000, guid: a433991c411e5c841a9f77b41f896f7e, type: 2}
+    isPurchasable: 0
+    purchaseDialogue: {fileID: 0}
+    purchaseAction: {fileID: 0}
   onTrigger:
     m_PersistentCalls:
       m_Calls: []
