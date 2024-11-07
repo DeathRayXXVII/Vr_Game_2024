@@ -8,6 +8,7 @@
 // -- Modified by: Riley Anderson -- 
 //
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -72,6 +73,9 @@ public class Outline : MonoBehaviour
     private float outlineWidth = 2f;
 
     [SerializeField] private bool outlineContinuously;
+    private bool outlineTimer;
+    private float _seconds =  1f;
+    private WaitForSecondsRealtime _wfsrtObj;
 
     [Header("Optional")]
     [SerializeField, Tooltip("Precompute enabled: Per-vertex calculations are performed in the editor and serialized with the object. "
@@ -108,6 +112,11 @@ public class Outline : MonoBehaviour
 
         enabled = false;
 
+    }
+    
+    private void Start()
+    {
+        _wfsrtObj = new WaitForSecondsRealtime(_seconds);
     }
 
     private void OnEnable()
@@ -171,6 +180,29 @@ public class Outline : MonoBehaviour
         enabled = false;
         //_needsUpdate = true;
         UpdateMaterialProperties();
+    }
+    
+    public void StartOutlineFlash()
+    {
+        outlineTimer = true;
+        StartCoroutine(OutlineTimer());
+    }
+    
+    private IEnumerator OutlineTimer()
+    {
+        while (outlineTimer)
+        {
+            EnableOutline();
+            yield return _wfsrtObj;
+            DisableOutline();
+            yield return _wfsrtObj;
+        }
+    }
+    
+    public void StopOutlineFlash()
+    {
+        outlineTimer = false;
+        StopCoroutine(OutlineTimer());
     }
 
     private void OnDestroy()
