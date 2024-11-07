@@ -6,9 +6,7 @@ namespace ZPTools.Utility
 {
     public class HashFileChangeDetector : FileChangeDetector
     {
-#if UNITY_EDITOR
         private readonly bool _allowDebug;
-#endif
         
         private string _lastFileHash;
         private readonly string _hashFilePath;
