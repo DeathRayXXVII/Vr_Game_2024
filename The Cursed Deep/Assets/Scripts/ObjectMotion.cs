@@ -55,7 +55,7 @@ public class ObjectMotion : MonoBehaviour
     public float pulseOffset;
 
     private Vector3 _startPosition, _startScale;
-    private IEnumerator _motionRoutine, _rotationRoutine, _scalingRoutine;
+    private Coroutine _motionRoutine, _rotationRoutine, _scalingRoutine;
     
     void Start()
     {
@@ -63,17 +63,21 @@ public class ObjectMotion : MonoBehaviour
         _startScale = transform.localScale;
     
         if (!startOnLoad) return;
+    }
+
+    public void StartMotion() { _motionRoutine ??= StartCoroutine(PositionMotion()); }
+    public void StopMotion() { if (_motionRoutine != null) StopCoroutine(_motionRoutine); }
+    public void StartRotation() { _rotationRoutine ??= StartCoroutine(RotateMotion()); }
+    public void StopRotation() { if (_rotationRoutine != null) StopCoroutine(_rotationRoutine); }
+    public void StartScaling() { _scalingRoutine ??= StartCoroutine(ScaleMotion()); }
+    public void StopScaling() { if (_scalingRoutine != null) StopCoroutine(_scalingRoutine); }
+    
+    public void StartAllMotion()
+    {
         if (motionType.HasFlag(MotionType.Position)) StartMotion();
         if (motionType.HasFlag(MotionType.Rotation)) StartRotation();
         if (motionType.HasFlag(MotionType.Scale)) StartScaling();
     }
-
-    public void StartMotion() { _motionRoutine = PositionMotion(); StartCoroutine(_motionRoutine); }
-    public void StopMotion() { if (_motionRoutine != null) StopCoroutine(_motionRoutine); }
-    public void StartRotation() { _rotationRoutine = RotateMotion(); StartCoroutine(_rotationRoutine); }
-    public void StopRotation() { if (_rotationRoutine != null) StopCoroutine(_rotationRoutine); }
-    public void StartScaling() { _scalingRoutine = ScaleMotion(); StartCoroutine(_scalingRoutine); }
-    public void StopScaling() { if (_scalingRoutine != null) StopCoroutine(_scalingRoutine); }
     
     public void StopAllMotion()
     {

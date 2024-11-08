@@ -110,7 +110,7 @@ public class AudioPlayer : MonoBehaviour
         {
             StopCoroutine(_waitForStartCoroutine);
             _waitForStartCoroutine = null;
-            audioShotManager.audioShots[_shotIndex].locked = true;
+            audioShotManager.audioShots[_shotIndex].Activated();
         }
 
         if (_waitForEndCoroutine == null) return;
