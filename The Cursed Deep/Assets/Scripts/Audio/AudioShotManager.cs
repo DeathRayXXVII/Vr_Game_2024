@@ -14,7 +14,7 @@ public class AudioShotManager : ScriptableObject, IResetOnNewGame, INeedButton
         [Header("Audio Clip Settings")]
         public AudioClip clip;
         public bool playOnlyOncePerGame;
-        public bool hasPlayed;
+        [SerializeField, InspectorReadOnly] private bool _locked;
         public bool playOnAwake;
         [Header("Audio Settings")]
         [Range(0, 256)] public int priority = 128;
@@ -27,6 +27,18 @@ public class AudioShotManager : ScriptableObject, IResetOnNewGame, INeedButton
         [Header("Runtime Settings")]
         public float delay;
         public UnityEvent onComplete;
+
+        public bool locked
+        {
+            get => playOnlyOncePerGame && _locked;
+            set => _locked = playOnlyOncePerGame && value;
+        }
+        
+        public void SetLocked(bool lockState)
+        {
+            if (lockState) playOnlyOncePerGame = true;
+            _locked = lockState;
+        }
     }
 
     public List<AudioShot> audioShots;
@@ -42,16 +54,16 @@ public class AudioShotManager : ScriptableObject, IResetOnNewGame, INeedButton
     {
         if (index < 0 || index >= audioShots.Count) return;
         var shot = audioShots[index];
-        if ((shot.hasPlayed && shot.playOnlyOncePerGame) || shot.clip == null || audioSource == null) return;
+        if (shot.locked || shot.clip == null || audioSource == null) return;
         audioSource.PlayOneShot(shot.clip);
-        shot.hasPlayed = true;
+        shot.locked = true;
     }
 
     public void ResetAllAudioShots()
     {
         foreach (var shot in audioShots)
         {
-            shot.hasPlayed = false;
+            shot.locked = false;
         }
     }
 
@@ -70,7 +82,7 @@ public class AudioShotManager : ScriptableObject, IResetOnNewGame, INeedButton
     {
         if (index < 0 || index >= audioShots.Count) return;
 
-        audioShots[index].hasPlayed = setTo;
+        audioShots[index].locked = setTo;
     }
 
     public void ResetToNewGameValues(int tier = 2)

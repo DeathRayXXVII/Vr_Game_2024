@@ -18,7 +18,7 @@ public class Tutorialmanager : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
-        if (dialogTwo.hasPlayed)
+        if (dialogTwo.locked)
         {
             Debug.Log("AHHH");
             activateEvent.Invoke();
