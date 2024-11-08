@@ -15,6 +15,7 @@ public class CannonManager : MonoBehaviour
     [SerializeField] private int despawnTime = 30;
     private List<GameObject> _despawningAmmoList = new();
     private GameObject _loadedAmmo;
+    private Vector3 _ammoScale;
     private MeshFilter _ammoMeshFilter;
     private MeshRenderer _ammoMeshRenderer;
     
@@ -132,13 +133,16 @@ public class CannonManager : MonoBehaviour
         UnloadCannon();
     }
 
-    private const float ResizeFactor = 0.1f;
+    private const float RESIZE_FACTOR = 0.1f;
+    private static readonly Vector3 LOAD_SCALE = Vector3.one * RESIZE_FACTOR;
+    private Vector3 UNLOAD_SCALE = LOAD_SCALE / RESIZE_FACTOR;
     private void LoadCannon(GameObject obj)
     {
         if (_isLoaded) return;
         _isLoaded = true;
         _loadedAmmo = obj;
-        reloadSocket.fixedScale = Vector3.one * ResizeFactor;
+        _ammoScale = obj.transform.localScale;
+        reloadSocket.fixedScale = LOAD_SCALE;
         _modelAnimator.SetTrigger(_loadAnimationTrigger);
         _ammoObj = GetAmmo();
         _ammoRb = AdvancedGetComponent<Rigidbody>(_ammoObj);
@@ -157,9 +161,14 @@ public class CannonManager : MonoBehaviour
 
     private void UnloadCannon()
     {
-        reloadSocket.fixedScale = Vector3.one / ResizeFactor;
+        reloadSocket.fixedScale = UNLOAD_SCALE;
         reloadSocket.RemoveAndMoveSocketObject(Vector3.zero, Quaternion.identity);
-        if (_loadedAmmo) AdvancedGetComponent<PooledObjectBehavior>(_loadedAmmo)?.TriggerRespawn();
+        if (_loadedAmmo)
+        {
+            var currentScale = _loadedAmmo.transform.localScale;
+            if (currentScale != _ammoScale) _loadedAmmo.transform.localScale = _ammoScale;
+            AdvancedGetComponent<PooledObjectBehavior>(_loadedAmmo)?.TriggerRespawn();
+        }
         _loadedAmmo = null;
         _isLoaded = false;
     }

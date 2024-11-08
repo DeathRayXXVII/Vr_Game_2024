@@ -26,7 +26,7 @@ public class PooledObjectBehavior : MonoBehaviour
         _respawnTriggered = true;
         if (!_spawnManager)
         {
-            Debug.LogWarning($"SpawnManager is null {name} SpawnedObjectBehavior.");
+            Debug.LogWarning($"SpawnManager is null {name} SpawnedObjectBehavior.", this);
             return;
         }
         _spawnManager.SetSpawnDelay(timeToRespawn ? timeToRespawn : 1);
@@ -51,7 +51,7 @@ public class PooledObjectBehavior : MonoBehaviour
     public void InvalidateDeath()
     {
         _spawned = false;
-        _spawnManager.NotifyPoolObjectInvalidDeath(ref _spawner);
+        _spawnManager?.NotifyPoolObjectInvalidDeath(ref _spawner);
     }
 
     private void OnDisable()
@@ -59,7 +59,7 @@ public class PooledObjectBehavior : MonoBehaviour
         if (!_spawned || _respawnTriggered) return;
         if (_beingDestroyed) return;
         if (_allowDebug) Debug.Log($"OnDisable of {name} called from {_spawner.spawnerID}.");
-        _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
+        _spawnManager?.NotifyPoolObjectDisabled(ref _spawner);
         _spawned = false;
     }
 

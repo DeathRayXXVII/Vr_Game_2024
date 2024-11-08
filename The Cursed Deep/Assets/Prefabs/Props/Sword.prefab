@@ -309,9 +309,9 @@ GameObject:
   - component: {fileID: 4721243022597978951}
   - component: {fileID: 5316873226986386232}
   - component: {fileID: 2458734927944218740}
+  - component: {fileID: 3110195400373786854}
   - component: {fileID: 3281065074135489906}
   - component: {fileID: 8964475848236437440}
-  - component: {fileID: 3110195400373786854}
   - component: {fileID: 5204731228995493938}
   - component: {fileID: 8175960465549769753}
   - component: {fileID: 3550370940942478501}
@@ -395,6 +395,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &3110195400373786854
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6361090481891346177}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!65 &3281065074135489906
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -439,33 +466,6 @@ CapsuleCollider:
   m_Height: 12.433619
   m_Direction: 1
   m_Center: {x: -1.8776522, y: -0.34128428, z: -0.17246568}
---- !u!54 &3110195400373786854
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6361090481891346177}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 2
 --- !u!114 &5204731228995493938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,6 +691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb823966f35bb7d48b01c48b9876196f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowDebug: 0
   rigidBody: {fileID: 3110195400373786854}
   useGravity: 1
 --- !u!114 &3156451591927616649

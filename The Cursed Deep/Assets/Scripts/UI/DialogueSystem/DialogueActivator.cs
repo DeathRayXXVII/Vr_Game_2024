@@ -44,7 +44,6 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     {
         if (playerActivator)
         {
-            
             playerActivator.interactable = this;
             onInteract.Invoke();
         }
@@ -58,8 +57,8 @@ public class DialogueActivator : MonoBehaviour, IInteractable
 
     public void Interact(PlayerDialogueActivator player)
     {
-        if (dialogueData.locked && dialogueData.playOnlyOncePerGame) return;
-        dialogueData.locked = true;
+        if (dialogueData.locked) return;
+        dialogueData.Activated();
         foreach (DialogueResponseEvents responseEvents in GetComponents<DialogueResponseEvents>())
         {
             if (responseEvents.DialogueData)

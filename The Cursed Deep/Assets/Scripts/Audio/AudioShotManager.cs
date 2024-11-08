@@ -39,6 +39,12 @@ public class AudioShotManager : ScriptableObject, IResetOnNewGame, INeedButton
             if (lockState) playOnlyOncePerGame = true;
             _locked = lockState;
         }
+        
+        public void Activated()
+        { 
+            // Will only be true if playOnlyOncePerGame is true
+            locked = true;
+        }
     }
 
     public List<AudioShot> audioShots;

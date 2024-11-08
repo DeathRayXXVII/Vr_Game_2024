@@ -118,6 +118,23 @@ public class SocketMatchInteractor : XRSocketInteractor
     {
         return base.CanSelect(interactable) && CheckId(FetchOtherID(interactable.transform.gameObject));
     }
+    
+    public void AllowGrabInteration(bool grabState)
+    {
+        if (grabState)
+        {
+            deactivateGrabInteractionOnSocket = false;
+            if (!_socketedObject) return;
+            _socketedObject.interactionLayers = _originalInteractableLayerMask;
+        }
+        else
+        {
+            deactivateGrabInteractionOnSocket = true;
+            if (!_socketedObject) return;
+            _originalInteractableLayerMask = _socketedObject.interactionLayers;
+            _socketedObject.interactionLayers = _isolatedLayerMask;
+        }
+    }
 
     protected override bool StartSocketSnapping(XRGrabInteractable interactable)
     {
@@ -130,10 +147,7 @@ public class SocketMatchInteractor : XRSocketInteractor
             return false;
         }
         if (deactivateGrabInteractionOnSocket)
-        {
-            _originalInteractableLayerMask = interactable.interactionLayers;
-            interactable.interactionLayers = _isolatedLayerMask;
-        }
+            AllowGrabInteration(false);
 
         return base.StartSocketSnapping(interactable);
     }
@@ -141,9 +155,7 @@ public class SocketMatchInteractor : XRSocketInteractor
     protected override bool EndSocketSnapping(XRGrabInteractable interactable)
     {
         if (deactivateGrabInteractionOnSocket)
-        {
-            interactable.interactionLayers = _originalInteractableLayerMask;
-        }
+            AllowGrabInteration(true);
         return base.EndSocketSnapping(interactable);
     }
     

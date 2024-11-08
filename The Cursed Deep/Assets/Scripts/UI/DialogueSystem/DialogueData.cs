@@ -29,6 +29,12 @@ namespace UI.DialogueSystem
             _locked = lockState;
         }
         
+        public void Activated()
+        { 
+            // Will only be true if playOnlyOncePerGame is true
+            locked = true;
+        }
+        
         [Header("Dialogue Data")]
         [SerializeField] private string dialogueName;
         [SerializeField] private GameAction firstAction, lastAction;
@@ -53,15 +59,15 @@ namespace UI.DialogueSystem
 
         public void DialogueEvent(GameAction _)
         {
-            if (!locked) onTrigger?.Invoke();
+            onTrigger.Invoke();
         }
         public void FirstDialogueEvent(GameAction _)
         {
-            if (!locked) firstTrigger?.Invoke();
+            firstTrigger.Invoke();
         }
         public void LastDialogueEvent(GameAction _)
         {
-            if (!locked) lastTrigger?.Invoke();
+            lastTrigger.Invoke();
         }
         
         public List<(System.Action, string)> GetButtonActions()
