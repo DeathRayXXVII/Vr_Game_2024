@@ -11,7 +11,8 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private GameObject dialogueBox;
     public  TMP_Text textLabel;
     [SerializeField] private InputActionReference inputAction;
-    [SerializeField] private float autoAdvancedDelay = 5f;
+    [SerializeField] private float autoAdvanceDelay = 5f;
+    private WaitForSeconds waitAutoAdvance;
     [SerializeField] private bool autoAdvance;
     [SerializeField] private UnityEvent OnOpenDialogue, OnCloseDialogue;
     public DialogueData dialogueData;
@@ -24,16 +25,17 @@ public class DialogueUI : MonoBehaviour
     
     private void Start()
     {
-        typewriterEffect = GetComponent<TypewriterEffect>();
-        responseHandler = GetComponent<ResponseHandler>();
+        waitAutoAdvance = new WaitForSeconds(autoAdvanceDelay);
+        typewriterEffect ??= GetComponent<TypewriterEffect>();
+        responseHandler ??= GetComponent<ResponseHandler>();
         StartClosed = true;
         CloseDialogueBox();
     }
     
     public void ShowDialogue(DialogueData dialogueObj)
     {
-        if (dialogueObj.hasPlayed && dialogueObj.playOnlyOncePerGame) return;
-        dialogueObj.hasPlayed = true;
+        if (dialogueObj.locked) return;
+        dialogueObj.Activated();
         dialogueBox.SetActive(true);
         StartCoroutine(StepThroughDialogue(dialogueObj));
     }
@@ -52,7 +54,7 @@ public class DialogueUI : MonoBehaviour
             yield return null;
             if (autoAdvance)
             {
-                yield return new WaitForSeconds(autoAdvancedDelay);
+                yield return waitAutoAdvance;
                 
             }
             else

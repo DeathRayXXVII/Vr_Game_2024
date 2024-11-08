@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using Random = UnityEngine.Random;
 
@@ -128,15 +127,14 @@ public class SpawnerData : ScriptableObject
             {
                 _availableSpawners.Add(spawner);
             }
+            
 #if UNITY_EDITOR
             if (allowDebug) Debug.Log($"Spawner: {spawner.spawnerID} has {currentSpawnerActiveCount} active.", this);
 #endif
         }
-#if UNITY_EDITOR
-        if (allowDebug) Debug.Log($"Found {_availableSpawners.Count} Available Spawners.", this);
-#endif
         var output = _availableSpawners.Count == 0 ? null: _availableSpawners[Random.Range(0, _availableSpawners.Count)];
 #if UNITY_EDITOR
+        if (allowDebug) Debug.Log($"Found {_availableSpawners.Count} Available Spawners.", this);
         if (allowDebug) Debug.Log($"Selected Spawner: {output?.spawnerID}", this);
 #endif
         return output;
