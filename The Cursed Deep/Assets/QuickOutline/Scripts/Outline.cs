@@ -74,7 +74,7 @@ public class Outline : MonoBehaviour
 
     [SerializeField] private bool outlineContinuously;
     private bool outlineTimer;
-    private float _seconds =  1f;
+    private const float Seconds = 1f;
     private WaitForSecondsRealtime _wfsrtObj;
 
     [Header("Optional")]
@@ -116,7 +116,7 @@ public class Outline : MonoBehaviour
     
     private void Start()
     {
-        _wfsrtObj = new WaitForSecondsRealtime(_seconds);
+        _wfsrtObj = new WaitForSecondsRealtime(Seconds);
     }
 
     private void OnEnable()

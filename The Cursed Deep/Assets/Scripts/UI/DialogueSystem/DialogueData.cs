@@ -72,7 +72,7 @@ namespace UI.DialogueSystem
         
         public List<(System.Action, string)> GetButtonActions()
         {
-            return new List<(System.Action, string)> { (() => {locked = false;}, "Set Has Played to False") };
+            return new List<(System.Action, string)> { (() => {locked = false;}, "Set Locked to False") };
         }
     }
 }

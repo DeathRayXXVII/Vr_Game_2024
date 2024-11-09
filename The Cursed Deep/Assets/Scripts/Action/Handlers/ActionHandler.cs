@@ -19,7 +19,7 @@ public class ActionHandler: MonoBehaviour
     private void OnEnable()
     {
         // Subscribe to all the events in the list.
-        foreach (var gameAction in gameActions)
+        foreach (var gameAction in gameActions.Where(gameAction => gameAction.actionObj != null))
         {
             gameAction.actionObj.Raise += Raise;
         }
@@ -28,7 +28,7 @@ public class ActionHandler: MonoBehaviour
     private void OnDisable()
     {
         // Unsubscribe from all the events in the list.
-        foreach (var gameAction in gameActions)
+        foreach (var gameAction in gameActions.Where(gameAction => gameAction.actionObj != null))
         {
             gameAction.actionObj.Raise -= Raise;
         }

@@ -3,34 +3,28 @@ using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 
-[RequireComponent(typeof(XRGrabInteractable))]
+[RequireComponent(typeof(XRSimpleInteractable))]
 public class ControllerTriggerInteraction : MonoBehaviour
 {
-    private XRGrabInteractable _interactable;
+    private XRSimpleInteractable _interactable;
 
-    public UnityEvent onTriggerDown, onTriggerUp;
+    public UnityEvent onTriggerPressed, onTriggerReleased;
 
     private void OnEnable()
     {
-        _interactable = GetComponent<XRGrabInteractable>();
+        _interactable = GetComponent<XRSimpleInteractable>();
         
-        _interactable.activated.AddListener(_ => Perform());
-        _interactable.deactivated.AddListener(_ => Stop());
+        _interactable.activated.AddListener(_ => TriggerPressed());
+        _interactable.deactivated.AddListener(_ => TriggerReleased());
     }
     
     private void OnDisable()
     {
-        _interactable.activated.RemoveListener(_ => Perform());
-        _interactable.deactivated.RemoveListener(_ => Stop());
+        _interactable.activated.RemoveListener(_ => TriggerPressed());
+        _interactable.deactivated.RemoveListener(_ => TriggerReleased());
     }
 
-    private void Perform()
-    {
-        onTriggerDown?.Invoke();
-    }
+    private void TriggerPressed() => onTriggerPressed?.Invoke();
 
-    private void Stop()
-    {
-        onTriggerUp?.Invoke();
-    }
+    private void TriggerReleased() => onTriggerReleased?.Invoke();
 }

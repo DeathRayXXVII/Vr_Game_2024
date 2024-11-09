@@ -21,8 +21,8 @@ public class UpgradeDataEditor : Editor
     
     const int fieldSpacing = 2;
     
-    private string _lastFocusedControl = "";
-    private Vector2 blobScrollPosition = Vector2.zero;
+    // private string _lastFocusedControl = "";
+    // private Vector2 blobScrollPosition = Vector2.zero;
     
 
     UpgradeData upgradeData;

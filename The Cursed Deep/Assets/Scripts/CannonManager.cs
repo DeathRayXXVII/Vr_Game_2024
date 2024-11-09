@@ -204,7 +204,7 @@ public class CannonManager : MonoBehaviour
         _ammoRb.AddForce(momentumVector, ForceMode.Impulse);
         _addForceCoroutine = null; 
     }
-
+    
     private void HandleActivatedAmmo(GameObject ammo)
     {
         if (_despawningAmmoList.Contains(ammo))
@@ -212,15 +212,13 @@ public class CannonManager : MonoBehaviour
             Debug.LogWarning($"Ammo is already despawning: {ammo.name}", this);
             return;
         }
+        _despawningAmmoList.Add(ammo);
         
         StartCoroutine(DespawnAmmo(ammo));
     }
     
     private IEnumerator DespawnAmmo(GameObject ammo)
     {
-        if (_despawningAmmoList.Contains(ammo)) yield break;
-        _despawningAmmoList.Add(ammo);
-
         var doNotDeactivate = false;
         var time = 0;
         while (time < despawnTime)
@@ -234,10 +232,12 @@ public class CannonManager : MonoBehaviour
             time++;
             yield return _waitSingleSecond;
         }
-        // WaitUntil(() => _despawningAmmoList.Contains(ammo));
-        AdvancedGetComponent<PooledObjectBehavior>(ammo)?.TriggerRespawn();
-        _despawningAmmoList.Remove(ammo);
+        
+        var pooledObjectBehavior = AdvancedGetComponent<PooledObjectBehavior>(ammo);
+        if (pooledObjectBehavior != null)
+            pooledObjectBehavior.TriggerRespawn();
         yield return _waitFixedUpdate;
+        _despawningAmmoList.Remove(ammo);
         if(!doNotDeactivate) ammo.SetActive(false);
     }
     

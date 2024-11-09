@@ -62,7 +62,7 @@ public class ObjectMotion : MonoBehaviour
         _startPosition = transform.position;
         _startScale = transform.localScale;
     
-        if (!startOnLoad) return;
+        if (startOnLoad) StartAllMotion();
     }
 
     public void StartMotion() { _motionRoutine ??= StartCoroutine(PositionMotion()); }
