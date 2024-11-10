@@ -13,19 +13,30 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     {
         private readonly GameObject _textObject;
         private readonly TextMesh _textMesh;
+        private readonly Color _originalColor;
+        private readonly Color _endColor;
         private readonly HealthBehavior _owner;
         private const float AnimationTime = 2f;
 
         public TextPoolObject(GameObject newTextObject, HealthBehavior owner)
         {
             _textObject = newTextObject;
-            _textMesh = AdvancedGetComponent<TextMesh>(_textObject, true);
+            _textMesh = AdvancedGetComponent<TextMesh>(_textObject, false);
+            _originalColor = _textMesh.color;
+            _endColor = new Color(_originalColor.r, _originalColor.g, _originalColor.b, 0);
             _owner = owner;
             _textObject.transform.SetParent(_owner.transform);
         }
 
         public void SetLocation(Vector3 location)
         {
+            if (!_textObject)
+            {
+                Debug.LogError("Text Object is null.", _owner);
+                return;
+            }
+            if (!_mainCamera) _mainCamera = Camera.main;
+            
             _textObject.transform.position = location;
             _textObject.transform.rotation = _mainCamera.transform.rotation;
         }
@@ -43,10 +54,12 @@ public class HealthBehavior : MonoBehaviour, IDamagable
         {
             var time = Time.deltaTime;
             var upVector = GetRandomUpwardVector();
+            
             while (time < AnimationTime)
             {
                 time += Time.deltaTime;
                 _textObject.transform.position += upVector * Time.deltaTime;
+                _textMesh.color = Color.Lerp(_originalColor, _endColor, time / AnimationTime);
                 yield return null;
             }
             _textObject.SetActive(false);
@@ -98,11 +111,8 @@ public class HealthBehavior : MonoBehaviour, IDamagable
 
     private void Awake()
     {
-        if (!_damageTextPrefab)
-        {
-            _showDamageDealt = false;
-            _mainCamera ??= Camera.main;
-        }
+        if (!_damageTextPrefab) _showDamageDealt = false;
+        _mainCamera ??= Camera.main;
         if (!_maxHealth) _maxHealth = ScriptableObject.CreateInstance<FloatData>();
         if (maxHealth <= 0) maxHealth = 1;
         if (health <= 0 || health > maxHealth) health = maxHealth;

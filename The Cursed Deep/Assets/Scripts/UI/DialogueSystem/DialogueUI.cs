@@ -89,12 +89,12 @@ public class DialogueUI : MonoBehaviour
 
     private void CloseDialogueBox()
     {
-        dialogueBox.SetActive(false);
+        dialogueBox?.SetActive(false);
         textLabel.text = string.Empty;
     }
     public void CloseDialogueBox(DialogueData dialogueObj)
     {
-        dialogueBox.SetActive(false);
+        dialogueBox?.SetActive(false);
         textLabel.text = string.Empty;
         dialogueObj.LastDialogueEvent(action);
     }

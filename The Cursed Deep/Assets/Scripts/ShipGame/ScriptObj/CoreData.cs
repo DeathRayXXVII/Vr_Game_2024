@@ -142,7 +142,6 @@ namespace ShipGame.ScriptObj
         
         private void SetLevelData()
         {
-            Debug.Log("Setting Level Data", this);
             gameGlobals.enemyLaneActiveLimit.value = levelData.laneActiveLimit;
             gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.numberOfLanes;
             gameGlobals.spawnRateMin.value = levelData.spawnRateMin;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.000017119346, g: 0.000000026188118, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -438,14 +438,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 210587959}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07989867, y: 0.48207396, z: -0.01383679, w: 0.87237006}
-  m_LocalPosition: {x: -1.009, y: 1.747, z: -0.703}
+  m_LocalRotation: {x: 0.080446, y: 0.20527914, z: 0.010183553, w: 0.9753385}
+  m_LocalPosition: {x: 0.885, y: 2.031, z: -0.908}
   m_LocalScale: {x: 0.49619, y: 0.49619, z: 0.49619}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1131636311}
   m_Father: {fileID: 273184130}
-  m_LocalEulerAnglesHint: {x: 8.786, y: 58.086, z: 3.068}
+  m_LocalEulerAnglesHint: {x: 8.786, y: 24.007, z: 3.068}
 --- !u!1 &273184129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,17 +1298,17 @@ PrefabInstance:
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.024689458
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.024689458
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.024689458
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
@@ -1318,32 +1318,32 @@ PrefabInstance:
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000010475
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.000000082404
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8868089
+      value: 0.92387956
       objectReference: {fileID: 0}
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0991167
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.22444229
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.39162675
+      value: 0.38268343
       objectReference: {fileID: 0}
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
@@ -1353,12 +1353,17 @@ PrefabInstance:
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -28.405
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 47.654
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8323452844126881095, guid: 93c2356ea7bd12b45b84de8dc4f52112,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5082,6 +5087,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: IntData, Assembly-CSharp
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   endWaitForZero: []
   endWaitForFixedUpdate: []
 --- !u!114 &1453536780
@@ -5951,6 +5968,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6734886396762328248, guid: a2845d6dddfb830419db521d67ecac03,
+        type: 3}
+      propertyPath: m_text
+      value: Return to yer ship?
       objectReference: {fileID: 0}
     - target: {fileID: 7809718269340565626, guid: a2845d6dddfb830419db521d67ecac03,
         type: 3}

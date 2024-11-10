@@ -236,7 +236,6 @@ GameObject:
   - component: {fileID: 919918478158659066}
   - component: {fileID: 1655934223155502546}
   - component: {fileID: 8596837145433627448}
-  - component: {fileID: -1384171436132759502}
   - component: {fileID: -7157524752608855785}
   m_Layer: 20
   m_Name: Ammo-Default - Interactable
@@ -535,44 +534,10 @@ MonoBehaviour:
     triggerEnterEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: -1384171436132759502}
-          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-          m_MethodName: StartWaitForFixedUpdateEvent
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: deactivate
-            m_BoolArgument: 0
-          m_CallState: 2
-    triggerExitEvent:
-      m_PersistentCalls:
-        m_Calls: []
---- !u!114 &-1384171436132759502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7281101536470286139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endWaitForSeconds: []
-  endWaitForZero: []
-  endWaitForFixedUpdate:
-  - id: deactivate
-    onWaitFinished:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7281101536470286139}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
+        - m_Target: {fileID: -7157524752608855785}
+          m_TargetAssemblyTypeName: PooledObjectBehavior, Assembly-CSharp
+          m_MethodName: TriggerRespawn
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -581,6 +546,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &-7157524752608855785
 MonoBehaviour:
   m_ObjectHideFlags: 0

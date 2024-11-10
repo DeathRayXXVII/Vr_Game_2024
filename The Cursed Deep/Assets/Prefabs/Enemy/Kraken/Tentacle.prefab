@@ -5400,10 +5400,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18f3c82500183274796002d61174efda,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4832822788254129204}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18f3c82500183274796002d61174efda,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 4813802681036350069}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 18f3c82500183274796002d61174efda,
         type: 3}
@@ -5600,21 +5596,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4832822788254129204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 251029785398977055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 084cda31011b9ca4a806fa24ee9735db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: {fileID: 11400000, guid: 9f5ff81a699609342b5b360edd1a0b78, type: 2}
-  allowDebug: 1
-  triggerEnterMatches: []
 --- !u!114 &4813802681036350069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5801,6 +5782,18 @@ MonoBehaviour:
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 6856031701504733252}
+          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+          m_MethodName: StopPlayback
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
         - m_Target: {fileID: 6856031701504733252}
           m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
           m_MethodName: SetTrigger

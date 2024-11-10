@@ -72,10 +72,10 @@ namespace ShipGame.Manager
         {
             coreData.Setup();
             
-            // Initialize the ship asynchronously using a coroutine
+            // Force the ship to initialize first before the cannon and ammo
             yield return StartCoroutine(InitializeShipCoroutine());
 
-            // Initialize the cannon and ammo only after the ship is done
+            // Asynchronously Initialize the cannon and ammo only after the ship is done
             StartCoroutine(InitializeCannon());
             StartCoroutine(InitializeAmmo());
 

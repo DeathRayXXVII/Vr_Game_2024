@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using ZPTools.Interface;
 
-
+[RequireComponent(typeof(XRSimpleInteractable))]
 public class SimpleInteractableTrigger : MonoBehaviour, INeedButton
 {
     public UnityEvent onInteractionPerformed;
