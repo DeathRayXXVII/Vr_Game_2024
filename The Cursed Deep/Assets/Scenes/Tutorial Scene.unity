@@ -335,65 +335,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 13831902}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &20986736
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 20986738}
-  - component: {fileID: 20986737}
-  m_Layer: 0
-  m_Name: Debug
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &20986737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 20986736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9fc31ff1a6d89d4a89364aeee6cd9dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onButtonPress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 437601830}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: On
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!4 &20986738
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 20986736}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7725191, y: 5.80952, z: -1.285707}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &40181105 stripped
 SphereCollider:
   m_CorrespondingSourceObject: {fileID: 2906189499729428694, guid: cc1ad9483fb80da4cb58fb28d23c8042,
@@ -605,7 +546,7 @@ PrefabInstance:
     - target: {fileID: 3659264030406464141, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3906399293454468433, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -2306,12 +2247,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9c5d08b260ddd240af99c9be382c27f, type: 3}
---- !u!95 &437601830 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2871762464231238590, guid: 9633f4a35242b454783ef9a0d2324a5f,
-    type: 3}
-  m_PrefabInstance: {fileID: 88805992}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &477473185
 GameObject:
   m_ObjectHideFlags: 0
@@ -4769,73 +4704,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3397c681876c5c948b9b0d70cbb30eda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1073008248
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1073008249}
-  - component: {fileID: 1073008250}
-  m_Layer: 0
-  m_Name: ProgressionColliders
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1073008249
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073008248}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.014, y: 2.299, z: 5.491}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1991053785}
-  - {fileID: 1999590651}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1073008250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1073008248}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endWaitForSeconds:
-  - id: FirstBoxesOn
-    realTime: 1
-    seconds: 3
-    onWaitFinished:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1991053784}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-  endWaitForZero: []
-  endWaitForFixedUpdate: []
 --- !u!1 &1155250151
 GameObject:
   m_ObjectHideFlags: 0
@@ -5705,6 +5573,154 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1363210706}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1451112582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1451112583}
+  - component: {fileID: 1451112584}
+  m_Layer: 0
+  m_Name: TutorialHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1451112583
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451112582}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1991053785}
+  - {fileID: 1999590651}
+  m_Father: {fileID: 1572188483}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1451112584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451112582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceea3b6f13bfd954dbe40b2108805f42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allowDebug: 1
+  inputActionAsset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f,
+    type: 3}
+  _triggeredActions:
+  - actionName: Head/Rotation[/HeadTrackingOpenXR/centereyerotation]
+    excludeFromDebug: 1
+  - actionName: Head/Eye Gaze Rotation[/HeadTrackingOpenXR/centereyerotation]
+    excludeFromDebug: 1
+  - actionName: UI/Point[/Mouse/position,/Pen/position,/Touchscreen/position]
+    excludeFromDebug: 1
+  - actionName: Head/Position[/HeadTrackingOpenXR/centereyeposition]
+    excludeFromDebug: 1
+  - actionName: Head/Tracking State[/HeadTrackingOpenXR/trackingstate]
+    excludeFromDebug: 1
+  - actionName: Head/Eye Gaze Position[/HeadTrackingOpenXR/centereyeposition]
+    excludeFromDebug: 1
+  - actionName: Head/Eye Gaze Tracking State[/HeadTrackingOpenXR/trackingstate]
+    excludeFromDebug: 1
+  - actionName: Head/Is Tracked[/HeadTrackingOpenXR/istracked]
+    excludeFromDebug: 1
+  - actionName: Head/Eye Gaze Is Tracked[/HeadTrackingOpenXR/istracked]
+    excludeFromDebug: 1
+  - actionName: Left/Position[/OculusTouchControllerOpenXR/pointerPosition,/OculusTouchControllerOpenXR/devicePosition]
+    excludeFromDebug: 1
+  - actionName: Left/Rotation[/OculusTouchControllerOpenXR/pointerRotation,/OculusTouchControllerOpenXR/deviceRotation]
+    excludeFromDebug: 1
+  - actionName: Left/Is Tracked[/OculusTouchControllerOpenXR/istracked]
+    excludeFromDebug: 1
+  - actionName: Left/Tracking State[/OculusTouchControllerOpenXR/trackingstate]
+    excludeFromDebug: 1
+  - actionName: Left/Haptic Device[/OculusTouchControllerOpenXR/thumbstick,/OculusTouchControllerOpenXR/grip,/OculusTouchControllerOpenXR/grippressed,/OculusTouchControllerOpenXR/menu,/OculusTouchControllerOpenXR/primarybutton,/OculusTouchControllerOpenXR/primarytouched,/OculusTouchControllerOpenXR/secondarybutton,/OculusTouchControllerOpenXR/secondarytouched,/OculusTouchControllerOpenXR/trigger,/OculusTouchControllerOpenXR/triggerpressed,/OculusTouchControllerOpenXR/triggertouched,/OculusTouchControllerOpenXR/thumbstickclicked,/OculusTouchControllerOpenXR/thumbsticktouched,/OculusTouchControllerOpenXR/thumbresttouched,/OculusTouchControllerOpenXR/devicepose,/OculusTouchControllerOpenXR/pointer,/OculusTouchControllerOpenXR/istracked,/OculusTouchControllerOpenXR/trackingstate,/OculusTouchControllerOpenXR/devicePosition,/OculusTouchControllerOpenXR/deviceRotation,/OculusTouchControllerOpenXR/pointerPosition,/OculusTouchControllerOpenXR/pointerRotation,/OculusTouchControllerOpenXR/haptic]
+    excludeFromDebug: 1
+  - actionName: Right/Position[/OculusTouchControllerOpenXR1/pointerPosition,/OculusTouchControllerOpenXR1/devicePosition]
+    excludeFromDebug: 1
+  - actionName: Right/Rotation[/OculusTouchControllerOpenXR1/pointerRotation,/OculusTouchControllerOpenXR1/deviceRotation]
+    excludeFromDebug: 1
+  - actionName: Right/Is Tracked[/OculusTouchControllerOpenXR1/istracked]
+    excludeFromDebug: 1
+  - actionName: Right/Tracking State[/OculusTouchControllerOpenXR1/trackingstate]
+    excludeFromDebug: 1
+  - actionName: Right/Haptic Device[/OculusTouchControllerOpenXR1/thumbstick,/OculusTouchControllerOpenXR1/grip,/OculusTouchControllerOpenXR1/grippressed,/OculusTouchControllerOpenXR1/menu,/OculusTouchControllerOpenXR1/primarybutton,/OculusTouchControllerOpenXR1/primarytouched,/OculusTouchControllerOpenXR1/secondarybutton,/OculusTouchControllerOpenXR1/secondarytouched,/OculusTouchControllerOpenXR1/trigger,/OculusTouchControllerOpenXR1/triggerpressed,/OculusTouchControllerOpenXR1/triggertouched,/OculusTouchControllerOpenXR1/thumbstickclicked,/OculusTouchControllerOpenXR1/thumbsticktouched,/OculusTouchControllerOpenXR1/thumbresttouched,/OculusTouchControllerOpenXR1/devicepose,/OculusTouchControllerOpenXR1/pointer,/OculusTouchControllerOpenXR1/istracked,/OculusTouchControllerOpenXR1/trackingstate,/OculusTouchControllerOpenXR1/devicePosition,/OculusTouchControllerOpenXR1/deviceRotation,/OculusTouchControllerOpenXR1/pointerPosition,/OculusTouchControllerOpenXR1/pointerRotation,/OculusTouchControllerOpenXR1/haptic]
+    excludeFromDebug: 1
+  - actionName: Left Interaction/Select Value[/OculusTouchControllerOpenXR/grip]
+    excludeFromDebug: 1
+  - actionName: Left/Thumbstick[/OculusTouchControllerOpenXR/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Left Interaction/Translate Manipulation[/OculusTouchControllerOpenXR/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Left Interaction/Rotate Manipulation[/OculusTouchControllerOpenXR/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Left Interaction/Directional Manipulation[/OculusTouchControllerOpenXR/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Left Interaction/Scale Over Time[/OculusTouchControllerOpenXR/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Left Locomotion/Move[/OculusTouchControllerOpenXR/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Left Interaction/Select[/OculusTouchControllerOpenXR/grippressed,/OculusTouchControllerOpenXR/triggerpressed]
+    excludeFromDebug: 1
+  - actionName: Left Locomotion/Grab Move[/OculusTouchControllerOpenXR/grippressed]
+    excludeFromDebug: 1
+  - actionName: Right Interaction/Select Value[/OculusTouchControllerOpenXR1/grip]
+    excludeFromDebug: 1
+  - actionName: Right Interaction/Activate Value[/OculusTouchControllerOpenXR1/trigger]
+    excludeFromDebug: 1
+  - actionName: Right Interaction/UI Press Value[/OculusTouchControllerOpenXR1/trigger]
+    excludeFromDebug: 1
+  - actionName: Right Interaction/Select[/OculusTouchControllerOpenXR1/grippressed,/OculusTouchControllerOpenXR1/triggerpressed]
+    excludeFromDebug: 1
+  - actionName: Right Interaction/Activate[/OculusTouchControllerOpenXR1/triggerpressed]
+    excludeFromDebug: 1
+  - actionName: Right Interaction/UI Press[/OculusTouchControllerOpenXR1/triggerpressed]
+    excludeFromDebug: 1
+  - actionName: Right Interaction/UI Interac[/OculusTouchControllerOpenXR1/secondarybutton]
+    excludeFromDebug: 1
+  - actionName: Right Interaction/Object Interact[/OculusTouchControllerOpenXR1/primarybutton]
+    excludeFromDebug: 1
+  - actionName: Right/Thumbstick[/OculusTouchControllerOpenXR1/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Right Interaction/Translate Manipulation[/OculusTouchControllerOpenXR1/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Right Interaction/Rotate Manipulation[/OculusTouchControllerOpenXR1/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Right Interaction/Directional Manipulation[/OculusTouchControllerOpenXR1/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Right Interaction/Scale Over Time[/OculusTouchControllerOpenXR1/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Right Locomotion/Turn[/OculusTouchControllerOpenXR1/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Right Locomotion/Teleport Mode[/OculusTouchControllerOpenXR1/thumbstick]
+    excludeFromDebug: 1
+  - actionName: Left Interaction/Activate Value[/OculusTouchControllerOpenXR/trigger]
+    excludeFromDebug: 1
+  - actionName: Left Interaction/UI Press Value[/OculusTouchControllerOpenXR/trigger]
+    excludeFromDebug: 1
+  - actionName: Right Locomotion/Teleport Mode Cancel[/OculusTouchControllerOpenXR1/grippressed]
+    excludeFromDebug: 1
+  - actionName: Right Locomotion/Grab Move[/OculusTouchControllerOpenXR1/grippressed]
+    excludeFromDebug: 1
+  - actionName: Left Interaction/Activate[/OculusTouchControllerOpenXR/triggerpressed]
+    excludeFromDebug: 1
+  - actionName: Left Interaction/UI Press[/OculusTouchControllerOpenXR/triggerpressed]
+    excludeFromDebug: 1
 --- !u!1 &1500011420
 GameObject:
   m_ObjectHideFlags: 0
@@ -6651,30 +6667,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1780707816}
-        m_TargetAssemblyTypeName: HealthBehavior, Assembly-CSharp
-        m_MethodName: SetHealth
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 6511743c5afcbc2428e686d63548ea53, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 593018822}
         m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
         m_MethodName: ShowDialogue
@@ -6724,6 +6716,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1780707816}
+        m_TargetAssemblyTypeName: HealthBehavior, Assembly-CSharp
+        m_MethodName: SetHealth
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 6511743c5afcbc2428e686d63548ea53, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onGameStart:
     m_PersistentCalls:
       m_Calls: []
@@ -6752,6 +6768,7 @@ Transform:
   - {fileID: 1288787972}
   - {fileID: 335332207}
   - {fileID: 2145473423}
+  - {fileID: 1451112583}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1572188484
@@ -8744,17 +8761,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1991053785}
-  - component: {fileID: 1991053789}
-  - component: {fileID: 1991053788}
-  - component: {fileID: 1991053787}
-  - component: {fileID: 1991053791}
+  - component: {fileID: 1991053792}
   m_Layer: 0
   m_Name: FirstSteps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1991053785
 Transform:
   m_ObjectHideFlags: 0
@@ -8764,76 +8778,13 @@ Transform:
   m_GameObject: {fileID: 1991053784}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.014, y: 2.299, z: 5.491}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1073008249}
+  m_Father: {fileID: 1451112583}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1991053787
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991053784}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.8192675, y: 0.94368505, z: 2.9097762}
-  m_Center: {x: -1.8856922, y: -0.028157473, z: -0.9548881}
---- !u!65 &1991053788
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991053784}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.4775622, y: 0.96681046, z: 3.1394184}
-  m_Center: {x: 2.5067682, y: -0.016594768, z: -1.0697092}
---- !u!65 &1991053789
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991053784}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.6633203, y: 1, z: 1}
-  m_Center: {x: 0.122629285, y: 0, z: 0}
---- !u!114 &1991053791
+--- !u!114 &1991053792
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8842,14 +8793,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1991053784}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 084cda31011b9ca4a806fa24ee9735db, type: 3}
+  m_Script: {fileID: 11500000, guid: bce4aa11e41bec744962b74943f48c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: {fileID: 11400000, guid: 0eb9e769322f0f74eb766337f3678e3a, type: 2}
-  allowDebug: 0
-  triggerEnterMatches:
-  - id: {fileID: 11400000, guid: b1248dc0261effe40b46761673244b02, type: 2}
-    triggerEnterEvent:
+  _inputActionEvents:
+  - _listenOnStart: 0
+    _actionName: FirstMove
+    _inputAction: {fileID: 6972639530819350904, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
+    inputPerformedEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 593018822}
@@ -8877,21 +8829,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 1991053784}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    triggerExitEvent:
-      m_PersistentCalls:
-        m_Calls: []
 --- !u!1 &1999590650
 GameObject:
   m_ObjectHideFlags: 0
@@ -8909,7 +8846,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1999590651
 Transform:
   m_ObjectHideFlags: 0
@@ -8919,11 +8856,11 @@ Transform:
   m_GameObject: {fileID: 1999590650}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.014, y: 2.299, z: 5.491}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1073008249}
+  m_Father: {fileID: 1451112583}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1999590652
 BoxCollider:
@@ -9534,16 +9471,16 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 1073008250}
-          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-          m_MethodName: StartWaitForSecondsEvent
+        - m_Target: {fileID: 1991053792}
+          m_TargetAssemblyTypeName: ZPTools.InputActionEventHandler, Assembly-CSharp
+          m_MethodName: StartListening
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: FirstBoxesOn
+            m_StringArgument: FirstMove
             m_BoolArgument: 1
           m_CallState: 2
   - actionObj: {fileID: 11400000, guid: b6ad1b2bac4676c4a94b9ae0a1947953, type: 2}
@@ -10725,5 +10662,3 @@ SceneRoots:
   - {fileID: 1195751517}
   - {fileID: 2007666141}
   - {fileID: 88805992}
-  - {fileID: 1073008249}
-  - {fileID: 20986738}

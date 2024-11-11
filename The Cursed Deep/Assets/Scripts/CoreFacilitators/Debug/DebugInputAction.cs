@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,7 +35,6 @@ public class DebugInputAction : MonoBehaviour, INeedButton
 
     public void Update()
     {
-        if (!allowDebug) return;
         if (!_isInitialized && inputActionAsset != null) _isInitialized = true;
         if (!_isInitialized) return;
 
@@ -42,12 +42,12 @@ public class DebugInputAction : MonoBehaviour, INeedButton
         {
             if (!action.triggered) continue;
 
-            var existingAction = _triggeredActions.FirstOrDefault(element => element.actionName == action.name);
+            var existingAction = _triggeredActions.FirstOrDefault(element => element.actionName == action.ToString());
             UnityEditor.EditorUtility.SetDirty(this);
             if (!string.IsNullOrEmpty(existingAction.actionName))
             {
                 // If the action exists and should not be excluded, log it
-                if (!existingAction.excludeFromDebug)
+                if (!existingAction.excludeFromDebug && allowDebug)
                 {
                     Debug.Log($"Input triggered: {action.name}", this);
                 }
@@ -55,8 +55,8 @@ public class DebugInputAction : MonoBehaviour, INeedButton
             else
             {
                 // If the action does not exist in the list, add it and log it
-                _triggeredActions.Add(new TriggeredActions(action.name, false));
-                Debug.Log($"Input triggered: {action.name}", this);
+                _triggeredActions.Add(new TriggeredActions(action.ToString(), true));
+                if (allowDebug) Debug.Log($"Input triggered: {action}", this);
             }
         }
     }
