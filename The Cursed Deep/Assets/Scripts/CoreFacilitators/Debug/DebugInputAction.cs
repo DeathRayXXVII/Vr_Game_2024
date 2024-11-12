@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -5,85 +6,104 @@ using UnityEngine.InputSystem;
 using ZPTools.Interface;
 
 [System.Serializable]
-public class StringListWrapper
+public class TriggeredActionsListWrapper
 {
-    public List<string> list = new List<string>();
+    public List<DebugInputAction.TriggeredActions> list = new List<DebugInputAction.TriggeredActions>();
 }
 
 public class DebugInputAction : MonoBehaviour, INeedButton
 {
 #if UNITY_EDITOR
+    [System.Serializable]
+    public struct TriggeredActions
+    {
+        [HideInInspector] public string actionName;
+        public bool excludeFromDebug;
+
+        public TriggeredActions(string name, bool exclude)
+        {
+            actionName = name;
+            excludeFromDebug = exclude;
+        }
+    }
+    
     [SerializeField] private bool allowDebug = true;
     [SerializeField] private InputActionAsset inputActionAsset;
-    [SerializeField] private List<string> exclusionList;
-    [SerializeField, InspectorReadOnly] private List<string> triggeredActions = new List<string>();
+    [SerializeField] private List<TriggeredActions> _triggeredActions = new List<TriggeredActions>();
 
     private bool _isInitialized;
 
     public void Update()
     {
-        if (!allowDebug) return;
         if (!_isInitialized && inputActionAsset != null) _isInitialized = true;
         if (!_isInitialized) return;
+
         foreach (var action in inputActionAsset)
         {
-            if (!action.triggered || exclusionList.Contains(action.name)) continue;
-            if (action.triggered && !triggeredActions.Contains(action.name))
+            if (!action.triggered) continue;
+
+            var existingAction = _triggeredActions.FirstOrDefault(element => element.actionName == action.ToString());
+            UnityEditor.EditorUtility.SetDirty(this);
+            if (!string.IsNullOrEmpty(existingAction.actionName))
             {
-                triggeredActions.Add(action.name);
-                UnityEditor.EditorUtility.SetDirty(this);
+                // If the action exists and should not be excluded, log it
+                if (!existingAction.excludeFromDebug && allowDebug)
+                {
+                    Debug.Log($"Input triggered: {action.name}", this);
+                }
             }
-            if (!triggeredActions.Contains(action.name))
+            else
             {
-                Debug.Log($"Input triggered: {action.name}");
+                // If the action does not exist in the list, add it and log it
+                _triggeredActions.Add(new TriggeredActions(action.ToString(), true));
+                if (allowDebug) Debug.Log($"Input triggered: {action}", this);
             }
         }
+    }
+    
+    private const string _editorPrefsKey = "TriggeredActions";
+    private void SaveData()
+    {
+        var wrapper = new TriggeredActionsListWrapper { list = _triggeredActions };
+        UnityEditor.EditorPrefs.SetString(_editorPrefsKey, JsonUtility.ToJson(wrapper));
     }
 
     private void LoadData()
     {
-        if (UnityEditor.EditorPrefs.HasKey("TriggeredActions"))
-        {
-            string json = UnityEditor.EditorPrefs.GetString("TriggeredActions");
-            triggeredActions = JsonUtility.FromJson<StringListWrapper>(json)?.list ?? new List<string>();
-        }
-        if (UnityEditor.EditorPrefs.HasKey("ExclusionList"))
-        {
-            string json = UnityEditor.EditorPrefs.GetString("ExclusionList");
-            exclusionList = JsonUtility.FromJson<StringListWrapper>(json)?.list ?? new List<string>();
-        }
+        if (!UnityEditor.EditorPrefs.HasKey(_editorPrefsKey)) return;
+        var wrapper = JsonUtility.FromJson<TriggeredActionsListWrapper>(UnityEditor.EditorPrefs.GetString(_editorPrefsKey));
+        _triggeredActions = wrapper?.list ?? new List<TriggeredActions>();
     }
-
-    private void SaveData()
+    
+    private bool _dataLoaded;
+    private void OnValidate()
     {
-        StringListWrapper triggeredWrapper = new StringListWrapper { list = triggeredActions };
-        StringListWrapper exclusionWrapper = new StringListWrapper { list = exclusionList };
-
-        UnityEditor.EditorPrefs.SetString("TriggeredActions", JsonUtility.ToJson(triggeredWrapper));
-        UnityEditor.EditorPrefs.SetString("ExclusionList", JsonUtility.ToJson(exclusionWrapper));
+        if (!_dataLoaded)
+        {
+            LoadData();
+            _dataLoaded = true; // Ensure data is loaded only once when the component is validated initially.
+        }
+        else
+        {
+            // Allow changes in the Inspector to be saved only after a manual change is made.
+            SaveData();
+        }
     }
-
-    private void OnValidate() => LoadData();
     private void OnEnable() => LoadData();
     private void OnDisable() => SaveData();
     private void OnApplicationQuit() => SaveData();
 
-    private void ExcludeTriggeredActions()
+    private void ClearList(ref List<TriggeredActions> targetList)
     {
-        if (triggeredActions.Count == 0) return;
-        foreach (var action in triggeredActions.Where(action => !exclusionList.Contains(action)))
-        {
-            exclusionList.Add(action);
-        }
+        targetList?.Clear();
+        SaveData();
     }
 
     public List<(System.Action, string)> GetButtonActions()
     {
         return new List<(System.Action, string)>
         {
-            (ExcludeTriggeredActions, "Exclude Triggered Actions"),
-            (() => exclusionList.Clear(), "Clear Exclusions"),
-            (() => triggeredActions.Clear(), "Clear Triggered Actions"),
+            (() => ClearList(ref _triggeredActions), "Clear Triggered Actions")
         };
     }
 #endif

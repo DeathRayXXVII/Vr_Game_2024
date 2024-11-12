@@ -365,7 +365,19 @@ MonoBehaviour:
   - id: {fileID: 11400000, guid: 6ce658b07eebcad46a12960a0839dee3, type: 2}
     triggerEnterEvent:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 2673050081111478343}
+          m_TargetAssemblyTypeName: TransformBehavior, Assembly-CSharp
+          m_MethodName: ResetToStartTransform
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     triggerExitEvent:
       m_PersistentCalls:
         m_Calls: []
@@ -381,6 +393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb823966f35bb7d48b01c48b9876196f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowDebug: 0
   rigidBody: {fileID: 6987586203359692267}
   useGravity: 1
 --- !u!114 &2673050081111478343

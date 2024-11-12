@@ -14,7 +14,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private float autoAdvanceDelay = 5f;
     private WaitForSeconds waitAutoAdvance;
     [SerializeField] private bool autoAdvance;
-    [SerializeField] private UnityEvent OnOpenDialogue, OnCloseDialogue;
+    [SerializeField] private UnityEvent OnOpenDialogue, OnTypingFinish, OnCloseDialogue;
     public DialogueData dialogueData;
     
     public bool IsOpen { get; private set;}
@@ -44,10 +44,12 @@ public class DialogueUI : MonoBehaviour
     private IEnumerator StepThroughDialogue(DialogueData dialogueObj)
     {
         IsOpen = true;
+        OnOpenDialogue.Invoke();
         for (int i = 0; i < dialogueObj.Dialogue.Length; i++)
         {
             string dialogue = dialogueObj.Dialogue[i];
             yield return RunTypingEffect(dialogue);
+            if (typewriterEffect != null  && !typewriterEffect.IsRunning) OnTypingFinish.Invoke();
             textLabel.text = dialogue;
             if (i == dialogueObj.Dialogue.Length - 1 && dialogueObj.hasResponses) break;
             

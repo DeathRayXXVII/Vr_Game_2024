@@ -7,7 +7,12 @@ public class PooledObjectBehavior : MonoBehaviour
     
     private SpawnManager _spawnManager;
     private SpawnerData.Spawner _spawner;
-    private bool _allowDebug, _spawned, _justInstantiated, _respawnTriggered, _beingDestroyed;
+    private bool _allowDebug;
+    private bool _spawned;
+    private bool _justInstantiated;
+    private bool _allowRespawn;
+    private bool _respawnTriggered;
+    private bool _beingDestroyed;
     
     [SerializeField] private FloatData timeToRespawn;
 
@@ -19,14 +24,18 @@ public class PooledObjectBehavior : MonoBehaviour
         _spawner = spawner;
         _allowDebug = allowDebug;
     }
+    
+    public void EnableRespawn() => _allowRespawn = true;
+    public void DisableRespawn() => _allowRespawn = false;
 
     public void TriggerRespawn()
     {
-        if (_respawnTriggered) return;
+        if (_respawnTriggered || !_allowRespawn) return;
         _respawnTriggered = true;
         if (!_spawnManager)
         {
             Debug.LogWarning($"SpawnManager is null {name} SpawnedObjectBehavior.", this);
+            gameObject.SetActive(false);
             return;
         }
         _spawnManager.SetSpawnDelay(timeToRespawn ? timeToRespawn : 1);

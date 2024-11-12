@@ -52,7 +52,7 @@ public class ObjectMotion : MonoBehaviour
     [Tooltip("positionFrequency of the scale wave - how fast the wave oscillates.")]
     public float pulseFrequency = 1.0f;
     [Tooltip("Pulse offset of the wave - shifts the wave along the time axis.")]
-    public float pulseOffset;
+    [Range(-1, 1)] public float pulseOffset;
 
     private Vector3 _startPosition, _startScale;
     private Coroutine _motionRoutine, _rotationRoutine, _scalingRoutine;

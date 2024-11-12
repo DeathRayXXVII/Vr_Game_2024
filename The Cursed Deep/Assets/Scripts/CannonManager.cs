@@ -162,12 +162,13 @@ public class CannonManager : MonoBehaviour
     private void UnloadCannon()
     {
         reloadSocket.fixedScale = UNLOAD_SCALE;
-        reloadSocket.RemoveAndMoveSocketObject(Vector3.zero, Quaternion.identity);
         if (_loadedAmmo)
         {
             var currentScale = _loadedAmmo.transform.localScale;
             if (currentScale != _ammoScale) _loadedAmmo.transform.localScale = _ammoScale;
+            reloadSocket.RemoveAndMoveSocketObject(Vector3.zero, Quaternion.identity);
             AdvancedGetComponent<PooledObjectBehavior>(_loadedAmmo)?.TriggerRespawn();
+            if (_loadedAmmo.activeInHierarchy) _loadedAmmo.SetActive(false);
         }
         _loadedAmmo = null;
         _isLoaded = false;
