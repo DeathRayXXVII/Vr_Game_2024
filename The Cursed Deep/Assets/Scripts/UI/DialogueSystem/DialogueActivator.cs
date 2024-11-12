@@ -21,7 +21,6 @@ public class DialogueActivator : MonoBehaviour, IInteractable
         {
             if (other.TryGetComponent(out PlayerDialogueActivator player))
             {
-                
                 player.interactable = this;
             }
         }

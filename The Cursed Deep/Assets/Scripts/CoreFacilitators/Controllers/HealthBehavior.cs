@@ -26,7 +26,11 @@ public class HealthBehavior : MonoBehaviour, IDamagable
             _endColor = new Color(_originalColor.r, _originalColor.g, _originalColor.b, 0);
             _owner = owner;
             _textObject.transform.SetParent(_owner.transform);
+            
+            _textPosition = Vector3.zero;
         }
+        
+        private Vector3 _textPosition;
 
         public void SetLocation(Vector3 location)
         {
@@ -36,9 +40,7 @@ public class HealthBehavior : MonoBehaviour, IDamagable
                 return;
             }
             if (!_mainCamera) _mainCamera = Camera.main;
-            
-            _textObject.transform.position = location;
-            _textObject.transform.rotation = _mainCamera.transform.rotation;
+            _textPosition = location;
         }
         
         public void ActivateText(string displayText = "")
@@ -58,7 +60,9 @@ public class HealthBehavior : MonoBehaviour, IDamagable
             while (time < AnimationTime)
             {
                 time += Time.deltaTime;
-                _textObject.transform.position += upVector * Time.deltaTime;
+                ;
+                _textObject.transform.position = _textPosition + upVector * Time.deltaTime;
+                _textObject.transform.rotation = _mainCamera.transform.rotation;
                 _textMesh.color = Color.Lerp(_originalColor, _endColor, time / AnimationTime);
                 yield return null;
             }

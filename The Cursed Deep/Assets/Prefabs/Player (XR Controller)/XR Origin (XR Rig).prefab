@@ -1736,8 +1736,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2625709128485223721}
+  - component: {fileID: 909404957467547105}
   m_Layer: 0
-  m_Name: DialougeAudioSource
+  m_Name: DialogueAudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1758,6 +1759,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6459086314133376178}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &909404957467547105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2317733585498421344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36268bedc119c64e97e7c69f76e993e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioShotManager: {fileID: 0}
+  mixerGroup: {fileID: -6073963964718969515, guid: f7b70a8997f608c46a18f5404f632d2b,
+    type: 2}
+  resetAudioOnAwake: 0
+  resetAudioOnDestroy: 0
 --- !u!1 &2351209219464703707
 GameObject:
   m_ObjectHideFlags: 0
