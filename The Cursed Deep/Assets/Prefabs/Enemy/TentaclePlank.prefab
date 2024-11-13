@@ -110,10 +110,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2552151293110705575}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 072845c3db3621f438229b1092f0f791,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5539975244622044891}
     - targetCorrespondingSourceObject: {fileID: -8513424388201257645, guid: 072845c3db3621f438229b1092f0f791,
         type: 3}
       insertIndex: -1
@@ -165,7 +161,7 @@ MonoBehaviour:
   animationEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5539975244622044891}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
         m_MethodName: StartWaitForSecondsEvent
         m_Mode: 5
@@ -177,39 +173,6 @@ MonoBehaviour:
           m_StringArgument: KillTentacleDelay
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5539975244622044891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 651372236609883516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endWaitForSeconds:
-  - id: KillTentacleDelay
-    realTime: 0
-    seconds: 1
-    onWaitFinished:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 651372236609883516}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Dead
-            m_BoolArgument: 0
-          m_CallState: 2
-  endWaitForZero: []
-  endWaitForFixedUpdate: []
 --- !u!1 &869607968373462398 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8513424388201257645, guid: 072845c3db3621f438229b1092f0f791,

@@ -1,122 +1,126 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.Events;
 
 public class AudioPlayer : MonoBehaviour
 {
-    [SerializeField] private AudioShotManager audioShotManager;
+    [SerializeField] private AudioShotData audioShotData;
     [SerializeField] private AudioMixerGroup mixerGroup;
     [SerializeField] private bool resetAudioOnAwake, resetAudioOnDestroy;
     
     private AudioSource _audioSource;
-    private UnityEvent _onComplete;
+    private AudioShotData.AudioShot _currentAudioShot;
     private Coroutine _waitForEndCoroutine, _waitForStartCoroutine;
-    private WaitForSeconds _clipLength, _delay;
-    private int _shotIndex;
+    private WaitForFixedUpdate _waitFixedUpdate;
+    private WaitForSeconds _waitClipLength;
+    private WaitForSeconds _waitForDelay;
 
     private void Awake() 
     {
-        if (resetAudioOnDestroy) ResetAllAudioShots();
-    }
-
-    private void Start()
-    {
         _audioSource = gameObject.AddComponent<AudioSource>();
         _audioSource.outputAudioMixerGroup = mixerGroup;
-        
-        PlayAwakeAudio();
+        _audioSource.playOnAwake = false;
+        if (resetAudioOnAwake) ResetAllAudioShots();
     }
 
-    private void ConfigureAudioSource(int priority, float volume, float pitch, float spatialBlend,
-        float minDistance, float maxDistance)
+    private void Start() => PlayAwakeAudio();
+
+    private void ConfigureAudioSource(AudioShotData.AudioShot audioShot)
     {
         StopAudio();
-        _audioSource.priority = priority;
-        _audioSource.volume = volume;
-        _audioSource.pitch = pitch;
-        _audioSource.spatialBlend = spatialBlend;
-        _audioSource.minDistance = minDistance;
-        _audioSource.maxDistance = maxDistance;
+        
+        _audioSource.priority = audioShot.priority;
+        _audioSource.volume = audioShot.volume;
+        _audioSource.pitch = audioShot.pitch;
+        _audioSource.spatialBlend = audioShot.spatialBlend;
+        _audioSource.minDistance = audioShot.minDistance;
+        _audioSource.maxDistance = audioShot.maxDistance;
     }
     
     private void PlayAwakeAudio()
     {
-        foreach (var audioShot in audioShotManager.audioShots)
+        foreach (var audioShot in audioShotData.audioShots.Where(audioShot => audioShot.playOnAwake))
         {
-            if (!audioShot.playOnAwake) continue;
-            ConfigureAudioSource(audioShot.priority, audioShot.volume, audioShot.pitch, audioShot.spatialBlend,
-                audioShot.minDistance, audioShot.maxDistance);
+            ConfigureAudioSource(audioShot);
             _audioSource.PlayOneShot(audioShot.clip);
         }
     }
 
-    public void PlayAudioShot(string id)
-    {
-        _shotIndex = audioShotManager.audioShots.FindIndex(shot => shot.id == id);
-        if (_shotIndex == -1)
-        {
-            Debug.LogError($"Audio Shot with ID {id} not found in Audio Shot Manager.", this);
-            return;
-        }
-        PlayAudioShot(_shotIndex);
-    }
-    
+    public void PlayAudioShot(string id) => PlayAudioShot(audioShotData.GetAudioShotIndex(id));
     public void PlayAudioShot(int index)
     {
-        if (audioShotManager == null || _audioSource == null) return;
-        
-        _shotIndex = index;
-        var audioShot = audioShotManager.audioShots[index];
-        if (audioShot.clip == null || (audioShot.locked)) return;
-        
-        ConfigureAudioSource(audioShot.priority, audioShot.volume, audioShot.pitch, audioShot.spatialBlend,
-            audioShot.minDistance, audioShot.maxDistance);
-        if (audioShot.delay > 0)
+        audioShotData.ValidateAudioShot(out var audioShot, index:index);
+        PlayAudioShot(audioShot, index);
+    }
+
+    private void PlayAudioShot(AudioShotData.AudioShot audioShot, int index)
+    {
+        if (audioShot == null || !audioShotData.IsValidIndex(index))
         {
-            _delay = new WaitForSeconds(audioShot.delay);
-            _waitForStartCoroutine ??= StartCoroutine(WaitForStartDelay(_delay, index));
+            Debug.LogError("Audio Shot is invalid. Cannot play audio.", this);
+            return;
+        }
+        if (audioShotData == null || _audioSource == null) return;
+        
+        var audioClip = audioShot.clip;
+        if (audioClip == null || audioShot.locked) return;
+        
+        ConfigureAudioSource(audioShot);
+        
+        _currentAudioShot = audioShot;
+        
+        var startDelay = _currentAudioShot.delay;
+        if (startDelay > 0)
+        {
+            _waitForDelay = new WaitForSeconds(startDelay);
+            _waitForStartCoroutine ??= StartCoroutine(WaitForStartDelay(_waitForDelay, index));
         }
         else
         {
-            audioShotManager.PlayAudio(_audioSource, index);
+            audioShotData.PlayAudio(_audioSource, index);
         }
-        if (audioShot.onComplete != null)
+        
+        if (_currentAudioShot.onComplete != null)
         {
-            _onComplete = audioShot.onComplete;
-            _clipLength = new WaitForSeconds(audioShot.clip.length + audioShot.delay);
-            _waitForEndCoroutine ??= StartCoroutine(WaitForClipEnd(_clipLength));
+            _waitClipLength = new WaitForSeconds(audioClip.length + startDelay);
+            _waitForEndCoroutine ??= StartCoroutine(WaitForClipEnd(_waitClipLength));
         }
     }
 
     private IEnumerator WaitForStartDelay(WaitForSeconds delay, int index)
     {
         yield return delay;
+        audioShotData.PlayAudio(_audioSource, index);
         _waitForStartCoroutine = null;
-        audioShotManager.PlayAudio(_audioSource, index);
     }
 
     private IEnumerator WaitForClipEnd(WaitForSeconds clipLength)
     {
         yield return clipLength;
-        _onComplete?.Invoke();
-        _waitForEndCoroutine = null;
+        ProcessClipEnd();
     }
     
     public void StopAudio()
     {
         if (_audioSource != null) _audioSource.Stop();
-        if (_waitForStartCoroutine != null)
-        {
-            StopCoroutine(_waitForStartCoroutine);
-            _waitForStartCoroutine = null;
-            audioShotManager.audioShots[_shotIndex].Activated();
-        }
 
         if (_waitForEndCoroutine == null) return;
+        
         StopCoroutine(_waitForEndCoroutine);
-        _onComplete?.Invoke();
+        ProcessClipEnd();
+    }
+    
+    private bool _isProcessingClipEnd;
+    private void ProcessClipEnd()
+    {
+        if (_isProcessingClipEnd) return;
+        _isProcessingClipEnd = true;
+        
         _waitForEndCoroutine = null;
+        _currentAudioShot?.onComplete?.Invoke();
+        
+        _isProcessingClipEnd = false;
     }
     
     public void PauseAudio()
@@ -126,17 +130,17 @@ public class AudioPlayer : MonoBehaviour
 
     public void ResetAllAudioShots()
     {
-        if (audioShotManager != null) audioShotManager.ResetAllAudioShots();
+        if (audioShotData != null) audioShotData.ResetAllAudioShots();
     }
 
     public void ResetAudioShot(string id)
     {
-        if (audioShotManager != null) audioShotManager.ResetAudioShot(id);
+        if (audioShotData != null) audioShotData.ResetAudioShot(id);
     }
 
     public void ResetAudioShot(int index)
     {
-        if (audioShotManager != null) audioShotManager.ResetAudioShot(index);
+        if (audioShotData != null) audioShotData.ResetAudioShot(index);
     }
 
     public void OnDestroy()
