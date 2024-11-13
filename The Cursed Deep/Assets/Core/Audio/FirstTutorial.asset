@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: FirstTutorial
   m_EditorClassIdentifier: 
   audioShots:
-  - id: 
-    clip: {fileID: 0}
-    playOnlyOncePerGame: 0
+  - id: StartTutorial
+    clip: {fileID: 8300000, guid: 937a508c05b7f3c44a913d63be58204d, type: 3}
+    playOnlyOncePerGame: 1
     _locked: 0
     playOnAwake: 0
     priority: 0
@@ -27,4 +27,259 @@ MonoBehaviour:
     delay: 0
     onComplete:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 2860f03c41c8a9340962fe60138931df, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - id: ImMoby
+    clip: {fileID: 8300000, guid: 77518f57e2575454e98ec2b40d756185, type: 3}
+    playOnlyOncePerGame: 1
+    _locked: 0
+    playOnAwake: 0
+    priority: 0
+    volume: 0
+    pitch: 0
+    spatialBlend: 0
+    minDistance: 0
+    maxDistance: 0
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 5c63d9d497fe358469ab9dc293978f1b, type: 2}
+          m_TargetAssemblyTypeName: 
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - id: Wonderful!
+    clip: {fileID: 8300000, guid: 6ce49932222e17a4a9665648ea067494, type: 3}
+    playOnlyOncePerGame: 1
+    _locked: 0
+    playOnAwake: 0
+    priority: 0
+    volume: 0
+    pitch: 0
+    spatialBlend: 0
+    minDistance: 0
+    maxDistance: 0
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: b6ad1b2bac4676c4a94b9ae0a1947953, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - id: AtLeastYeCanMove
+    clip: {fileID: 8300000, guid: 2a8e791ae178a0443ab81833e3cd0fbe, type: 3}
+    playOnlyOncePerGame: 1
+    _locked: 0
+    playOnAwake: 0
+    priority: 0
+    volume: 0
+    pitch: 0
+    spatialBlend: 0
+    minDistance: 0
+    maxDistance: 0
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 43abd3210d0025f4ead9097ba4893d89, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - id: MonsterBeUponThee
+    clip: {fileID: 8300000, guid: 0a377d1638813fd4286832552a9b2264, type: 3}
+    playOnlyOncePerGame: 1
+    _locked: 0
+    playOnAwake: 0
+    priority: 0
+    volume: 0
+    pitch: 0
+    spatialBlend: 0
+    minDistance: 0
+    maxDistance: 0
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 1b90d26a5440aaa41af97b9a0e013ea2, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - id: LoadCannon
+    clip: {fileID: 8300000, guid: 43f59bdf0d29d1348bb51b2ed859e7cc, type: 3}
+    playOnlyOncePerGame: 1
+    _locked: 0
+    playOnAwake: 0
+    priority: 0
+    volume: 0
+    pitch: 0
+    spatialBlend: 0
+    minDistance: 0
+    maxDistance: 0
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 3f74daa932ee68041af9e6a560834924, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - id: FireCannon
+    clip: {fileID: 8300000, guid: d5b8f56206e792148a4b51f0fb08f928, type: 3}
+    playOnlyOncePerGame: 1
+    _locked: 0
+    playOnAwake: 0
+    priority: 0
+    volume: 0
+    pitch: 0
+    spatialBlend: 0
+    minDistance: 0
+    maxDistance: 0
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 34bae731c3eb40f4ca3699d50ef19325, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - id: FireCannon
+    clip: {fileID: 8300000, guid: d5b8f56206e792148a4b51f0fb08f928, type: 3}
+    playOnlyOncePerGame: 1
+    _locked: 0
+    playOnAwake: 0
+    priority: 0
+    volume: 0
+    pitch: 0
+    spatialBlend: 0
+    minDistance: 0
+    maxDistance: 0
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 3f74daa932ee68041af9e6a560834924, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - id: FineShot
+    clip: {fileID: 8300000, guid: ff0758c464162b14cb34e5970b9facf1, type: 3}
+    playOnlyOncePerGame: 1
+    _locked: 0
+    playOnAwake: 0
+    priority: 0
+    volume: 0
+    pitch: 0
+    spatialBlend: 0
+    minDistance: 0
+    maxDistance: 0
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: b251928022ea0ea42be99a5c94cbfc09, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - id: ToTheNextScene
+    clip: {fileID: 8300000, guid: 168f97c5fc018cf478c6d12ef60a870e, type: 3}
+    playOnlyOncePerGame: 1
+    _locked: 0
+    playOnAwake: 0
+    priority: 0
+    volume: 0
+    pitch: 0
+    spatialBlend: 0
+    minDistance: 0
+    maxDistance: 0
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: f54a0027f4797f945ab8fd6372e4b70e, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
