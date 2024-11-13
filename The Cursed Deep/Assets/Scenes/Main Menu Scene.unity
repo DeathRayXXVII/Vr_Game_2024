@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 4e154bf235e41704bbd6bbc6fd6c63f6, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 369b9ebe3a62b904dbc19bd332b44086, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2083654, g: 0.22172363, b: 0.26173395, a: 1}
+  m_IndirectSpecularColor: {r: 0.00078763947, g: 0.0041275537, b: 0.020060161, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,8 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 8a2269670d098eb49b84e1b1cb1ac1c2,
-    type: 2}
+  m_LightingDataAsset: {fileID: 0}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 976409609c3767d45876ecc594f4fb16,
     type: 2}
 --- !u!196 &4
@@ -2636,22 +2635,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomEnvironment: 1
   environmentSettings:
-  - environmentName: Clear Sky
-    fogEnabled: 0
-    fogColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
-    fogMode: 1
-    fogStart: -62
-    fogEnd: 500
-    skyboxMaterial: {fileID: 2100000, guid: 4e154bf235e41704bbd6bbc6fd6c63f6, type: 2}
-    skyboxExposure: 1
-  - environmentName: Fog
-    fogEnabled: 1
-    fogColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
-    fogMode: 1
-    fogStart: -62
-    fogEnd: 500
-    skyboxMaterial: {fileID: 2100000, guid: d4454f71d85928744be7771e2143dab7, type: 2}
-    skyboxExposure: 1
   - environmentName: Night
     fogEnabled: 0
     fogColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
@@ -2660,6 +2643,28 @@ MonoBehaviour:
     fogEnd: 500
     skyboxMaterial: {fileID: 2100000, guid: 369b9ebe3a62b904dbc19bd332b44086, type: 2}
     skyboxExposure: 1
+    directionalLight: {fileID: 591370320}
+    intensity: 0.72
+  - environmentName: Clear Sky
+    fogEnabled: 0
+    fogColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
+    fogMode: 1
+    fogStart: -62
+    fogEnd: 500
+    skyboxMaterial: {fileID: 2100000, guid: 4e154bf235e41704bbd6bbc6fd6c63f6, type: 2}
+    skyboxExposure: 1
+    directionalLight: {fileID: 591370320}
+    intensity: 1.72
+  - environmentName: Fog
+    fogEnabled: 1
+    fogColor: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
+    fogMode: 1
+    fogStart: -62
+    fogEnd: 500
+    skyboxMaterial: {fileID: 2100000, guid: d4454f71d85928744be7771e2143dab7, type: 2}
+    skyboxExposure: 1
+    directionalLight: {fileID: 591370320}
+    intensity: 0.7
 --- !u!1 &566610569 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5077869098962624068, guid: d4a1548578fab604982942b5f0b4a56f,
@@ -2696,7 +2701,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.2
+  m_Intensity: 0.72
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4855,7 +4860,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1084798202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4930,7 +4935,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -8742,7 +8747,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2080736397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8817,7 +8822,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
