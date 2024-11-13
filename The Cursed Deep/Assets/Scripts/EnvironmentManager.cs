@@ -16,6 +16,10 @@ public class EnvironmentSettings
     [Header("Skybox Settings")]
     public Material skyboxMaterial;
     [Range(0, 8)] public float skyboxExposure = 1f;
+    
+    [Header("Lighting Settings")]
+    public Light directionalLight;
+    public float intensity = 1f;
 }
 
 public class EnvironmentManager : MonoBehaviour
@@ -57,6 +61,7 @@ public class EnvironmentManager : MonoBehaviour
     {
         ApplyFogSettings(settings);
         ApplySkyboxSettings(settings);
+        ApplyLightingSettings(settings);
     }
 
     private void ApplyFogSettings(EnvironmentSettings settings)
@@ -74,6 +79,14 @@ public class EnvironmentManager : MonoBehaviour
         {
             RenderSettings.skybox = settings.skyboxMaterial;
             settings.skyboxMaterial.SetFloat(Exposure, settings.skyboxExposure);
+        }
+    }
+    
+    private void ApplyLightingSettings(EnvironmentSettings settings)
+    {
+        if (settings.directionalLight != null)
+        {
+            settings.directionalLight.intensity = settings.intensity;
         }
     }
 }
