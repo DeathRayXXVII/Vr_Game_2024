@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FirstTutorial
   m_EditorClassIdentifier: 
   audioShots:
-  - id: StartTutorial
+  - id: Tutorial1-StartTutorial
     clip: {fileID: 8300000, guid: 937a508c05b7f3c44a913d63be58204d, type: 3}
     playOnlyOncePerGame: 1
     _locked: 1
@@ -22,7 +22,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     spatialBlend: 0
-    minDistance: 1
+    minDistance: 500
     maxDistance: 500
     delay: 0
     onComplete:
@@ -40,17 +40,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: ImMoby
+  - id: Tutorial2-ImMoby
     clip: {fileID: 8300000, guid: 77518f57e2575454e98ec2b40d756185, type: 3}
     playOnlyOncePerGame: 1
     _locked: 1
     playOnAwake: 0
-    priority: 0
+    priority: 128
     volume: 1
-    pitch: 0
+    pitch: 1
     spatialBlend: 0
-    minDistance: 0
-    maxDistance: 0
+    minDistance: 500
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -67,17 +67,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: Wonderful
+  - id: Tutorial3-Wonderful
     clip: {fileID: 8300000, guid: 6ce49932222e17a4a9665648ea067494, type: 3}
     playOnlyOncePerGame: 1
     _locked: 0
     playOnAwake: 0
-    priority: 0
-    volume: 0
-    pitch: 0
+    priority: 128
+    volume: 1
+    pitch: 1
     spatialBlend: 0
-    minDistance: 0
-    maxDistance: 0
+    minDistance: 1
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -94,17 +94,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: AtLeastYeCanMove
+  - id: Tutorial4-AtLeastYeCanMove
     clip: {fileID: 8300000, guid: 2a8e791ae178a0443ab81833e3cd0fbe, type: 3}
     playOnlyOncePerGame: 1
     _locked: 0
     playOnAwake: 0
-    priority: 0
-    volume: 0
-    pitch: 0
+    priority: 128
+    volume: 1
+    pitch: 1
     spatialBlend: 0
-    minDistance: 0
-    maxDistance: 0
+    minDistance: 500
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -121,17 +121,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: MonsterBeUponThee
+  - id: Tutorial5-MonsterBeUponThee
     clip: {fileID: 8300000, guid: 0a377d1638813fd4286832552a9b2264, type: 3}
     playOnlyOncePerGame: 1
     _locked: 0
     playOnAwake: 0
-    priority: 0
-    volume: 0
-    pitch: 0
+    priority: 128
+    volume: 1
+    pitch: 1
     spatialBlend: 0
-    minDistance: 0
-    maxDistance: 0
+    minDistance: 500
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -148,7 +148,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: LoadCannon
+  - id: Tutorial6-LoadCannon
     clip: {fileID: 8300000, guid: 43f59bdf0d29d1348bb51b2ed859e7cc, type: 3}
     playOnlyOncePerGame: 1
     _locked: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: FireCannon
+  - id: Tutorial7-FireCannon
     clip: {fileID: 8300000, guid: d5b8f56206e792148a4b51f0fb08f928, type: 3}
     playOnlyOncePerGame: 1
     _locked: 0
@@ -202,34 +202,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: FireCannon
-    clip: {fileID: 8300000, guid: d5b8f56206e792148a4b51f0fb08f928, type: 3}
-    playOnlyOncePerGame: 1
-    _locked: 0
-    playOnAwake: 0
-    priority: 0
-    volume: 0
-    pitch: 0
-    spatialBlend: 0
-    minDistance: 0
-    maxDistance: 0
-    delay: 0
-    onComplete:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11400000, guid: 3f74daa932ee68041af9e6a560834924, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - id: FineShot
+  - id: Tutorial8-FineShot
     clip: {fileID: 8300000, guid: ff0758c464162b14cb34e5970b9facf1, type: 3}
     playOnlyOncePerGame: 1
     _locked: 0
@@ -256,17 +229,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: ToTheNextScene
+  - id: Tutorial9-ToTheNextScene
     clip: {fileID: 8300000, guid: 168f97c5fc018cf478c6d12ef60a870e, type: 3}
     playOnlyOncePerGame: 1
     _locked: 0
     playOnAwake: 0
-    priority: 0
-    volume: 0
-    pitch: 0
+    priority: 128
+    volume: 1
+    pitch: 1
     spatialBlend: 0
-    minDistance: 0
-    maxDistance: 0
+    minDistance: 500
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:

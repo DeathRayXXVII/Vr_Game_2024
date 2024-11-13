@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tutorial 3 Teleport
   m_EditorClassIdentifier: 
   playOnlyOncePerGame: 1
-  _locked: 0
+  _locked: 1
   dialogueName: 
   firstAction: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
   lastAction: {fileID: 11400000, guid: 163b1d9019fbaa544a6e80836b1a957c, type: 2}
@@ -30,6 +30,30 @@ MonoBehaviour:
   lastTrigger:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 11400000, guid: 7c2c773fe60673c4a9b4f62a83440977, type: 2}
+        m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
+        m_MethodName: ResetAudioShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Tutorial4-AtLeastYeCanMove
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 6752459f4b1ac804898fa1d0eeb0f4ae, type: 2}
+        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+        m_MethodName: SetLocked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: b6ad1b2bac4676c4a94b9ae0a1947953, type: 2}
         m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
         m_MethodName: RaiseAction
