@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,10 +12,10 @@ public class TriggeredActionsListWrapper
 
 public class DebugInputAction : MonoBehaviour, INeedButton
 {
-#if UNITY_EDITOR
     [System.Serializable]
     public struct TriggeredActions
     {
+#if UNITY_EDITOR
         [HideInInspector] public string actionName;
         public bool excludeFromDebug;
 
@@ -25,14 +24,18 @@ public class DebugInputAction : MonoBehaviour, INeedButton
             actionName = name;
             excludeFromDebug = exclude;
         }
+#endif
     }
     
+#if UNITY_EDITOR
     [SerializeField] private bool allowDebug = true;
+#endif
     [SerializeField] private InputActionAsset inputActionAsset;
     [SerializeField] private List<TriggeredActions> _triggeredActions = new List<TriggeredActions>();
 
+#if UNITY_EDITOR
     private bool _isInitialized;
-
+    
     public void Update()
     {
         if (!_isInitialized && inputActionAsset != null) _isInitialized = true;

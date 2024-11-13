@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using ZPTools.Interface;
 
+[ExecuteInEditMode]
 public class DebugButton : MonoBehaviour, INeedButton
 {
     public UnityEvent onButtonPress;

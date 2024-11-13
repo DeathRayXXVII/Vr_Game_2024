@@ -16,14 +16,14 @@ MonoBehaviour:
   - id: StartTutorial
     clip: {fileID: 8300000, guid: 937a508c05b7f3c44a913d63be58204d, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 0
+    _locked: 1
     playOnAwake: 0
-    priority: 0
-    volume: 0
-    pitch: 0
+    priority: 128
+    volume: 1
+    pitch: 1
     spatialBlend: 0
-    minDistance: 0
-    maxDistance: 0
+    minDistance: 1
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -43,10 +43,10 @@ MonoBehaviour:
   - id: ImMoby
     clip: {fileID: 8300000, guid: 77518f57e2575454e98ec2b40d756185, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 0
+    _locked: 1
     playOnAwake: 0
     priority: 0
-    volume: 0
+    volume: 1
     pitch: 0
     spatialBlend: 0
     minDistance: 0
@@ -56,18 +56,18 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 11400000, guid: 5c63d9d497fe358469ab9dc293978f1b, type: 2}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: Wonderful!
+  - id: Wonderful
     clip: {fileID: 8300000, guid: 6ce49932222e17a4a9665648ea067494, type: 3}
     playOnlyOncePerGame: 1
     _locked: 0
