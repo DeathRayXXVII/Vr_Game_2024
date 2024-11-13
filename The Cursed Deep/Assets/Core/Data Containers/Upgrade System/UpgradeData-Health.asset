@@ -15,12 +15,23 @@ MonoBehaviour:
   _upgradeDataType: 1
   _costDataType: 1
   _allowDebug: 1
-  _upgradeLevel: -1
+  _upgradeLevel: 0
   _baseUpgradeFloat: 0
   _baseUpgradeInt: 0
   _upgradeFloatContainer: {fileID: 0}
   _upgradeIntContainer: {fileID: 0}
-  _upgradeFloatList: []
+  _upgradeFloatList:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 7
+  - 8
+  - 9
+  - 10
   _upgradeIntList: 
   _costFloatContainer: {fileID: 0}
   _costIntContainer: {fileID: 0}
@@ -39,10 +50,9 @@ MonoBehaviour:
   _costsIntList: 000000000a000000140000001e00000028000000320000003c00000046000000500000005a00000064000000
   _jsonFile: {fileID: 4900000, guid: 16cf77701e3107f46881cb968cf620ce, type: 3}
   _upgradeKey: values
-  _previousUpgradeKey: values
+  _previousUpgradeKey: Health
   _costKey: healthUpgradeCosts
   _previousCostKey: healthUpgradeCosts
-  _jsonBlob: "{\r\n  \"Health\": [\r\n    0.0,\r\n    1.0,\r\n    2.0,\r\n    3.0,\r\n   
-    4.0,\r\n    5.0,\r\n    6.0,\r\n    7.0,\r\n    8.0,\r\n    9.0,\r\n    10.0\r\n 
-    ],\r\n  \"healthUpgradeCosts\": [\r\n    0,\r\n    10,\r\n    20,\r\n    30,\r\n   
-    40,\r\n    50,\r\n    60,\r\n    70,\r\n    80,\r\n    90,\r\n    100\r\n  ]\r\n}"
+  _jsonBlob: 
+  upgradeIsLoaded: 1
+  costIsLoaded: 1

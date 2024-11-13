@@ -39,34 +39,17 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     [SerializeField] private string _jsonBlob;
     private bool _blobNeedsUpdate;
 
-    // private void OnEnable()
-    // {
-    //     UpdateData();
-    //     
-    //     isLoaded = _valueIsLoaded && _costIsLoaded;
-    //     
-    //     if (!_jsonFile)
-    //     {
-    //         _valueIsLoaded = _costIsLoaded = isLoaded = false;
-    //         return;
-    //     }
-    //     _jsonBlob ??= UpdateJsonBlob();
-    //     if (!isLoaded) LoadOnStartup();
-    // }
-
     private void UpdateData()
     {
         switch(_upgradeDataType)
         {
             case DataType.Float:
                 if (_upgradeFloatContainer != null) _upgradeFloatContainer.value = upgradeValue is float floatCost ? floatCost : 0f;
-                if (_upgradeFloatList?.Count == 0) _valueIsLoaded = false;
-                // Debug.Log($"Value: {upgradeValue}");
+                if (_upgradeFloatList?.Count == 0) upgradeIsLoaded = false;
                 break;
             case DataType.Int:
                 if (_upgradeIntContainer != null) _upgradeIntContainer.value = upgradeValue is int intCost ? intCost : 0;
-                if (_upgradeIntList?.Count == 0) _valueIsLoaded = false;
-                // Debug.Log($"Value: {upgradeValue}");
+                if (_upgradeIntList?.Count == 0) upgradeIsLoaded = false;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -76,17 +59,53 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         {
             case DataType.Float:
                 if (_costFloatContainer != null) _costFloatContainer.value = upgradeCost is float floatCost ? floatCost : 0f;
-                if (_costsFloatList.Count == 0) _costIsLoaded = false;
-                // Debug.Log($"Cost: {upgradeCost}");
+                if (_costsFloatList.Count == 0) costIsLoaded = false;
                 break;
             case DataType.Int:
                 if (_costIntContainer != null) _costIntContainer.value = upgradeCost is int intCost ? intCost : 0;
-                if (_costsIntList.Count == 0) _costIsLoaded = false;
-                // Debug.Log($"Cost: {upgradeCost}");
+                if (_costsIntList.Count == 0) costIsLoaded = false;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
+    }
+    
+    private void PerformActionOnType<T>(DataType type, string key, Action<T> action)
+    {
+        var floatMap = new Dictionary<string, List<float>>
+        {
+            { _upgradeKey, _upgradeFloatList },
+            { _costKey, _costsFloatList }
+        };
+
+        var intMap = new Dictionary<string, List<int>>
+        {
+            { _upgradeKey, _upgradeIntList },
+            { _costKey, _costsIntList }
+        };
+
+        if (type == DataType.Float && floatMap.ContainsKey(key))
+        {
+            action?.Invoke((T)(object)floatMap[key]);
+        }
+        else if (type == DataType.Int && intMap.ContainsKey(key))
+        {
+            action?.Invoke((T)(object)intMap[key]);
+        }
+    }
+
+    private void ClearList(DataType type, string key)
+    {
+        PerformActionOnType(type, key, (List<float> list) => list?.Clear());
+        PerformActionOnType(type, key, (List<int> list) => list?.Clear());
+    }
+
+    private List<object> CastList(DataType type, string key)
+    {
+        List<object> result = new List<object>();
+        PerformActionOnType(type, key, (List<float> list) => result = list.Cast<object>().ToList());
+        PerformActionOnType(type, key, (List<int> list) => result = list.Cast<object>().ToList());
+        return result;
     }
     
     private void AttemptParseFromJsonBlob()
@@ -97,7 +116,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         ParseUpgradeList(jsonData);
         ParseCostList(jsonData);
         
-        isLoaded = _valueIsLoaded && _costIsLoaded;
+        isLoaded = upgradeIsLoaded && costIsLoaded;
     }
 
     private static string CreateJsonBlob(DataType type, string jsonKey, List<object> values)
@@ -112,18 +131,44 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         };
     }
     
-    private string upgradeJsonBlob => _jsonFile == null ? "" : 
-        CreateJsonBlob(_upgradeDataType, _upgradeKey, _upgradeDataType == DataType.Float ? 
-            _upgradeFloatList.Cast<object>().ToList() : _upgradeIntList.Cast<object>().ToList());
+    private string upgradeJsonBlob 
+    { 
+        get
+        {
+            if (_jsonFile == null || !ValidateKey(_upgradeKey, JObject.Parse(_jsonFile.text)))
+            {
+                upgradeIsLoaded = false;
+                ClearList(_upgradeDataType, _upgradeKey);
+                return "";
+            }
+            upgradeIsLoaded = true;
+            return CreateJsonBlob(_upgradeDataType, _upgradeKey, CastList(_upgradeDataType, _upgradeKey));
+        }
+    }
     
-    private string costJsonBlob => _jsonFile == null ? "" : 
-        CreateJsonBlob(_costDataType, _costKey, _costDataType == DataType.Float ? 
-            _costsFloatList.Cast<object>().ToList() : _costsIntList.Cast<object>().ToList());
+    private string costJsonBlob 
+    { 
+        get
+        {
+            if (_jsonFile == null || !ValidateKey(_costKey, JObject.Parse(_jsonFile.text)))
+            {
+                upgradeIsLoaded = false;
+                ClearList(_costDataType, _costKey);
+                return "";
+            }
+            upgradeIsLoaded = true;
+            return CreateJsonBlob(_costDataType, _costKey, _costDataType == DataType.Float ? 
+                _costsFloatList.Cast<object>().ToList() : _costsIntList.Cast<object>().ToList());
+        }
+    }
 
     private string UpdateJsonBlob()
     {
-        if (string.IsNullOrEmpty(upgradeJsonBlob) && string.IsNullOrEmpty(costJsonBlob))
+        if (string.IsNullOrEmpty(upgradeJsonBlob) || string.IsNullOrEmpty(costJsonBlob))
+        {
+            Debug.Log($"Json Blob is empty.\nUpgrade Blob: {upgradeJsonBlob}\nCost Blob: {costJsonBlob}", this);
             return "";
+        }
 
         var upgradeJson = JObject.Parse(upgradeJsonBlob);
         var costJson = JObject.Parse(costJsonBlob);
@@ -134,14 +179,15 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         });
         
         _jsonBlob = upgradeJson.ToString(Formatting.Indented);
+        Debug.Log($"Updated Json Blob: {_jsonBlob}", this);
         _blobNeedsUpdate = false;
         return _jsonBlob;
     }
     
     private HashFileChangeDetector _hashFileChangeDetector;
     public bool isLoaded { get; private set; }
-    private bool _valueIsLoaded;
-    private bool _costIsLoaded;
+    [SerializeField, HideInInspector] private bool upgradeIsLoaded;
+    [SerializeField, HideInInspector] private bool costIsLoaded;
 
     public object upgradeValue
     { 
@@ -149,10 +195,6 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         {
             try 
             {
-                // Debug.Log($"Upgrade Level: {upgradeLevel}\nMax Upgrade Level: {GetMaxUpgradeLevel()}\n" +
-                //           $"Base Value: {baseValue}\n" +
-                //           $"Upgrade Value: {(_upgradeDataType == DataType.Float ? _upgradeFloatList[upgradeLevel] : _upgradeIntList[upgradeLevel])}\n" +
-                //           $"Data Type: {_upgradeDataType}");
                return (_upgradeDataType == DataType.Float)
                     ? (float)(object)baseValue + _upgradeFloatList[upgradeLevel]
                     : (int)(object)baseValue + _upgradeIntList[upgradeLevel];
@@ -171,8 +213,8 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
             try
             {
                 return upgradeLevel + 1 <= GetMaxUpgradeLevel() ? 
-                    (_costDataType == DataType.Float ? (float)(object)_costsFloatList[upgradeLevel + 1] : (int)(object)_costsIntList[upgradeLevel + 1]) :
-                    (_costDataType == DataType.Float ? (float)(object)_costsFloatList[upgradeLevel] : (int)(object)_costsIntList[upgradeLevel]);
+                    _costDataType == DataType.Float ? (float)(object)_costsFloatList[upgradeLevel + 1] : (int)(object)_costsIntList[upgradeLevel + 1] :
+                    _costDataType == DataType.Float ? (float)(object)_costsFloatList[upgradeLevel] : (int)(object)_costsIntList[upgradeLevel];
             }
             catch (Exception)
             {
@@ -198,7 +240,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     {
         if (!_jsonFile || !upgradeChanged && !costChanged)
         {
-            _valueIsLoaded = _costIsLoaded = isLoaded = false;
+            upgradeIsLoaded = costIsLoaded = isLoaded = false;
             return;
         }
         
@@ -209,26 +251,37 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         if (costChanged) ParseCostList(jsonData);
         if (_blobNeedsUpdate) UpdateJsonBlob();
         
-        isLoaded = _valueIsLoaded && _costIsLoaded;
+        isLoaded = upgradeIsLoaded && costIsLoaded;
     }
 
     public void LoadOnStartup()
     {
         if (!_jsonFile)
         {
-            _valueIsLoaded = _costIsLoaded = isLoaded = false;
+            upgradeIsLoaded = costIsLoaded = isLoaded = false;
             return;
         }
         
         _hashFileChangeDetector ??= new HashFileChangeDetector(GetJsonPath(), _allowDebug);
         var changeState = _hashFileChangeDetector.HasChanged();
-        Debug.Log($"JSON Path: {GetJsonPath()} JSON: {_jsonFile}\n", this);
-        if (!isLoaded && !string.IsNullOrEmpty(_jsonBlob) && !_blobNeedsUpdate && !changeState) AttemptParseFromJsonBlob();
-        if (!isLoaded || changeState)
-            InitializeDataFromJson();
-        else Debug.LogWarning("Data already loaded.", this);
+        Debug.Log($"Already Loaded: {isLoaded}\nChange State: {changeState}\nBlob needs update: {_blobNeedsUpdate}\nBlob is null or empty: {string.IsNullOrEmpty(_jsonBlob)}\nJson Blob: {_jsonBlob}\n", this);
         
-        isLoaded = _valueIsLoaded && _costIsLoaded;
+        if (!isLoaded && !string.IsNullOrEmpty(_jsonBlob) && !_blobNeedsUpdate && !changeState)
+        {
+            Debug.Log($"JSON Blob: {_jsonBlob}", this);
+            AttemptParseFromJsonBlob();
+        }
+        else if (!isLoaded || changeState)
+        {
+            Debug.Log($"JSON Path: {GetJsonPath()} JSON: {_jsonFile}\n", this);
+            InitializeDataFromJson();
+        }
+        else
+        {
+            Debug.LogWarning("Data already loaded.", this);
+        }
+        
+        isLoaded = upgradeIsLoaded && costIsLoaded;
         if (_blobNeedsUpdate) UpdateJsonBlob();
         UpdateData();
     }
@@ -264,9 +317,10 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
 #if UNITY_EDITOR
         if (_allowDebug)
             Debug.Log(
-                $"upgradeList: {string.Join(", ", _upgradeFloatList)}\ncostList: {string.Join(", ", _costsFloatList)}",
+                $"Updating Json Blob: {_blobNeedsUpdate}\nupgradeList: {string.Join(", ", _upgradeFloatList)}\ncostList: {string.Join(", ", _costsFloatList)}",
                 this);
 #endif
+        if(_blobNeedsUpdate) UpdateJsonBlob();
     }
     
     private void ParseUpgradeList(JObject jsonData)
@@ -285,20 +339,41 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
             ParseJsonValues(jsonData, _costKey, ref _costsIntList);
     }
     
+    private bool ValidateKey(string key, JObject data) => data.Properties().Any(property => property.Name == key);
+    
+    private ref string GetKey(string key)
+    {
+        if (key == _upgradeKey) return ref _upgradeKey;
+        if (key == _costKey) return ref _costKey;
+        throw new ArgumentException("Invalid key", nameof(key));
+    }
+    
+    private void SetPreviousKey(string key)
+    {
+        if (key == _upgradeKey) _previousUpgradeKey = _upgradeKey;
+        if (key == _costKey) _previousCostKey = _costKey;
+    }
+    
+    private void SetLoadState(string key, bool state)
+    {
+        if (key == _upgradeKey) upgradeIsLoaded = state;
+        if (key == _costKey) costIsLoaded = state;
+    }
+    
     private void ParseJsonValues<T>(JObject data, string key, ref List<T> targetList)
     {
-        string keyId = key == _upgradeKey ? _upgradeKey : key == _costKey ? _costKey : null;
-        if (keyId == null)
+        ref var keyId = ref GetKey(key);
+        if (!ValidateKey(keyId, data))
         {
             Debug.LogWarning($"Key '{key}' not found.", this);
+            SetLoadState(keyId, false);
             return;
         }
         
         JToken jsonSelection = data[keyId];
         
-        _previousUpgradeKey = key == _upgradeKey ? key : _previousUpgradeKey;
-        _previousCostKey = key == _costKey ? key : _previousCostKey;
-
+        SetPreviousKey(key);
+        
         if (jsonSelection is JArray valuesArray)
         {
             _blobNeedsUpdate = true;
@@ -307,16 +382,15 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
             {
                 targetList.Add((T)Convert.ChangeType(value, typeof(T)));
             }
-            _valueIsLoaded = key == _upgradeKey || _valueIsLoaded;
-            _costIsLoaded = key == _costKey || _costIsLoaded;
+            
+            SetLoadState(keyId, true);
 #if UNITY_EDITOR
             if (_allowDebug) Debug.Log($"Loaded JSON Key: ['{key}']\nContents: {string.Join(", ", targetList)}", this);
 #endif
         }
         else
         {
-            if (key == _upgradeKey) _valueIsLoaded = false;
-            if (key == _costKey) _costIsLoaded = false;
+            SetLoadState(keyId, false);
             Debug.LogWarning(
                 $"JSON {(key == _upgradeKey ? "Value" : "Cost")} key '{key}' not found.\nPossible keys: \n   {string.Join(",\n   ", data.Properties().Select(property => property.Name))}",
                 this);
@@ -325,7 +399,9 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
 
     private void ForceUpdate()
     {
+        isLoaded = false;
         _blobNeedsUpdate = true;
+        _jsonBlob = "";
         LoadOnStartup();
         Debug.Log($"JSON Blob: {_jsonBlob}", this);
     }

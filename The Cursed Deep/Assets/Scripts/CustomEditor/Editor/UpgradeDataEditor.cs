@@ -16,20 +16,24 @@ public class UpgradeDataEditor : Editor
 
     Color darkGrey = new(0.3f, 0.3f, 0.3f);
     Color darkerGrey = new(0.1f, 0.1f, 0.1f);
+    Color transparent = new(0, 0, 0, 0);
     StyleColor darkGreen = new(new Color(0.3f, 0.6f, 0.3f));
     
     const int fieldSpacing = 2;
     
-    // private string _lastFocusedControl = "";
-    // private Vector2 blobScrollPosition = Vector2.zero;
-    
-
     UpgradeData upgradeData;
     private SerializedProperty upgradeTypeProperty;
     private SerializedProperty costTypeProperty;
     private UiDataType upgradeTypeEnum;
     private UiDataType costTypeEnum;
-
+    
+    private void UpdateEditor()
+    {
+        // serializedObject.Update();
+        serializedObject.ApplyModifiedProperties();
+        SceneView.RepaintAll();
+    }
+    
     public override VisualElement CreateInspectorGUI()
     {
         var inspector = new VisualElement();
@@ -304,13 +308,15 @@ public class UpgradeDataEditor : Editor
     {
         bool jsonLoadState = upgradeData.isLoaded;
         SerializedProperty jsonFileProperty = serializedObject.FindProperty("_jsonFile");
-        SerializedProperty valueKeyProperty = serializedObject.FindProperty("_upgradeKey");
+        SerializedProperty upgradeKeyProperty = serializedObject.FindProperty("_upgradeKey");
         SerializedProperty previousValueKey = serializedObject.FindProperty("_previousUpgradeKey");
         SerializedProperty costKeyProperty = serializedObject.FindProperty("_costKey");
         SerializedProperty previousCostKey = serializedObject.FindProperty("_previousCostKey");
+        
+        bool upgradeIsLoaded = serializedObject.FindProperty("upgradeIsLoaded").boolValue;
+        bool costIsLoaded = serializedObject.FindProperty("costIsLoaded").boolValue;
 
         SerializedProperty jsonBlob = serializedObject.FindProperty("_jsonBlob");
-        bool blobNeedsUpdate = false;
         var jsonSettingsContainer = UIGroup("Json Settings");
         
         var body = UIBody();
@@ -323,13 +329,13 @@ public class UpgradeDataEditor : Editor
         var jsonFileField = new PropertyField(jsonFileProperty, "Json File");
         body.Add(jsonFileField);
 
-        var valueKeyField = new PropertyField(valueKeyProperty, "Upgrade Key");
+        var valueKeyField = new PropertyField(upgradeKeyProperty, "Upgrade Key");
         body.Add(valueKeyField);
 
         var costKeyField = new PropertyField(costKeyProperty, "Cost Key");
         body.Add(costKeyField);
 
-        if (!string.IsNullOrEmpty(jsonBlob.stringValue) || blobNeedsUpdate)
+        if (!string.IsNullOrEmpty(jsonBlob.stringValue))
         {
             var loadedValuesContainer = new VisualElement() { style = { backgroundColor = darkGrey } };
             loadedValuesContainer.Add(new Label("Loaded Values") { style = { unityFontStyleAndWeight = FontStyle.Bold } });
@@ -355,7 +361,11 @@ public class UpgradeDataEditor : Editor
         }
         else
         {
-            var noJsonDataLabel = new Label("No JSON data loaded.") { style = { unityFontStyleAndWeight = FontStyle.Italic } };
+            var noJsonDataLabel = new HelpBox(
+                $"No JSON data loaded.\n" +
+                $"{(!upgradeIsLoaded ? "Upgrade Key is not in JSON file.\n" : "")}" +
+                $"{(!costIsLoaded ? "Cost Key is not in JSON file.\n" : "")}",
+                HelpBoxMessageType.Info);
             body.Add(noJsonDataLabel);
         }
         
@@ -368,10 +378,19 @@ public class UpgradeDataEditor : Editor
         System.Collections.Generic.List<(System.Action, string)> buttonActions = upgradeData.GetButtonActions();
         foreach (var buttonAction in buttonActions)
         {
-            var buttonField = new VisualElement { style = { marginBottom = fieldSpacing } };
+            var buttonField = new VisualElement { style = { marginBottom = fieldSpacing, position = Position.Relative, height = 20 } };
+            var label = new Label(buttonAction.Item2) { style = { unityFontStyleAndWeight = FontStyle.Bold, flexGrow = 1, alignSelf = Align.FlexStart, marginLeft = 10, marginTop = fieldSpacing, marginBottom = 0 } };
+            var button = new Button(() =>
+            {
+                buttonAction.Item1();
+                UpdateEditor();
+            })
+            {
+                style = { position = Position.Absolute, left = 0, right = 0, top = 0, bottom = 0, backgroundColor = transparent }
+            };
+            buttonField.Add(label);
+            buttonField.Add(button);
             buttonActionsContainer.Add(buttonField);
-            buttonField.Add(new Label(buttonAction.Item2) { style = { unityFontStyleAndWeight = FontStyle.Bold } });
-            buttonField.Add(new Button(buttonAction.Item1));
         }
         
         return buttonActionsContainer;
