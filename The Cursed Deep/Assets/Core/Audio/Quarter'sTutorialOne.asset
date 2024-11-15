@@ -16,13 +16,13 @@ MonoBehaviour:
   - id: Tutorial10-Welcome To Quarters
     clip: {fileID: 8300000, guid: 4fd4791da014bca4884d16e1b3b35b61, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 0
+    _locked: 1
     playOnAwake: 0
     priority: 128
     volume: 1
     pitch: 1
     spatialBlend: 0
-    minDistance: 1
+    minDistance: 500
     maxDistance: 500
     delay: 0
     onComplete:
@@ -40,6 +40,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11400000}
+          m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
+          m_MethodName: LockAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Tutorial10-Welcome To Quarters
+            m_BoolArgument: 0
+          m_CallState: 2
   - id: Scurry
     clip: {fileID: 8300000, guid: e85657225a951fe4697b09449b8dc703, type: 3}
     playOnlyOncePerGame: 1
@@ -49,7 +61,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     spatialBlend: 0
-    minDistance: 1
+    minDistance: 500
     maxDistance: 500
     delay: 0
     onComplete:
@@ -76,7 +88,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     spatialBlend: 0
-    minDistance: 1
+    minDistance: 500
     maxDistance: 500
     delay: 0
     onComplete:
@@ -91,7 +103,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     spatialBlend: 0
-    minDistance: 1
+    minDistance: 500
     maxDistance: 500
     delay: 0
     onComplete:
