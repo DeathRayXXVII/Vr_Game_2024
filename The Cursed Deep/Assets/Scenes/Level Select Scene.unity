@@ -1127,12 +1127,6 @@ Transform:
   - {fileID: 6142683236240908822}
   m_Father: {fileID: 1543262128}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &290919892 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1453005142835601490, guid: 1a20db0d9901c8e44875fbe9366374ed,
-    type: 3}
-  m_PrefabInstance: {fileID: 1870154369}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &290919893 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8183781293960917358, guid: 1a20db0d9901c8e44875fbe9366374ed,
@@ -1911,7 +1905,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557200499}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f36268bedc119c64e97e7c69f76e993e, type: 3}
   m_Name: 
@@ -2699,6 +2693,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - actionObj: {fileID: 11400000, guid: 7433e4d02963510428069d24373e226a, type: 2}
     onRaiseEvent:
       m_PersistentCalls:
@@ -2807,6 +2813,22 @@ MonoBehaviour:
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 1
+          m_CallState: 2
+  - actionObj: {fileID: 11400000, guid: b404a39f88ea596448d56ae421f94843, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: f3b6cc65db565a04d95dd38dbcaaf2af, type: 2}
+          m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
+          m_MethodName: LockAllPlayPlayOnceAudioShots
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
           m_CallState: 2
   - actionObj: {fileID: 11400000, guid: 6fdb036134c52b84b80ffd83fec7b806, type: 2}
     onRaiseEvent:
@@ -4266,21 +4288,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 290919892}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 11400000, guid: 19d329f6e374e1448a27de3520890b97, type: 2}
+        m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
+        m_MethodName: LockAllPlayPlayOnceAudioShots
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+      - m_Target: {fileID: 11400000, guid: 90989a8f3a36a8840b57000f5291bb1d, type: 2}
+        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+        m_MethodName: SetLocked
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4643,7 +4665,7 @@ MonoBehaviour:
             m_StringArgument: Welcome To Table
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 0}
+        - m_Target: {fileID: 1775872701}
           m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
           m_MethodName: ShowDialogue
           m_Mode: 2
@@ -5030,7 +5052,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onAwake:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 60880e5acefabd34c930930ecb02256d, type: 2}
+        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+        m_MethodName: SetLocked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onStart:
     m_PersistentCalls:
       m_Calls: []
@@ -5085,18 +5131,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: OnEnterFromShop
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   onGameStart:
@@ -5715,7 +5749,7 @@ MonoBehaviour:
           m_StringArgument: LandHo
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1775872701}
         m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
         m_MethodName: ShowDialogue
         m_Mode: 2
@@ -9509,7 +9543,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1775872701}
     - target: {fileID: 4838120525210870491, guid: 1a20db0d9901c8e44875fbe9366374ed,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -11004,6 +11038,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8692077408030004594, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: e2d94fb4364b6ef488f1d6040ab8e7bd,
+        type: 2}
+    - target: {fileID: 8692077408030004594, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: RaiseAction
       objectReference: {fileID: 0}
     - target: {fileID: 8786475635333825176, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}

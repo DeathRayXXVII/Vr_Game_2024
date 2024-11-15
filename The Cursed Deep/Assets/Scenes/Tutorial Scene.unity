@@ -6689,7 +6689,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: d689e997d0a670c489706a5307436d0b, type: 2}
-        m_TargetAssemblyTypeName: AudioShotManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
         m_MethodName: ResetAllAudioShots
         m_Mode: 1
         m_Arguments:
@@ -6711,6 +6711,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: f3b6cc65db565a04d95dd38dbcaaf2af, type: 2}
+        m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
+        m_MethodName: LockAllPlayPlayOnceAudioShots
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 2604a02952f5abf49a554a1027cf66b5, type: 2}
+        m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
+        m_MethodName: LockAllPlayPlayOnceAudioShots
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 7c2c773fe60673c4a9b4f62a83440977, type: 2}
         m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
@@ -6759,6 +6783,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 90989a8f3a36a8840b57000f5291bb1d, type: 2}
+        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+        m_MethodName: set_locked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: ad84c98235310fb49a92a18b8b4e5b66, type: 2}
+        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+        m_MethodName: set_locked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 36853492bcb05c94bb4a8ec59ad3a7c4, type: 2}
         m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
@@ -6846,7 +6894,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 60880e5acefabd34c930930ecb02256d, type: 2}
         m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: set_locked
+        m_MethodName: SetLocked
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6858,7 +6906,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 0da3d81e0c90e5e47921238460cc57e1, type: 2}
         m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: set_locked
+        m_MethodName: SetLocked
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6870,7 +6918,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 6a0eb34e55981e34d859ed62e7d7291a, type: 2}
         m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: set_locked
+        m_MethodName: SetLocked
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6930,7 +6978,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 2a0247d8ab89d5944ba4e3bb2ad1502d, type: 2}
         m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: set_locked
+        m_MethodName: SetLocked
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6942,7 +6990,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: d4178d34f52d212469d961692549ee5a, type: 2}
         m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: set_locked
+        m_MethodName: SetLocked
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6954,7 +7002,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 8d06474bd8a40e54e9589ebc1c4cd640, type: 2}
         m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: set_locked
+        m_MethodName: SetLocked
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6966,7 +7014,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: c011267841d79ec40aafa4601ada2241, type: 2}
         m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: set_locked
+        m_MethodName: SetLocked
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6978,7 +7026,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: f531875dcf808ea44b3bfb3b292fe32c, type: 2}
         m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: set_locked
+        m_MethodName: SetLocked
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6990,7 +7038,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 11400000, guid: af3d3dba93c7c9b4997fc17c4bafbdda, type: 2}
         m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: set_locked
+        m_MethodName: SetLocked
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
