@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ZPTools.Utility
 {
@@ -70,5 +71,8 @@ namespace ZPTools.Utility
 #endif
             return null;
         }
+        
+        public static bool ValidateJsonKey(string key, Newtonsoft.Json.Linq.JObject data) => data.Properties().Any(property => property.Name == key);
+        public static IEnumerable<string> GetJsonKeys(Newtonsoft.Json.Linq.JObject data) => data.Properties().Select(property => property.Name);
     }
 }

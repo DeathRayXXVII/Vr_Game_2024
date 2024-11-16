@@ -2,103 +2,48 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
-using ZPTools;
-using ZPTools.Interface;
+using static ZPTools.Utility.UtilityFunctions;
 
 [CustomEditor(typeof(UpgradeData), true)]
 public class UpgradeDataEditor : Editor
 {
-    private enum UiDataType
+    private const string StyleSheetPath = "Assets/Scripts/CustomEditor/Editor/UpdgradeDataStyleSheet.uss";
+    private enum UIDataType
     {
         Int,
-        Float,
+        Float
     }
-
-    Color darkGrey = new(0.3f, 0.3f, 0.3f);
-    Color darkerGrey = new(0.1f, 0.1f, 0.1f);
-    Color transparent = new(0, 0, 0, 0);
-    StyleColor darkGreen = new(new Color(0.3f, 0.6f, 0.3f));
-    
-    const int fieldSpacing = 2;
     
     UpgradeData upgradeData;
-    private SerializedProperty upgradeTypeProperty;
-    private SerializedProperty costTypeProperty;
-    private UiDataType upgradeTypeEnum;
-    private UiDataType costTypeEnum;
+    private System.Func<SerializedProperty> UpgradeTypeProperty => () => serializedObject.FindProperty("_upgradeDataType");
+    private System.Func<SerializedProperty> CostTypeProperty => () => serializedObject.FindProperty("_costDataType");
+    private System.Func<UIDataType> upgradeTypeEnum => () => (UIDataType)UpgradeTypeProperty().enumValueIndex;
+    private System.Func<UIDataType> costTypeEnum => () => (UIDataType)CostTypeProperty().enumValueIndex;
+    private bool allowDebug => serializedObject.FindProperty("_allowDebug").boolValue;
     
-    private void UpdateEditor()
+    private static bool HasChanged<T>(T checkValue, T previousValue)
     {
-        // serializedObject.Update();
-        serializedObject.ApplyModifiedProperties();
-        SceneView.RepaintAll();
-    }
-    
-    public override VisualElement CreateInspectorGUI()
-    {
-        var inspector = new VisualElement();
-        
-        upgradeData = (UpgradeData)target;
-        upgradeTypeProperty = serializedObject.FindProperty("_upgradeDataType");
-        costTypeProperty = serializedObject.FindProperty("_costDataType");
-        upgradeTypeEnum = (UiDataType)upgradeTypeProperty.enumValueIndex;
-        costTypeEnum = (UiDataType)costTypeProperty.enumValueIndex;
+        var checkIsNull = checkValue == null;
+        var previousIsNull = previousValue == null;
+        // If both are null, they are equal (not changed).
+        if (checkIsNull && previousIsNull) return false;
 
-        SerializedProperty scriptProperty = serializedObject.FindProperty("m_Script");
+        // At least one is not null and if one is null and the other is not, they are not equal (changed).
+        if (checkIsNull || previousIsNull) return true;
 
-        SerializedProperty allowDebugProperty = serializedObject.FindProperty("_allowDebug");
-
-        // Draw the default script field
-        var scriptField = new PropertyField(scriptProperty);
-        scriptField.SetEnabled(false);
-        inspector.Add(scriptField);
-        
-        inspector.Add(UISpacer(30));
-        var allowDebugField = new PropertyField(allowDebugProperty, "Allow Debug");
-        inspector.Add(allowDebugField);
-        inspector.Add(UISpacer(10));
-        
-        inspector.Add(ReadOnlyDataElement());
-        inspector.Add(UpgradeDataElement());
-        inspector.Add(JsonDataElement());
-        inspector.Add(ButtonActionsElement());
-        
-        return inspector;
+        // Both are not null, so compare the values.
+        return !checkValue.Equals(previousValue);
     }
     
     private VisualElement UISpacer(int height) => new() { style = { height = height } };
 
     private VisualElement UIGroup(string title)
     {
-        const int containerBorder = 1;
-        const int containerSpacing = 3;
-        const float headerPadding = 1.5f;
-        const int headerFontSize = 12;
-        
-        var groupContainer = new VisualElement { style =
-            {
-                backgroundColor = darkGrey,
-                borderLeftColor = Color.black,
-                borderRightColor = Color.black,
-                borderBottomColor = Color.black,
-                borderTopColor = Color.black,
-                borderTopWidth = containerBorder,
-                borderRightWidth = containerBorder,
-                borderLeftWidth = containerBorder,
-                borderBottomWidth = containerBorder,
-                marginBottom = containerSpacing
-            }
-        };
-        var header = new Label(title) { style =
-            {
-                backgroundColor = darkerGrey,
-                unityFontStyleAndWeight = FontStyle.Bold,
-                fontSize = headerFontSize,
-                paddingTop = headerPadding,
-                paddingLeft = headerPadding,
-                paddingBottom = headerPadding,
-            }
-        };
+        var groupContainer = new VisualElement();
+        groupContainer.AddToClassList("panel");
+
+        var header = new Label(title);
+        header.AddToClassList("panel-header");
         
         groupContainer.Add(header);
         
@@ -107,216 +52,340 @@ public class UpgradeDataEditor : Editor
 
     private static VisualElement UIBody()
     {
-        const int bodyIndent = 15;
-        const int bodyPadding = 2;
-
-        var body = new VisualElement { style =
-            {
-                marginTop = bodyPadding,
-                marginRight = bodyIndent / 2,
-                marginLeft = bodyIndent,
-                marginBottom = bodyPadding,
-                paddingTop = bodyPadding,
-                paddingRight = bodyPadding,
-                paddingLeft = bodyPadding,
-                paddingBottom = bodyPadding,
-            }
-        };
+        var body = new VisualElement();
+        body.AddToClassList("panel-body");
         
         return body;
     }
-
-    private VisualElement ReadOnlyDataElement()
+    
+    private bool _isInitializing;
+    private void RefreshInspector(VisualElement rootElement)
     {
-        int upgradeLevelProperty = upgradeData.upgradeLevel;
-        object currentUpgradeProperty = upgradeData.upgradeValue;
-        object currentCostProperty = upgradeData.upgradeCost;
+        if (_isInitializing)
+            return;
         
+        _isInitializing = true;
+        
+        try
+        {
+            // Force update to the serialized object, ensuring all fields are up to date.
+            serializedObject.ApplyModifiedProperties();
+            serializedObject.Update();
+        
+            // Clear and rebuild the inspector to reflect the latest changes.
+            var refreshedGui = CreateInspectorGUI();
+            rootElement.Clear();
+            rootElement.Add(refreshedGui);
+        }
+        finally
+        {
+            _isInitializing = false;
+        }
+    }
+    
+    private void RedrawElement(VisualElement parentElement, VisualElement targetElement, System.Func<VisualElement, VisualElement> drawMethod)
+    {
+        if (targetElement == null)
+        {
+            Debug.LogWarning($"Target element is null. Cannot redraw.");
+            return;
+        }
+
+        if (!parentElement.Contains(targetElement))
+        {
+            Debug.LogWarning($"Target element {targetElement.name} is not a child of the parent element {parentElement.name}. Cannot redraw.");
+            return;
+        }
+
+        // Store the index of the current element to reinsert the new one at the same position.
+        int index = parentElement.IndexOf(targetElement);
+        parentElement.Remove(targetElement);
+
+        // Draw the new panel and insert it at the original index.
+        var newPanel = drawMethod.Invoke(parentElement);
+        parentElement.Insert(index, newPanel);
+
+    }
+
+    private VisualElement _inspector;
+    public override VisualElement CreateInspectorGUI()
+    {
+        _isInitializing = true;
+        var inspector = new VisualElement();
+        _inspector = inspector;
+        
+        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(StyleSheetPath);
+        if (styleSheet != null)
+        {
+            inspector.styleSheets.Add(styleSheet);
+        }
+        else
+        {
+            Debug.LogWarning($"Style sheet not found at path: {StyleSheetPath}");
+        }
+        inspector = BuildUI(inspector);
+        _isInitializing = false;
+        return inspector;
+    }
+
+    private VisualElement _upperMarginPanel;
+    private VisualElement _readOnlyPanel;
+    private VisualElement _upgradeDataPanel;
+    private VisualElement _jsonDataPanel;
+    private VisualElement _buttonActionsPanel;
+    
+    private VisualElement BuildUI(VisualElement rootElement)
+    {
+        upgradeData ??= (UpgradeData)target;
+        _upperMarginPanel = UpperMargin(rootElement);
+        _readOnlyPanel = ReadOnlyPanel(rootElement);
+        _upgradeDataPanel = UpgradeDataPanel(rootElement);
+        _jsonDataPanel = JsonDataPanel(rootElement);
+        _buttonActionsPanel = ButtonActionsPanel(rootElement);
+        
+        
+        rootElement.Add(_upperMarginPanel);
+        rootElement.Add(_readOnlyPanel);
+        rootElement.Add(_upgradeDataPanel);
+        rootElement.Add(_jsonDataPanel);
+        rootElement.Add(_buttonActionsPanel);
+        
+        return rootElement;
+    }
+    
+    
+    private System.Func<SerializedProperty> ScriptProperty => () => serializedObject.FindProperty("m_Script");
+    private System.Func<SerializedProperty> AllowDebugProperty => () => serializedObject.FindProperty("_allowDebug");
+    private VisualElement UpperMargin(VisualElement rootElement)
+    {
+        var upperMargin = new VisualElement();
+        
+        // Draw the default script field
+        var scriptField = new PropertyField(ScriptProperty());
+        scriptField.BindProperty(ScriptProperty());
+        scriptField.SetEnabled(false);
+        upperMargin.Add(scriptField);
+        
+        upperMargin.Add(UISpacer(30));
+        var allowDebugField = new PropertyField(AllowDebugProperty(), "Allow Debug");
+        allowDebugField.BindProperty(AllowDebugProperty());
+        upperMargin.Add(allowDebugField);
+        
+        return upperMargin;
+    }
+    
+    
+    private int upgradeLevelProperty => upgradeData.upgradeLevel;
+    private object currentUpgradeProperty => upgradeData.upgradeValue;
+    private object currentCostProperty => upgradeData.upgradeCost;
+    private VisualElement ReadOnlyPanel(VisualElement rootElement)
+    {
         var readOnlyContainer = UIGroup("Read Only");
         var body = UIBody();
         readOnlyContainer.Add(body);
 
         var upgradeLevelField = new IntegerField("Upgrade Level") { value = upgradeLevelProperty };
-        upgradeLevelField.SetEnabled(false);
+        upgradeLevelField.BindProperty(serializedObject.FindProperty("_upgradeLevel"));
         body.Add(upgradeLevelField);
-
-        switch (upgradeTypeEnum)
-        {
-            case UiDataType.Float:
-                var currentUpgradeFloatField = new FloatField("Current Upgrade") { value = currentUpgradeProperty != null ? (float)currentUpgradeProperty : 0f };
-                currentUpgradeFloatField.SetEnabled(false);
-                body.Add(currentUpgradeFloatField);
-                break;
-            case UiDataType.Int:
-                var currentUpgradeIntField = new IntegerField("Current Upgrade") { value = currentUpgradeProperty != null ? (int)currentUpgradeProperty : 0 };
-                currentUpgradeIntField.SetEnabled(false);
-                body.Add(currentUpgradeIntField);
-                break;
-        }
-
-        try
-        {
-            switch (costTypeEnum)
-            {
-                case UiDataType.Float:
-                    var currentCostFloatField = new FloatField("Current Cost") { value = (float)currentCostProperty };
-                    currentCostFloatField.SetEnabled(false);
-                    body.Add(currentCostFloatField);
-                    break;
-                case UiDataType.Int:
-                    var currentCostIntField = new IntegerField("Current Cost") { value = (int)currentCostProperty };
-                    currentCostIntField.SetEnabled(false);
-                    body.Add(currentCostIntField);
-                    break;
-            }
-        }
-        catch (System.InvalidCastException)
-        {
-            var currentType = costTypeEnum;
-            costTypeProperty.enumValueIndex = costTypeEnum == UiDataType.Float ? (int)UiDataType.Int : (int)UiDataType.Float;
-            costTypeEnum = (UiDataType)costTypeProperty.enumValueIndex;
-            Debug.LogWarning($"Invalid expected type: {currentType}, attempting to switch type to {costTypeEnum}.",
-                target);
-            serializedObject.ApplyModifiedProperties();
-
-            switch (costTypeEnum)
-            {
-                case UiDataType.Float:
-                    var currentCostFloatField = new FloatField("Current Cost") { value = (float)currentCostProperty };
-                    currentCostFloatField.SetEnabled(false);
-                    body.Add(currentCostFloatField);
-                    break;
-                case UiDataType.Int:
-                    var currentCostIntField = new IntegerField("Current Cost") { value = (int)currentCostProperty };
-                    currentCostIntField.SetEnabled(false);
-                    body.Add(currentCostIntField);
-                    break;
-            }
-        }
+        
+        body.Add(DrawCurrentField("Current Upgrade", upgradeTypeEnum(), currentUpgradeProperty));
+        body.Add(DrawCurrentField("Current Cost", costTypeEnum(), currentCostProperty));
+        readOnlyContainer.SetEnabled(false);
         
         return readOnlyContainer;
     }
     
-    private VisualElement UpgradeDataElement()
+    private static VisualElement DrawCurrentField(string label, UIDataType dataType, object currentProperty)
     {
-        SerializedProperty baseFloatProperty = serializedObject.FindProperty("_baseUpgradeFloat");
-        SerializedProperty baseUpgradeIntProperty = serializedObject.FindProperty("_baseUpgradeInt");
-        SerializedProperty baseUpgradeFloatProperty = serializedObject.FindProperty("_upgradeFloatContainer");
-        SerializedProperty upgradeIntProperty = serializedObject.FindProperty("_upgradeIntContainer");
-        SerializedProperty costValueFloatProperty = serializedObject.FindProperty("_costFloatContainer");
-        SerializedProperty costValueIntProperty = serializedObject.FindProperty("_costIntContainer");
-        
+        VisualElement currentField;
+        if (currentProperty == null)
+        {
+            Debug.LogWarning($"Current property is null for field '{label}'. Defaulting to 'null' text field.");
+            return new TextField(label) { value = "null" };
+        }
+        Debug.Log($"Current Property Type: {currentProperty.GetType()}");
+        switch (dataType)
+        {
+            case UIDataType.Float:
+                if (currentProperty is float floatProperty)
+                {
+                    currentField = new FloatField(label) { value = floatProperty };
+                }
+                else
+                {
+                    currentField = new TextField(label) { value = "null" };
+                }
+
+                break;
+            case UIDataType.Int:
+                if (currentProperty is int intProperty)
+                {
+                    currentField = new IntegerField(label) { value = intProperty };
+                }
+                else
+                {
+                    currentField = new TextField(label) { value = "null" };
+                }
+
+                break;
+            default:
+                throw new System.ArgumentOutOfRangeException();
+        }
+        return currentField;
+    }
+    
+    
+    private System.Func<SerializedProperty> BaseUpgradeFloatProperty => () => serializedObject.FindProperty("_baseUpgradeFloat");
+    private System.Func<SerializedProperty> BaseUpgradeIntProperty => () => serializedObject.FindProperty("_baseUpgradeInt");
+    
+    private System.Func<SerializedProperty> upgradeFloatProperty => () => serializedObject.FindProperty("_upgradeFloatContainer");
+    private System.Func<SerializedProperty> UpgradeIntProperty => () => serializedObject.FindProperty("_upgradeIntContainer");
+    
+    private System.Func<SerializedProperty> CostFloatProperty => () => serializedObject.FindProperty("_costFloatContainer");
+    private System.Func<SerializedProperty> CostIntProperty => () => serializedObject.FindProperty("_costIntContainer");
+    private VisualElement UpgradeDataPanel(VisualElement rootElement)
+    {
         var upgradeDataContainer = UIGroup("Upgrade Data");
         var body = UIBody();
         upgradeDataContainer.Add(body);
         
-        var upgradeTypeField = new EnumField("Upgrade Data Type", upgradeTypeEnum) { style = { marginBottom = fieldSpacing } };
-        upgradeTypeField.RegisterValueChangedCallback(evt =>
-        {
-            upgradeTypeProperty.enumValueIndex = (int)(UiDataType)evt.newValue;
-            upgradeTypeEnum = (UiDataType)upgradeTypeProperty.enumValueIndex;
-            serializedObject.ApplyModifiedProperties();
-        });
-        body.Add(upgradeTypeField);
-
-        var costTypeField = new EnumField("Cost Data Type", costTypeEnum) { style = { marginBottom = fieldSpacing } };
-        costTypeField.RegisterValueChangedCallback(evt =>
-        {
-            costTypeProperty.enumValueIndex = (int)(DataType)evt.newValue;
-            costTypeEnum = (UiDataType)costTypeProperty.enumValueIndex;
-            serializedObject.ApplyModifiedProperties();
-        });
-        body.Add(costTypeField);
+        var upgradeFieldGroup = new VisualElement();
         
-        var baseValueFloatField = new PropertyField(baseFloatProperty, "Base Value") { style = { marginBottom = fieldSpacing } };
-        body.Add(baseValueFloatField);
-
-        switch (upgradeTypeEnum)
+        body.Add(DrawEnumField("Upgrade Data Type", UpgradeTypeProperty));
+        
+        PropertyField baseUpgradeField = null;
+        ObjectField upgradeObjectField = null;
+        
+        switch (upgradeTypeEnum())
         {
-            case UiDataType.Float:
-
-                var upgradeFloatDataField = new ObjectField("Upgrade Holder")
-                {
-                    objectType = typeof(FloatData),
-                    value = baseUpgradeFloatProperty.objectReferenceValue,
-                    style = { marginBottom = fieldSpacing }
-                };
-                upgradeFloatDataField.RegisterValueChangedCallback(evt =>
-                {
-                    baseUpgradeFloatProperty.objectReferenceValue = evt.newValue;
-                    serializedObject.ApplyModifiedProperties();
-                });
-                body.Add(upgradeFloatDataField);
+            case UIDataType.Float:
+                baseUpgradeField = DrawBaseValueField("Upgrade Base", BaseUpgradeFloatProperty);
+                upgradeObjectField = DrawDataObjectField("Upgrade Data Holder", upgradeFloatProperty, typeof(FloatData));
                 break;
-
-            case UiDataType.Int:
-                var baseValueIntField = new PropertyField(baseUpgradeIntProperty, "Base Value");
-                body.Add(baseValueIntField);
-
-                var upgradeIntDataField = new ObjectField("Upgrade Holder")
-                {
-                    objectType = typeof(IntData),
-                    value = upgradeIntProperty.objectReferenceValue,
-                    style = { marginBottom = fieldSpacing }
-                };
-                upgradeIntDataField.RegisterValueChangedCallback(evt =>
-                {
-                    upgradeIntProperty.objectReferenceValue = evt.newValue;
-                    serializedObject.ApplyModifiedProperties();
-                });
-                body.Add(upgradeIntDataField);
+            case UIDataType.Int:
+                baseUpgradeField = DrawBaseValueField("Upgrade Base", BaseUpgradeIntProperty);
+                upgradeObjectField = DrawDataObjectField("Upgrade Data Holder", UpgradeIntProperty, typeof(IntData));
+                break;
+        }
+        body.Add(baseUpgradeField);
+        body.Add(upgradeObjectField);
+        
+        body.Add(DrawEnumField("Cost Data Type", CostTypeProperty));
+        
+        ObjectField costObjectField = null;
+        
+        switch (costTypeEnum())
+        {
+            case UIDataType.Float:
+                costObjectField = DrawDataObjectField("Cost Data Holder", CostFloatProperty, typeof(FloatData));
+                break;
+            case UIDataType.Int:
+                costObjectField = DrawDataObjectField("Cost Data Holder", CostIntProperty, typeof(IntData));
                 break;
         }
 
-        switch (costTypeEnum)
+        if (costObjectField != null)
         {
-            case UiDataType.Float:
-                var costFloatDataField = new ObjectField("Cost Holder")
-                {
-                    objectType = typeof(FloatData),
-                    value = costValueFloatProperty.objectReferenceValue,
-                    style = { marginBottom = fieldSpacing }
-                };
-                costFloatDataField.RegisterValueChangedCallback(evt =>
-                {
-                    costValueFloatProperty.objectReferenceValue = evt.newValue;
-                    serializedObject.ApplyModifiedProperties();
-                });
-                body.Add(costFloatDataField);
-                break;
-
-            case UiDataType.Int:
-                var costIntDataField = new ObjectField("Cost Holder")
-                {
-                    objectType = typeof(IntData),
-                    value = costValueIntProperty.objectReferenceValue,
-                    style = { marginBottom = fieldSpacing }
-                };
-                costIntDataField.RegisterValueChangedCallback(evt =>
-                {
-                    costValueIntProperty.objectReferenceValue = evt.newValue;
-                    serializedObject.ApplyModifiedProperties();
-                });
-                body.Add(costIntDataField);
-                break;
+            costObjectField.BindProperty(costTypeEnum() == UIDataType.Float ? CostFloatProperty() : CostIntProperty()); // Rebind ObjectField
+            costObjectField.AddToClassList("panel-field");
+            body.Add(costObjectField);
         }
         
         return upgradeDataContainer;
     }
-
-    private VisualElement JsonDataElement()
+    
+    private VisualElement DrawEnumField(string label, System.Func<SerializedProperty> property)
     {
-        bool jsonLoadState = upgradeData.isLoaded;
-        SerializedProperty jsonFileProperty = serializedObject.FindProperty("_jsonFile");
-        SerializedProperty upgradeKeyProperty = serializedObject.FindProperty("_upgradeKey");
-        SerializedProperty previousValueKey = serializedObject.FindProperty("_previousUpgradeKey");
-        SerializedProperty costKeyProperty = serializedObject.FindProperty("_costKey");
-        SerializedProperty previousCostKey = serializedObject.FindProperty("_previousCostKey");
+        var enumField = new EnumField(label, (UIDataType)property().enumValueIndex);
+        enumField.AddToClassList("panel-field");
         
-        bool upgradeIsLoaded = serializedObject.FindProperty("upgradeIsLoaded").boolValue;
-        bool costIsLoaded = serializedObject.FindProperty("costIsLoaded").boolValue;
+        enumField.RegisterValueChangedCallback(changeEvent =>
+        {
+            if (allowDebug) Debug.Log($"Enum Change Event for '{label}', Updating Field: {HasChanged((int)(UIDataType)changeEvent.newValue, property().enumValueIndex)}\nInitializing: {_isInitializing}\nNew Value: {changeEvent.newValue}\nPrevious Value: {(UIDataType)property().enumValueIndex}");
+            if (!HasChanged((int)(UIDataType)changeEvent.newValue, property().enumValueIndex) || _isInitializing) return;
+            
+            // Update the SerializedProperty to reflect the new value.
+            property().enumValueIndex = (int)(UIDataType)changeEvent.newValue;
+            enumField.value = (UIDataType)property().enumValueIndex;
 
-        SerializedProperty jsonBlob = serializedObject.FindProperty("_jsonBlob");
+            // Apply and update serialized changes.
+            serializedObject.ApplyModifiedProperties();
+            serializedObject.Update();
+
+            // Reload the JSON data from the new file.
+            upgradeData.ForceJsonReload();
+
+            // Rebuild the UI most data has potentially changed.
+            RefreshInspector(_inspector);
+        });
+        return enumField;
+    }
+    
+    private PropertyField DrawBaseValueField(string label, System.Func<SerializedProperty> propertyFunc)
+    {
+        // Get the SerializedProperty using the provided function.
+        SerializedProperty property = propertyFunc();
+        if (property == null)
+        {
+            Debug.LogWarning($"Serialized property '{label}' is null. Cannot draw the field.");
+            return null;
+        }
+
+        // Create a PropertyField for the SerializedProperty.
+        PropertyField baseValueField = new PropertyField(property, label);
+        baseValueField.BindProperty(property); 
+        baseValueField.AddToClassList("panel-field");
+        
+        var previousValue = property.floatValue;
+        baseValueField.RegisterValueChangeCallback(changeEvent =>
+        {
+            if (allowDebug)
+            { Debug.Log($"Base Value Field Changed: {label}\nNew Value: {changeEvent.changedProperty.floatValue}\nPrevious Value: {changeEvent.changedProperty.floatValue}"); }
+            
+            if (!HasChanged(changeEvent.changedProperty.floatValue, previousValue) || _isInitializing) return;
+            // Apply and update the serialized changes.
+            serializedObject.ApplyModifiedProperties();
+            previousValue = changeEvent.changedProperty.floatValue;
+            
+            RefreshInspector(_inspector);
+        });
+
+        return baseValueField;
+    }
+
+    
+    private ObjectField DrawDataObjectField(string label, System.Func<SerializedProperty> property, System.Type objType)
+    {
+        var dataObjectField = new ObjectField(label)
+        {
+            objectType = objType
+        };
+        if (property().objectReferenceValue != null)
+        {
+            dataObjectField.value = property().objectReferenceValue;
+        }
+        dataObjectField.AddToClassList("panel-field");
+        dataObjectField.RegisterValueChangedCallback(changeEvent =>
+        {
+            if (allowDebug) Debug.Log($"Event4, Updating Field: {HasChanged(changeEvent.newValue, changeEvent.previousValue)}\nInitializing: {_isInitializing}\nNew Value: {changeEvent.newValue}\nPrevious Value: {changeEvent.previousValue}");
+            if (!HasChanged(changeEvent.newValue, changeEvent.previousValue) || _isInitializing) return;
+            property().objectReferenceValue = changeEvent.newValue;
+            serializedObject.ApplyModifiedProperties();
+        });
+        return dataObjectField;
+    }
+    
+    private System.Func<SerializedProperty> JsonFileProperty => () => serializedObject.FindProperty("_jsonFile");
+    private System.Func<SerializedProperty> UpgradeKey => () => serializedObject.FindProperty("_upgradeKey");
+    private System.Func<SerializedProperty> PreviousUpgradeKey => () => serializedObject.FindProperty("_previousUpgradeKey");
+    private System.Func<SerializedProperty> CostKey => () => serializedObject.FindProperty("_costKey");
+    private System.Func<SerializedProperty> PreviousCostKey => () => serializedObject.FindProperty("_previousCostKey");
+    private System.Func<SerializedProperty> JsonBlob => () => serializedObject.FindProperty("_jsonBlob");
+    private System.Func<SerializedProperty> upgradeIsLoaded => () => serializedObject.FindProperty("upgradeIsLoaded");
+    private System.Func<SerializedProperty> costIsLoaded => () => serializedObject.FindProperty("upgradeIsLoaded");
+    bool jsonLoadState => upgradeData.isLoaded;
+    private VisualElement JsonDataPanel(VisualElement rootElement)
+    {
         var jsonSettingsContainer = UIGroup("Json Settings");
         
         var body = UIBody();
@@ -326,75 +395,165 @@ public class UpgradeDataEditor : Editor
         jsonLoadedToggle.SetEnabled(false);
         body.Add(jsonLoadedToggle);
 
-        var jsonFileField = new PropertyField(jsonFileProperty, "Json File");
+        ObjectField jsonFileField = new ObjectField("Json File")
+        {
+            objectType = typeof(TextAsset)
+        };
+        jsonFileField.BindProperty(JsonFileProperty());
+        var previousJsonFile = JsonFileProperty().objectReferenceValue as TextAsset;
+        jsonFileField.RegisterValueChangedCallback(changeEvent =>
+        {
+            if (allowDebug) Debug.Log($"Event7, Updating Field: {HasChanged(changeEvent.newValue, previousJsonFile)}\nInitializing: {_isInitializing}\nNew Value: {changeEvent.newValue}\nPrevious Value: {previousJsonFile}");
+            if (!HasChanged(changeEvent.newValue, previousJsonFile) || _isInitializing) return;
+
+            // Reload JSON data from the new file
+            upgradeData.ForceJsonReload();
+
+            // Rebuild the UI as data has potentially changed
+            RefreshInspector(rootElement);
+        });
         body.Add(jsonFileField);
 
-        var valueKeyField = new PropertyField(upgradeKeyProperty, "Upgrade Key");
+        var valueKeyField = new TextField("Upgrade Key");
+        valueKeyField.BindProperty(UpgradeKey());
+        var previousUpgradeKeyValue = PreviousUpgradeKey().stringValue;
+
+        // Register focus loss event
+        valueKeyField.RegisterCallback<FocusOutEvent>(eventContext =>
+        {
+            if (!HasChanged(valueKeyField.value, previousUpgradeKeyValue) || _isInitializing) return;
+
+            previousUpgradeKeyValue = valueKeyField.value;
+            upgradeData.ForceJsonReload();
+            RefreshInspector(rootElement);
+        });
+
+        // Register Enter key press event
+        valueKeyField.RegisterCallback<KeyDownEvent>(eventContext =>
+        {
+            if (eventContext.keyCode != KeyCode.Return && eventContext.keyCode != KeyCode.KeypadEnter || _isInitializing) return;
+            if (!HasChanged(valueKeyField.value, previousUpgradeKeyValue)) return;
+
+            previousUpgradeKeyValue = valueKeyField.value;
+            upgradeData.ForceJsonReload();
+            RefreshInspector(rootElement);
+        });
         body.Add(valueKeyField);
 
-        var costKeyField = new PropertyField(costKeyProperty, "Cost Key");
-        body.Add(costKeyField);
-
-        if (!string.IsNullOrEmpty(jsonBlob.stringValue))
+        var costKeyField = new TextField("Cost Key");
+        costKeyField.BindProperty(CostKey());
+        var previousCostKeyValue = PreviousCostKey().stringValue;
+        
+        costKeyField.RegisterCallback<FocusOutEvent>(eventContext =>
         {
-            var loadedValuesContainer = new VisualElement() { style = { backgroundColor = darkGrey } };
-            loadedValuesContainer.Add(new Label("Loaded Values") { style = { unityFontStyleAndWeight = FontStyle.Bold } });
+            if (!HasChanged(costKeyField.value, previousCostKeyValue) || _isInitializing) return;
+
+            previousCostKeyValue = costKeyField.value;
+            upgradeData.ForceJsonReload();
+            serializedObject.ApplyModifiedProperties();
+        });
+
+        costKeyField.RegisterCallback<KeyDownEvent>(eventContext =>
+        {
+            if (eventContext.keyCode is not (KeyCode.Return or KeyCode.KeypadEnter) ||
+                !HasChanged(costKeyField.value, previousCostKeyValue) || _isInitializing) return;
+            previousCostKeyValue = costKeyField.value;
+            upgradeData.ForceJsonReload();
+            serializedObject.ApplyModifiedProperties();
+        });
+        body.Add(costKeyField);
+        
+        var jsonBlob = JsonBlob().stringValue;
+        if (!string.IsNullOrEmpty(jsonBlob))
+        {
+            var loadedValuesContainer = new VisualElement();
+            loadedValuesContainer.AddToClassList("default-element");
+            
+            var containerLabel = new Label("Loaded Values");
+            containerLabel.AddToClassList("bold");
+            loadedValuesContainer.Add(containerLabel);
+            
             body.Add(loadedValuesContainer);
 
             var jsonBlobField = new TextField()
             {
-                value = jsonBlob.stringValue, 
+                value = jsonBlob, 
                 multiline = true,
-    
-                style =
-                {
-                    backgroundColor = darkerGrey,
-                    color = darkGreen
-                },
                 isReadOnly = true,
             };
+            jsonBlobField.AddToClassList("text-blob");
 
-            var scrollView = new ScrollView(ScrollViewMode.Vertical) { style = { maxHeight = 150 },
-                horizontalScrollerVisibility = ScrollerVisibility.Hidden };
+            var scrollView = new ScrollView(ScrollViewMode.Vertical) { horizontalScrollerVisibility = ScrollerVisibility.Hidden };
+            scrollView.AddToClassList("scroll-view");
             scrollView.Add(jsonBlobField);
+            
             loadedValuesContainer.Add(scrollView);
         }
         else
         {
-            var noJsonDataLabel = new HelpBox(
-                $"No JSON data loaded.\n" +
-                $"{(!upgradeIsLoaded ? "Upgrade Key is not in JSON file.\n" : "")}" +
-                $"{(!costIsLoaded ? "Cost Key is not in JSON file.\n" : "")}",
-                HelpBoxMessageType.Info);
-            body.Add(noJsonDataLabel);
+            DrawJsonHelpBox(jsonSettingsContainer, JsonFileProperty(), UpgradeKey(), CostKey());
         }
         
         return jsonSettingsContainer;
     }
     
-    private VisualElement ButtonActionsElement()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="containerElement"></param>
+    /// <param name="jsonProperty"></param>
+    /// <param name="upgradeKeyProp"></param>
+    /// <param name="costKeyProp"></param>
+    private void DrawJsonHelpBox(VisualElement containerElement, SerializedProperty jsonProperty, SerializedProperty upgradeKeyProp, SerializedProperty costKeyProp)
+    {
+        string helpText = "No JSON data loaded, due to:";
+        
+        if (jsonProperty == null || jsonProperty.propertyType != SerializedPropertyType.ObjectReference || jsonProperty.objectReferenceValue == null)
+        {
+            helpText += "\n\t- No JSON file selected.";
+        }
+        else 
+        {
+            if (!ValidateJsonKey(upgradeKeyProp.stringValue, upgradeData.jsonData)) helpText += "\n\t- Upgrade Key is not in JSON file.";
+            if (!ValidateJsonKey(costKeyProp.stringValue, upgradeData.jsonData)) helpText += "\n\t- Cost Key is not in JSON file.";
+        }
+            
+        HelpBox noJsonDataLabel = new HelpBox(helpText, HelpBoxMessageType.Info);
+        containerElement.Add(noJsonDataLabel);
+    }
+    
+    private VisualElement ButtonActionsPanel(VisualElement rootElement)
     {
         var buttonActionsContainer = UIGroup("Button Actions");
         System.Collections.Generic.List<(System.Action, string)> buttonActions = upgradeData.GetButtonActions();
         foreach (var buttonAction in buttonActions)
         {
-            var buttonField = new VisualElement { style = { marginBottom = fieldSpacing, position = Position.Relative, height = 20 } };
-            var label = new Label(buttonAction.Item2) { style = { unityFontStyleAndWeight = FontStyle.Bold, flexGrow = 1, alignSelf = Align.FlexStart, marginLeft = 10, marginTop = fieldSpacing, marginBottom = 0 } };
-            var button = new Button(() =>
+            var buttonField = new VisualElement();
+            buttonField.AddToClassList("button-element");
+            
+            var label = new Label(buttonAction.Item2);
+            label.AddToClassList("button-label");
+            
+            Button button;
+            if (buttonAction.Item2.Contains("Update"))
             {
-                buttonAction.Item1();
-                UpdateEditor();
-            })
+                button = new Button(() =>
+                {
+                    buttonAction.Item1();
+                    RedrawElement(_inspector, _jsonDataPanel, JsonDataPanel);
+                });
+            }
+            else
             {
-                style = { position = Position.Absolute, left = 0, right = 0, top = 0, bottom = 0, backgroundColor = transparent }
-            };
-            buttonField.Add(label);
+                button = new Button(() => buttonAction.Item1());
+            }
+            button.AddToClassList("button");
             buttonField.Add(button);
+            button.Add(label);
+            
             buttonActionsContainer.Add(buttonField);
         }
         
         return buttonActionsContainer;
     }
-
-    private bool HasChanged<T>(T checkValue, T previousValue) => !checkValue.Equals(previousValue);
 }
