@@ -1,10 +1,12 @@
-using UnityEngine;
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using static ZPTools.DataType;
+using UnityEditor;
+using UnityEngine;
 using ZPTools.Interface;
 using ZPTools.Utility;
+using static ZPTools.DataType;
 using static ZPTools.Utility.UtilityFunctions;
 using Debug = UnityEngine.Debug;
 
@@ -20,8 +22,8 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
 
     private void OnEnable()
     {
-        UpdateOrInitializeList(_upgradeList, _upgradeDataType);
-        UpdateOrInitializeList(_costList, _costDataType);
+        UpdateOrInitializeList(_upgradeList, _upgradeDataType, _upgradeKey);
+        UpdateOrInitializeList(_costList, _costDataType, _costKey);
     }
 
     /// <summary>
@@ -61,7 +63,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     [SerializeField] private float _baseUpgradeFloat;
     [SerializeField] private int _baseUpgradeInt;
     
-    private void UpdateOrInitializeList(DualTypeList list, EnumDataTypes type)
+    private void UpdateOrInitializeList(DualTypeList list, EnumDataTypes type, string key)
     {
         if (list == null)
         {
@@ -69,9 +71,15 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         }
         else if (list.listType != type)
         {
-            // Update the list type to match the expected type.
             list.listType = type;
-            list.Clear(); // Optionally clear list to avoid inconsistent data.
+            list.Clear();
+        }
+        
+        if (_jsonFile == null || string.IsNullOrEmpty(key) || !ValidateJsonKey(key, jsonData))
+        {
+            SetLoadState(key, false);
+            list.Clear();
+            return;
         }
     }
     public object baseUpgradeValue => _upgradeDataType == EnumDataTypes.Float ? _baseUpgradeFloat : _baseUpgradeInt;
@@ -79,28 +87,37 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     { 
         get
         {
+            if (!upgradeIsLoaded)
+            {
+                SetLoadState(_upgradeKey, false);
+                if (_allowDebug)
+                {
+                    Debug.LogError(
+                        _jsonFile == null
+                            ? "Cannot retrieve Upgrade Value due to JSON file is not assigned."
+                            : $"Upgrade key '{_upgradeKey}' not found.\nPossible keys: \n   {string.Join(",\n   ", GetJsonKeys(jsonData))}",
+                        this);
+                }
+                return null;
+            }
             try
             {
-                int index = upgradeLevel + 1 <= GetMaxUpgradeLevel() ? upgradeLevel + 1 : upgradeLevel;
-
                 // Ensure correct type is retrieved from DualTypeList
                 if (_upgradeDataType == EnumDataTypes.Float && _upgradeList.listType == EnumDataTypes.Float)
                 {
-                    return _upgradeList.GetValue<float>(index);
+                    return _upgradeList.GetValue<float>(upgradeLevel) + _baseUpgradeFloat;
                 }
-                else if (_upgradeDataType == EnumDataTypes.Int && _upgradeList.listType == EnumDataTypes.Int)
+
+                if (_upgradeDataType == EnumDataTypes.Int && _upgradeList.listType == EnumDataTypes.Int)
                 {
-                    return _upgradeList.GetValue<int>(index);
+                    return _upgradeList.GetValue<int>(upgradeLevel) + _baseUpgradeInt;
                 }
-                else
-                {
-                    throw new System.InvalidCastException(
-                        $"The cost list type '{_upgradeList.listType}' does not match the expected data type '{_upgradeDataType}'.");
-                }
+                throw new InvalidCastException(
+                    $"The cost list type '{_upgradeList.listType}' does not match the expected data type '{_upgradeDataType}'.");
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError($"Error getting upgrade cost with type: {_upgradeDataType}\nError: {e}", this);
+                if (_allowDebug) Debug.LogError($"Error getting upgrade value with...\nEmum type: [{_upgradeDataType}]\nAgainst List type: [{_upgradeList.listType}]\nError: {e}", this);
                 return null;
             }
         }
@@ -116,32 +133,46 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     [SerializeField] private FloatData _costFloatContainer;
     [SerializeField] private IntData _costIntContainer;
     
+    [SerializeField] private bool _zeroBasedCostList;
+    
     public object upgradeCost
     {
         get
         {
+            if (!costIsLoaded)
+            {
+                SetLoadState(_costKey, false);
+                if (_allowDebug)
+                {
+                    Debug.LogError(
+                        _jsonFile == null
+                            ? "Cannot retrieve Upgrade Cost due to JSON file is not assigned."
+                            : $"Upgrade key '{_costKey}' not found.\nPossible keys: \n   {string.Join(",\n   ", GetJsonKeys(jsonData))}",
+                        this);
+                }
+                return null;
+            }
             try
             {
-                int index = upgradeLevel + 1 <= GetMaxUpgradeLevel() ? upgradeLevel + 1 : upgradeLevel;
+                int index = !_zeroBasedCostList ? upgradeLevel + 1 <= GetMaxUpgradeLevel() ? upgradeLevel + 1 : upgradeLevel : upgradeLevel;
 
                 // Ensure correct type is retrieved from DualTypeList
                 if (_costDataType == EnumDataTypes.Float && _costList.listType == EnumDataTypes.Float)
                 {
                     return _costList.GetValue<float>(index);
                 }
-                else if (_costDataType == EnumDataTypes.Int && _costList.listType == EnumDataTypes.Int)
+
+                if (_costDataType == EnumDataTypes.Int && _costList.listType == EnumDataTypes.Int)
                 {
                     return _costList.GetValue<int>(index);
                 }
-                else
-                {
-                    throw new System.InvalidCastException(
-                        $"The cost list type '{_costList.listType}' does not match the expected data type '{_costDataType}'.");
-                }
+
+                throw new InvalidCastException(
+                    $"The cost list type '{_costList.listType}' does not match the expected data type '{_costDataType}'.");
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError($"Error getting upgrade cost with type: {_costDataType}\nError: {e}", this);
+                if (_allowDebug) Debug.LogError($"Error getting upgrade cost with...\nEmum type: [{_costDataType}]\nAgainst List type: [{_costList.listType}]\nError: {e}", this);
                 return null;
             }
         }
@@ -149,18 +180,11 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     
     /// <summary>
     /// </summary>
-    [SerializeField] private string _upgradeKey = "upgrade";
+    [SerializeField] private string _upgradeKey = "";
     [SerializeField] private string _previousUpgradeKey;
     
-    [SerializeField] private string _costKey = "cost";
+    [SerializeField] private string _costKey = "";
     [SerializeField] private string _previousCostKey;
-    
-    private string GetKey(string key)
-    {
-        if (key == _upgradeKey) return _upgradeKey;
-        if (key == _costKey) return _costKey;
-        throw new System.ArgumentException("Invalid key", nameof(key));
-    }
     
     private void SetPreviousKey(string key)
     {
@@ -201,7 +225,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
                 intData.value = intValue;
                 break;
             default:
-                throw new System.ArgumentException("Unsupported container type or value type mismatch");
+                throw new ArgumentException("Unsupported container type or value type mismatch");
         }
     }
 
@@ -216,11 +240,11 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
                 UpdateContainer(intData, value);
                 break;
             default:
-                throw new System.ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException();
         }
     }
     
-    private void UpdateData()
+    public void UpdateData()
     {
         UpdateContainer(_upgradeDataType, upgradeValue, _upgradeFloatContainer, _upgradeIntContainer);
         UpdateContainer(_costDataType, upgradeCost, _costFloatContainer, _costIntContainer);
@@ -230,13 +254,11 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     /// </summary>
     public void ForceJsonReload()
     {
-        // _upgradeList = new DualTypeList(() => _upgradeDataType);
-        // _costList = new DualTypeList(() => _costDataType);
         isLoaded = false;
         _blobNeedsUpdate = true;
         _jsonBlob = "";
         LoadOnStartup();
-        if (_allowDebug) Debug.Log($"JSON Blob: {_jsonBlob}", this);
+        if (_allowDebug) Debug.Log($"JSON Blob after forced reload: {_jsonBlob}", this);
     }
     
     [SerializeField] private TextAsset _jsonFile;
@@ -246,7 +268,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     private string GetJsonPath()
     {
 #if UNITY_EDITOR
-        return UnityEditor.AssetDatabase.GetAssetPath(_jsonFile);
+        return AssetDatabase.GetAssetPath(_jsonFile);
 #else
         return System.IO.Path.Combine(Application.streamingAssetsPath, _jsonFile.name + ".json");
 #endif
@@ -254,16 +276,17 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
 
     private void ParseJsonValues(string key, DualTypeList targetList)
     {
-        var keyId = GetKey(key);
-        SetPreviousKey(keyId);
-        if (!ValidateJsonKey(keyId, jsonData))
+        if (!ValidateJsonKey(key, jsonData))
         {
-            if (_allowDebug) Debug.LogWarning($"Key '{keyId}' not found.", this);
-            SetLoadState(keyId, false);
+            if (_allowDebug) Debug.LogWarning($"Key '{key}' not found.", this);
+            targetList.Clear();
+            SetLoadState(key, false);
+            SetPreviousKey(key);
             return;
         }
+        SetPreviousKey(key);
         
-        JToken jsonSelection = jsonData[keyId];
+        JToken jsonSelection = jsonData[key];
         
         if (jsonSelection is JArray valuesArray)
         {
@@ -273,22 +296,22 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
             {
                 targetList.AddRange(valuesArray);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError($"Error parsing JSON values for key '{keyId}': {e.Message}", this);
+                Debug.LogError($"Error parsing JSON values for key '{key}': {e.Message}", this);
                 throw;
             }
             
-            SetLoadState(keyId, true);
+            SetLoadState(key, true);
 #if UNITY_EDITOR
-            if (_allowDebug) Debug.Log($"Loaded JSON Key: ['{keyId}']\nContents: {valuesArray}", this);
+            if (_allowDebug) Debug.Log($"Loaded JSON Key: ['{key}']\nContents: {valuesArray}", this);
 #endif
         }
         else
         {
-            SetLoadState(keyId, false);
+            SetLoadState(key, false);
             Debug.LogWarning(
-                $"JSON {(key == _upgradeKey ? "UpgradeValue" : "UpgradeCost")} key '{keyId}' not found.\nPossible keys: \n   {string.Join(",\n   ", GetJsonKeys(jsonData))}",
+                $"JSON {(key == _upgradeKey ? "UpgradeValue" : "UpgradeCost")} key '{key}' not found.\nPossible keys: \n   {string.Join(",\n   ", GetJsonKeys(jsonData))}",
                 this);
         }
     }
@@ -308,11 +331,11 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         {
             EnumDataTypes.Float => JsonConvert.SerializeObject(new Dictionary<string, object> { { jsonKey, values } }, Formatting.Indented),
             EnumDataTypes.Int => JsonConvert.SerializeObject(new Dictionary<string, object> { { jsonKey, values } }, Formatting.Indented),
-            _ => throw new System.ArgumentOutOfRangeException()
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
     
-    private string GetJsonBlob(string key, EnumDataTypes type, DualTypeList list)
+    private string GetListBlob(string key, EnumDataTypes type, DualTypeList list)
     {
         if (_jsonFile == null || !ValidateJsonKey(key, jsonData))
         {
@@ -325,21 +348,24 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         return CreateJsonBlob(type, key, list);
     }
 
-    private string upgradeJsonBlob => GetJsonBlob(_upgradeKey, _upgradeDataType, _upgradeList);
-    private string costJsonBlob => GetJsonBlob(_costKey, _costDataType, _costList);
+    private string upgradeListBlob => GetListBlob(_upgradeKey, _upgradeDataType, _upgradeList);
+    private string costListBlob => GetListBlob(_costKey, _costDataType, _costList);
 
     private void UpdateJsonBlob()
     {
-        if (string.IsNullOrEmpty(upgradeJsonBlob) || string.IsNullOrEmpty(costJsonBlob))
+        var upgradeBlob = upgradeListBlob;
+        var costBlob = costListBlob;
+        
+        if (string.IsNullOrEmpty(upgradeBlob) || string.IsNullOrEmpty(costBlob))
         {
             _jsonBlob = "";
             _blobNeedsUpdate = false;
-            if (_allowDebug) Debug.Log($"Json Blob is empty.\nUpgrade Blob: {upgradeJsonBlob}\nCost Blob: {costJsonBlob}", this);
+            if (_allowDebug) Debug.Log($"Json Blob is empty.\nUpgrade Blob: {upgradeBlob}\nCost Blob: {costBlob}", this);
             return;
         }
 
-        var upgradeJson = JObject.Parse(upgradeJsonBlob);
-        var costJson = JObject.Parse(costJsonBlob);
+        var upgradeJson = JObject.Parse(upgradeBlob);
+        var costJson = JObject.Parse(costBlob);
 
         upgradeJson.Merge(costJson, new JsonMergeSettings { MergeArrayHandling = MergeArrayHandling.Union });
         
@@ -386,8 +412,8 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     
     public void LoadOnStartup()
     {
-        UpdateOrInitializeList(_upgradeList, _upgradeDataType);
-        UpdateOrInitializeList(_costList, _costDataType);
+        UpdateOrInitializeList(_upgradeList, _upgradeDataType, _upgradeKey);
+        UpdateOrInitializeList(_costList, _costDataType, _costKey);
         
         if (!_jsonFile)
         {
@@ -397,12 +423,12 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
         
         _hashFileChangeDetector ??= new HashFileChangeDetector(GetJsonPath(), _allowDebug);
         var changeState = _hashFileChangeDetector.HasChanged();
-       if (_allowDebug) Debug.Log($"Already Loaded: {isLoaded}\nChange State: {changeState}\n" +
+        if (_allowDebug) Debug.Log($"Already Loaded: {isLoaded}\nChange State: {changeState}\n" +
                   $"Blob needs update: {_blobNeedsUpdate}\n" +
                   $"Blob is null or empty: {string.IsNullOrEmpty(_jsonBlob)}\n" +
                   $"Json Blob: {_jsonBlob}\n", this);
         
-        if (!isLoaded && !changeState && !string.IsNullOrEmpty(_jsonBlob) && !_blobNeedsUpdate)
+        if (!isLoaded && !changeState && !_blobNeedsUpdate)
         {
             if (_allowDebug) Debug.Log($"JSON Blob: {_jsonBlob}", this);
             AttemptParseFromJsonBlob();
@@ -423,20 +449,20 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
 
     /// <summary>
     /// </summary>
-    public List<(System.Action, string)> GetButtonActions()
+    public List<(Action, string)> GetButtonActions()
     {
-        return new List<(System.Action, string)>
+        return new List<(Action, string)>
         {
 #if UNITY_EDITOR
+            (ForceJsonReload, "Force Update"),
             (IncreaseUpgradeLevel, "Increase Upgrade Level"),
             (DecreaseUpgradeLevel, "Decrease Upgrade Level"),
-            (ForceJsonReload, "Force Update"),
             (() =>
             {
                 switch (isLoaded)
                 {
                     case true when !_blobNeedsUpdate:
-                        Debug.Log($"upgradeList: {_upgradeList.ToString()}\ncostList: {_costList.ToString()}", this);
+                        Debug.Log($"\nupgradeList: {_upgradeList.ToString()}\tcostList: {_costList.ToString()}", this);
                         break;
                     case false when _jsonFile == null:
                         Debug.LogWarning("Data not loaded due to JSON file not assigned.", this);
@@ -460,6 +486,8 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
                         break;
                 }
             }, "Output Upgrade and Cost Lists"),
+            (() => Debug.Log($"\nUpgrade Level: {upgradeLevel}\tUpgrade Value: {upgradeValue}\tUpgrade Cost: {upgradeCost}", this),
+                "Output Current Values"),
 #endif
         };
     }

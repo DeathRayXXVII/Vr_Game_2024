@@ -66,13 +66,13 @@ namespace ZPTools.Utility
                 // Conversions to float, when float value is expected
                 case DataType.EnumDataTypes.Float:
                     _floatList.Add(ConvertToFloat(value));
-                    Debug.Log($"Adding value: {value} to float list: {this}\nConverted value: {ConvertToFloat(value)}\nContents: {string.Join(", ", _floatList)}");
+                    // Debug.Log($"Adding value: {value} to float list: {this}\nConverted value: {ConvertToFloat(value)}\nContents: {string.Join(", ", _floatList)}");
                     break;
         
                 // Conversion to int, when Int value is expected
                 case DataType.EnumDataTypes.Int:
                     _intList.Add(ConvertToInt(value));
-                    Debug.Log($"Adding value: {value} to int list: {this}\nConverted value: {ConvertToInt(value)}\nContents: {string.Join(", ", _intList)}");
+                    // Debug.Log($"Adding value: {value} to int list: {this}\nConverted value: {ConvertToInt(value)}\nContents: {string.Join(", ", _intList)}");
                     break;
         
                 default:
@@ -83,7 +83,7 @@ namespace ZPTools.Utility
     
         private void HandleAddRange<T>(List<T> values)
         {
-            Debug.Log($"Adding range of {values.Count} values\n{string.Join(", ", values)}");
+            // Debug.Log($"Adding range of {values.Count} values\n{string.Join(", ", values)}");
             if (values.Count == 0) return;
         
             foreach (var value in values)
@@ -95,7 +95,7 @@ namespace ZPTools.Utility
         public void AddRange(List<object> values) => HandleAddRange(values);
         public void AddRange(JArray values) => HandleAddRange(values.ToObject<List<object>>());
 
-        public int GetCount()
+        public int Count()
         {
             return listType switch
             {
@@ -105,9 +105,9 @@ namespace ZPTools.Utility
             };
         }
 
-        public int GetLastIndex() => GetCount() - 1;
+        public int GetLastIndex() => Count() - 1;
     
-        private bool IsValidIndex(int index) => index >= 0 && index < GetCount();
+        private bool IsValidIndex(int index) => index >= 0 && index < Count();
 
         public object GetValue(int index) => listType switch
         {
@@ -159,7 +159,6 @@ namespace ZPTools.Utility
     
         public new string ToString()
         {
-            Debug.Log($"Converting list of type {listType} to string");
             return listType switch
             {
                 DataType.EnumDataTypes.Float => 

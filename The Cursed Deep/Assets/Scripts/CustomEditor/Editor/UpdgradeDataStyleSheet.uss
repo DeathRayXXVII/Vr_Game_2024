@@ -3,6 +3,7 @@
     --darker-grey: rgb(25, 25, 25);
     --transparent: rgba(0, 0, 0, 0);
     --dark-green: rgb(75, 150 75);
+    --dark-red: rgb(105, 0, 0);
     
     --field-spacing: 2px;
 }
@@ -105,4 +106,14 @@
     border-width: 1px;
     border-color: black;
     border-radius: 3px;
+}
+
+.null-field > .unity-text-input {
+    background-color: black;
+    color: var(--dark-red);
+    -unity-font-style: bold;
+}
+
+.hidden {
+    display: none;
 }
