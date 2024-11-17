@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1183,10 +1183,10 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 85d7fd99a551abb47a56887d5019fc1b, type: 2}
-          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-          m_MethodName: set_locked
-          m_Mode: 6
+        - m_Target: {fileID: 11400000, guid: 2604a02952f5abf49a554a1027cf66b5, type: 2}
+          m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
+          m_MethodName: ResetAllAudioShots
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
