@@ -133,7 +133,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 33574442}
-  - component: {fileID: 33574443}
   - component: {fileID: 33574445}
   - component: {fileID: 33574446}
   m_Layer: 0
@@ -160,34 +159,6 @@ Transform:
   - {fileID: 593380800}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &33574443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 33574440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56593a6888d7c7f4a923582ba7ab6167, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedEvent: 2
-  eventActions:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: ba59ea91fa0decf4e98ad914c2bbb046, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &33574445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,9 +176,6 @@ MonoBehaviour:
       m_Calls: []
   onStart:
     m_PersistentCalls:
-      m_Calls: []
-  onLateInit:
-    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 33574446}
         m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
@@ -221,6 +189,9 @@ MonoBehaviour:
           m_StringArgument: PerformStartGame
           m_BoolArgument: 0
         m_CallState: 2
+  onLateInit:
+    m_PersistentCalls:
+      m_Calls: []
   onGameStart:
     m_PersistentCalls:
       m_Calls:
@@ -1049,6 +1020,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4501492557277102831, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: endWaitForSeconds.Array.data[0].seconds
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5302685825176670738, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: dialogue
@@ -1353,7 +1329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Cannon
-  _currentPlayerCoins: 550
+  _currentPlayerCoins: 100
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 0
   upgradeData: {fileID: 0}
@@ -4879,7 +4855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Ship
-  _currentPlayerCoins: 550
+  _currentPlayerCoins: 100
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 0
   upgradeData: {fileID: 0}
@@ -6142,7 +6118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transformTrackerSO: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa, type: 2}
-  singleTrackOnStart: 1
+  singleTrackOnStart: 0
   continuousTrackOnStart: 0
 --- !u!114 &1931904596
 MonoBehaviour:
@@ -9542,7 +9518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: RepairKIt
-  _currentPlayerCoins: 550
+  _currentPlayerCoins: 100
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 10
   upgradeData: {fileID: 11400000, guid: ebf02b92f0643ad4b82dd05a6579d52e, type: 2}
@@ -10661,7 +10637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Nails
-  _currentPlayerCoins: 550
+  _currentPlayerCoins: 100
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 0
   upgradeData: {fileID: 0}
@@ -11617,7 +11593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Planks
-  _currentPlayerCoins: 550
+  _currentPlayerCoins: 100
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 0
   upgradeData: {fileID: 0}
@@ -12449,7 +12425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: HeavyBall
-  _currentPlayerCoins: 550
+  _currentPlayerCoins: 100
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 0
   upgradeData: {fileID: 0}
@@ -13160,7 +13136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Speed
-  _currentPlayerCoins: 550
+  _currentPlayerCoins: 100
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 0
   upgradeData: {fileID: 0}
