@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3404fe7997435ef48bb669bf40f2f0b2, type: 3}
   m_Name: No
   m_EditorClassIdentifier: 
+  playOnlyOncePerGame: 0
+  _locked: 0
   dialogueName: 
   firstAction: {fileID: 0}
   lastAction: {fileID: 0}
   dialogue:
-  - "Say good by to your ship then!\n\n\t\t\tPress B"
+  - "Say good bye to your ship then!\n\n\t\t\tPress B"
   responses: []
   onTrigger:
     m_PersistentCalls:
@@ -27,4 +29,3 @@ MonoBehaviour:
   lastTrigger:
     m_PersistentCalls:
       m_Calls: []
-  hasPlayed: 0
