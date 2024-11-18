@@ -6,8 +6,8 @@ public class WeaponData : ScriptableObject
     public float health, damage;
     
     [Header("Total Stats")]
-    [SerializeField] [InspectorReadOnly] private int totalFired, totalWhiffs;
-    [SerializeField] [InspectorReadOnly] private float totalDamageDealt;
+    [SerializeField] [ReadOnly] private int totalFired, totalWhiffs;
+    [SerializeField] [ReadOnly] private float totalDamageDealt;
     
     public void IncrementFiredTotal() => totalFired++;
     public void IncrementWhiffTotal() => totalWhiffs++;

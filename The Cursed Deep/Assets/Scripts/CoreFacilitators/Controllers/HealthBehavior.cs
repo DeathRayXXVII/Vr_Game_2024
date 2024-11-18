@@ -82,7 +82,7 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     public UnityEvent onHealthDepleted;
     
     [Header("Health Variables")]
-    [SerializeField] [InspectorReadOnly] private float _currentHealth;
+    [SerializeField] [ReadOnly] private float _currentHealth;
     [SerializeField] private FloatData currentHealthData;
     private float _previousCheckHealth;
     [SerializeField] private FloatData _maxHealth;

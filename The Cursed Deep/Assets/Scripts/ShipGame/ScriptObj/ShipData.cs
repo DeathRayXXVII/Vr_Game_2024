@@ -42,7 +42,7 @@ namespace ShipGame.ScriptObj
             public SpawnerData enemySpawnerData;
         }
         
-        [SerializeField] [InspectorReadOnly] private int currentIndex;
+        [SerializeField] [ReadOnly] private int currentIndex;
         public int selectionIndex
         {
             get => currentIndex;

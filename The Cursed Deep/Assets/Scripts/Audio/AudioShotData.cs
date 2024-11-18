@@ -22,7 +22,7 @@ public class AudioShotData : ScriptableObject, IResetOnNewGame, INeedButton
         [Header("Audio Clip Settings")]
         public AudioClip clip;
         public bool playOnlyOncePerGame;
-        [SerializeField, InspectorReadOnly] private bool _locked;
+        [SerializeField, ReadOnly] private bool _locked;
         public bool playOnAwake;
         [Header("Audio Settings")]
         [Range(0, 256)] public int priority = DefaultPriority;

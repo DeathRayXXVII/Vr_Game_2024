@@ -5,11 +5,11 @@ using UnityEditor;
 #endif
 
 // Attributes should not be in the UNITY_EDITOR assembly directive block
-public class InspectorReadOnlyAttribute : PropertyAttribute { }
+public class ReadOnlyAttribute : PropertyAttribute { }
 
 #if UNITY_EDITOR
-[CustomPropertyDrawer(typeof(InspectorReadOnlyAttribute))]
-public class InspectorReadOnlyDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
+public class ReadOnlyDrawer : PropertyDrawer
 {
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {

@@ -39,16 +39,16 @@ public class CreepData : ScriptableObject, INeedButton
     [SerializeField] private int _baseScore;
     
     [Header("Current Stats")]
-    [SerializeField] [InspectorReadOnly] private float _currentHealth;
-    [SerializeField] [InspectorReadOnly] private float _currentDamage;
-    [SerializeField] [InspectorReadOnly] private float _currentSpeed;
-    [SerializeField] [InspectorReadOnly] private float _currentHeight;
-    [SerializeField] [InspectorReadOnly] private float _currentRadius;
-    [SerializeField] [InspectorReadOnly] private int _currentBounty;
-    [SerializeField] [InspectorReadOnly] private int _currentScore;
+    [SerializeField] [ReadOnly] private float _currentHealth;
+    [SerializeField] [ReadOnly] private float _currentDamage;
+    [SerializeField] [ReadOnly] private float _currentSpeed;
+    [SerializeField] [ReadOnly] private float _currentHeight;
+    [SerializeField] [ReadOnly] private float _currentRadius;
+    [SerializeField] [ReadOnly] private int _currentBounty;
+    [SerializeField] [ReadOnly] private int _currentScore;
     
     [Header("Total Stats")]
-    [SerializeField] [InspectorReadOnly] private int totalKilled, totalSpawned, totalEscaped;
+    [SerializeField] [ReadOnly] private int totalKilled, totalSpawned, totalEscaped;
 
     private void OnEnable()
     {
