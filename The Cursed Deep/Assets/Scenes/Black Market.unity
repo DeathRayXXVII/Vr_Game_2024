@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 33574442}
   - component: {fileID: 33574443}
   - component: {fileID: 33574445}
+  - component: {fileID: 33574446}
   m_Layer: 0
   m_Name: GameHandlers
   m_TagString: Untagged
@@ -208,6 +209,21 @@ MonoBehaviour:
   onLateInit:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 33574446}
+        m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
+        m_MethodName: StartWaitForSecondsEvent
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: PerformStartGame
+          m_BoolArgument: 0
+        m_CallState: 2
+  onGameStart:
+    m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 1852286048}
         m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
         m_MethodName: ShowDialogue
@@ -245,9 +261,6 @@ MonoBehaviour:
           m_StringArgument: WaitForGold
           m_BoolArgument: 0
         m_CallState: 2
-  onGameStart:
-    m_PersistentCalls:
-      m_Calls: []
   onGameOver:
     m_PersistentCalls:
       m_Calls: []
@@ -257,6 +270,67 @@ MonoBehaviour:
   onRestartGame:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &33574446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33574440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endWaitForSeconds:
+  - id: PerformStartGame
+    realTime: 0
+    seconds: 5
+    onWaitFinished:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: ba59ea91fa0decf4e98ad914c2bbb046, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 33574446}
+          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
+          m_MethodName: StartWaitForFixedUpdateEvent
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: StartGame
+            m_BoolArgument: 0
+          m_CallState: 2
+  endWaitForZero: []
+  endWaitForFixedUpdate:
+  - id: StartGame
+    onWaitFinished:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 33574445}
+          m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+          m_MethodName: StartGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &107583874 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3906399293454468433, guid: 9633f4a35242b454783ef9a0d2324a5f,
@@ -9470,7 +9544,7 @@ MonoBehaviour:
   id: RepairKIt
   _currentPlayerCoins: 550
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 60
+  _cost: 10
   upgradeData: {fileID: 11400000, guid: ebf02b92f0643ad4b82dd05a6579d52e, type: 2}
   responseEvents: {fileID: 1035871823491773144}
   responseHandler: {fileID: 573902478}

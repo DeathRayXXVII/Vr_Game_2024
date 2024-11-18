@@ -26,8 +26,10 @@ public class SceneBehavior : MonoBehaviour
 
     private void Start()
     {
-        if (transitionOnLoad) StartCoroutine(TransitionIn());
+        if (transitionOnLoad) TransitionIntoScene();
     }
+    
+    public void TransitionIntoScene() => StartCoroutine(TransitionIn());
     
     private IEnumerator TransitionIn()
     {

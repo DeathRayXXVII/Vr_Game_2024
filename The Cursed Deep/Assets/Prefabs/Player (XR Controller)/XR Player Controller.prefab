@@ -66,6 +66,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1015169795730339862}
+          m_TargetAssemblyTypeName: SceneBehavior, Assembly-CSharp
+          m_MethodName: TransitionIntoScene
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - actionObj: {fileID: 11400000, guid: ba59ea91fa0decf4e98ad914c2bbb046, type: 2}
     onRaiseEvent:
       m_PersistentCalls:
@@ -422,6 +435,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7858165302626016338, guid: 7091aacaafe20e542bc5be4f26b7047c,
         type: 3}
+      propertyPath: transitionOnLoad
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7858165302626016338, guid: 7091aacaafe20e542bc5be4f26b7047c,
+        type: 3}
       propertyPath: transitionAnimator
       value: 
       objectReference: {fileID: 3039706558307376582}
@@ -430,6 +448,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7091aacaafe20e542bc5be4f26b7047c, type: 3}
+--- !u!114 &1015169795730339862 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7858165302626016338, guid: 7091aacaafe20e542bc5be4f26b7047c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7141394240808199236}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b357f7999efef0541a80482b8d5d4f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8543910718497417770 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1551848230106713710, guid: 7091aacaafe20e542bc5be4f26b7047c,
