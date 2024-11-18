@@ -85,7 +85,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 4501492557277102831}
           m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-          m_MethodName: StartWaitForFixedUpdateEvent
+          m_MethodName: StartWaitForSecondsEvent
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -101,7 +101,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 4501492557277102831}
           m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-          m_MethodName: StartWaitForFixedUpdateEvent
+          m_MethodName: StartWaitForSecondsEvent
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -117,7 +117,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 4501492557277102831}
           m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-          m_MethodName: StartWaitForFixedUpdateEvent
+          m_MethodName: StartWaitForSecondsEvent
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -139,10 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endWaitForSeconds: []
-  endWaitForZero: []
-  endWaitForFixedUpdate:
+  endWaitForSeconds:
   - id: RaiseReadyToInitialize
+    realTime: 0
+    seconds: 2
     onWaitFinished:
       m_PersistentCalls:
         m_Calls:
@@ -158,6 +158,8 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  endWaitForZero: []
+  endWaitForFixedUpdate: []
 --- !u!1 &3659264030406464141
 GameObject:
   m_ObjectHideFlags: 0
