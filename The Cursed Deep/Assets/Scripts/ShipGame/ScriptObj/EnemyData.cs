@@ -37,7 +37,7 @@ namespace ShipGame.ScriptObj
             public CreepData creepData;
         }
 
-        [SerializeField] [InspectorReadOnly] private int currentIndex;
+        [SerializeField] [ReadOnly] private int currentIndex;
         public int selectionIndex
         {
             get => currentIndex;

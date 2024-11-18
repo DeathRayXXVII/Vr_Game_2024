@@ -9,7 +9,7 @@ namespace UI.DialogueSystem
     public class DialogueData : ScriptableObject, IResetOnNewGame, INeedButton
     {
         public bool playOnlyOncePerGame;
-        [SerializeField, InspectorReadOnly] private bool _locked;
+        [SerializeField, ReadOnly] private bool _locked;
         
         public void ResetToNewGameValues(int tier = 2)
         {

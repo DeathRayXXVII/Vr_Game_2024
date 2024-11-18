@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class PurchaseHandlerManager : MonoBehaviour
 {
-    public Dictionary<string, DialoguePurcheseHandler> purchaseHandlers = new Dictionary<string, DialoguePurcheseHandler>();
+    public Dictionary<string, DialoguePurchaseHandler> purchaseHandlers = new Dictionary<string, DialoguePurchaseHandler>();
 
     private void Awake()
     {
         // Initialize and register all purchase handlers in the scene
-        foreach (var handler in FindObjectsOfType<DialoguePurcheseHandler>())
+        foreach (var handler in FindObjectsOfType<DialoguePurchaseHandler>())
         {
             purchaseHandlers[handler.Id] = handler;
         }
     }
 
-    public DialoguePurcheseHandler GetHandler(string id)
+    public DialoguePurchaseHandler GetHandler(string id)
     {
         if (purchaseHandlers.TryGetValue(id, out var handler))
         {

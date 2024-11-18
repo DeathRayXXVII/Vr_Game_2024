@@ -47,7 +47,7 @@ namespace ShipGame.ScriptObj
             }
         }
         
-        [SerializeField] [InspectorReadOnly] private int currentUpgradeIndex;
+        [SerializeField] [ReadOnly] private int currentUpgradeIndex;
         private CannonInstanceData[] _cannonInstanceData;
         public float damage => _cannonInstanceData[upgradeIndex].damage;
         public int upgradeIndex
@@ -68,7 +68,7 @@ namespace ShipGame.ScriptObj
             }
         }
 
-        [SerializeField] [InspectorReadOnly] private int currentCannonIndex;
+        [SerializeField] [ReadOnly] private int currentCannonIndex;
         public int selectionIndex
         {
             get => currentCannonIndex;

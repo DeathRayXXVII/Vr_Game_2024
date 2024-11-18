@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.000017119346, g: 0.000000026188118, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -273,6 +273,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1399560782063702260, guid: a337d54a80eb85542bed9c287c2fd596,
         type: 3}
+      propertyPath: m_Name
+      value: Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 1399560782063702260, guid: a337d54a80eb85542bed9c287c2fd596,
+        type: 3}
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
@@ -390,7 +395,7 @@ GameObject:
   m_Component:
   - component: {fileID: 167318015}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: MeshGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -429,7 +434,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &210587960
 Transform:
   m_ObjectHideFlags: 0
@@ -1274,8 +1279,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Cannon
+  _currentPlayerCoins: 550
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  cost: 1
+  _cost: 0
+  upgradeData: {fileID: 0}
   responseEvents: {fileID: 1032921207}
   responseHandler: {fileID: 573902478}
   dialogueUI: {fileID: 573902475}
@@ -4798,8 +4805,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Ship
+  _currentPlayerCoins: 550
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  cost: 50
+  _cost: 0
+  upgradeData: {fileID: 0}
   responseEvents: {fileID: 1237604279}
   responseHandler: {fileID: 573902478}
   dialogueUI: {fileID: 573902475}
@@ -9459,8 +9468,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: RepairKIt
+  _currentPlayerCoins: 550
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  cost: 100
+  _cost: 60
+  upgradeData: {fileID: 11400000, guid: ebf02b92f0643ad4b82dd05a6579d52e, type: 2}
   responseEvents: {fileID: 1035871823491773144}
   responseHandler: {fileID: 573902478}
   dialogueUI: {fileID: 573902475}
@@ -10576,8 +10587,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Nails
+  _currentPlayerCoins: 550
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  cost: 5
+  _cost: 0
+  upgradeData: {fileID: 0}
   responseEvents: {fileID: 4694681073837480640}
   responseHandler: {fileID: 573902478}
   dialogueUI: {fileID: 573902475}
@@ -11530,8 +11543,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Planks
+  _currentPlayerCoins: 550
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  cost: 5
+  _cost: 0
+  upgradeData: {fileID: 0}
   responseEvents: {fileID: 5245233627773701007}
   responseHandler: {fileID: 573902478}
   dialogueUI: {fileID: 573902475}
@@ -12123,6 +12138,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2221803274710283415, guid: 438c6bb529f6f9d4d80e05319194553a,
         type: 3}
+      propertyPath: m_Name
+      value: Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 2221803274710283415, guid: 438c6bb529f6f9d4d80e05319194553a,
+        type: 3}
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
@@ -12355,8 +12375,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: HeavyBall
+  _currentPlayerCoins: 550
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  cost: 5
+  _cost: 0
+  upgradeData: {fileID: 0}
   responseEvents: {fileID: 6038573245265107760}
   responseHandler: {fileID: 573902478}
   dialogueUI: {fileID: 573902475}
@@ -12792,6 +12814,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1156247548249926839, guid: a26d31f4aa8aa5c43aaeda36b0988d1b,
         type: 3}
+      propertyPath: m_Name
+      value: Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156247548249926839, guid: a26d31f4aa8aa5c43aaeda36b0988d1b,
+        type: 3}
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
@@ -13059,8 +13086,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Speed
+  _currentPlayerCoins: 550
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  cost: 5
+  _cost: 0
+  upgradeData: {fileID: 0}
   responseEvents: {fileID: 7014100818602004342}
   responseHandler: {fileID: 573902478}
   dialogueUI: {fileID: 573902475}

@@ -30,7 +30,7 @@ namespace ShipGame.ScriptObj
             public PrefabDataList prefabVariantList;
         }
         
-        [SerializeField] [InspectorReadOnly] private int currentUpgradeIndex;
+        [SerializeField] [ReadOnly] private int currentUpgradeIndex;
         public int upgradeIndex
         {
             get => currentUpgradeIndex;
@@ -54,7 +54,7 @@ namespace ShipGame.ScriptObj
         public float respawnRate => _ammoInstanceData[upgradeIndex].respawnRate;
         
         
-        [SerializeField] [InspectorReadOnly] private int currentAmmoIndex;
+        [SerializeField] [ReadOnly] private int currentAmmoIndex;
         public int selectionIndex
         {
             get => currentAmmoIndex;
