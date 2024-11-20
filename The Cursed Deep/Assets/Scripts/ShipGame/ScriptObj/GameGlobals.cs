@@ -29,16 +29,9 @@ namespace ShipGame.ScriptObj
         public FloatData spawnRateMax;
         
         [Header("Upgrade Data:")]
-        public IntData damageUpgradeLevel;
         public FloatData upgradeDamage;
-        
-        public IntData healthUpgradeLevel;
         public FloatData upgradeHealth;
-        
-        public IntData speedUpgradeLevel;
         public FloatData upgradeSpeed;
-        
-        public IntData upgradeAmmoRespawnTimeLevel;
         public FloatData ammoRespawnTimeUpgrade;
         
         private void OnEnable()
@@ -110,17 +103,7 @@ namespace ShipGame.ScriptObj
             spawnRateMin.Set(1);
             spawnRateMax.Set(1);
             
-            // damageUpgradeLevel.Set(0);
-            // upgradeDamage.Set(0);
-            //
-            // healthUpgradeLevel.Set(0);
-            // upgradeHealth.Set(0);
-            //
-            // speedUpgradeLevel.Set(0);
-            // upgradeSpeed.Set(0);
-            //
-            // upgradeAmmoRespawnTimeLevel.Set(0);
-            // ammoRespawnTimeUpgrade.Set(0);
+            // Upgrades have their own upgradeData scriptable object that handles their reset
         }
     }
 }

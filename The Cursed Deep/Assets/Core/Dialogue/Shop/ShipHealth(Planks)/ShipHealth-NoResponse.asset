@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3404fe7997435ef48bb669bf40f2f0b2, type: 3}
   m_Name: ShipHealth-NoResponse
   m_EditorClassIdentifier: 
+  playOnlyOncePerGame: 0
+  _locked: 0
   dialogueName: 
   firstAction: {fileID: 0}
   lastAction: {fileID: 0}
   dialogue:
-  - "My mom has less holes then you!\n\n\t\t\tPress B"
+  - formatString: Backing off, are ye? Suit yerself, but don't be surprised when
+      yer ship's splintered to pieces by the next big wave.
+    formatValues: []
   responses: []
   onTrigger:
     m_PersistentCalls:
@@ -27,4 +31,3 @@ MonoBehaviour:
   lastTrigger:
     m_PersistentCalls:
       m_Calls: []
-  hasPlayed: 0

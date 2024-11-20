@@ -12,13 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3404fe7997435ef48bb669bf40f2f0b2, type: 3}
   m_Name: Ship-DialogueMain
   m_EditorClassIdentifier: 
+  playOnlyOncePerGame: 0
+  _locked: 0
   dialogueName: 
   firstAction: {fileID: 0}
   lastAction: {fileID: 0}
   dialogue:
-  - 'Upgrade your ship?
-
-    $5000 Dabloons'
+  - formatString: "Lookin' to sail somethin' bigger, are ye? {0} doubloons, an' I'll
+      get ye a vessel fit for a true sea dog\u2014more guns, more space, an' enough
+      room to haul all the loot yer greedy heart desires!"
+    formatValues:
+    - valueType: 2
+      stringValue: 
+      intValue: 0
+      intDataValue: {fileID: 11400000, guid: 85d931767654cfc4cb764e6677c6aa6f, type: 2}
+      floatValue: 0
+      floatDataValue: {fileID: 0}
+      boolValue: 0
   responses:
   - responseText: Buy
     id: 
@@ -28,7 +38,7 @@ MonoBehaviour:
     purchaseAction: {fileID: 0}
   - responseText: Exit
     id: 
-    dialogueData: {fileID: 11400000, guid: ad2e0f22978f7734f89029da67fece97, type: 2}
+    dialogueData: {fileID: 11400000, guid: 56f71b4d25fea0d459a183f90b878ca5, type: 2}
     isPurchasable: 0
     purchaseDialogue: {fileID: 0}
     purchaseAction: {fileID: 0}
@@ -41,4 +51,3 @@ MonoBehaviour:
   lastTrigger:
     m_PersistentCalls:
       m_Calls: []
-  hasPlayed: 0

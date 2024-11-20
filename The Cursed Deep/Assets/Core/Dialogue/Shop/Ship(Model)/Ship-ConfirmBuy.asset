@@ -12,11 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3404fe7997435ef48bb669bf40f2f0b2, type: 3}
   m_Name: Ship-ConfirmBuy
   m_EditorClassIdentifier: 
+  playOnlyOncePerGame: 0
+  _locked: 0
   dialogueName: 
   firstAction: {fileID: 0}
   lastAction: {fileID: 0}
   dialogue:
-  - Are you sure?
+  - formatString: '{0} doubloons, then. Are ye ready to seal the deal, aye?'
+    formatValues:
+    - valueType: 2
+      stringValue: 
+      intValue: 0
+      intDataValue: {fileID: 11400000, guid: 85d931767654cfc4cb764e6677c6aa6f, type: 2}
+      floatValue: 0
+      floatDataValue: {fileID: 0}
+      boolValue: 0
   responses:
   - responseText: Yes
     id: Ship
@@ -39,4 +49,3 @@ MonoBehaviour:
   lastTrigger:
     m_PersistentCalls:
       m_Calls: []
-  hasPlayed: 0

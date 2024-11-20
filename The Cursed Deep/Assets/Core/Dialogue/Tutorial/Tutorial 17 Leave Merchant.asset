@@ -18,9 +18,10 @@ MonoBehaviour:
   firstAction: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
   lastAction: {fileID: 11400000, guid: 163b1d9019fbaa544a6e80836b1a957c, type: 2}
   dialogue:
-  - "She be in good shape! Make sure to come back to the merchant when ere ya have
-    slain a beast. You\u2019ll always be able to buy repairs from here, as well as
-    some mighty fine upgrades to yer vessel."
+  - formatString: "She be in good shape! Make sure to come back to the merchant when
+      ere ya have slain a beast. You\u2019ll always be able to buy repairs from here,
+      as well as some mighty fine upgrades to yer vessel."
+    formatValues: []
   responses: []
   onTrigger:
     m_PersistentCalls:
@@ -31,6 +32,30 @@ MonoBehaviour:
   lastTrigger:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 11400000, guid: 0c552af60ee49a342b12198a6fce4e44, type: 2}
+        m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
+        m_MethodName: ResetAudioShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: NowLeave
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: c23a5686b5127fc468696de38ff1f9f6, type: 2}
+        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+        m_MethodName: SetLocked
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: d03054fd0d00fb04ebad52f6696f406c, type: 2}
         m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
         m_MethodName: RaiseAction

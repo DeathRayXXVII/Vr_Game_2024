@@ -16,7 +16,7 @@ using Debug = UnityEngine.Debug;
 /// <remarks>
 /// </remarks>
 [CreateAssetMenu(fileName = "UpgradeData", menuName = "Data/UpgradeData")]
-public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
+public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, INeedButton
 {
     [SerializeField] private bool _allowDebug;
 
@@ -24,6 +24,13 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     {
         UpdateOrInitializeList(_upgradeList, _upgradeDataType, _upgradeKey);
         UpdateOrInitializeList(_costList, _costDataType, _costKey);
+    }
+
+    public void ResetToNewGameValues(int tier = 1)
+    {
+        if (tier < 1) return;
+        SetUpgradeLevel(0);
+        UpdateData();
     }
 
     /// <summary>
@@ -214,7 +221,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, INeedButton
     /// </summary>
     private static void UpdateContainer(object container, object value)
     {
-        if (container == null) return;
+        if (container == null || value == null) return;
 
         switch (container)
         {

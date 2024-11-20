@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class SceneBehavior : MonoBehaviour
@@ -16,37 +17,82 @@ public class SceneBehavior : MonoBehaviour
     
     [Tooltip("Name of the trigger that will be used to transition out of the scene.")]
     [SerializeField] private string transitionOutTrigger = "TransitionOut";
+    
+    [SerializeField, SteppedRange(0, 10, 0.01f)] private float transitionDelay = 3.0f;
+    
+    [SerializeField] private UnityEvent onTransitionInComplete;
 
     public void SetAnimator(AnimatorOverrideController animator) => transitionAnimator.runtimeAnimatorController = animator;
     public string transitionInTriggerName { set => transitionInTrigger = value; }
     public string transitionOutTriggerName { set => transitionOutTrigger = value; }
     
-    private readonly WaitForFixedUpdate _wait = new();
+    private bool hasTriggerIn => HasTrigger(transitionInTrigger);
+    private bool hasTriggerOut => HasTrigger(transitionOutTrigger);
+    
+    // Check if the transition animator is currently transitioning
+    private bool isTransitioning => transitionAnimator.IsInTransition(0) ||
+                                    transitionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
+    
+    private WaitForSeconds _wait;
     private Coroutine _loadCoroutine;
+    private Coroutine _transitionCoroutine;
 
     private void Start()
     {
-        if (transitionOnLoad) TransitionIntoScene();
+        _wait = new WaitForSeconds(transitionDelay);
+        if (!transitionAnimator) return;
+        
+        Debug.Log($"Has Trigger In: {hasTriggerIn}, Has Trigger Out: {hasTriggerOut}");
+        if (transitionOnLoad && hasTriggerIn) TransitionIntoScene();
     }
     
-    public void TransitionIntoScene() => StartCoroutine(TransitionIn());
+    private bool HasTrigger(string triggerName)
+    {
+        if (transitionAnimator == null)
+        {
+            return false;
+        }
+
+        foreach (AnimatorControllerParameter parameter in transitionAnimator.parameters)
+        {
+            if (parameter.type == AnimatorControllerParameterType.Trigger && parameter.name == triggerName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void TransitionIntoScene() => _transitionCoroutine ??= StartCoroutine(TransitionIn());
     
     private IEnumerator TransitionIn()
     {
         if (!transitionAnimator) yield break;
-        
-        while (transitionAnimator.isInitialized && transitionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
-            yield return _wait;
-        
+
         transitionAnimator.SetTrigger(transitionInTrigger);
-    } 
+
+        while (transitionAnimator.isInitialized && isTransitioning)
+        {
+            yield return null;
+        }
+
+        onTransitionInComplete.Invoke();
+        _transitionCoroutine = null;
+    }
+
     
     private void OnDisable()
     {
-        if (_loadCoroutine == null) return;
-        
-        StopCoroutine(_loadCoroutine);
-        _loadCoroutine = null;
+        if (_loadCoroutine != null)
+        {
+            StopCoroutine(_loadCoroutine);
+            _loadCoroutine = null;
+        }
+        if (_transitionCoroutine != null)
+        {
+            StopCoroutine(_transitionCoroutine);
+            _transitionCoroutine = null;
+        }
     }
     
     public void RestartActiveScene() => LoadScene(SceneManager.GetActiveScene().name);
@@ -93,14 +139,18 @@ public class SceneBehavior : MonoBehaviour
         loadOperation.allowSceneActivation = false;
         yield return BackgroundLoad(loadOperation);
         if (transitionAnimator) yield return ExecuteTransition();
-        yield return FixedUpdateBuffer(5);
+        yield return FixedUpdateBuffer();
         loadOperation.allowSceneActivation = true;
+        _loadCoroutine = null;
     }
     
-    private IEnumerator FixedUpdateBuffer(int frames)
+    private IEnumerator FixedUpdateBuffer()
     {
-        for (var i = 0; i < frames; i++)
+        var time = Time.time;
+        while (isTransitioning && Time.time - time < 20)
+        {
             yield return _wait;
+        }
     }
     
     private IEnumerator ExecuteTransition()

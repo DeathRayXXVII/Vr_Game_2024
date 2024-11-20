@@ -12,13 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3404fe7997435ef48bb669bf40f2f0b2, type: 3}
   m_Name: Speed-DialogueMain
   m_EditorClassIdentifier: 
+  playOnlyOncePerGame: 0
+  _locked: 0
   dialogueName: 
   firstAction: {fileID: 0}
   lastAction: {fileID: 0}
   dialogue:
-  - 'Upgrade Speed?
-
-    $1000 Dabloons'
+  - formatString: Lookin' to outrun the wind itself, are ye? {0} doubloons for this
+      here potion, an' you'll be dancin' 'cross the deck faster than a fleeing sea
+      sprite!
+    formatValues:
+    - valueType: 2
+      stringValue: 
+      intValue: 0
+      intDataValue: {fileID: 11400000, guid: 8b0df38f7e8e3b141918701cf629a44a, type: 2}
+      floatValue: 0
+      floatDataValue: {fileID: 0}
+      boolValue: 0
   responses:
   - responseText: Buy
     id: 
@@ -28,7 +38,7 @@ MonoBehaviour:
     purchaseAction: {fileID: 0}
   - responseText: Exit
     id: 
-    dialogueData: {fileID: 11400000, guid: ad2e0f22978f7734f89029da67fece97, type: 2}
+    dialogueData: {fileID: 11400000, guid: 56f71b4d25fea0d459a183f90b878ca5, type: 2}
     isPurchasable: 0
     purchaseDialogue: {fileID: 0}
     purchaseAction: {fileID: 0}
@@ -41,4 +51,3 @@ MonoBehaviour:
   lastTrigger:
     m_PersistentCalls:
       m_Calls: []
-  hasPlayed: 0

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using ZPTools.Interface;
+using ZPTools.Utility;
 
 namespace UI.DialogueSystem
 {
@@ -29,22 +30,30 @@ namespace UI.DialogueSystem
             _locked = lockState;
         }
         
-        public void Activated()
-        { 
-            // Will only be true if playOnlyOncePerGame is true
-            locked = true;
-        }
+        // Will only be true if playOnlyOncePerGame is true
+        public void Activated() => locked = true;
         
         [Header("Dialogue Data")]
         [SerializeField] private string dialogueName;
         [SerializeField] private GameAction firstAction, lastAction;
         
-        [SerializeField] [TextArea] private string[] dialogue;
+        [SerializeField] private StringFactory[] dialogue;
         [SerializeField] private Response[] responses;
         [SerializeField] private UnityEvent onTrigger, firstTrigger, lastTrigger;
         
-        public string[] Dialogue => dialogue;
-
+        public string[] Dialogue
+        {
+            get
+            {
+                string[] dialogueStrings = new string[dialogue.Length];
+                for (int i = 0; i < dialogue.Length; i++)
+                {
+                    dialogueStrings[i] = dialogue[i].FormattedString;
+                }
+                return dialogueStrings;
+            }
+        }
+        
         public bool hasResponses => responses is { Length: > 0 };
         public Response[] Responses => responses;
 

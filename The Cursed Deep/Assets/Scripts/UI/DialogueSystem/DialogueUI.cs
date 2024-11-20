@@ -11,9 +11,11 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private GameObject dialogueBox;
     public TMP_Text textLabel;
     [SerializeField] private InputActionReference inputAction;
-    [SerializeField] private float autoAdvanceDelay = 5f;
-    private WaitForSeconds waitAutoAdvance;
-    [SerializeField] private bool autoAdvance;
+    [SerializeField] private float autoCloseDelay = 5f;
+    private const float elementDelay = 1f;
+    private WaitForSeconds waitAutoClose;
+    private WaitForSeconds waitElementAdvance;
+    [SerializeField] private bool autoClose;
     [SerializeField] private UnityEvent OnOpenDialogue, OnTypingFinish, OnCloseDialogue;
     public DialogueData dialogueData;
     
@@ -25,7 +27,8 @@ public class DialogueUI : MonoBehaviour
     
     private void Start()
     {
-        waitAutoAdvance = new WaitForSeconds(autoAdvanceDelay);
+        waitAutoClose = new WaitForSeconds(autoCloseDelay);
+        waitElementAdvance = new WaitForSeconds(elementDelay);
         typewriterEffect ??= GetComponent<TypewriterEffect>();
         responseHandler ??= GetComponent<ResponseHandler>();
         StartClosed = true;
@@ -57,25 +60,31 @@ public class DialogueUI : MonoBehaviour
             if (i == lastDialogue && dialogueObj.hasResponses) break;
             
             yield return null;
-            if (autoAdvance || i != lastDialogue)
+            if (i != lastDialogue)
             {
-                yield return waitAutoAdvance;
-                
+                yield return waitElementAdvance;
+                continue;
             }
-            else
-            {
-                yield return new WaitUntil(() => inputAction.action.triggered);
-            }
+            yield return new WaitUntil(() => inputAction.action.triggered);
         }
         if (dialogueObj.hasResponses && dialogueObj.Responses.Length > 0)
         {
             responseHandler.ShowResponses(dialogueObj.Responses);
+            IsOpen = false;
+            yield break;
+        }
+        
+        if (autoClose)
+        {
+            yield return waitAutoClose;
+            CloseDialogueBox(dialogueObj);
         }
         else
         {
             yield return new WaitUntil(() => inputAction.action.triggered);
             CloseDialogueBox(dialogueObj);
         }
+        
         IsOpen = false;
     }
     
