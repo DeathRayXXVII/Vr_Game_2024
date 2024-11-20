@@ -18,8 +18,9 @@ public class SceneBehavior : MonoBehaviour
     [Tooltip("Name of the trigger that will be used to transition out of the scene.")]
     [SerializeField] private string transitionOutTrigger = "TransitionOut";
     
-    [SerializeField, SteppedRange(0, 10, 0.01f)] private float transitionDelay = 3.0f;
+    [SerializeField, SteppedRange(0, 10, 0.01f)] private float SceneLoadBuffer = 3.0f;
     
+    [SerializeField] private UnityEvent beforeTransitionIn;
     [SerializeField] private UnityEvent onTransitionInComplete;
 
     public void SetAnimator(AnimatorOverrideController animator) => transitionAnimator.runtimeAnimatorController = animator;
@@ -33,14 +34,14 @@ public class SceneBehavior : MonoBehaviour
     private bool isTransitioning => transitionAnimator.IsInTransition(0) ||
                                     transitionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
     
-    private WaitForSeconds _waitTransitionIn;
+    private WaitForSeconds _waitSceneLoadBuffer;
     private WaitForFixedUpdate _waitFixed;
     private Coroutine _loadCoroutine;
     private Coroutine _transitionCoroutine;
 
     private void Start()
     {
-        _waitTransitionIn = new WaitForSeconds(transitionDelay);
+        _waitSceneLoadBuffer = new WaitForSeconds(SceneLoadBuffer);
         if (!transitionAnimator) return;
         
         if (transitionOnLoad && hasTriggerIn) TransitionIntoScene();
@@ -68,14 +69,18 @@ public class SceneBehavior : MonoBehaviour
     private IEnumerator TransitionIn()
     {
         if (!transitionAnimator) yield break;
-
+        
+        yield return _waitSceneLoadBuffer;
+        
+        beforeTransitionIn.Invoke();
+        
         transitionAnimator.SetTrigger(transitionInTrigger);
 
         while (transitionAnimator.isInitialized && isTransitioning)
         {
             yield return null;
         }
-
+        
         onTransitionInComplete.Invoke();
         _transitionCoroutine = null;
     }
