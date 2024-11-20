@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2961292006606368496}
   - component: {fileID: 6530831382561702895}
   - component: {fileID: 3833617345986362738}
+  - component: {fileID: 65947138487456432}
   m_Layer: 0
   m_Name: Sprite (scale & rotate)
   m_TagString: Untagged
@@ -138,3 +139,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &65947138487456432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7813554035357140719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6f18efb1a968d479a8b7427276e161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _performOnStart: 1
+  targetObject: {fileID: 0}
+  _offsetRotation: {x: 0, y: 0, z: 0, w: 1}
+  _updateInterval: 0.1
+  targetCamera: {fileID: 0}
