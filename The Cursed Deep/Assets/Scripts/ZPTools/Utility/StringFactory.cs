@@ -54,8 +54,11 @@ namespace ZPTools.Utility
                 return string.Empty;
             }
             // Return the original string if no arguments are given
-            if (args == null || args.Length == 0) 
+            if (args == null || args.Length == 0)
+            {
+                Debug.Log($"No arguments given, returning original string: {input}");
                 return input;
+            }
 
             // Convert values to an object array for formatting
             object[] formattedArgs = new object[args.Length];
@@ -66,6 +69,8 @@ namespace ZPTools.Utility
 
             try
             {
+                var formattedString = string.Format(input, formattedArgs);
+                Debug.Log("Formatted string: " + formattedString);
                 return string.Format(input, formattedArgs);
             }
             catch (System.FormatException e)
