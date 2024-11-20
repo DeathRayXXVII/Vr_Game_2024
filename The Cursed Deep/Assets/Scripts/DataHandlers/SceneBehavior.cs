@@ -33,16 +33,16 @@ public class SceneBehavior : MonoBehaviour
     private bool isTransitioning => transitionAnimator.IsInTransition(0) ||
                                     transitionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
     
-    private WaitForSeconds _wait;
+    private WaitForSeconds _waitTransitionIn;
+    private WaitForFixedUpdate _waitFixed;
     private Coroutine _loadCoroutine;
     private Coroutine _transitionCoroutine;
 
     private void Start()
     {
-        _wait = new WaitForSeconds(transitionDelay);
+        _waitTransitionIn = new WaitForSeconds(transitionDelay);
         if (!transitionAnimator) return;
         
-        Debug.Log($"Has Trigger In: {hasTriggerIn}, Has Trigger Out: {hasTriggerOut}");
         if (transitionOnLoad && hasTriggerIn) TransitionIntoScene();
     }
     
@@ -149,7 +149,7 @@ public class SceneBehavior : MonoBehaviour
         var time = Time.time;
         while (isTransitioning && Time.time - time < 20)
         {
-            yield return _wait;
+            yield return _waitFixed;
         }
     }
     
@@ -162,6 +162,6 @@ public class SceneBehavior : MonoBehaviour
     private IEnumerator BackgroundLoad(AsyncOperation loadOperation)
     {
         while (!loadOperation.isDone && loadOperation.progress < 0.9f)
-            yield return _wait;
+            yield return _waitFixed;
     }
 }
