@@ -29,11 +29,13 @@ public class SceneBehavior : MonoBehaviour
     private bool hasTriggerIn => HasTrigger(transitionInTrigger);
     private bool hasTriggerOut => HasTrigger(transitionOutTrigger);
     
-    private bool isTransitioning => transitionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
-
-
+    // Check if the transition animator is currently transitioning
+    private bool isTransitioning => transitionAnimator.IsInTransition(0) ||
+                                    transitionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
+    
     private WaitForSeconds _wait;
     private Coroutine _loadCoroutine;
+    private Coroutine _transitionCoroutine;
 
     private void Start()
     {
@@ -60,26 +62,37 @@ public class SceneBehavior : MonoBehaviour
         }
         return false;
     }
-
     
-    public void TransitionIntoScene() => StartCoroutine(TransitionIn());
+    public void TransitionIntoScene() => _transitionCoroutine ??= StartCoroutine(TransitionIn());
     
     private IEnumerator TransitionIn()
     {
         if (!transitionAnimator) yield break;
-        
-        while (transitionAnimator.isInitialized && transitionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
-            yield return _wait;
-        
+
         transitionAnimator.SetTrigger(transitionInTrigger);
-    } 
+
+        while (transitionAnimator.isInitialized && isTransitioning)
+        {
+            yield return null;
+        }
+
+        onTransitionInComplete.Invoke();
+        _transitionCoroutine = null;
+    }
+
     
     private void OnDisable()
     {
-        if (_loadCoroutine == null) return;
-        
-        StopCoroutine(_loadCoroutine);
-        _loadCoroutine = null;
+        if (_loadCoroutine != null)
+        {
+            StopCoroutine(_loadCoroutine);
+            _loadCoroutine = null;
+        }
+        if (_transitionCoroutine != null)
+        {
+            StopCoroutine(_transitionCoroutine);
+            _transitionCoroutine = null;
+        }
     }
     
     public void RestartActiveScene() => LoadScene(SceneManager.GetActiveScene().name);
@@ -126,14 +139,18 @@ public class SceneBehavior : MonoBehaviour
         loadOperation.allowSceneActivation = false;
         yield return BackgroundLoad(loadOperation);
         if (transitionAnimator) yield return ExecuteTransition();
-        yield return FixedUpdateBuffer(5);
+        yield return FixedUpdateBuffer();
         loadOperation.allowSceneActivation = true;
+        _loadCoroutine = null;
     }
     
-    private IEnumerator FixedUpdateBuffer(int frames)
+    private IEnumerator FixedUpdateBuffer()
     {
-        for (var i = 0; i < frames; i++)
+        var time = Time.time;
+        while (isTransitioning && Time.time - time < 20)
+        {
             yield return _wait;
+        }
     }
     
     private IEnumerator ExecuteTransition()
