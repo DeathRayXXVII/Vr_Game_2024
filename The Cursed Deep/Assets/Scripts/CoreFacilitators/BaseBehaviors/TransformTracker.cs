@@ -19,11 +19,11 @@ public class TransformTracker : MonoBehaviour, INeedButton
 
     private void Awake()
     {
-        if (transformTrackerSO == null) { Debug.LogWarning("Tracker TransformData is missing.");}
-    }
-
-    private void Start()
-    {
+        if (transformTrackerSO == null) 
+        { 
+            Debug.LogWarning("Tracker TransformData is missing.");
+            return;
+        }
         if (singleTrackOnStart)
         {
             TrackCurrentPosition();
@@ -35,6 +35,10 @@ public class TransformTracker : MonoBehaviour, INeedButton
             StartContinuousTrackPosition(transformTrackerSO);
             StartContinuousTrackRotation(transformTrackerSO);
         }
+    }
+
+    private void Start()
+    {
     }
     
     public void TrackCurrentTransform(TransformData tracker)
