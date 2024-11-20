@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using ZPTools.Interface;
 
@@ -218,7 +217,7 @@ namespace ShipGame.ScriptObj
             {
                 Setup(false);
             }
-            catch (IndexOutOfRangeException e)
+            catch (System.IndexOutOfRangeException e)
             {
 #if UNITY_EDITOR
                 Debug.LogWarning(
@@ -227,7 +226,7 @@ namespace ShipGame.ScriptObj
 #endif
                 Setup(true);
             }
-            catch (NullReferenceException e)
+            catch (System.NullReferenceException e)
             {
 #if UNITY_EDITOR
                 Debug.LogWarning(
@@ -236,7 +235,7 @@ namespace ShipGame.ScriptObj
 #endif
                 Setup(true);
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
 #if UNITY_EDITOR
                 Debug.LogWarning(

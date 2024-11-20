@@ -86,13 +86,13 @@ public class UpgradeDataEditor : Editor
                 serializedObject.Update();
             
                 // Clear and rebuild the inspector to reflect the latest changes.
-                var refreshedGui = BuildUI(new VisualElement { name = "InspectorRoot" });
                 _inspector.Clear();
-                _inspector.Add(refreshedGui);
+                _inspector.Add(BuildUI(new VisualElement { name = "InspectorRoot" }));
             }
             finally
             {
                     _isInitializing = false;
+                    _inspector.MarkDirtyRepaint();
             }
         };
     }
@@ -157,7 +157,8 @@ public class UpgradeDataEditor : Editor
     public override VisualElement CreateInspectorGUI()
     {
         _isInitializing = true;
-        _inspector = BuildUI(new VisualElement { name = "InspectorRoot" });
+        _inspector ??= new VisualElement { name = "Editor" };
+        _inspector.Add(BuildUI(new VisualElement { name = "InspectorRoot" }));
         
         
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(StyleSheetPath);
@@ -217,7 +218,6 @@ public class UpgradeDataEditor : Editor
     {
         var readOnlyContainer = UIGroup("Read Only", "ReadOnlyPanel");
         var body = UIBody("ReadOnlyBody");
-        readOnlyContainer.Add(body);
         
         VisualElement upgradeLevelField = DrawLeveElement("Upgrade Level", upgradeLevelProperty);
         if (upgradeLevelField is PropertyField propertyField)
@@ -234,6 +234,7 @@ public class UpgradeDataEditor : Editor
             DrawCurrentField("Current Cost", costTypeEnum(), currentCostProperty);
         body.Add(currentCostField);
         
+        readOnlyContainer.Add(body);
         readOnlyContainer.SetEnabled(false);
         
         return readOnlyContainer;
@@ -351,7 +352,8 @@ public class UpgradeDataEditor : Editor
             serializedObject.ApplyModifiedProperties();
             serializedObject.Update();
             
-            var readOnlyPanel = _inspector?.Q<VisualElement>("ReadOnlyPanel");
+            var inspector = _inspector?.Q<VisualElement>("InspectorRoot");
+            var readOnlyPanel = inspector?.Q<VisualElement>("ReadOnlyPanel");
                     
             RedrawElement(_inspector, readOnlyPanel, ReadOnlyPanel);
         });
@@ -409,16 +411,18 @@ public class UpgradeDataEditor : Editor
             
             EditorApplication.delayCall += () =>
             {
-                var upgradeDataPanelBody = _inspector?.Q<VisualElement>("UpgradeDataBody");
+                var inspector = _inspector?.Q<VisualElement>("InspectorRoot");
+                
+                var upgradeDataPanelBody = inspector?.Q<VisualElement>("UpgradeDataBody");
                 var baseUpgradeField = upgradeDataPanelBody?.Q<PropertyField>("UpgradeBaseField");
                 var upgradeDataHolderField = upgradeDataPanelBody?.Q<ObjectField>("UpgradeDataHolderField");
                 var costDataHolderField = upgradeDataPanelBody?.Q<ObjectField>("CostDataHolderField");
                 
-                var readOnlyPanelBody = _inspector?.Q<VisualElement>("ReadOnlyBody");
+                var readOnlyPanelBody = inspector?.Q<VisualElement>("ReadOnlyBody");
                 var currentUpgradeField = readOnlyPanelBody?.Q<VisualElement>("CurrentUpgradeField");
                 var currentCostField = readOnlyPanelBody?.Q<VisualElement>("CurrentCostField");
                 
-                var JsonDataPanelBody = _inspector?.Q<VisualElement>("JsonDataPanelBody");
+                var JsonDataPanelBody = inspector?.Q<VisualElement>("JsonDataPanelBody");
                 var loadedJsonDataField = JsonDataPanelBody?.Q<VisualElement>("JsonBlobField");
                 
                 // Redraw the UI as data has potentially changed.
@@ -502,7 +506,8 @@ public class UpgradeDataEditor : Editor
             
             EditorApplication.delayCall += () =>
             {
-                var readOnlyPanelBody = _inspector?.Q<VisualElement>("ReadOnlyBody");
+                var inspector = _inspector?.Q<VisualElement>("InspectorRoot");
+                var readOnlyPanelBody = inspector?.Q<VisualElement>("ReadOnlyBody");
                 var currentUpgradeField = readOnlyPanelBody?.Q<VisualElement>("CurrentUpgradeField");
                 
                 if (readOnlyPanelBody != null && currentUpgradeField != null)
@@ -583,116 +588,87 @@ public class UpgradeDataEditor : Editor
                 Debug.Log(
                     $"Json File Change Event, Updating Field: {HasChanged(changeEvent.newValue, previousJsonFile)}\nInitializing: {_isInitializing}\nNew Value: {changeEvent.newValue}\nPrevious Value: {previousJsonFile}");
             if (!HasChanged(changeEvent.newValue, previousJsonFile) || _isInitializing) return;
+            
+            JsonFileProperty().objectReferenceValue = changeEvent.newValue;
+            
+            serializedObject.ApplyModifiedProperties();
+            serializedObject.Update();
 
             // Reload JSON data from the new file
             upgradeData.ForceJsonReload();
+            
+            serializedObject.ApplyModifiedProperties();
+            serializedObject.Update();
             
             RefreshInspector();
         });
 
         body.Add(jsonFileField);
 
-        TextField valueKeyField = new("Upgrade Key") { name = "UpgradeKeyField"};
-        valueKeyField.BindProperty(UpgradeKey());
-        valueKeyField.AddToClassList("panel-field");
+        body.Add(DrawJsonKeyField("Upgrade Key", UpgradeKey, PreviousUpgradeKey, UpgradeIntProperty, upgradeFloatProperty));
+        body.Add(DrawJsonKeyField("Cost Key", CostKey, PreviousCostKey, CostIntProperty, CostFloatProperty));
         
-        if (JsonFileProperty().objectReferenceValue == null)
-        {
-            UpgradeKey().stringValue = "";
-            serializedObject.ApplyModifiedProperties();
-            valueKeyField.AddToClassList("hidden");
-        }
-
-        string previousUpgradeKeyValue = PreviousUpgradeKey().stringValue;
-        // Register focus loss event
-        valueKeyField.RegisterCallback<FocusOutEvent>(_ =>
-        {
-            if (allowDebug)
-                Debug.Log(
-                    $"Focus Out Event for Upgrade Key Field, Updating Field: {HasChanged(valueKeyField.value, previousUpgradeKeyValue)}\nInitializing: {_isInitializing}\nNew Value: {valueKeyField.value}\nPrevious Value: {previousUpgradeKeyValue}");
-
-            if (!HasChanged(valueKeyField.value, previousUpgradeKeyValue) || _isInitializing) return;
-
-            upgradeData.ForceJsonReload();
-            
-            serializedObject.ApplyModifiedProperties();
-            serializedObject.Update();
-            
-            RefreshInspector();
-            previousUpgradeKeyValue = PreviousUpgradeKey().stringValue;
-        });
-
-        // Register Enter key press event
-        valueKeyField.RegisterCallback<KeyDownEvent>(eventContext =>
-        {
-            if (allowDebug && eventContext.keyCode is (KeyCode.Return or KeyCode.KeypadEnter))
-                Debug.Log(
-                    $"Key Down Event for Upgrade Key Field, Updating Field: {HasChanged(valueKeyField.value, previousUpgradeKeyValue)}\nInitializing: {_isInitializing}\nNew Value: {valueKeyField.value}\nPrevious Value: {previousUpgradeKeyValue}");
-
-            if (eventContext.keyCode is not (KeyCode.Return or KeyCode.KeypadEnter) ||
-                !HasChanged(valueKeyField.value, previousUpgradeKeyValue) || _isInitializing) return;
-
-            upgradeData.ForceJsonReload();
-            
-            serializedObject.ApplyModifiedProperties();
-            serializedObject.Update();
-            
-            RefreshInspector();
-            previousUpgradeKeyValue = PreviousUpgradeKey().stringValue;
-        });
-        body.Add(valueKeyField);
-
-        TextField costKeyField = new("Cost Key") { name = "CostKeyField" };
-        costKeyField.BindProperty(CostKey());
-        costKeyField.AddToClassList("panel-field");
+        body.Add(DrawLoadedJsonData());
+        
+        return jsonDataContainer;
+    }
+    
+    private VisualElement DrawJsonKeyField(string label, System.Func<SerializedProperty> property, System.Func<SerializedProperty> previousKeyProperty,
+        System.Func<SerializedProperty> intContainerProperty, System.Func<SerializedProperty> floatContainerProperty)
+    {
+        TextField keyField = new(label) { name = $"{label.Replace(" ", "")}Field" };
+        keyField.BindProperty(property());
+        keyField.AddToClassList("panel-field");
         
         if (JsonFileProperty().objectReferenceValue == null)
         {
             CostKey().stringValue = "";
             serializedObject.ApplyModifiedProperties();
-            costKeyField.AddToClassList("hidden");
+            keyField.AddToClassList("hidden");
         }
 
-        string previousCostKeyValue = PreviousUpgradeKey().stringValue;
-        costKeyField.RegisterCallback<FocusOutEvent>(_ =>
+        string previousKeyValue = previousKeyProperty().stringValue;
+        keyField.RegisterCallback<FocusOutEvent>(_ =>
         {
             if (allowDebug)
                 Debug.Log(
-                    $"Focus Out Event for Cost Key Field, Updating Field: {HasChanged(costKeyField.value, previousCostKeyValue)}\nInitializing: {_isInitializing}\nNew Value: {costKeyField.value}\nPrevious Value: {previousCostKeyValue}");
-
-            if (!HasChanged(costKeyField.value, previousCostKeyValue) || _isInitializing) return;
-
-            upgradeData.ForceJsonReload();
-            
-            serializedObject.ApplyModifiedProperties();
-            serializedObject.Update();
-            
-            RefreshInspector();
-            previousCostKeyValue = PreviousUpgradeKey().stringValue;
+                    $"Focus Out Event for Cost Key Field, Updating Field: {HasChanged(keyField.value, previousKeyValue)}\nInitializing: {_isInitializing}\nNew Value: {keyField.value}\nPrevious Value: {previousKeyValue}");
+            HandleKeyChange(keyField, ref previousKeyValue, previousKeyProperty, intContainerProperty, floatContainerProperty);
         });
 
-        costKeyField.RegisterCallback<KeyDownEvent>(eventContext =>
+        keyField.RegisterCallback<KeyDownEvent>(eventContext =>
         {
             if (allowDebug && eventContext.keyCode is (KeyCode.Return or KeyCode.KeypadEnter))
                 Debug.Log(
-                    $"Key Down Event for Cost Key Field, Updating Field: {eventContext.keyCode is (KeyCode.Return or KeyCode.KeypadEnter) || HasChanged(costKeyField.value, previousCostKeyValue)}\nInitializing: {_isInitializing}\nNew Value: {costKeyField.value}\nPrevious Value: {previousCostKeyValue}");
+                    $"Key Down Event for Cost Key Field, Updating Field: {eventContext.keyCode is (KeyCode.Return or KeyCode.KeypadEnter) || HasChanged(keyField.value, previousKeyValue)}\nInitializing: {_isInitializing}\nNew Value: {keyField.value}\nPrevious Value: {previousKeyValue}");
+            if (eventContext.keyCode is not (KeyCode.Return or KeyCode.KeypadEnter)) return;
+            HandleKeyChange(keyField, ref previousKeyValue, previousKeyProperty, intContainerProperty, floatContainerProperty);
+        });
+        
+        return keyField;
+    }
 
-            if (eventContext.keyCode is not (KeyCode.Return or KeyCode.KeypadEnter) ||
-                !HasChanged(costKeyField.value, previousCostKeyValue) || _isInitializing) return;
-            
-            upgradeData.ForceJsonReload();
+    private void HandleKeyChange(TextField newKey, ref string previousKeyValue, System.Func<SerializedProperty> previousKeyProperty,
+        System.Func<SerializedProperty> intContainerProperty, System.Func<SerializedProperty> floatContainerProperty)
+    {
+        if (!HasChanged(newKey.value, previousKeyValue) || _isInitializing) return;
+        
+        if(string.IsNullOrEmpty(newKey.value))
+        {
+            floatContainerProperty().objectReferenceValue = null;
+            intContainerProperty().objectReferenceValue = null;
             
             serializedObject.ApplyModifiedProperties();
             serializedObject.Update();
+        }
+        previousKeyValue = previousKeyProperty().stringValue;
+
+        upgradeData.ForceJsonReload();
             
-            RefreshInspector();
-            previousCostKeyValue = PreviousUpgradeKey().stringValue;
-        });
-        body.Add(costKeyField);
-        
-        body.Add(DrawLoadedJsonData());
-        
-        return jsonDataContainer;
+        serializedObject.ApplyModifiedProperties();
+        serializedObject.Update();
+            
+        RefreshInspector();
     }
 
     private VisualElement DrawLoadedJsonData()
@@ -706,7 +682,7 @@ public class UpgradeDataEditor : Editor
             Debug.Log($"Drawing Json Blob: {!string.IsNullOrEmpty(jsonBlob)}\nJson Blob: {JsonBlob().stringValue}");
         return !string.IsNullOrEmpty(jsonBlob) ?
             DrawJsonBlob(loadedJsonDataContainer, jsonBlob) :
-            DrawJsonHelpBox(loadedJsonDataContainer, JsonFileProperty(), UpgradeKey(), CostKey());
+            DrawJsonHelpBox(loadedJsonDataContainer, JsonFileProperty, UpgradeKey, CostKey);
     }
     
     private static VisualElement DrawJsonBlob(VisualElement containerElement, string jsonBlob)
@@ -733,23 +709,25 @@ public class UpgradeDataEditor : Editor
         return containerElement;
     }
     
-    private VisualElement DrawJsonHelpBox(VisualElement containerElement, SerializedProperty jsonProperty,
-        SerializedProperty upgradeKeyProp, SerializedProperty costKeyProp)
+    private VisualElement DrawJsonHelpBox(VisualElement containerElement, System.Func<SerializedProperty> jsonProperty,
+        System.Func<SerializedProperty> upgradeKeyProp, System.Func<SerializedProperty> costKeyProp)
     {
         string helpText = "No JSON data loaded, due to:";
         string keyText = "";
+        var json = jsonProperty().objectReferenceValue as TextAsset;
         
-        if (jsonProperty == null || jsonProperty.propertyType != SerializedPropertyType.ObjectReference || jsonProperty.objectReferenceValue == null)
+        if (json == null || jsonProperty().propertyType != SerializedPropertyType.ObjectReference || jsonProperty().objectReferenceValue == null)
         {
             helpText += "\n\t- No JSON file selected.";
         }
         else 
         {
-            bool validUpgradeKey = ValidateJsonKey(upgradeKeyProp.stringValue, upgradeData.jsonData);
-            bool validCostKey = ValidateJsonKey(costKeyProp.stringValue, upgradeData.jsonData);
+            Newtonsoft.Json.Linq.JObject jsonData = Newtonsoft.Json.Linq.JObject.Parse(json.text);
+            bool validUpgradeKey = ValidateJsonKey(upgradeKeyProp().stringValue, jsonData);
+            bool validCostKey = ValidateJsonKey(costKeyProp().stringValue, jsonData);
             if (!validUpgradeKey) helpText += "\n\t- Upgrade Key is not in JSON file.";
             if (!validCostKey) helpText += "\n\t- Cost Key is not in JSON file.";
-            if (!validUpgradeKey || !validCostKey) keyText = $"Possible keys: \n   {string.Join("\n   ", GetJsonKeys(upgradeData.jsonData))}";
+            if (!validUpgradeKey || !validCostKey) keyText = $"Possible keys: \n   {string.Join("\n   ", GetJsonKeys(jsonData))}";
         }
         HelpBox noJsonDataLabel = new(helpText, HelpBoxMessageType.Error);
         containerElement.Add(noJsonDataLabel);
@@ -778,11 +756,12 @@ public class UpgradeDataEditor : Editor
                 {
                     buttonAction.Item1();
                     
-                    var readOnlyPanel = _inspector?.Q<VisualElement>("ReadOnlyPanel");
-                    var jsonDataPanelBody = _inspector?.Q<VisualElement>("JsonDataBody");
+                    var inspectorRoot = _inspector?.Q<VisualElement>("InspectorRoot");
+                    var readOnlyPanel = inspectorRoot?.Q<VisualElement>("ReadOnlyPanel");
+                    var jsonDataPanelBody = inspectorRoot?.Q<VisualElement>("JsonDataBody");
                     var loadedJsonDataField = jsonDataPanelBody?.Q<VisualElement>("JsonBlobField");
                     
-                    RedrawElement(_inspector, readOnlyPanel, ReadOnlyPanel);
+                    RedrawElement(inspectorRoot, readOnlyPanel, ReadOnlyPanel);
                     RedrawElement(jsonDataPanelBody, loadedJsonDataField, DrawLoadedJsonData);
                 });
             }
@@ -792,9 +771,10 @@ public class UpgradeDataEditor : Editor
                 {
                     buttonAction.Item1();
                     
-                    var readOnlyPanel = _inspector?.Q<VisualElement>("ReadOnlyPanel");
+                    var inspectorRoot = _inspector?.Q<VisualElement>("InspectorRoot");
+                    var readOnlyPanel = inspectorRoot?.Q<VisualElement>("ReadOnlyPanel");
                     
-                    RedrawElement(_inspector, readOnlyPanel, ReadOnlyPanel);
+                    RedrawElement(inspectorRoot, readOnlyPanel, ReadOnlyPanel);
                 });
                 if (JsonFileProperty().objectReferenceValue == null || !upgradeData.isLoaded)
                     button.SetEnabled(false);

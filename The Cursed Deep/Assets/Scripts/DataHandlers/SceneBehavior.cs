@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class SceneBehavior : MonoBehaviour
@@ -16,18 +17,50 @@ public class SceneBehavior : MonoBehaviour
     
     [Tooltip("Name of the trigger that will be used to transition out of the scene.")]
     [SerializeField] private string transitionOutTrigger = "TransitionOut";
+    
+    [SerializeField, SteppedRange(0, 10, 0.01f)] private float transitionDelay = 3.0f;
+    
+    [SerializeField] private UnityEvent onTransitionInComplete;
 
     public void SetAnimator(AnimatorOverrideController animator) => transitionAnimator.runtimeAnimatorController = animator;
     public string transitionInTriggerName { set => transitionInTrigger = value; }
     public string transitionOutTriggerName { set => transitionOutTrigger = value; }
     
-    private readonly WaitForFixedUpdate _wait = new();
+    private bool hasTriggerIn => HasTrigger(transitionInTrigger);
+    private bool hasTriggerOut => HasTrigger(transitionOutTrigger);
+    
+    private bool isTransitioning => transitionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
+
+
+    private WaitForSeconds _wait;
     private Coroutine _loadCoroutine;
 
     private void Start()
     {
-        if (transitionOnLoad) TransitionIntoScene();
+        _wait = new WaitForSeconds(transitionDelay);
+        if (!transitionAnimator) return;
+        
+        Debug.Log($"Has Trigger In: {hasTriggerIn}, Has Trigger Out: {hasTriggerOut}");
+        if (transitionOnLoad && hasTriggerIn) TransitionIntoScene();
     }
+    
+    private bool HasTrigger(string triggerName)
+    {
+        if (transitionAnimator == null)
+        {
+            return false;
+        }
+
+        foreach (AnimatorControllerParameter parameter in transitionAnimator.parameters)
+        {
+            if (parameter.type == AnimatorControllerParameterType.Trigger && parameter.name == triggerName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     
     public void TransitionIntoScene() => StartCoroutine(TransitionIn());
     

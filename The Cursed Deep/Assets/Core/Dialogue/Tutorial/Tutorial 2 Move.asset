@@ -18,12 +18,14 @@ MonoBehaviour:
   firstAction: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
   lastAction: {fileID: 11400000, guid: 163b1d9019fbaa544a6e80836b1a957c, type: 2}
   dialogue:
-  - Me name be Captain Moby! I've been a hunter of those beasts for nigh thirty yeasrs,
-    it is high time I pass the torch on. Let us begin!
-  - "Our Goal, as I'm sure ya know, is to hunt and kill  the foul beasts in the deep
-    and lay claim to the treasure of the islands they guard. Now then!\n Lets make
-    sure ye have yer sea legs. Use the left\n joystick to move yerself about the
-    deck."
+  - formatString: Me name be Captain Moby! I've been a hunter of those beasts for
+      nigh thirty yeasrs, it is high time I pass the torch on. Let us begin!
+    formatValues: []
+  - formatString: Our Goal, as I'm sure ya know, is to hunt and kill  the foul beasts
+      in the deep and lay claim to the treasure of the islands they guard. Now then!
+      Lets make sure ye have yer sea legs. Use the left joystick to move yerself
+      about the deck.
+    formatValues: []
   responses: []
   onTrigger:
     m_PersistentCalls:

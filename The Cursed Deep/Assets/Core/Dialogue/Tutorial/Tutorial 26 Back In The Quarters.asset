@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Tutorial 26 Back In The Quarters
   m_EditorClassIdentifier: 
   playOnlyOncePerGame: 1
-  _hasPlayed: 0
+  _locked: 0
   dialogueName: 
   firstAction: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
   lastAction: {fileID: 11400000, guid: 163b1d9019fbaa544a6e80836b1a957c, type: 2}
   dialogue:
-  - "Very good! very good indeed. Ye are ready to \nset out on yer own now. But I\u2019ve
-    one last thing for ye."
+  - formatString: "Very good! very good indeed. Ye are ready to set out on yer own
+      now. But I\u2019ve one last thing for ye."
+    formatValues: []
   responses: []
   onTrigger:
     m_PersistentCalls:

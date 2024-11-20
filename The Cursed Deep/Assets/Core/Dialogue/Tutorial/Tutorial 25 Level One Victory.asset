@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Tutorial 25 Level One Victory
   m_EditorClassIdentifier: 
   playOnlyOncePerGame: 1
-  _hasPlayed: 0
+  _locked: 0
   dialogueName: 
   firstAction: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
   lastAction: {fileID: 11400000, guid: 163b1d9019fbaa544a6e80836b1a957c, type: 2}
   dialogue:
-  - "YAR HAR! Ye be a natural born hunter- better \nthen me could have ever hoped.\u201D
-    Lets head back\n to yer quarters."
+  - formatString: YAR HAR! Ye be a natural born hunter- better then me could have
+      ever hoped. Lets head back to yer quarters.
+    formatValues: []
   responses: []
   onTrigger:
     m_PersistentCalls:
