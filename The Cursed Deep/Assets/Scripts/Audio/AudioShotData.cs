@@ -124,7 +124,7 @@ public class AudioShotData : ScriptableObject, IResetOnNewGame, INeedButton
         }
     }
     
-    public void LockAllPlayPlayOnceAudioShots()
+    public void LockAllPlayOnlyOnceAudioShots()
     {
         foreach (var shot in audioShots.Where(shot => shot.playOnlyOncePerGame))
         {

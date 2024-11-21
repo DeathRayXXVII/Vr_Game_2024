@@ -18,7 +18,8 @@ public class SceneBehavior : MonoBehaviour
     [Tooltip("Name of the trigger that will be used to transition out of the scene.")]
     [SerializeField] private string transitionOutTrigger = "TransitionOut";
     
-    [SerializeField, SteppedRange(0, 10, 0.01f)] private float SceneLoadBuffer = 3.0f;
+    [SerializeField, SteppedRange(0, 10, 0.01f)] private float sceneLoadBuffer = 3.0f;
+    [SerializeField, SteppedRange(1, 25, 1)] private int transitionCompleteBuffer = 5;
     
     [SerializeField] private UnityEvent beforeTransitionIn;
     [SerializeField] private UnityEvent onTransitionInComplete;
@@ -41,7 +42,7 @@ public class SceneBehavior : MonoBehaviour
 
     private void Start()
     {
-        _waitSceneLoadBuffer = new WaitForSeconds(SceneLoadBuffer);
+        _waitSceneLoadBuffer = new WaitForSeconds(sceneLoadBuffer);
         if (!transitionAnimator) return;
         
         if (transitionOnLoad && hasTriggerIn) TransitionIntoScene();
@@ -80,7 +81,8 @@ public class SceneBehavior : MonoBehaviour
         {
             yield return null;
         }
-        
+
+        yield return FixedUpdateBuffer(transitionCompleteBuffer);
         onTransitionInComplete.Invoke();
         _transitionCoroutine = null;
     }
@@ -144,15 +146,15 @@ public class SceneBehavior : MonoBehaviour
         loadOperation.allowSceneActivation = false;
         yield return BackgroundLoad(loadOperation);
         if (transitionAnimator) yield return ExecuteTransition();
-        yield return FixedUpdateBuffer();
+        yield return FixedUpdateBuffer(20);
         loadOperation.allowSceneActivation = true;
         _loadCoroutine = null;
     }
     
-    private IEnumerator FixedUpdateBuffer()
+    private IEnumerator FixedUpdateBuffer(int waitTime = 5)
     {
         var time = Time.time;
-        while (isTransitioning && Time.time - time < 20)
+        while (isTransitioning && Time.time - time < waitTime)
         {
             yield return _waitFixed;
         }

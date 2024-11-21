@@ -1886,12 +1886,11 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 3005439204152601145}
           m_TargetAssemblyTypeName: TransformBehavior, Assembly-CSharp
-          m_MethodName: SetToTransform
-          m_Mode: 2
+          m_MethodName: ResetToStartTransform
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa,
-              type: 2}
-            m_ObjectArgumentAssemblyTypeName: TransformData, Assembly-CSharp
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -10545,6 +10544,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6281968687694885366}
     m_Modifications:
+    - target: {fileID: 441596881609555509, guid: 649fe54d61e08444ca3d34706142afea,
+        type: 3}
+      propertyPath: autoClose
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 441596881609555509, guid: 649fe54d61e08444ca3d34706142afea,
+        type: 3}
+      propertyPath: autoCloseDelay
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1168422632045598400, guid: 649fe54d61e08444ca3d34706142afea,
         type: 3}
       propertyPath: m_Camera

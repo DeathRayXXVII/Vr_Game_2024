@@ -8,7 +8,7 @@ namespace ZPTools.Utility
 {
 #if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(FormattableValue))]
-    public class FormattableValueDrawer : PropertyDrawer
+    public class FormattableValueProperty : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {

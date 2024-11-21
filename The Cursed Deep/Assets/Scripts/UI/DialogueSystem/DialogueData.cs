@@ -39,7 +39,7 @@ namespace UI.DialogueSystem
         
         [SerializeField] private StringFactory[] dialogue;
         [SerializeField] private Response[] responses;
-        [SerializeField] private UnityEvent onTrigger, firstTrigger, lastTrigger;
+        [SerializeField] private UnityEvent firstTrigger, lastTrigger;
         
         public string[] Dialogue
         {
@@ -54,6 +54,9 @@ namespace UI.DialogueSystem
             }
         }
         
+        public int length => dialogue.Length;
+        public int lastDialogueIndex => length - 1;
+        
         public bool hasResponses => responses is { Length: > 0 };
         public Response[] Responses => responses;
 
@@ -64,11 +67,6 @@ namespace UI.DialogueSystem
             
             if (lastAction == null) return;
             lastAction.Raise += LastDialogueEvent;
-        }
-
-        public void DialogueEvent(GameAction _)
-        {
-            onTrigger.Invoke();
         }
         public void FirstDialogueEvent(GameAction _)
         {

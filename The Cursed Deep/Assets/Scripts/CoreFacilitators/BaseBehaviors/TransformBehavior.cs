@@ -22,8 +22,14 @@ public class TransformBehavior : MonoBehaviour
         transform.position = newTransform.position;
         transform.rotation = newTransform.rotation;
     }
-    
+
+    public void SetStartTransform(TransformData newPosition)
+    {
+        _startTransformPosition = newPosition.position;
+        _startTransformRotation = newPosition.rotation;
+    }
     public void SetToStartPosition() { transform.position = _startTransformPosition; }
+    
     public void SetPosition(Vector3 newPosition) { transform.position = newPosition; }
     public void SetPosition(Vector3Data newPosition) => SetPosition(newPosition.value);
     public void SetPosition(CharacterData data) { transform.position = data.spawnPosition; }
