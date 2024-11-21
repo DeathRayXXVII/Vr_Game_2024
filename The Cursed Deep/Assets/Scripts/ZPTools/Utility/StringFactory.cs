@@ -56,7 +56,7 @@ namespace ZPTools.Utility
             // Return the original string if no arguments are given
             if (args == null || args.Length == 0)
             {
-                Debug.Log($"No arguments given, returning original string: {input}");
+                // Debug.Log($"No arguments given, returning original string: {input}");
                 return input;
             }
 
