@@ -56,6 +56,9 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
     public void DecreaseUpgradeLevel() => upgradeLevel--;
     public void SetUpgradeLevel(int level) => upgradeLevel = level;
     
+    public bool maxLevelReached => upgradeLevel >= GetMaxUpgradeLevel();
+    [SerializeField] private BoolData _maxLevelData;
+    
     /// <summary>
     /// </summary>
     
@@ -255,6 +258,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
     {
         UpdateContainer(_upgradeDataType, upgradeValue, _upgradeFloatContainer, _upgradeIntContainer);
         UpdateContainer(_costDataType, upgradeCost, _costFloatContainer, _costIntContainer);
+        if (_maxLevelData != null) _maxLevelData.value = maxLevelReached;
     }
     
     /// <summary>
@@ -262,6 +266,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
     public void ForceJsonReload()
     {
         isLoaded = false;
+        _jsonData = null;
         _blobNeedsUpdate = true;
         _jsonBlob = "";
         LoadOnStartup();
@@ -391,7 +396,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
     
     /// <summary>
     /// </summary>
-    private HashFileChangeDetector _hashFileChangeDetector;
+    public HashFileChangeDetector HashFileChangeDetector;
     private void InitializeDataFromJson()
     {
         if (_jsonFile == null)
@@ -407,7 +412,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
         ParseUpgradeList();
         ParseCostList();
         
-        _hashFileChangeDetector?.UpdateState();
+        HashFileChangeDetector?.UpdateState();
 #if UNITY_EDITOR
         if (_allowDebug)
             Debug.Log(
@@ -428,8 +433,8 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
             return;
         }
         
-        _hashFileChangeDetector ??= new HashFileChangeDetector(GetJsonPath(), _allowDebug);
-        var changeState = _hashFileChangeDetector.HasChanged();
+        HashFileChangeDetector ??= new HashFileChangeDetector(GetJsonPath(), _allowDebug);
+        var changeState = HashFileChangeDetector.HasChanged();
         if (_allowDebug) Debug.Log($"Already Loaded: {isLoaded}\nChange State: {changeState}\n" +
                   $"Blob needs update: {_blobNeedsUpdate}\n" +
                   $"Blob is null or empty: {string.IsNullOrEmpty(_jsonBlob)}\n" +

@@ -15,8 +15,8 @@ namespace ShipGame.ScriptObj
         internal struct CannonDataJson
         {
             public int elements;
-            public float[] cannonDamageValues;
-            public int[] upgradeCosts;
+            public float[] cannonDamages;
+            public int[] cannonCosts;
         }
         
         [System.Serializable]
@@ -112,7 +112,7 @@ namespace ShipGame.ScriptObj
             {
                 _cannonInstanceData[i] = new CannonInstanceData
                 {
-                    damage = _tempJsonData.cannonDamageValues[i],
+                    damage = _tempJsonData.cannonDamages[i],
                 };
             }
         }

@@ -19,11 +19,11 @@ namespace ShipGame.ScriptObj
         internal struct EnemyDataJson
         {
             public int elements;
-            public float[] enemyHealthValues;
-            public float[] enemyDamageValues;
-            public float[] enemySpeedValues;
-            public int[] enemyBountyValues;
-            public int[] enemyScoreValues;
+            public float[] enemyHealths;
+            public float[] enemyDamages;
+            public float[] enemySpeeds;
+            public int[] enemyBounties;
+            public int[] enemyScores;
         }
 
         [System.Serializable]
@@ -101,19 +101,19 @@ namespace ShipGame.ScriptObj
             {
                 _enemyInstanceData[i] = new EnemyInstanceData
                 {
-                    health = _tempJsonData.enemyHealthValues[i],
-                    damage = _tempJsonData.enemyDamageValues[i],
-                    speed = _tempJsonData.enemySpeedValues[i],
-                    bounty = _tempJsonData.enemyBountyValues[i],
-                    score = _tempJsonData.enemyScoreValues[i]
+                    health = _tempJsonData.enemyHealths[i],
+                    damage = _tempJsonData.enemyDamages[i],
+                    speed = _tempJsonData.enemySpeeds[i],
+                    bounty = _tempJsonData.enemyBounties[i],
+                    score = _tempJsonData.enemyScores[i]
                 };
 
                 if (i != currentIndex) continue;
-                SetHealth(_tempJsonData.enemyHealthValues[i]);
-                SetDamage(_tempJsonData.enemyDamageValues[i]);
-                SetSpeed(_tempJsonData.enemySpeedValues[i]);
-                SetBounty(_tempJsonData.enemyBountyValues[i]);
-                SetScore(_tempJsonData.enemyScoreValues[i]);
+                SetHealth(_tempJsonData.enemyHealths[i]);
+                SetDamage(_tempJsonData.enemyDamages[i]);
+                SetSpeed(_tempJsonData.enemySpeeds[i]);
+                SetBounty(_tempJsonData.enemyBounties[i]);
+                SetScore(_tempJsonData.enemyScores[i]);
             }
         }
         protected override void LogCurrentData()

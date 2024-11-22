@@ -16,9 +16,9 @@ namespace ShipGame.ScriptObj
         internal struct ShipDataJson
         {
             public int elements;
-            public int[] shipLaneCounts;
-            public float[] shipHealthValues;
-            public int[] shipPurchaseCosts;
+            public int[] shipLanes;
+            public float[] shipHealths;
+            public int[] shipCosts;
         }
         
         [System.Serializable]
@@ -104,8 +104,8 @@ namespace ShipGame.ScriptObj
             {
                 _shipInstanceData[i] = new ShipInstanceData
                 {
-                    numberOfLanes = _tempJsonData.shipLaneCounts[i],
-                    health = _tempJsonData.shipHealthValues[i]
+                    numberOfLanes = _tempJsonData.shipLanes[i],
+                    health = _tempJsonData.shipHealths[i]
                 };
             }
         }

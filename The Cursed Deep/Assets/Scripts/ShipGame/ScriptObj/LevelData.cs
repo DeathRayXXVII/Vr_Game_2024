@@ -22,15 +22,15 @@ namespace ShipGame.ScriptObj
         internal class LevelDataJson
         {
             public int elements;
-            public int[] laneActiveLimitsByLevel;
-            public int[] spawnCountsByLevel;
-            public float[] spawnRateMinByLevel;
-            public float[] spawnRateMaxByLevel;
-            public float[] healthValuesByLevel;
-            public float[] damageValuesByLevel;
-            public float[] movementSpeedValuesByLevel;
-            public int[] bountyValuesByLevel;
-            public int[] scoreValuesByLevel;
+            public int[] levelLaneLimits;
+            public int[] levelSpawnCounts;
+            public float[] levelMinSpawnRates;
+            public float[] levelMaxSpawnRates;
+            public float[] levelSpawnHealths;
+            public float[] levelSpawnDamages;
+            public float[] levelSpawnMoveSpeeds;
+            public int[] levelSpawnBounties;
+            public int[] levelSpawnScores;
         }
         
         [SerializeField] private IntData _currentLevel;
@@ -105,14 +105,14 @@ namespace ShipGame.ScriptObj
             {
                 _levels[i] = new Level
                 {
-                    laneActiveLimit = _tempJsonData.laneActiveLimitsByLevel[i],
-                    spawnCount = _tempJsonData.spawnCountsByLevel[i],
-                    spawnRateMin = _tempJsonData.spawnRateMinByLevel[i],
-                    spawnRateMax = _tempJsonData.spawnRateMaxByLevel[i],
-                    spawnBaseHealth = _tempJsonData.healthValuesByLevel[i],
-                    spawnBaseDamage = _tempJsonData.damageValuesByLevel[i],
-                    spawnBounty = _tempJsonData.bountyValuesByLevel[i],
-                    spawnScore = _tempJsonData.scoreValuesByLevel[i]
+                    laneActiveLimit = _tempJsonData.levelLaneLimits[i],
+                    spawnCount = _tempJsonData.levelSpawnCounts[i],
+                    spawnRateMin = _tempJsonData.levelMinSpawnRates[i],
+                    spawnRateMax = _tempJsonData.levelMaxSpawnRates[i],
+                    spawnBaseHealth = _tempJsonData.levelSpawnHealths[i],
+                    spawnBaseDamage = _tempJsonData.levelSpawnDamages[i],
+                    spawnBounty = _tempJsonData.levelSpawnBounties[i],
+                    spawnScore = _tempJsonData.levelSpawnScores[i]
                 };
             }
         }

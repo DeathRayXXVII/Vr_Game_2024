@@ -14,25 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _allowDebug: 0
   _upgradeLevel: 0
+  maxUpgradeLevelReached: {fileID: 0}
   _upgradeDataType: 1
   _upgradeList:
     _floatList:
-    - 2
-    - 2.1
-    - 2.2
-    - 2.3
-    - 2.4
-    - 2.5
-    - 2.6
-    - 2.7
-    - 2.8
-    - 2.9
-    - 3
+    - 0
+    - 0.1
+    - 0.2
+    - 0.3
+    - 0.4
+    - 0.5
+    - 0.6
+    - 0.7
+    - 0.8
+    - 0.9
+    - 1
     _intList: 0200000002000000020000000200000002000000020000000200000002000000020000000200000003000000
     listType: 1
     _typeProviderMethodName: 
-  _upgradeFloatContainer: {fileID: 11400000, guid: 219a518e95713d84f8ccb8d4e3040b4c,
-    type: 2}
+  _upgradeFloatContainer: {fileID: 0}
   _upgradeIntContainer: {fileID: 0}
   _baseUpgradeFloat: 0
   _baseUpgradeInt: 15
@@ -50,21 +50,21 @@ MonoBehaviour:
     - 0
     - 0
     - 0
-    _intList: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+    _intList: 0000000019000000190000001e0000003c0000003c0000004600000046000000550000008c000000be000000
     listType: 0
     _typeProviderMethodName: 
   _costFloatContainer: {fileID: 0}
-  _costIntContainer: {fileID: 11400000, guid: 8b0df38f7e8e3b141918701cf629a44a, type: 2}
+  _costIntContainer: {fileID: 0}
   _zeroBasedCostList: 0
-  _upgradeKey: speedUpgradeValues
-  _previousUpgradeKey: speedUpgradeValues
-  _costKey: speedUpgradeCosts
-  _previousCostKey: speedUpgradeCosts
+  _upgradeKey: ammoRespawn
+  _previousUpgradeKey: ammoRespawn
+  _costKey: ammoRespawnCosts
+  _previousCostKey: ammoRespawnCosts
   upgradeIsLoaded: 1
   costIsLoaded: 1
   _jsonFile: {fileID: 4900000, guid: 16cf77701e3107f46881cb968cf620ce, type: 3}
-  _jsonBlob: "{\r\n  \"speedUpgradeValues\": [\r\n    2.0,\r\n    2.1,\r\n    2.2,\r\n   
-    2.3,\r\n    2.4,\r\n    2.5,\r\n    2.6,\r\n    2.7,\r\n    2.8,\r\n    2.9,\r\n   
-    3.0\r\n  ],\r\n  \"speedUpgradeCosts\": [\r\n    0,\r\n    0,\r\n    0,\r\n   
-    0,\r\n    0,\r\n    0,\r\n    0,\r\n    0,\r\n    0,\r\n    0,\r\n    0\r\n 
-    ]\r\n}"
+  _jsonBlob: "{\r\n  \"ammoRespawn\": [\r\n    0.0,\r\n    0.1,\r\n    0.2,\r\n   
+    0.3,\r\n    0.4,\r\n    0.5,\r\n    0.6,\r\n    0.7,\r\n    0.8,\r\n    0.9,\r\n   
+    1.0\r\n  ],\r\n  \"ammoRespawnCosts\": [\r\n    0,\r\n    25,\r\n    25,\r\n   
+    30,\r\n    60,\r\n    60,\r\n    70,\r\n    70,\r\n    85,\r\n    140,\r\n   
+    190\r\n  ]\r\n}"

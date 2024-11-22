@@ -18,7 +18,7 @@ namespace ShipGame.ScriptObj
             public int elements;
             public float[] ammoDamageValues;
             public float[] ammoRespawnRates;
-            public int[] upgradeCosts;
+            public int[] ammoCosts;
         }
         
         [System.Serializable]

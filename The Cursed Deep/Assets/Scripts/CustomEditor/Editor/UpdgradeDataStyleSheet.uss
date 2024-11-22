@@ -3,7 +3,9 @@
     --darker-grey: rgb(25, 25, 25);
     --transparent: rgba(0, 0, 0, 0);
     --dark-green: rgb(75, 150 75);
+    --neon-green: rgb(0, 255, 0);
     --dark-red: rgb(105, 0, 0);
+    --neon-red: rgb(255, 0, 0);
     
     --field-spacing: 2px;
 }
@@ -57,12 +59,6 @@
     -unity-font-style: bold;
 }
 
-.text-blob {
-    background-color: var(--darker-grey);
-    color: var(--dark-green);
-    -unity-font-style: bold;
-}
-
 .default-element {
     background-color: var(--dark-grey);
 }
@@ -108,9 +104,21 @@
     border-radius: 3px;
 }
 
-.null-field > .unity-text-input {
+.text-blob {
     background-color: black;
-    color: var(--dark-red);
+    color: var(--neon-green);
+    -unity-font-style: bold;
+}
+
+.null-field {
+    background-color: black;
+    color: var(--neon-red);
+    -unity-font-style: bold;
+}
+
+.max-field {
+    background-color: black;
+    color: var(--neon-green);
     -unity-font-style: bold;
 }
 
