@@ -8,7 +8,6 @@ using ZPTools.Interface;
 using ZPTools.Utility;
 using static ZPTools.DataType;
 using static ZPTools.Utility.UtilityFunctions;
-using Debug = UnityEngine.Debug;
 
 
 /// <summary>
@@ -24,13 +23,13 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
     {
         UpdateOrInitializeList(_upgradeList, _upgradeDataType, _upgradeKey);
         UpdateOrInitializeList(_costList, _costDataType, _costKey);
+        UpdateData();
     }
 
     public void ResetToNewGameValues(int tier = 1)
     {
         if (tier < 1) return;
         SetUpgradeLevel(0);
-        UpdateData();
     }
 
     /// <summary>
@@ -42,10 +41,21 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
         private set
         {
             var lastLevel = GetMaxUpgradeLevel();
+            var previousLevel = _upgradeLevel;
             _upgradeLevel = lastLevel > 0 ? Mathf.Clamp(value, 0, lastLevel) : 0;
             UpdateData();
+            if (previousLevel == _upgradeLevel) return;
+#if UNITY_EDITOR
+            if (_allowDebug) Debug.Log($"Upgrade Level Changed from {previousLevel} to {upgradeLevel}");
+#endif
+            UpgradeLevelChanged();
         }
     }
+    
+    public delegate void UpgradeLevelChangeEvent(int level);
+    public event UpgradeLevelChangeEvent UpgradeEvent;
+    private void UpgradeLevelChanged() => UpgradeEvent?.Invoke(upgradeLevel);
+    
     private int GetMaxUpgradeLevel()
     {
         var max = _upgradeList.GetLastIndex();
@@ -100,6 +110,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
             if (!upgradeIsLoaded)
             {
                 SetLoadState(_upgradeKey, false);
+#if UNITY_EDITOR
                 if (_allowDebug)
                 {
                     Debug.LogError(
@@ -108,6 +119,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
                             : $"Upgrade key '{_upgradeKey}' not found.\nPossible keys: \n   {string.Join(",\n   ", GetJsonKeys(jsonData))}",
                         this);
                 }
+#endif
                 return null;
             }
             try
@@ -127,7 +139,9 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
             }
             catch (Exception e)
             {
+#if UNITY_EDITOR
                 if (_allowDebug) Debug.LogError($"Error getting upgrade value with...\nEmum type: [{_upgradeDataType}]\nAgainst List type: [{_upgradeList.listType}]\nError: {e}", this);
+#endif
                 return null;
             }
         }
@@ -152,6 +166,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
             if (!costIsLoaded)
             {
                 SetLoadState(_costKey, false);
+#if UNITY_EDITOR
                 if (_allowDebug)
                 {
                     Debug.LogError(
@@ -160,6 +175,7 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
                             : $"Upgrade key '{_costKey}' not found.\nPossible keys: \n   {string.Join(",\n   ", GetJsonKeys(jsonData))}",
                         this);
                 }
+#endif
                 return null;
             }
             try
@@ -182,7 +198,9 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
             }
             catch (Exception e)
             {
+#if UNITY_EDITOR
                 if (_allowDebug) Debug.LogError($"Error getting upgrade cost with...\nEmum type: [{_costDataType}]\nAgainst List type: [{_costList.listType}]\nError: {e}", this);
+#endif
                 return null;
             }
         }
@@ -372,7 +390,9 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
         {
             _jsonBlob = "";
             _blobNeedsUpdate = false;
+#if UNITY_EDITOR
             if (_allowDebug) Debug.Log($"Json Blob is empty.\nUpgrade Blob: {upgradeBlob}\nCost Blob: {costBlob}", this);
+#endif
             return;
         }
 
@@ -383,7 +403,9 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
         
         _jsonBlob = upgradeJson.ToString(Formatting.Indented);
         _blobNeedsUpdate = false;
+#if UNITY_EDITOR
         if (_allowDebug) Debug.Log($"Updated Json Blob: {_jsonBlob}", this);
+#endif
     }
     
     private void AttemptParseFromJsonBlob()
@@ -435,25 +457,32 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
         
         HashFileChangeDetector ??= new HashFileChangeDetector(GetJsonPath(), _allowDebug);
         var changeState = HashFileChangeDetector.HasChanged();
+#if UNITY_EDITOR
         if (_allowDebug) Debug.Log($"Already Loaded: {isLoaded}\nChange State: {changeState}\n" +
                   $"Blob needs update: {_blobNeedsUpdate}\n" +
                   $"Blob is null or empty: {string.IsNullOrEmpty(_jsonBlob)}\n" +
                   $"Json Blob: {_jsonBlob}\n", this);
-        
+#endif
         if (!isLoaded && !changeState && !_blobNeedsUpdate)
         {
+#if UNITY_EDITOR
             if (_allowDebug) Debug.Log($"JSON Blob: {_jsonBlob}", this);
+#endif
             AttemptParseFromJsonBlob();
         }
         else if (!isLoaded || changeState)
         {
+#if UNITY_EDITOR
             if (_allowDebug) Debug.Log($"JSON Path: {GetJsonPath()} JSON: {_jsonFile}\n", this);
+#endif
             InitializeDataFromJson();
         }
+#if UNITY_EDITOR
         else
         {
             if (_allowDebug) Debug.LogWarning("Data already loaded.", this);
         }
+#endif
         
         if (_blobNeedsUpdate) UpdateJsonBlob();
         UpdateData();

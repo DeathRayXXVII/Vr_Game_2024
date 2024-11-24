@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _allowDebug: 0
   _upgradeLevel: 0
+  _maxLevelData: {fileID: 11400000, guid: 5a4b4f433293eab40ba1f5be35656381, type: 2}
   _upgradeDataType: 1
   _upgradeList:
-    _floatList: []
+    _floatList:
+    - 3
+    - 10
     _intList: 0200000002000000020000000200000002000000020000000200000002000000020000000200000003000000
     listType: 1
     _typeProviderMethodName: 
@@ -38,17 +41,18 @@ MonoBehaviour:
     - 0
     - 0
     - 0
-    _intList: 
+    _intList: 0000000084030000
     listType: 0
     _typeProviderMethodName: 
   _costFloatContainer: {fileID: 0}
-  _costIntContainer: {fileID: 0}
+  _costIntContainer: {fileID: 11400000, guid: 85d931767654cfc4cb764e6677c6aa6f, type: 2}
   _zeroBasedCostList: 0
-  _upgradeKey: 
-  _previousUpgradeKey: 
-  _costKey: 
-  _previousCostKey: 
-  upgradeIsLoaded: 0
-  costIsLoaded: 0
+  _upgradeKey: shipHealths
+  _previousUpgradeKey: shipHealths
+  _costKey: shipCosts
+  _previousCostKey: shipCosts
+  upgradeIsLoaded: 1
+  costIsLoaded: 1
   _jsonFile: {fileID: 4900000, guid: 073796f1ab5d74640b8a1a5a935342c6, type: 3}
-  _jsonBlob: 
+  _jsonBlob: "{\r\n  \"shipHealths\": [\r\n    3.0,\r\n    10.0\r\n  ],\r\n  \"shipCosts\":
+    [\r\n    0,\r\n    900\r\n  ]\r\n}"

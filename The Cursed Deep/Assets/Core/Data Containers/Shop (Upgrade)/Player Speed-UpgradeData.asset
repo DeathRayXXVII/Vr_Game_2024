@@ -10,13 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65a52ccc6191361469efaacce9fcc82c, type: 3}
-  m_Name: Speed-UpgradeData
+  m_Name: Player Speed-UpgradeData
   m_EditorClassIdentifier: 
   _allowDebug: 0
   _upgradeLevel: 0
+  _maxLevelData: {fileID: 11400000, guid: b3e279ba1badc604d8f1be039bd68b09, type: 2}
   _upgradeDataType: 1
   _upgradeList:
-    _floatList: []
+    _floatList:
+    - 2
+    - 2.1
+    - 2.2
+    - 2.3
+    - 2.4
+    - 2.5
+    - 2.6
+    - 2.7
+    - 2.8
+    - 2.9
+    - 3
     _intList: 0200000002000000020000000200000002000000020000000200000002000000020000000200000003000000
     listType: 1
     _typeProviderMethodName: 
@@ -39,17 +51,20 @@ MonoBehaviour:
     - 0
     - 0
     - 0
-    _intList: 
+    _intList: 0000000023000000280000002800000037000000370000004100000041000000550000007d000000b4000000
     listType: 0
     _typeProviderMethodName: 
   _costFloatContainer: {fileID: 0}
   _costIntContainer: {fileID: 11400000, guid: 8b0df38f7e8e3b141918701cf629a44a, type: 2}
   _zeroBasedCostList: 0
-  _upgradeKey: 
-  _previousUpgradeKey: 
-  _costKey: 
-  _previousCostKey: 
-  upgradeIsLoaded: 0
-  costIsLoaded: 0
+  _upgradeKey: speed
+  _previousUpgradeKey: speed
+  _costKey: speedCosts
+  _previousCostKey: speedCosts
+  upgradeIsLoaded: 1
+  costIsLoaded: 1
   _jsonFile: {fileID: 4900000, guid: 16cf77701e3107f46881cb968cf620ce, type: 3}
-  _jsonBlob: 
+  _jsonBlob: "{\r\n  \"speed\": [\r\n    2.0,\r\n    2.1,\r\n    2.2,\r\n    2.3,\r\n   
+    2.4,\r\n    2.5,\r\n    2.6,\r\n    2.7,\r\n    2.8,\r\n    2.9,\r\n    3.0\r\n 
+    ],\r\n  \"speedCosts\": [\r\n    0,\r\n    35,\r\n    40,\r\n    40,\r\n    55,\r\n   
+    55,\r\n    65,\r\n    65,\r\n    85,\r\n    125,\r\n    180\r\n  ]\r\n}"

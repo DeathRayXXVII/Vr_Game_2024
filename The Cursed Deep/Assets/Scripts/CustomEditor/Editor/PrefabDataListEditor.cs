@@ -49,6 +49,10 @@ public class PrefabDataListEditor : Editor
 
         if (GUILayout.Button("Clear List"))
         {
+            foreach (var prefabData in prefabList.prefabDataList)
+            {
+                DestroyImmediate(prefabData, true);
+            }
             prefabList.prefabDataList.Clear();
             AssetDatabase.SaveAssets();
         }
