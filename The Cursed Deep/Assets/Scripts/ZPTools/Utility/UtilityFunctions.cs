@@ -33,11 +33,11 @@ namespace ZPTools.Utility
                 if (obj is T match) matchingObjects.Add(match);
             }
 
-            foreach (var loader in matchingObjects)
+            foreach (var interfaceObject in matchingObjects)
             {
                 try
                 {
-                    action(loader);
+                    action(interfaceObject);
                 }
                 catch (System.Exception e)
                 {

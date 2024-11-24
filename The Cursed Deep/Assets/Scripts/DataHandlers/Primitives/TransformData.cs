@@ -49,6 +49,13 @@ public class TransformData : ScriptableObject
             RotationHandler.value = _rotation;
         }
     }
+    
+    public void Set(TransformData data)
+    {
+        position = data.position;
+        rotation = data.rotation;
+        scale = data.scale;
+    }
 
     public static implicit operator QuaternionData(TransformData data)
     {
