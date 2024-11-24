@@ -217,34 +217,44 @@ namespace ShipGame.ScriptObj
             {
                 Setup(false);
             }
+#if UNITY_EDITOR
             catch (System.IndexOutOfRangeException e)
             {
-#if UNITY_EDITOR
-                Debug.LogWarning(
+                if (allowDebug) Debug.LogWarning(
                     "Attempted to load game data and got an index out of range exception. Attempting to initialize data and reload. Error: " +
                     e.Message);
+#else
+            catch (System.IndexOutOfRangeException)
+            {
 #endif
                 Setup(true);
             }
+#if UNITY_EDITOR
             catch (System.NullReferenceException e)
             {
-#if UNITY_EDITOR
-                Debug.LogWarning(
+                if (allowDebug) Debug.LogWarning(
                     "Attempted to load game data and got a null reference exception. Attempting to initialize data and reload. Error: " +
                     e.Message);
+#else
+            catch (System.NullReferenceException)
+            {
 #endif
                 Setup(true);
             }
+#if UNITY_EDITOR
             catch (System.Exception e)
             {
-#if UNITY_EDITOR
-                Debug.LogWarning(
+                if (allowDebug) Debug.LogWarning(
                     "Attempted to load game data and got an unexpected exception type. Attempting to initialize data and reload. Error: " +
                     e.Message);
+#else
+            catch (System.Exception)
+            {
 #endif
                 Setup(true);
             }
 #if UNITY_EDITOR
+            if (allowDebug) Debug.Log("Successfully setup game data.", this);
             PrintGameVariables("Called From Setup");
 #endif
         }
@@ -286,6 +296,7 @@ namespace ShipGame.ScriptObj
                 );
             }
 #endif
+            // ignored
         }
     }
 }

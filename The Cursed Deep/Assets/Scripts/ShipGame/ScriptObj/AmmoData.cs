@@ -17,7 +17,7 @@ namespace ShipGame.ScriptObj
         internal struct AmmoDataJson
         {
             public int elements;
-            public float[] ammoDamageValues;
+            public float[] ammoDamages;
             public float[] ammoRespawnRates;
             public int[] ammoCosts;
         }
@@ -141,7 +141,7 @@ namespace ShipGame.ScriptObj
             {
                 _ammoInstanceData[i] = new AmmoInstanceData
                 {
-                    damage = _tempJsonData.ammoDamageValues[i],
+                    damage = _tempJsonData.ammoDamages[i],
                     respawnRate = _tempJsonData.ammoRespawnRates[i]
                 };
             }
@@ -165,8 +165,6 @@ namespace ShipGame.ScriptObj
 #if UNITY_EDITOR
                 (() => upgradeIndex++, "Increase Upgrade Index"),
                 (() => upgradeIndex--, "Decrease Upgrade Level"),
-                (() => selectionIndex++, "Increase Selection Index"),
-                (() => selectionIndex--, "Decrease Selection Level"),
 #endif
             };
         }

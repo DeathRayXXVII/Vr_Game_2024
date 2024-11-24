@@ -177,8 +177,6 @@ namespace ShipGame.ScriptObj
 #if UNITY_EDITOR
                 (() => upgradeIndex++, "Increase Upgrade Index"),
                 (() => upgradeIndex--, "Decrease Upgrade Level"),
-                (() => selectionIndex++, "Increase Selection Index"),
-                (() => selectionIndex--, "Decrease Selection Level"),
 #endif
             };
         }

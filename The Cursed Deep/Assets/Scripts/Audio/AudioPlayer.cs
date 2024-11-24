@@ -58,7 +58,7 @@ public class AudioPlayer : MonoBehaviour
     {
         if (audioShot == null || !audioShotData.IsValidIndex(index))
         {
-            Debug.LogError("Audio Shot is invalid. Cannot play audio.", this);
+            Debug.LogError($"{(audioShot == null ? "Audio Shot is null. ": !audioShotData.IsValidIndex(index) ? $"Audio Shot[{index}] is invalid. ": "")}Cannot play audio.", this);
             return;
         }
         if (audioShotData == null || _audioSource == null) return;

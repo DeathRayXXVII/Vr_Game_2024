@@ -39,12 +39,17 @@ namespace ZPTools.Utility
                 {
                     action(interfaceObject);
                 }
+#if UNITY_EDITOR
                 catch (System.Exception e)
                 {
-#if UNITY_EDITOR
                     UnityEngine.Debug.LogError(e, null);
-#endif
                 }
+#else
+                catch(System.Exception)
+                {
+                    // ignored
+                }
+#endif
             }
         }
         

@@ -12,14 +12,19 @@ public class SceneBehavior : MonoBehaviour
     [Tooltip("Should the transition animation be played when loading a scene?")]
     [SerializeField] private bool transitionOnLoad = true;
     
-    [Tooltip("Name of the trigger that will be used to transition into the scene.")]
+    [Tooltip("Name of the Animation trigger that will be used to transition INTO the scene.")]
     [SerializeField] private string transitionInTrigger = "TransitionIn";
     
-    [Tooltip("Name of the trigger that will be used to transition out of the scene.")]
+    [Tooltip("Name of the Animation trigger that will be used to transition OUT OF the scene.")]
     [SerializeField] private string transitionOutTrigger = "TransitionOut";
     
-    [SerializeField, SteppedRange(0, 10, 0.01f)] private float sceneLoadBuffer = 3.0f;
-    [SerializeField, SteppedRange(1, 25, 1)] private int transitionCompleteBuffer = 5;
+    [Tooltip("Time in seconds to wait before transitioning INTO or OUT OF the scene.")]
+    [SerializeField, SteppedRange(0, 10, 0.1f)] private float sceneLoadBuffer = 3f;
+    
+    [Tooltip("Time in seconds to wait before transitioning INTO the scene. Additive to sceneLoadBuffer.")]
+    [SerializeField, SteppedRange(0, 10, 0.1f)] private float transitionInBuffer = 3f;
+    [Tooltip("Time in seconds to wait before transitioning OUT OF the scene. Additive to sceneLoadBuffer.")]
+    [SerializeField, SteppedRange(0, 10, 0.1f)] private float transitionOutBuffer = 3f;
     
     [SerializeField] private UnityEvent beforeTransitionIn;
     [SerializeField] private UnityEvent onTransitionInComplete;
@@ -35,18 +40,32 @@ public class SceneBehavior : MonoBehaviour
     private bool isTransitioning => transitionAnimator.IsInTransition(0) ||
                                     transitionAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1;
     
-    private WaitForSeconds _waitSceneLoadBuffer;
     private WaitForFixedUpdate _waitFixed;
     private Coroutine _loadCoroutine;
     private Coroutine _transitionCoroutine;
 
     private void Start()
     {
-        _waitSceneLoadBuffer = new WaitForSeconds(sceneLoadBuffer);
         if (!transitionAnimator) return;
         
         if (transitionOnLoad && hasTriggerIn) TransitionIntoScene();
     }
+    
+    
+    private void OnDisable()
+    {
+        if (_loadCoroutine != null)
+        {
+            StopCoroutine(_loadCoroutine);
+            _loadCoroutine = null;
+        }
+        if (_transitionCoroutine != null)
+        {
+            StopCoroutine(_transitionCoroutine);
+            _transitionCoroutine = null;
+        }
+    }
+    
     
     private bool HasTrigger(string triggerName)
     {
@@ -65,42 +84,29 @@ public class SceneBehavior : MonoBehaviour
         return false;
     }
     
+    
     public void TransitionIntoScene() => _transitionCoroutine ??= StartCoroutine(TransitionIn());
     
     private IEnumerator TransitionIn()
     {
         if (!transitionAnimator) yield break;
+#if UNITY_EDITOR
+        if (allowDebug) Debug.Log($"Transitioning into Scene, Time: {Time.time}", this);
+#endif
         
-        yield return _waitSceneLoadBuffer;
+        yield return FixedUpdateBuffer(sceneLoadBuffer);
         
         beforeTransitionIn.Invoke();
         
-        transitionAnimator.SetTrigger(transitionInTrigger);
+        yield return FixedUpdateBuffer(transitionInBuffer);
+        
+        if (hasTriggerOut) yield return ExecuteTransition(transitionInTrigger);
+        yield return _waitFixed;
 
-        while (transitionAnimator.isInitialized && isTransitioning)
-        {
-            yield return null;
-        }
-
-        yield return FixedUpdateBuffer(transitionCompleteBuffer);
         onTransitionInComplete.Invoke();
         _transitionCoroutine = null;
     }
 
-    
-    private void OnDisable()
-    {
-        if (_loadCoroutine != null)
-        {
-            StopCoroutine(_loadCoroutine);
-            _loadCoroutine = null;
-        }
-        if (_transitionCoroutine != null)
-        {
-            StopCoroutine(_transitionCoroutine);
-            _transitionCoroutine = null;
-        }
-    }
     
     public void RestartActiveScene() => LoadScene(SceneManager.GetActiveScene().name);
     
@@ -145,24 +151,40 @@ public class SceneBehavior : MonoBehaviour
     {
         loadOperation.allowSceneActivation = false;
         yield return BackgroundLoad(loadOperation);
-        if (transitionAnimator) yield return ExecuteTransition();
-        yield return FixedUpdateBuffer(20);
+        
+        yield return FixedUpdateBuffer(sceneLoadBuffer);
+        
+        if (transitionAnimator && hasTriggerOut) yield return ExecuteTransition(transitionOutTrigger);
+        yield return FixedUpdateBuffer(transitionOutBuffer);
+        
         loadOperation.allowSceneActivation = true;
         _loadCoroutine = null;
     }
     
-    private IEnumerator FixedUpdateBuffer(int waitTime = 5)
+    private IEnumerator FixedUpdateBuffer(float waitTime = 5f)
     {
         var time = Time.time;
-        while (isTransitioning && Time.time - time < waitTime)
+#if UNITY_EDITOR
+        var debugSpacer = 0;
+        const int mod = 20;
+#endif
+        while (isTransitioning || Time.time - time < waitTime)
         {
+#if UNITY_EDITOR
+            if (allowDebug && debugSpacer++ % mod == 0) 
+                Debug.Log($"Time: {Time.time}, Time - time: {Time.time - time}, Wait Time: {waitTime}, " +
+                          $"Transitioning: {isTransitioning}", this);
+#endif
             yield return _waitFixed;
         }
+#if UNITY_EDITOR
+        if (allowDebug) Debug.Log($"Transition Complete, Time: {Time.time}", this);
+#endif
     }
     
-    private IEnumerator ExecuteTransition()
+    private IEnumerator ExecuteTransition(string transitionTrigger)
     {
-        transitionAnimator.SetTrigger(transitionOutTrigger);
+        transitionAnimator.SetTrigger(transitionTrigger);
         yield return new WaitForSeconds(transitionAnimator.GetCurrentAnimatorStateInfo(0).length);
     }
     

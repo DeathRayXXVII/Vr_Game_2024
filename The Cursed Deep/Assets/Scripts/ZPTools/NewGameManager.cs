@@ -8,7 +8,7 @@ namespace ZPTools
 {
     public class NewGameManager : MonoBehaviour, INeedButton
     {
-        private static void ExecuteResetToNewGameValues(IResetOnNewGame obj, int tier = 2) => obj.ResetToNewGameValues(tier);
+        private static void ExecuteResetToNewGameValues(IResetOnNewGame obj, int tier = 10) => obj.ResetToNewGameValues(tier);
         public static void ResetToNewGame(int tier) => PerformActionOnInterface((IResetOnNewGame resetObj) => ExecuteResetToNewGameValues(resetObj, tier));
 
         public List<(Action, string)> GetButtonActions()

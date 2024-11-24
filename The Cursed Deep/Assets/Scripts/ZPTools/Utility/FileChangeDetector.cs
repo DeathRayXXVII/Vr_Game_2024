@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace ZPTools.Utility
 {
     public abstract class FileChangeDetector : ChangeDetector

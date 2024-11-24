@@ -5,6 +5,7 @@ using UnityEngine.Events;
 [DisallowMultipleComponent]
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private bool startGameAfterInit;
     public UnityEvent onAwake, onStart, onLateInit, onGameStart, onGameOver, onGameWin, onRestartGame;
     private readonly WaitForFixedUpdate _wffu = new();
 
@@ -25,6 +26,11 @@ public class GameManager : MonoBehaviour
         yield return _wffu;
         yield return _wffu;
         onLateInit.Invoke();
+        
+        yield return _wffu;
+        yield return _wffu;
+        yield return _wffu;
+        if (startGameAfterInit) StartGame();
     }
 
     public void StartGame()

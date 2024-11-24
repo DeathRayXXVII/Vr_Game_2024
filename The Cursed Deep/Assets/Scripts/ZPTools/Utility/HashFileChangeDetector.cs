@@ -69,7 +69,7 @@ namespace ZPTools.Utility
             // Generate a unique hash file path based on the original file path
             var fileName = Path.GetFileNameWithoutExtension(filePath);
             var hashFileName = $"{fileName}_hash.txt";
-            return Path.Combine(Application.persistentDataPath, hashFileName);
+            return Path.Combine(Application.persistentDataPath, hashFileName).Replace("\\", "/");
         }
 
         private void SaveHash()

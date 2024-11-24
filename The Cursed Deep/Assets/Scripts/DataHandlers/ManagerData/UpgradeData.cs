@@ -137,13 +137,18 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
                 throw new InvalidCastException(
                     $"The cost list type '{_upgradeList.listType}' does not match the expected data type '{_upgradeDataType}'.");
             }
+#if UNITY_EDITOR
             catch (Exception e)
             {
-#if UNITY_EDITOR
                 if (_allowDebug) Debug.LogError($"Error getting upgrade value with...\nEmum type: [{_upgradeDataType}]\nAgainst List type: [{_upgradeList.listType}]\nError: {e}", this);
-#endif
                 return null;
             }
+#else
+            catch (Exception)
+            {
+                return null;
+            }
+#endif
         }
     }
     
@@ -196,13 +201,18 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
                 throw new InvalidCastException(
                     $"The cost list type '{_costList.listType}' does not match the expected data type '{_costDataType}'.");
             }
+#if UNITY_EDITOR
             catch (Exception e)
             {
-#if UNITY_EDITOR
                 if (_allowDebug) Debug.LogError($"Error getting upgrade cost with...\nEmum type: [{_costDataType}]\nAgainst List type: [{_costList.listType}]\nError: {e}", this);
-#endif
                 return null;
             }
+#else
+            catch (Exception)
+            {
+                return null;
+            }
+#endif
         }
     }
     
