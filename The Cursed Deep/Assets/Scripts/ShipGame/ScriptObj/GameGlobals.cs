@@ -1,109 +1,144 @@
 using UnityEngine;
-using ZPTools.Interface;
 
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu(fileName = "GameGlobals", menuName = "Data/ManagerData/GameGlobals")]
-    public class GameGlobals : ScriptableObject, IResetOnNewGame
+    public class GameGlobals : ScriptableObject
     {
-        [Header ("New Game Base Values:")]
-        public float playerSpeedBase;
-        public float ammoRespawnRateBase;
+        /* Each of the following variables are used to store the current state of the game
+         * Logic:
+         * player speed = speedUpgrade[upgradeIndex] (Speed is set by the UpgradeData script)
+         * player damage = cannonUpgrade[upgradeLevel] + ammoUpgrade[upgradeLevel] + damageUpgrade[upgradeLevel]
+         * player score = playerScore
+         * player coins = playerMoney
+         *
+         * shipHealth (player health) = shipData[selection] + healthUpgrade[upgradeLevel]
+         * 
+         * ammo respawn rate = ammoRespawnRate
+         *
+         * enemy spawn count = levelData[level].enemySpawnCount
+         * enemy lane active limit = levelData[level].enemyLaneActiveLimit
+         * spawn rate min = levelData[level].spawnRateMin
+         * spawn rate max = levelData[level].spawnRateMax
+         */
+        
+        [Header("Gameplay Control:")]
+        [SerializeField] private BoolData _levelSelected;
+        [SerializeField] private BoolData _fightingBoss;
+
+        public bool IsLevelSelected() => _levelSelected;
+        public bool FightingBoss() => _fightingBoss;
         
         [Header("Player Data:")]
-        public FloatData playerSpeed;
-        public IntData playerScore;
-        public IntData playerMoney;
+        [SerializeField] private FloatData _playerSpeed;
+        [SerializeField] private UpgradeData _speedUpgrade;
+        [SerializeField] private WeaponData _playerDamage;
+        [SerializeField] private IntData _playerScore;
+        [SerializeField] private IntData _playerCoins;
+
+        public float playerSpeed
+        { get => _playerSpeed ?? 0f; private set => _playerSpeed.Set(value); }
+        private float speedUpgrade => (float)_speedUpgrade.upgradeValue;
+        
+        public void SetPlayerSpeed() => playerSpeed = speedUpgrade;
+
+        public float playerDamage
+        { get => _playerDamage ? _playerDamage.damage : 0f; private set => _playerDamage.damage = value; }
+
+        public void SetPlayerDamage(float cannonDamage, float ammoDamage) => 
+            playerDamage = cannonDamage + ammoDamage + damageUpgrade;
+        
+        public int playerScore
+        {
+            get => _playerScore ?? 0;
+            private set => _playerScore.Set(value);
+        }
+        
+        public int playerCoins
+        { get => _playerCoins ?? 0; private set => _playerCoins.Set(value); }
         
         [Header("Ship Data:")] 
-        public FloatData shipHealth;
+        [SerializeField] private FloatData _shipHealth;
+        [SerializeField] private UpgradeData _healthUpgrade;
         
-        [Header("Ammo Data:")]
-        public WeaponData ammoDamage;
-        public FloatData ammoRespawnRate;
+        public float shipHealth
+        { get => _shipHealth ?? 0f; private set => _shipHealth.Set(value); }
+        
+        private float healthUpgrade => (float)_healthUpgrade.upgradeValue;
+        
+        public void SetShipHealth(float health) => shipHealth = health + healthUpgrade;
+        
+        [Header("Cannon & Ammo Data:")]
+        [SerializeField] private UpgradeData _damageUpgrade;
+        [SerializeField] private UpgradeData _ammoRespawnUpgrade;
+        [SerializeField] private FloatData _ammoRespawnRate;
 
-        [Header("Enemy Data:")]
-        public IntData enemySpawnCount;
-        public IntData enemyLaneActiveLimit;
-        public FloatData spawnRateMin;
-        public FloatData spawnRateMax;
+        public float ammoRespawnRate
+        { get => _ammoRespawnRate ?? 0f; private set => _ammoRespawnRate.Set(value); }
         
-        [Header("Upgrade Data:")]
-        public FloatData upgradeDamage;
-        public FloatData upgradeHealth;
-        public FloatData upgradeSpeed;
-        public FloatData ammoRespawnTimeUpgrade;
+        private float ammoRespawnUpgrade => (float)_ammoRespawnUpgrade.upgradeValue;
+        public void SetAmmoRespawnRate(float rate) => ammoRespawnRate = rate + ammoRespawnUpgrade;
+        
+        private float damageUpgrade => (float)_damageUpgrade.upgradeValue;
+        
+        [Header("Enemy Data:")]
+        [SerializeField] private IntData _enemySpawnCount;
+        [SerializeField] private IntData _enemyLaneActiveLimit;
+        [SerializeField] private FloatData _spawnRateMin;
+        [SerializeField] private FloatData _spawnRateMax;
+
+        public int enemySpawnCount
+        { get => _enemySpawnCount ?? 0; private set => _enemySpawnCount.Set(value); }
+        
+        public void SetEnemySpawnCount(int baseCount, int laneCount) => enemySpawnCount = baseCount * laneCount;
+
+        public int enemyLaneActiveLimit
+        { get => _enemyLaneActiveLimit ?? 0; private set => _enemyLaneActiveLimit.Set(value); }
+        
+        public void SetSpawnLaneActiveLimit(int limit) => enemyLaneActiveLimit = limit;
+        
+        public float spawnRateMin 
+        { get => _spawnRateMin ?? 0f; private set => _spawnRateMin.Set(value); }
+        
+        public float spawnRateMax
+        { get => _spawnRateMax ?? 0f; private set => _spawnRateMax.Set(value); }
+        
+        public void SetSpawnRates(float min, float max)
+        {
+            spawnRateMin = min;
+            spawnRateMax = max;
+        }
         
         private void OnEnable()
         {
-            System.Diagnostics.Debug.Assert(playerSpeed != null, "Player Speed is null");
-            System.Diagnostics.Debug.Assert(playerScore != null, "Player Score is null");
-            System.Diagnostics.Debug.Assert(playerMoney != null, "Player Money is null");
-            System.Diagnostics.Debug.Assert(shipHealth != null, "Ship Health is null");
-            System.Diagnostics.Debug.Assert(ammoDamage != null, "Ammo Damage is null");
-            System.Diagnostics.Debug.Assert(ammoRespawnRate != null, "Ammo Respawn Rate is null");
-            System.Diagnostics.Debug.Assert(enemySpawnCount != null, "Enemy Spawn Count is null");
-            System.Diagnostics.Debug.Assert(enemyLaneActiveLimit != null, "Enemy Lane Active Limit is null");
-            System.Diagnostics.Debug.Assert(spawnRateMin != null, "Spawn Rate Min is null");
-            System.Diagnostics.Debug.Assert(spawnRateMax != null, "Spawn Rate Max is null");
-            // System.Diagnostics.Debug.Assert(damageUpgradeLevel != null, "Damage Upgrade Level is null");
-            // System.Diagnostics.Debug.Assert(upgradeDamage != null, "Upgrade Damage is null");
-            // System.Diagnostics.Debug.Assert(healthUpgradeLevel != null, "Health Upgrade Level is null");
-            // System.Diagnostics.Debug.Assert(upgradeHealth != null, "Upgrade Health is null");
-            // System.Diagnostics.Debug.Assert(speedUpgradeLevel != null, "Speed Upgrade Level is null");
-            // System.Diagnostics.Debug.Assert(upgradeSpeed != null, "Upgrade Speed is null");
-            // System.Diagnostics.Debug.Assert(upgradeAmmoRespawnTimeLevel != null, "Upgrade Ammo Respawn Time is null");
-            // System.Diagnostics.Debug.Assert(ammoRespawnTimeUpgrade != null, "Ammo Respawn Time Upgrade is null");
+            System.Diagnostics.Debug.Assert(_levelSelected != null, "Level Selected is null");
+            System.Diagnostics.Debug.Assert(_fightingBoss != null, "Fighting Boss is null");
             
-            if (playerSpeedBase <= 0) playerSpeedBase = 1;
-            if (playerSpeed.value < playerSpeedBase) playerSpeed.Set(playerSpeedBase);
+            System.Diagnostics.Debug.Assert(_playerSpeed != null, "Player Speed is null");
+            System.Diagnostics.Debug.Assert(_speedUpgrade != null, "Speed Upgrade is null");
+            System.Diagnostics.Debug.Assert(_playerDamage != null, "Player Damage is null");
+            System.Diagnostics.Debug.Assert(_playerScore != null, "Player Score is null");
+            System.Diagnostics.Debug.Assert(_playerCoins!= null, "Player Money is null");
             
-            if (playerScore.value < 0) playerScore.Set(0);
-            if (playerMoney.value < 0) playerMoney.Set(0);
+            System.Diagnostics.Debug.Assert(_shipHealth != null, "Ship Health is null");
+            System.Diagnostics.Debug.Assert(_healthUpgrade != null, "Health Upgrade is null");
             
-            if (shipHealth.value < 0) shipHealth.Set(0);
+            System.Diagnostics.Debug.Assert(_damageUpgrade != null, "Damage Upgrade is null");
+            System.Diagnostics.Debug.Assert(_ammoRespawnRate != null, "Ammo Respawn Rate is null");
             
-            if (ammoDamage.damage < 1) ammoDamage.damage = 1;
-            if (ammoRespawnRateBase < 1) ammoRespawnRateBase = 1;
-            if (ammoRespawnRate.value < 0) ammoRespawnRate.Set(ammoRespawnRateBase);
-            
-            if (enemySpawnCount.value < 0) enemySpawnCount.Set(0);
-            if (enemyLaneActiveLimit.value < 1) enemyLaneActiveLimit.Set(1);
-            
-            if (spawnRateMin.value < 1) spawnRateMin.Set(1);
-            if (spawnRateMax.value < 1) spawnRateMax.Set(1);
-            
-            // if (damageUpgradeLevel.value < 0) damageUpgradeLevel.Set(0);
-            // if (upgradeDamage.value < 0) upgradeDamage.Set(0);
-            //
-            // if (healthUpgradeLevel.value < 0) healthUpgradeLevel.Set(0);
-            // if (upgradeHealth.value < 0) upgradeHealth.Set(0);
-            //
-            // if (speedUpgradeLevel.value < 0) speedUpgradeLevel.Set(0);
-            // if (upgradeSpeed.value < 0) upgradeSpeed.Set(0);
-            //
-            // if (upgradeAmmoRespawnTimeLevel.value < 0) upgradeAmmoRespawnTimeLevel.Set(0);
-            // if (ammoRespawnTimeUpgrade.value < 0) ammoRespawnTimeUpgrade.Set(0);
+            System.Diagnostics.Debug.Assert(_enemySpawnCount != null, "Enemy Spawn Count is null");
+            System.Diagnostics.Debug.Assert(_enemyLaneActiveLimit != null, "Enemy Lane Active Limit is null");
+            System.Diagnostics.Debug.Assert(_spawnRateMin != null, "Spawn Rate Min is null");
+            System.Diagnostics.Debug.Assert(_spawnRateMax != null, "Spawn Rate Max is null");
         }
         
-        public void ResetToNewGameValues(int tier = 1)
+        public void ResetGameVariables()
         {
-            if (tier < 1) return;
-            playerSpeed.Set(playerSpeedBase);
-            playerScore.Set(0);
-            playerMoney.Set(0);
+            _levelSelected.Set(0);
+            _fightingBoss.Set(0);
             
-            shipHealth.Set(0);
-            
-            ammoDamage.damage = 1;
-            ammoRespawnRate.Set(ammoRespawnRateBase);
-            
-            enemySpawnCount.Set(0);
-            enemyLaneActiveLimit.Set(1);
-            spawnRateMin.Set(1);
-            spawnRateMax.Set(1);
-            
-            // Upgrades have their own upgradeData scriptable object that handles their reset
+            _playerScore.Set(0);
+            _playerCoins.Set(0);
         }
-    }
+        }
 }

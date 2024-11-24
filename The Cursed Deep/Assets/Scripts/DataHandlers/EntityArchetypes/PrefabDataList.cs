@@ -6,10 +6,7 @@ public class PrefabDataList : ScriptableObject
 {
     [HideInInspector] public List<PrefabData> prefabDataList;
 
-    public int Size()
-    {
-        return prefabDataList.Count;
-    }
+    public int Count() => prefabDataList.Count;
 
     public int GetPriority()
     {
@@ -32,7 +29,7 @@ public class PrefabDataList : ScriptableObject
     {  
         if (prefabDataList == null) return null;
         if (prefabDataList.Count == 0) return null;
-        var randomIndex = Random.Range(0, Size());
+        var randomIndex = Random.Range(0, Count());
         return prefabDataList[randomIndex];
     }
 }

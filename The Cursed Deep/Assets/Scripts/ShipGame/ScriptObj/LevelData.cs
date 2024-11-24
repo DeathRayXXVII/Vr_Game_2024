@@ -1,9 +1,10 @@
 using UnityEngine;
+using ZPTools.Interface;
 
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu(fileName = "LevelData", menuName = "Data/ManagerData/LevelData")]
-    public class LevelData : ScriptableObjectLoadOnStartupDataFromJson
+    public class LevelData : ScriptableObjectLoadOnStartupDataFromJson, ISaveSystemComponent
     {
         [System.Serializable]
         internal struct Level
@@ -117,6 +118,7 @@ namespace ShipGame.ScriptObj
             }
         }
         
+        
         protected override void LogCurrentData()
         {
 #if UNITY_EDITOR
@@ -140,5 +142,22 @@ namespace ShipGame.ScriptObj
             if (!_currentLevel) Debug.LogError("Current Level IntData is null. Please assign a value.", this);
         }
 #endif
+
+        public string filePath => $"{UnityEngine.Application.persistentDataPath}/SaveData/Core/{GetType().Name}.json";
+
+        public void SaveGameData()
+        {
+            // JsonUtility
+        }
+
+        public void LoadGameData()
+        {
+            
+        }
+
+        public void DeleteGameData()
+        {
+            
+        }
     }
 }

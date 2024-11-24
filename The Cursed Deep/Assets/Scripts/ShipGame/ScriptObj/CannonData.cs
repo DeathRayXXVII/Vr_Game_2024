@@ -1,9 +1,10 @@
 using UnityEngine;
+using ZPTools.Interface;
 
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu(fileName = "CannonData", menuName = "Data/ShipGame/CannonData", order = 0)]
-    public class CannonData : ScriptableObjectLoadOnStartupDataFromJson
+    public class CannonData : ScriptableObjectLoadOnStartupDataFromJson, INeedButton
     {
         [System.Serializable]
         internal struct CannonInstanceData
@@ -16,7 +17,6 @@ namespace ShipGame.ScriptObj
         {
             public int elements;
             public float[] cannonDamages;
-            public int[] cannonCosts;
         }
         
         [System.Serializable]
@@ -24,6 +24,9 @@ namespace ShipGame.ScriptObj
         {
             [SerializeField] private string name;
             
+            // Index of the upgrade level required to unlock this cannon model
+            [SerializeField] private int _upgradeIndexToUnlock;
+            public int unlockIndex => _upgradeIndexToUnlock;
             // Prefab that determines all other data within this selection
             public PrefabData prefab;
 
@@ -47,6 +50,26 @@ namespace ShipGame.ScriptObj
             }
         }
         
+        [SerializeField] private UpgradeData shopHandler;
+        
+        private void HandleUpgradeEvent(int newIndex) => upgradeIndex = newIndex;
+        
+        private void OnEnable()
+        {
+            if (shopHandler != null)
+            {
+                shopHandler.UpgradeEvent += HandleUpgradeEvent;
+            }
+        }
+        
+        private void OnDisable()
+        {
+            if (shopHandler != null)
+            {
+                shopHandler.UpgradeEvent -= HandleUpgradeEvent;
+            }
+        }
+        
         [SerializeField] [ReadOnly] private int currentUpgradeIndex;
         private CannonInstanceData[] _cannonInstanceData;
         public float damage => _cannonInstanceData[upgradeIndex].damage;
@@ -61,6 +84,26 @@ namespace ShipGame.ScriptObj
                     ArrayError("cannonUpgradeArray", "not initialized or is empty", this);
 #endif
                     return;
+                }
+                
+                var performUnlockCheck = value > 0 && value < _cannonInstanceData.Length;
+                if (performUnlockCheck && _cannonData is { Length: > 0 } )
+                {
+                    if (selectionIndex+1 < _cannonData.Length && value == _cannonData[selectionIndex+1].unlockIndex)
+                    {
+#if UNITY_EDITOR
+                        if (_allowDebug) Debug.Log($"Selection Index increasing from {selectionIndex} to {selectionIndex+1} because upgrade index is {value}", this);
+#endif
+                        selectionIndex++;
+                    }
+
+                    if (selectionIndex > 0 && value < _cannonData[selectionIndex].unlockIndex)
+                    {
+#if UNITY_EDITOR
+                        if (_allowDebug) Debug.Log($"Selection Index decreasing from {selectionIndex} to {selectionIndex-1} because upgrade index is {value}", this);
+#endif
+                        selectionIndex--;
+                    }
                 }
                 
                 // Index clamped between 0 and the length of the ammo array
@@ -125,6 +168,19 @@ namespace ShipGame.ScriptObj
                                         $"Current Cannon Damage: {damage}\n" +
                                        $"----------------------", this);
 #endif
+        }
+        
+        public System.Collections.Generic.List<(System.Action, string)> GetButtonActions()
+        {
+            return new System.Collections.Generic.List<(System.Action, string)>
+            {
+#if UNITY_EDITOR
+                (() => upgradeIndex++, "Increase Upgrade Index"),
+                (() => upgradeIndex--, "Decrease Upgrade Level"),
+                (() => selectionIndex++, "Increase Selection Index"),
+                (() => selectionIndex--, "Decrease Selection Level"),
+#endif
+            };
         }
     }
 }

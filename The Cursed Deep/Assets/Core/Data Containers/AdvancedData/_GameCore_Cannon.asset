@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: _GameCore_Cannon
   m_EditorClassIdentifier: 
   _allowDebug: 0
+  shopHandler: {fileID: 11400000, guid: 5f60af6dedd8915479307a2029ecdbe2, type: 2}
   currentUpgradeIndex: 0
   currentCannonIndex: 0
   _cannonData:
   - name: Default
+    _upgradeIndexToUnlock: 0
     prefab: {fileID: 11400000, guid: 2c43e130e336adc4c8b3674a86f3e173, type: 2}
     cannonOffsetsByShip:
     - targetShip: Sloop

@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: _GameCore_Ammo
   m_EditorClassIdentifier: 
   _allowDebug: 0
+  shopHandler: {fileID: 11400000, guid: c0881481861acaf48b08b44634069b61, type: 2}
   currentUpgradeIndex: 0
   currentAmmoIndex: 0
   _ammoData:
   - name: Default
+    _upgradeIndexToUnlock: 0
     prefabVariantList: {fileID: 11400000, guid: cce5195886a2745459e8b36f9a378e97,
       type: 2}
   - name: Heavy
+    _upgradeIndexToUnlock: 3
     prefabVariantList: {fileID: 11400000, guid: cce5195886a2745459e8b36f9a378e97,
       type: 2}

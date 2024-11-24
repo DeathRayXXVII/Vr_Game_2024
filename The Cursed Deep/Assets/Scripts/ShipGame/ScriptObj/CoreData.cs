@@ -118,7 +118,8 @@ namespace ShipGame.ScriptObj
         public void ResetToNewGameValues(int tier = 1)
         {
             if (tier < 1) return;
-            gameGlobals.ResetToNewGameValues();
+            gameGlobals.ResetGameVariables();
+            
             currentLevel = 1;
             shipIndex = 0;
             cannonIndex = 0;
@@ -128,23 +129,22 @@ namespace ShipGame.ScriptObj
         
         private void SetPlayerData()
         {
-            gameGlobals.playerSpeed.value = gameGlobals.playerSpeedBase; // + gameGlobals.upgradeSpeed;
+            gameGlobals.SetPlayerSpeed();
         }
         
         private void SetShipData()
         {
-            gameGlobals.shipHealth.value = ship.health; // + gameGlobals.upgradeHealth;
-            gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.numberOfLanes;
+            gameGlobals.SetShipHealth(ship.health);
+            gameGlobals.SetEnemySpawnCount(levelData.spawnCount, ship.numberOfLanes);
             ship.SetCannonPrefabData(cannon.prefab);
             ship.SetAmmoSpawnCount();
         }
         
         private void SetLevelData()
         {
-            gameGlobals.enemyLaneActiveLimit.value = levelData.laneActiveLimit;
-            gameGlobals.enemySpawnCount.value = levelData.spawnCount * ship.numberOfLanes;
-            gameGlobals.spawnRateMin.value = levelData.spawnRateMin;
-            gameGlobals.spawnRateMax.value = levelData.spawnRateMax;
+            gameGlobals.SetSpawnLaneActiveLimit(levelData.laneActiveLimit);
+            gameGlobals.SetEnemySpawnCount(levelData.spawnCount, ship.numberOfLanes);
+            gameGlobals.SetSpawnRates(levelData.spawnRateMin, levelData.spawnRateMax);
             
             enemy.SetHealth(levelData.spawnBaseHealth + enemy.selectionHealth);
             enemy.SetDamage(levelData.spawnBaseDamage + enemy.selectionDamage);
@@ -154,8 +154,8 @@ namespace ShipGame.ScriptObj
         
         private void SetAmmoData()
         {
-            gameGlobals.ammoDamage.damage = cannon.damage + ammo.damage; // + gameGlobals.upgradeDamage;
-            gameGlobals.ammoRespawnRate.value = ammo.respawnRate;
+            gameGlobals.SetPlayerDamage(cannon.damage, ammo.damage);
+            gameGlobals.SetAmmoRespawnRate(ammo.respawnRate);
             
             // Pass the prefab list to the ship's ammo spawner
             ship.SetAmmoPrefabDataList(ammo.prefabList);
@@ -163,7 +163,7 @@ namespace ShipGame.ScriptObj
         
         private void SetCannonData()
         {
-            gameGlobals.ammoDamage.damage = cannon.damage + ammo.damage; // + gameGlobals.upgradeDamage;
+            gameGlobals.SetPlayerDamage(cannon.damage, ammo.damage);
                 
             // Pass the prefab to the ship's cannon instancer with its correct offset
             ship.SetCannonPrefabData(cannon.prefab);
@@ -266,7 +266,7 @@ namespace ShipGame.ScriptObj
                     $"Ship Health:\n    {gameGlobals.shipHealth}\n" +
                     "\n" +
                     $"      -Ammo Index: {ammoIndex}-\n" +
-                    $"Ammo Damage: {gameGlobals.ammoDamage.damage}\n" +
+                    $"Ammo Damage: {gameGlobals.playerDamage}\n" +
                     $"Ammo Respawn Time:\n    {gameGlobals.ammoRespawnRate}\n" +
                     "\n" +
                     $"      -Cannon Index: {cannonIndex}-\n" +

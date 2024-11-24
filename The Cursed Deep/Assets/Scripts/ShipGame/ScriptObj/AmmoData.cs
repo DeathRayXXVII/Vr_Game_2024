@@ -1,9 +1,10 @@
 using UnityEngine;
+using ZPTools.Interface;
 
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu(fileName = "AmmoData", menuName = "Data/ShipGame/AmmoData", order = 0)]
-    public class AmmoData : ScriptableObjectLoadOnStartupDataFromJson
+    public class AmmoData : ScriptableObjectLoadOnStartupDataFromJson, INeedButton
     {
         [System.Serializable]
         internal struct AmmoInstanceData
@@ -25,12 +26,35 @@ namespace ShipGame.ScriptObj
         internal struct Ammo
         {
             [SerializeField] private string name;
-
-            // Prefab List that contains variants of a specific ammo type
+            
+            // Index of the upgrade level required to unlock this ammo model
+            [SerializeField] private int _upgradeIndexToUnlock;
+            public int unlockIndex => _upgradeIndexToUnlock;
+            // Prefab List that contains variants of a specific ammo model
             public PrefabDataList prefabVariantList;
         }
         
-        [SerializeField] [ReadOnly] private int currentUpgradeIndex;
+        [SerializeField] private UpgradeData shopHandler;
+        
+        private void HandleUpgradeEvent(int newIndex) => upgradeIndex = newIndex;
+        
+        private void OnEnable()
+        {
+            if (shopHandler != null)
+            {
+                shopHandler.UpgradeEvent += HandleUpgradeEvent;
+            }
+        }
+        
+        private void OnDisable()
+        {
+            if (shopHandler != null)
+            {
+                shopHandler.UpgradeEvent -= HandleUpgradeEvent;
+            }
+        }
+        
+        [SerializeField, ReadOnly] private int currentUpgradeIndex;
         public int upgradeIndex
         {
             get => currentUpgradeIndex;
@@ -43,6 +67,25 @@ namespace ShipGame.ScriptObj
 #endif
                     return;
                 }
+                var performUnlockCheck = value > 0 && value < _ammoInstanceData.Length;
+                if (performUnlockCheck && _ammoData is { Length: > 0 } )
+                {
+                    if (selectionIndex+1 < _ammoData.Length && value == _ammoData[selectionIndex+1].unlockIndex)
+                    {
+#if UNITY_EDITOR
+                        if (_allowDebug) Debug.Log($"Selection Index increasing from {selectionIndex} to {selectionIndex+1} because upgrade index is {value}", this);
+#endif
+                        selectionIndex++;
+                    }
+
+                    if (selectionIndex > 0 && value < _ammoData[selectionIndex].unlockIndex)
+                    {
+#if UNITY_EDITOR
+                        if (_allowDebug) Debug.Log($"Selection Index decreasing from {selectionIndex} to {selectionIndex-1} because upgrade index is {value}", this);
+#endif
+                        selectionIndex--;
+                    }
+                }
                 
                 // Index clamped between 0 and the length of the ammo array
                 currentUpgradeIndex = Mathf.Clamp(value, 0, _ammoInstanceData.Length - 1);
@@ -54,7 +97,7 @@ namespace ShipGame.ScriptObj
         public float respawnRate => _ammoInstanceData[upgradeIndex].respawnRate;
         
         
-        [SerializeField] [ReadOnly] private int currentAmmoIndex;
+        [SerializeField, ReadOnly] private int currentAmmoIndex;
         public int selectionIndex
         {
             get => currentAmmoIndex;
@@ -113,6 +156,19 @@ namespace ShipGame.ScriptObj
                                         $"Current Ammo Respawn Rate: {respawnRate}\n" +
                                        $"----------------------", this);
 #endif
+        }
+        
+        public System.Collections.Generic.List<(System.Action, string)> GetButtonActions()
+        {
+            return new System.Collections.Generic.List<(System.Action, string)>
+            {
+#if UNITY_EDITOR
+                (() => upgradeIndex++, "Increase Upgrade Index"),
+                (() => upgradeIndex--, "Decrease Upgrade Level"),
+                (() => selectionIndex++, "Increase Selection Index"),
+                (() => selectionIndex--, "Decrease Selection Level"),
+#endif
+            };
         }
     }
 }
