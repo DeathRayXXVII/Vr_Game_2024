@@ -29,6 +29,8 @@ namespace Achievements
             if (GetCurrentPanel().childCount < achManager.achDisplayNum)
             {
                 spawned.transform.SetParent(GetCurrentPanel(), false);
+                spawned.gameObject.SetActive(true);
+                Debug.Log($"Spawned at {GetCurrentPanel().transform}");
                 spawned.StartTimer();
             }
             else
@@ -40,6 +42,7 @@ namespace Achievements
     
         public void CheckBacklog()
         {
+            Debug.Log("Checking backlog");
             if (backlog.Count > 0)
             {
                 Debug.Log($"Backlog achievement");

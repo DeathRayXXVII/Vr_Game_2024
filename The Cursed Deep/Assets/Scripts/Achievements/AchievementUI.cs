@@ -79,6 +79,7 @@ namespace Achievements
       
         public void StartTimer()
         {
+            Debug.Log("Starting timer");
             StartCoroutine(Wait());
         }
         
@@ -86,6 +87,7 @@ namespace Achievements
         {
             yield return new WaitForSeconds(AchievementManager.Instance.displayTime);
             GetComponent<Animator>().SetTrigger("ScaleDown");
+            Debug.Log("scaling down");
             yield return new WaitForSeconds(0.1f);
             achDisplay.CheckBacklog();
         }

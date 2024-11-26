@@ -112,14 +112,15 @@ namespace Achievements
         
         private void UpdateProgress(int id)
         {
-            float progress = 0;
+            //float progress = 0;
             if (id < 0 || id >= achievementData.achievements.Count)
             {
                 Debug.LogWarning($"Achievement with index {id} out of range, cannot update progress");
                 return;
             }
-            progress++;
+            //progress++;
             var achievement = achievementData.achievements[id] as ProgressiveAchievement;
+            if (achievement != null) achievement.progress++;
             if (achievementData.achievements[id].isProgression)
             {
                 if (achievement != null && achievement.progress >= achievementData.achievements[id].goal)
@@ -128,7 +129,7 @@ namespace Achievements
                 }
                 else
                 {
-                    if (achievement != null) achievement.progress = progress;
+                    //if (achievement != null) achievement.progress = progress;
                     DisplayUnlock(id);
                     //SaveAchievements();
                 }
@@ -193,10 +194,11 @@ namespace Achievements
                     int steps = (int)achievementData.achievements[id].goal / (int)achievementData.achievements[id].notify;
                     Debug.Log($"Steps: {steps}, Progress: {achievement.progress}, Notify: {achievementData.achievements[id].notify}");
                     Debug.Log("3");
+                    Debug.Log($"Checking if {achievement.progress} <= {achievementData.achievements[id].notify * steps}");
                     for (int i = steps; i < achievement.progressUpdate; i++)
                     {
                         Debug.Log($"Loop i: {i}, Progress: {achievement.progress}, Notify * i: {achievementData.achievements[id].notify * i}");
-                        if (achievement.progress >= achievementData.achievements[id].notify * i)
+                        if (achievement.progress <= achievementData.achievements[id].notify * i)
                         {
                             Debug.Log("5");
                             // play sound right here
@@ -269,8 +271,7 @@ namespace Achievements
 
     public enum DisplayLocation
     {
-        TopLeft,
-        TopRight,
+        Top,
         BottomLeft,
         BottomRight
     }
