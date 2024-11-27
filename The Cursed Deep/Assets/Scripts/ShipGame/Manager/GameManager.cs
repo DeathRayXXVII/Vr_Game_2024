@@ -56,7 +56,6 @@ namespace ShipGame.Manager
         {
             onStart.Invoke();
             StartCoroutine(LateInit());
-            onInitializeLevel.Invoke();
             StartCoroutine(InitializeLevelCoroutine());
         }
 
@@ -70,6 +69,8 @@ namespace ShipGame.Manager
 
         private IEnumerator InitializeLevelCoroutine()
         {
+            onInitializeLevel.Invoke();
+            yield return null;
             coreData.Setup();
             
             // Force the ship to initialize first before the cannon and ammo
@@ -78,6 +79,7 @@ namespace ShipGame.Manager
             // Asynchronously Initialize the cannon and ammo only after the ship is done
             StartCoroutine(InitializeCannon());
             StartCoroutine(InitializeAmmo());
+            yield return _wffu;
 
             onLevelInitialized.Invoke();
             

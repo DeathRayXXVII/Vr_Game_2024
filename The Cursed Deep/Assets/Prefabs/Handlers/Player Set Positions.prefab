@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transformTrackerSO: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa, type: 2}
-  singleTrackOnStart: 0
+  singleTrackOnStart: 1
   continuousTrackOnStart: 0
 --- !u!1 &5255971587113564957
 GameObject:
@@ -91,8 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa, type: 2}
-  singleTrackOnStart: 0
+  transformTrackerSO: {fileID: 11400000, guid: 9f8159c2862cb79489b83674269bfdc3, type: 2}
+  singleTrackOnStart: 1
   continuousTrackOnStart: 0
 --- !u!1 &5401764798188287479
 GameObject:
@@ -138,8 +138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformTrackerSO: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa, type: 2}
-  singleTrackOnStart: 0
+  transformTrackerSO: {fileID: 11400000, guid: 862962df87ac5014f8e45cbbec908090, type: 2}
+  singleTrackOnStart: 1
   continuousTrackOnStart: 0
 --- !u!1 &9220039508402914475
 GameObject:
@@ -150,7 +150,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5374744354777638735}
-  - component: {fileID: 5663542307654176192}
   m_Layer: 0
   m_Name: Player Set Positions
   m_TagString: Untagged
@@ -176,67 +175,3 @@ Transform:
   - {fileID: 7529716432286330854}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5663542307654176192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9220039508402914475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 412663a223fb28c448ef681a3a5c5bf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameActions:
-  - actionObj: {fileID: 11400000, guid: ba59ea91fa0decf4e98ad914c2bbb046, type: 2}
-    onRaiseEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7318557795535440095}
-          m_TargetAssemblyTypeName: TransformTracker, Assembly-CSharp
-          m_MethodName: TrackCurrentTransform
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa,
-              type: 2}
-            m_ObjectArgumentAssemblyTypeName: TransformData, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - actionObj: {fileID: 11400000, guid: 026f553ce937ecd4c881ee26eeb50a72, type: 2}
-    onRaiseEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3608156006908490755}
-          m_TargetAssemblyTypeName: TransformTracker, Assembly-CSharp
-          m_MethodName: TrackCurrentTransform
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa,
-              type: 2}
-            m_ObjectArgumentAssemblyTypeName: TransformData, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - actionObj: {fileID: 11400000, guid: 21048bc4168d3bc44a525f3d76e59046, type: 2}
-    onRaiseEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5012169793633332126}
-          m_TargetAssemblyTypeName: TransformTracker, Assembly-CSharp
-          m_MethodName: TrackCurrentTransform
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa,
-              type: 2}
-            m_ObjectArgumentAssemblyTypeName: TransformData, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2

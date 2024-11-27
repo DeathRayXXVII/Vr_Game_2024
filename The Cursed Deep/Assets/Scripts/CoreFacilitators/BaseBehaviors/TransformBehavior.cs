@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class TransformBehavior : MonoBehaviour
 {
+    [SerializeField] private bool _setTransformOnAwake;
+    
     private Vector3 _startTransformPosition;
     private Quaternion _startTransformRotation;
     
     private void Awake()
     {
-        _startTransformPosition = transform.position;
-        _startTransformRotation = transform.rotation;
+        if (_setTransformOnAwake) SetStartTransform(transform);
     }
     
     public void SetToTransform(Transform newTransform)
@@ -23,10 +24,17 @@ public class TransformBehavior : MonoBehaviour
         transform.rotation = newTransform.rotation;
     }
 
+    public void SetStartTransform(Transform newPosition)
+    {
+        _startTransformPosition = newPosition.position;
+        _startTransformRotation = newPosition.rotation;
+    }
+
     public void SetStartTransform(TransformData newPosition)
     {
         _startTransformPosition = newPosition.position;
         _startTransformRotation = newPosition.rotation;
+        Debug.Log($"Setting start transform to {_startTransformPosition} and {_startTransformRotation}", this);
     }
     public void SetToStartPosition() { transform.position = _startTransformPosition; }
     
@@ -39,10 +47,17 @@ public class TransformBehavior : MonoBehaviour
     public void SetRotation(Vector3 newRotation) { transform.position = newRotation; }
     public void SetRotation(Vector3Data newRotation) => SetRotation(newRotation.value);
     public void SetRotation(Transform newRotation) { transform.rotation = newRotation.rotation; }
-    
-    
+
+
+    public void ResetToStartTransform(TransformData newPosition)
+    {
+        SetStartTransform(newPosition);
+        ResetToStartTransform();
+    }
+
     public void ResetToStartTransform()
     {
+        Debug.Log($"Resetting to start transform, {_startTransformPosition} and {_startTransformRotation}");
         SetToStartPosition();
         SetToStartRotation();
     }

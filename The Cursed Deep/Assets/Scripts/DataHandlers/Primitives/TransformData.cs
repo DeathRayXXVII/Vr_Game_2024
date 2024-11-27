@@ -56,6 +56,8 @@ public class TransformData : ScriptableObject
         rotation = data.rotation;
         scale = data.scale;
     }
+    
+    public override string ToString() => $"{name}:\nPosition: {position}, Rotation: {rotation}, Scale: {scale}";
 
     public static implicit operator QuaternionData(TransformData data)
     {

@@ -266,26 +266,21 @@ namespace ShipGame.ScriptObj
             {
                 Debug.Log(
                     "-----Game Variables-----\n" +
-                    $"{(header == "" ? "" : "      -" + header + "-\n\n")}" +
-                    $"      -Level Index: {currentLevel}-\n" +
-                    "\n" +
-                    $"Player Speed:\n    {gameGlobals.playerSpeed}\n" +
-                    $"Player Score:\n    {gameGlobals.playerScore}\n" +
-                    "\n" +
-                    $"      -Ship Index: {shipIndex}-\n" +
-                    $"Ship Health:\n    {gameGlobals.shipHealth}\n" +
-                    "\n" +
-                    $"      -Ammo Index: {ammoIndex}-\n" +
+                    $"{(header == "" ? "" : $" ---{header}--- \n")}" +
+                    $"\n___ Level Index [{currentLevel}] ___\n" +
+                    $"Player Speed: {gameGlobals.playerSpeed}\n" +
+                    $"Player Score: {gameGlobals.playerScore}\n" +
+                    $"\n___ Ship Index [{shipIndex}] ___\n" +
+                    $"Ship Health: {gameGlobals.shipHealth}\n" +
+                    $"\n___ Ammo Index: [{ammoIndex}] ___\n" +
                     $"Ammo Damage: {gameGlobals.playerDamage}\n" +
-                    $"Ammo Respawn Time:\n    {gameGlobals.ammoRespawnRate}\n" +
-                    "\n" +
-                    $"      -Cannon Index: {cannonIndex}-\n" +
-                    "\n" +
-                    $"      -Enemy Index: {enemyIndex}-\n" +
-                    $"Lane Active Limit:\n    {gameGlobals.enemyLaneActiveLimit}\n" +
-                    $"Spawn Rate MIN:\n    {gameGlobals.spawnRateMin}\n" +
-                    $"Spawn Rate MAX:\n    {gameGlobals.spawnRateMax}\n" +
-                    $"Enemy Spawn Count:\n    {gameGlobals.enemySpawnCount}\n" +
+                    $"Ammo Respawn Time: {gameGlobals.ammoRespawnRate}\n" +
+                    $"\n___ Cannon Index: [{cannonIndex}] ___\n" +
+                    $"\n___ Enemy Index: [{enemyIndex}] ___\n" +
+                    $"Lane Active Limit: {gameGlobals.enemyLaneActiveLimit}\n" +
+                    $"Spawn Rate MIN: {gameGlobals.spawnRateMin}\n" +
+                    $"Spawn Rate MAX: {gameGlobals.spawnRateMax}\n" +
+                    $"Enemy Spawn Count: {gameGlobals.enemySpawnCount}\n" +
                     $"Enemy Health: {enemy.health}\n" +
                     $"Enemy Damage: {enemy.damage}\n" +
                     $"Enemy Speed: {enemy.speed}\n" +

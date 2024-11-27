@@ -14,7 +14,7 @@ namespace ZPTools
             Z = 4
         }
 
-        [SerializeField] protected bool _performOnStart;
+        [SerializeField] protected bool _performOnEnable = true;
         [SerializeField] protected GameObject targetObject;
         [SerializeField, BitMask] private FreezeAxis _freezeAxes = FreezeAxis.None;
         [SerializeField] protected Quaternion _offsetRotation = Quaternion.identity;
@@ -32,7 +32,7 @@ namespace ZPTools
         {
             _waitSeconds = new WaitForSeconds(_updateInterval);
 
-            if (_performOnStart && GetTargetTransform() != null)
+            if (_performOnEnable && GetTargetTransform() != null)
             {
                 StartLookAtObject();
             }

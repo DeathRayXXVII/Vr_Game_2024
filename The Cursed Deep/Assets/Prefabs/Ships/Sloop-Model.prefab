@@ -8794,19 +8794,18 @@ PrefabInstance:
     - target: {fileID: 8040210356163404297, guid: a2845d6dddfb830419db521d67ecac03,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8040210356163404297, guid: a2845d6dddfb830419db521d67ecac03,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8040210356163404297, guid: a2845d6dddfb830419db521d67ecac03,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: 266a155e1b09fe94b97358a916056cdc,
-        type: 2}
+      objectReference: {fileID: 4476202993840379714}
     - target: {fileID: 8040210356163404297, guid: a2845d6dddfb830419db521d67ecac03,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
@@ -8815,12 +8814,17 @@ PrefabInstance:
     - target: {fileID: 8040210356163404297, guid: a2845d6dddfb830419db521d67ecac03,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: RaiseAction
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 8040210356163404297, guid: a2845d6dddfb830419db521d67ecac03,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: GameAction, Assembly-CSharp
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8040210356163404297, guid: a2845d6dddfb830419db521d67ecac03,
+        type: 3}
+      propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Open
       objectReference: {fileID: 0}
     - target: {fileID: 8040210356163404297, guid: a2845d6dddfb830419db521d67ecac03,
         type: 3}
@@ -8861,12 +8865,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameActions:
-  - actionObj: {fileID: 11400000, guid: 7a09a20d6bfc3bb4cb416333ced333c3, type: 2}
+  - actionObj: {fileID: 11400000, guid: e16b327f2aca49c43832c2e06c706eaf, type: 2}
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 2577702142916994031}
-          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        - m_Target: {fileID: 6263086685696314497}
+          m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4476202993840379714}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Close
+            m_BoolArgument: 0
+          m_CallState: 2
+  - actionObj: {fileID: 11400000, guid: d9ca1a83cf5dad94087032fbec6bd763, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6263086685696314497}
+          m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
           m_MethodName: set_enabled
           m_Mode: 6
           m_Arguments:
@@ -8877,15 +8909,27 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
---- !u!114 &2577702142916994031 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8040210356163404297, guid: a2845d6dddfb830419db521d67ecac03,
+        - m_Target: {fileID: 4476202993840379714}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Open
+            m_BoolArgument: 1
+          m_CallState: 2
+--- !u!1 &4476202993840379714 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8237061871802816164, guid: a2845d6dddfb830419db521d67ecac03,
     type: 3}
   m_PrefabInstance: {fileID: 5499254450237063654}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2319626118219530652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f64b8b0ac26e084e958be7c6dacf32b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+--- !u!135 &6263086685696314497 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 1926329945231297895, guid: a2845d6dddfb830419db521d67ecac03,
+    type: 3}
+  m_PrefabInstance: {fileID: 5499254450237063654}
+  m_PrefabAsset: {fileID: 0}

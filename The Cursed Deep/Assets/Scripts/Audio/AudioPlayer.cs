@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 
 public class AudioPlayer : MonoBehaviour
 {
@@ -11,10 +12,9 @@ public class AudioPlayer : MonoBehaviour
     
     private AudioSource _audioSource;
     private AudioShotData.AudioShot _currentAudioShot;
+    private UnityEvent _onCompleteEvent;
     private Coroutine _waitForEndCoroutine, _waitForStartCoroutine;
     private WaitForFixedUpdate _waitFixedUpdate;
-    private WaitForSeconds _waitClipLength;
-    private WaitForSeconds _waitForDelay;
 
     private void Awake() 
     {
@@ -29,6 +29,9 @@ public class AudioPlayer : MonoBehaviour
     private void ConfigureAudioSource(AudioShotData.AudioShot audioShot)
     {
         StopAudio();
+        
+        _currentAudioShot = audioShot;
+        _onCompleteEvent = audioShot.onComplete;
         
         _audioSource.priority = audioShot.priority;
         _audioSource.volume = audioShot.volume;
@@ -68,24 +71,16 @@ public class AudioPlayer : MonoBehaviour
         
         ConfigureAudioSource(audioShot);
         
-        _currentAudioShot = audioShot;
-        
-        var startDelay = _currentAudioShot.delay;
-        if (startDelay > 0)
+        if (_currentAudioShot.delay > 0)
         {
-            _waitForDelay = new WaitForSeconds(startDelay);
-            _waitForStartCoroutine ??= StartCoroutine(WaitForStartDelay(_waitForDelay, index));
+            _waitForStartCoroutine ??= StartCoroutine(WaitForStartDelay(new WaitForSeconds(_currentAudioShot.delay), index));
         }
         else
         {
             audioShotData.PlayAudio(_audioSource, index);
         }
         
-        if (_currentAudioShot.onComplete != null)
-        {
-            _waitClipLength = new WaitForSeconds(audioClip.length + startDelay);
-            _waitForEndCoroutine ??= StartCoroutine(WaitForClipEnd(_waitClipLength));
-        }
+        _waitForEndCoroutine ??= StartCoroutine(WaitForClipEnd(new WaitForSeconds(audioClip.length + _currentAudioShot.delay)));
     }
 
     private IEnumerator WaitForStartDelay(WaitForSeconds delay, int index)
@@ -118,7 +113,7 @@ public class AudioPlayer : MonoBehaviour
         _isProcessingClipEnd = true;
         
         _waitForEndCoroutine = null;
-        _currentAudioShot?.onComplete?.Invoke();
+        _onCompleteEvent?.Invoke();
         
         _isProcessingClipEnd = false;
     }

@@ -1,9 +1,10 @@
 using UnityEngine;
+using ZPTools.Interface;
 
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu(fileName = "ShipData", menuName = "Data/ShipGame/ShipData", order = 0)]
-    public class ShipData : ScriptableObjectLoadOnStartupDataFromJson
+    public class ShipData : ScriptableObjectLoadOnStartupDataFromJson, INeedButton
     {
         [System.Serializable]
         internal struct ShipInstanceData
@@ -42,10 +43,10 @@ namespace ShipGame.ScriptObj
             public SpawnerData enemySpawnerData;
         }
         
-        [SerializeField] [ReadOnly] private int currentIndex;
+        [SerializeField, ReadOnly] private int _currentIndex;
         public int selectionIndex
         {
-            get => currentIndex;
+            get => _currentIndex;
             set
             {
                 if (_shipInstanceData == null || _shipInstanceData.Length == 0)
@@ -61,7 +62,7 @@ namespace ShipGame.ScriptObj
                 }
                 
                 // Index clamped between 0 and the length of the ship array
-                currentIndex = Mathf.Clamp(value, 0, _shipInstanceData.Length - 1);
+                _currentIndex = Mathf.Clamp(value, 0, _shipInstanceData.Length - 1);
                 
                 // Pass the prefab to the ship's instancer
                 shipInstancerData.SetPrefabData(ship.prefab);
@@ -119,6 +120,17 @@ namespace ShipGame.ScriptObj
                                        $"Current Ship Lane Count: {numberOfLanes}\n" +
                                        $"----------------------", this);
 #endif
+        }
+        
+        public System.Collections.Generic.List<(System.Action, string)> GetButtonActions()
+        {
+            return new System.Collections.Generic.List<(System.Action, string)>
+            {
+#if UNITY_EDITOR
+                (() => selectionIndex++, "Increase Ship Selection Index"),
+                (() => selectionIndex--, "Decrease Ship Selection Index"),
+#endif
+            };
         }
     }
 }
