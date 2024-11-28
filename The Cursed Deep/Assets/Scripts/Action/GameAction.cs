@@ -5,10 +5,7 @@ public class GameAction : ScriptableObject
 {
     public delegate void GameActionEvent(GameAction action);
     
-    public event GameActionEvent Raise;
+    public event GameActionEvent RaiseEvent;
 
-    public void RaiseAction()
-    {
-        Raise?.Invoke(this);
-    }
+    public void RaiseAction() => RaiseEvent?.Invoke(this);
 }

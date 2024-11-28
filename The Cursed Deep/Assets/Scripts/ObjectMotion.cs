@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ObjectMotion : MonoBehaviour
 {
-    
     public enum WaveType { Sine, Cosine }
     [System.Flags] public enum MotionType {
         None = 0, // 0b0000, decimal 0: Default value
@@ -57,13 +56,18 @@ public class ObjectMotion : MonoBehaviour
     private Vector3 _startPosition, _startScale;
     private Coroutine _motionRoutine, _rotationRoutine, _scalingRoutine;
     
-    void Start()
+    void Awake()
     {
         _startPosition = transform.position;
         _startScale = transform.localScale;
-    
+    }
+
+    private void OnEnable()
+    {
         if (startOnLoad) StartAllMotion();
     }
+    private void OnDisable() => StopAllMotion();
+    private void OnDestroy() => StopAllMotion();
 
     public void StartMotion() { _motionRoutine ??= StartCoroutine(PositionMotion()); }
     public void StopMotion() { if (_motionRoutine != null) StopCoroutine(_motionRoutine); }
@@ -85,9 +89,6 @@ public class ObjectMotion : MonoBehaviour
         StopRotation();
         StopScaling();
     }
-    
-    private void OnDisable() { StopAllMotion(); }
-    private void OnDestroy() { StopAllMotion(); }
     
     private IEnumerator PositionMotion()
     {

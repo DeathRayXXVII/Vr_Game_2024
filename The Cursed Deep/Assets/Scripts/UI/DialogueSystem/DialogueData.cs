@@ -60,22 +60,21 @@ namespace UI.DialogueSystem
         public bool hasResponses => responses is { Length: > 0 };
         public Response[] Responses => responses;
 
-        private void OnEnable()
-        {
-            if (firstAction == null) return;
-            firstAction.Raise += FirstDialogueEvent;
-            
-            if (lastAction == null) return;
-            lastAction.Raise += LastDialogueEvent;
-        }
-        public void FirstDialogueEvent(GameAction _)
-        {
-            firstTrigger.Invoke();
-        }
-        public void LastDialogueEvent(GameAction _)
-        {
-            lastTrigger.Invoke();
-        }
+        // private void OnEnable()
+        // {
+        //     if (firstAction != null) firstAction.RaiseEvent += FirstDialogueEvent;
+        //     if (lastAction != null) lastAction.RaiseEvent += LastDialogueEvent;
+        // }
+        //
+        // private void OnDisable()
+        // {
+        //     if (firstAction != null) firstAction.RaiseEvent -= FirstDialogueEvent;
+        //     if (lastAction != null) lastAction.RaiseEvent -= LastDialogueEvent;
+        // }
+        
+        public void FirstDialogueEvent(GameAction _) => firstTrigger?.Invoke();
+        public void LastDialogueEvent() => LastDialogueEvent(null);
+        public void LastDialogueEvent(GameAction _) => lastTrigger?.Invoke();
         
         public List<(System.Action, string)> GetButtonActions()
         {

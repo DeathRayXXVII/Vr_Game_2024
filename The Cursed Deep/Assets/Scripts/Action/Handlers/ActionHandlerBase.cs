@@ -8,12 +8,12 @@ public class ActionHandlerBase : MonoBehaviour
 
     private void OnEnable()
     {
-        action.Raise += OnEventRaised;
+        action.RaiseEvent += OnEventRaised;
     }
 
     private void OnDisable()
     {
-        action.Raise -= OnEventRaised;
+        action.RaiseEvent -= OnEventRaised;
     }
 
     private void OnEventRaised(GameAction passedAction)

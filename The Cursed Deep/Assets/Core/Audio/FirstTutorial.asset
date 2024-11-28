@@ -28,9 +28,9 @@ MonoBehaviour:
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 2860f03c41c8a9340962fe60138931df, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: 9a113fff2081d0944ad143ab24533d1b, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -40,22 +40,10 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 64d2a065675ec06459afe88e7946aa47, type: 2}
-          m_TargetAssemblyTypeName: Debugger, Assembly-CSharp
-          m_MethodName: OnDebug
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
   - id: Tutorial2-ImMoby
     clip: {fileID: 8300000, guid: 77518f57e2575454e98ec2b40d756185, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 0
+    _locked: 1
     playOnAwake: 0
     priority: 128
     volume: 1
@@ -67,9 +55,9 @@ MonoBehaviour:
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 5c63d9d497fe358469ab9dc293978f1b, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: 6729d4df3cb6a674884ddbdb383f4c9c, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -94,9 +82,9 @@ MonoBehaviour:
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: b6ad1b2bac4676c4a94b9ae0a1947953, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: 8f2da4ef5281bb847af72846fe2e5685, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -121,9 +109,9 @@ MonoBehaviour:
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 43abd3210d0025f4ead9097ba4893d89, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: 6752459f4b1ac804898fa1d0eeb0f4ae, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -148,9 +136,9 @@ MonoBehaviour:
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 1b90d26a5440aaa41af97b9a0e013ea2, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: 8fdabb1df4a68b84799e4dd89d14229c, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -163,21 +151,21 @@ MonoBehaviour:
   - id: Tutorial6-LoadCannon
     clip: {fileID: 8300000, guid: 43f59bdf0d29d1348bb51b2ed859e7cc, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 1
+    _locked: 0
     playOnAwake: 0
-    priority: 0
-    volume: 0
-    pitch: 0
+    priority: 128
+    volume: 1
+    pitch: 1
     spatialBlend: 0
-    minDistance: 0
-    maxDistance: 0
+    minDistance: 1
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 3f74daa932ee68041af9e6a560834924, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: 3a9d69f8fd8d5fc4dad802f3382af1fe, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -192,19 +180,19 @@ MonoBehaviour:
     playOnlyOncePerGame: 1
     _locked: 1
     playOnAwake: 0
-    priority: 0
-    volume: 0
-    pitch: 0
+    priority: 128
+    volume: 1
+    pitch: 1
     spatialBlend: 0
-    minDistance: 0
-    maxDistance: 0
+    minDistance: 1
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 34bae731c3eb40f4ca3699d50ef19325, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: 552f5c0e56d6fb44aa088863e08cb9a5, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -219,19 +207,19 @@ MonoBehaviour:
     playOnlyOncePerGame: 1
     _locked: 1
     playOnAwake: 0
-    priority: 0
-    volume: 0
-    pitch: 0
+    priority: 128
+    volume: 1
+    pitch: 1
     spatialBlend: 0
-    minDistance: 0
-    maxDistance: 0
+    minDistance: 1
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: b251928022ea0ea42be99a5c94cbfc09, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: f1347785a48949140ac52f2de33a90aa, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -256,9 +244,9 @@ MonoBehaviour:
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: f54a0027f4797f945ab8fd6372e4b70e, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: 105668fd92c4c3f4ba4277014b2b6376, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
