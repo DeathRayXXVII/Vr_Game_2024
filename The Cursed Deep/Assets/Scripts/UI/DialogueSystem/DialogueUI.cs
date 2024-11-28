@@ -12,13 +12,15 @@ public class DialogueUI : MonoBehaviour
     public TMP_Text textLabel;
     [SerializeField] private InputActionReference inputAction;
     [SerializeField, SteppedRange(0, 25, 0.1f)] private float autoCloseDelay = 5f;
-    private const float elementDelay = 1f;
-    private WaitForSeconds waitElementAdvance;
+    private const float elementDelay = 3f;
     [SerializeField] private bool autoClose;
-    [SerializeField] private UnityEvent OnOpenDialogue, OnTypingFinish, OnCloseDialogue;
+    [SerializeField] private UnityEvent OnOpenDialogue;
+    [SerializeField] private UnityEvent OnTypingFinish;
+    [SerializeField] private UnityEvent OnCloseDialogue;
     public DialogueData dialogueData;
     
     private Coroutine _dialogueCoroutine;
+    private WaitForFixedUpdate _waitFixedUpdate = new();
     
     public bool IsOpen { get; private set;}
     
@@ -27,7 +29,6 @@ public class DialogueUI : MonoBehaviour
     
     private void Start()
     {
-        waitElementAdvance = new WaitForSeconds(elementDelay);
         typewriterEffect ??= GetComponent<TypewriterEffect>();
         responseHandler ??= GetComponent<ResponseHandler>();
         CloseDialogueBox();
@@ -58,24 +59,23 @@ public class DialogueUI : MonoBehaviour
         dialogueData = dialogueObj;
         
         var formattedDialogueArray = dialogueObj.Dialogue;
-        var lastDialogue = dialogueObj.lastDialogueIndex;
+        var lastDialogueIndex = dialogueObj.lastDialogueIndex;
+        string dialogue;
         
         OnOpenDialogue.Invoke();
         for (int i = 0; i < dialogueObj.length; i++)
         {
-            string dialogue = formattedDialogueArray[i];
+            dialogue = formattedDialogueArray[i];
             yield return RunTypingEffect(dialogue);
-            
-            if (typewriterEffect != null  && !typewriterEffect.IsRunning) OnTypingFinish.Invoke();
             textLabel.text = dialogue;
-            if (i == lastDialogue && dialogueObj.hasResponses) break;
             
+            if (i == lastDialogueIndex) break;
             yield return null;
-            if (i != lastDialogue)
-            {
-                yield return waitElementAdvance;
-            }
+            
+            yield return WaitForDelay(elementDelay);
         }
+        yield return _waitFixedUpdate;
+        
         if (dialogueObj.hasResponses && dialogueObj.Responses.Length > 0)
         {
             responseHandler.ShowResponses(dialogueObj.Responses);
@@ -84,21 +84,11 @@ public class DialogueUI : MonoBehaviour
 
         if (autoClose)
         {
-            var time = Time.time;
-
-            while (Time.time - time < autoCloseDelay)
-            {
-                if (inputAction.action.triggered)
-                {
-                    CloseDialogueBox(dialogueObj);
-                    yield break;
-                }
-                yield return null;
-            }
+            yield return WaitForDelay(autoCloseDelay);
         }
         else
         {
-            yield return new WaitUntil(() => inputAction.action.triggered);
+            yield return WaitForInput();
         }
         
         CloseDialogueBox(dialogueObj);
@@ -107,26 +97,60 @@ public class DialogueUI : MonoBehaviour
     private IEnumerator RunTypingEffect(string dialogue)
     {
         typewriterEffect.Run(dialogue, textLabel);
-        while (typewriterEffect.IsRunning)
+        yield return WaitLoop(() => typewriterEffect.IsRunning, () => typewriterEffect.Stop());
+        
+        OnTypingFinish.Invoke();
+    }
+    
+    private IEnumerator WaitForDelay(float delay)
+    {
+        float time = Time.time;
+        
+        yield return WaitLoop(() => Time.time - time < delay, () => { });
+    }
+    
+    private IEnumerator WaitLoop(System.Func<bool> condition, System.Action actionOnInput, bool breakOnInput = true)
+    {
+        while (condition())
         {
             yield return null;
-            if (inputAction.action.triggered)
-            {
-                typewriterEffect.Stop();
-            }
+            if (!inputAction.action.triggered) continue;
+            actionOnInput?.Invoke();
+            if (breakOnInput) break;
         }
+        yield return _waitFixedUpdate;
     }
-
-    private void CloseDialogueBox()
+    
+    private IEnumerator WaitForInput()
     {
+        yield return new WaitUntil(() => inputAction.action.triggered);
+    }
+    
+    private bool _closing, _closingBypass;
+
+    public void CloseDialogueBox()
+    {
+        if (_closing && !_closingBypass) return;
+        _closingBypass = false;
+        _closing = true;
+        if (dialogueBox == null || !dialogueBox.activeSelf)
+        {
+            _closing = false;
+            return;
+        }
+
         IsOpen = false;
         dialogueBox?.SetActive(false);
         textLabel.text = string.Empty;
         _dialogueCoroutine = null;
+        _closing = false;
     }
-    
+
     public void CloseDialogueBox(DialogueData dialogueObj)
     {
+        if (_closing) return;
+        _closing = true;
+        _closingBypass = true;
         CloseDialogueBox();
         dialogueObj?.LastDialogueEvent(action);
     }
