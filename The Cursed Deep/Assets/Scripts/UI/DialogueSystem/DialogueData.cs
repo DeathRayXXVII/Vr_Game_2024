@@ -21,13 +21,17 @@ namespace UI.DialogueSystem
         public bool locked
         {
             get => playOnlyOncePerGame && _locked;
-            set => _locked = playOnlyOncePerGame && value;
+            set
+            {
+                if (!value) _lastDialogueEventTriggered = false;
+                _locked = playOnlyOncePerGame && value;
+            }
         }
         
         public void SetLocked(bool lockState)
         {
             if (lockState) playOnlyOncePerGame = true;
-            _locked = lockState;
+            locked = lockState;
         }
         
         // Will only be true if playOnlyOncePerGame is true
@@ -73,8 +77,15 @@ namespace UI.DialogueSystem
         // }
         
         public void FirstDialogueEvent(GameAction _) => firstTrigger?.Invoke();
+        
+        private bool _lastDialogueEventTriggered;
         public void LastDialogueEvent() => LastDialogueEvent(null);
-        public void LastDialogueEvent(GameAction _) => lastTrigger?.Invoke();
+        public void LastDialogueEvent(GameAction _)
+        {
+            if (_lastDialogueEventTriggered && locked) return;
+            _lastDialogueEventTriggered = true;
+            lastTrigger?.Invoke();
+        }
         
         public List<(System.Action, string)> GetButtonActions()
         {
