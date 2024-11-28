@@ -60,12 +60,12 @@ public class DialogueUI : MonoBehaviour
         
         var formattedDialogueArray = dialogueObj.Dialogue;
         var lastDialogueIndex = dialogueObj.lastDialogueIndex;
-        string dialogue;
-        
+
         OnOpenDialogue.Invoke();
         for (int i = 0; i < dialogueObj.length; i++)
         {
-            dialogue = formattedDialogueArray[i];
+            OnOpenDialogue?.Invoke();
+            var dialogue = formattedDialogueArray[i];
             yield return RunTypingEffect(dialogue);
             textLabel.text = dialogue;
             

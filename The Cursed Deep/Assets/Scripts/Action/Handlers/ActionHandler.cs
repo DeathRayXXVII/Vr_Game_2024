@@ -21,7 +21,7 @@ public class ActionHandler: MonoBehaviour
         // Subscribe to all the events in the list.
         foreach (var gameAction in gameActions.Where(gameAction => gameAction.actionObj != null))
         {
-            gameAction.actionObj.Raise += Raise;
+            gameAction.actionObj.RaiseEvent += RaiseEvent;
         }
     }
 
@@ -30,11 +30,11 @@ public class ActionHandler: MonoBehaviour
         // Unsubscribe from all the events in the list.
         foreach (var gameAction in gameActions.Where(gameAction => gameAction.actionObj != null))
         {
-            gameAction.actionObj.Raise -= Raise;
+            gameAction.actionObj.RaiseEvent -= RaiseEvent;
         }
     }
 
-    private void Raise(GameAction callingObj)
+    private void RaiseEvent(GameAction callingObj)
     {
         // Find the first matching GameAction
         var gameAction = gameActions.FirstOrDefault(action => action.actionObj == callingObj);

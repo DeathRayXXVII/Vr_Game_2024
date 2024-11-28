@@ -42,14 +42,14 @@ namespace ShipGame.Manager
         
         private void OnEnable()
         {
-            levelCompleteAction.Raise += LevelComplete;
-            levelFailedAction.Raise += LevelFailed;
+            levelCompleteAction.RaiseEvent += LevelComplete;
+            levelFailedAction.RaiseEvent += LevelFailed;
         }
         
         private void OnDisable()
         {
-            levelCompleteAction.Raise -= LevelComplete;
-            levelFailedAction.Raise -= LevelFailed;
+            levelCompleteAction.RaiseEvent -= LevelComplete;
+            levelFailedAction.RaiseEvent -= LevelFailed;
         }
 
         private void Start()

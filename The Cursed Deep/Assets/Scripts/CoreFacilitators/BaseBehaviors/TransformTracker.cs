@@ -36,10 +36,6 @@ public class TransformTracker : MonoBehaviour, INeedButton
             StartContinuousTrackRotation(transformTrackerSO);
         }
     }
-
-    private void Start()
-    {
-    }
     
     public void TrackCurrentTransform(TransformData tracker)
     {
