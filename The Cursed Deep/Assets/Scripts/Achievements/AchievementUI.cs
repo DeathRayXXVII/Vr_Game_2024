@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Reflection;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Achievements
@@ -14,6 +14,7 @@ namespace Achievements
         [SerializeField] private GameObject hiddenOverlay;
         [SerializeField] private Text hiddenName;
         [HideInInspector] public AchievementUIDisplay achDisplay;
+        [SerializeField] private UnityEvent onDisplay;
         
         private ProgressiveAchievement prog;
         private Achievement achievement;
@@ -45,7 +46,6 @@ namespace Achievements
                 {
                     float currentProgress = AchievementManager.Instance.showProgress ? progAch.progress : (progAch.progressUpdate * ach.notify);
                     float displayProgress = ach.isUnlocked ? ach.goal : currentProgress;
-                    progressBar.maxValue = ach.goal;
                     
                     if (ach.isUnlocked)
                     {
@@ -55,7 +55,7 @@ namespace Achievements
                     {
                         progress.text = displayProgress + ach.progressSuffix + " / " + ach.goal + ach.progressSuffix;
                     }
-                    progressBar.value = displayProgress;
+                    progressBar.value = displayProgress/ach.goal;
                 }
                 else
                 {
@@ -67,29 +67,18 @@ namespace Achievements
             prog = progAch;
             UpdateUI();
         }
-
-        // public void UpdateProgress(float progs)
-        // {
-        //     if (prog != null)
-        //     {
-        //         prog.progress = progs;
-        //         UpdateUI();
-        //     }
-        // }
-      
         public void StartTimer()
         {
-            Debug.Log("Starting timer");
             StartCoroutine(Wait());
         }
         
         private IEnumerator Wait()
         {
             yield return new WaitForSeconds(AchievementManager.Instance.displayTime);
-            GetComponent<Animator>().SetTrigger("ScaleDown");
-            Debug.Log("scaling down");
+            onDisplay.Invoke();
             yield return new WaitForSeconds(0.1f);
             achDisplay.CheckBacklog();
+            Destroy(gameObject);
         }
         private void UpdateUI()
         {

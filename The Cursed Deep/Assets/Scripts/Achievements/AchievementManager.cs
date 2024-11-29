@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Achievements
 {
@@ -20,6 +21,7 @@ namespace Achievements
         
         public static AchievementManager Instance;
         public AchievementUIDisplay displayUI;
+        [SerializeField] UnityEvent onDisplay;
     
         private void Awake()
         {
@@ -181,27 +183,18 @@ namespace Achievements
         {
             if (id < 0 || id >= achievementData.achievements.Count)
             {
-                Debug.LogWarning($"Achievement with index {id} out of range, cannot display");
                 return;
             }
-            Debug.Log("0");
             if (achievementData.achievements[id] is ProgressiveAchievement achievement && (achDisplay && !achievementData.achievements[id].isHidden || achievement.isUnlocked))
             {
-                Debug.Log("1");
                 if (achievementData.achievements[id].isProgression && achievement.progress < achievementData.achievements[id].goal)
                 {
-                    Debug.Log("2");
                     int steps = (int)achievementData.achievements[id].goal / (int)achievementData.achievements[id].notify;
-                    Debug.Log($"Steps: {steps}, Progress: {achievement.progress}, Notify: {achievementData.achievements[id].notify}");
-                    Debug.Log("3");
-                    Debug.Log($"Checking if {achievement.progress} <= {achievementData.achievements[id].notify * steps}");
-                    for (int i = steps; i < achievement.progressUpdate; i++)
+                    for (int i = steps; i > achievement.progressUpdate; i--)
                     {
-                        Debug.Log($"Loop i: {i}, Progress: {achievement.progress}, Notify * i: {achievementData.achievements[id].notify * i}");
-                        if (achievement.progress <= achievementData.achievements[id].notify * i)
+                        if (achievement.progress >= achievementData.achievements[id].notify * i)
                         {
-                            Debug.Log("5");
-                            // play sound right here
+                            onDisplay.Invoke();
                             achievement.progressUpdate = i;
                             displayUI.ScheduleAchievementDisplay(id);
                             return;
@@ -210,8 +203,7 @@ namespace Achievements
                 }
                 else
                 {
-                    Debug.Log("16");
-                    // play sound right here
+                    onDisplay.Invoke();
                     displayUI.ScheduleAchievementDisplay(id);
                 }
             }
