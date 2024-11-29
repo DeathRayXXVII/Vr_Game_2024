@@ -13,42 +13,42 @@ MonoBehaviour:
   m_Name: AchievementData
   m_EditorClassIdentifier: 
   achievements:
-  - rid: 8872319134103240709
-  - rid: 8872319204452990976
+  - rid: 4833295441684856832
+  - rid: 4833295441684856833
   references:
     version: 2
     RefIds:
-    - rid: 8872319134103240709
+    - rid: 4833295441684856832
       type: {class: ProgressiveAchievement, ns: Achievements, asm: Assembly-CSharp}
       data:
         id: Dice
-        name: Dice
-        description: This is a Dice
-        isUnlocked: 0
+        name: Dice Collector
+        description: Put all 5 dice in the mug
+        isUnlocked: 1
         lockedIcon: {fileID: 0}
         lockedOverlay: 0
         unlockedIcon: {fileID: 0}
         isHidden: 0
         isProgression: 1
-        goal: 3
+        goal: 5
         notify: 1
         progressSuffix: 
-        progress: 3
-        progressUpdate: 0
-    - rid: 8872319204452990976
+        progress: 5
+        progressUpdate: 4
+    - rid: 4833295441684856833
       type: {class: ProgressiveAchievement, ns: Achievements, asm: Assembly-CSharp}
       data:
-        id: Test
-        name: Sup
-        description: You suck
+        id: Knife
+        name: test
+        description: 
         isUnlocked: 0
         lockedIcon: {fileID: 0}
         lockedOverlay: 0
         unlockedIcon: {fileID: 0}
         isHidden: 0
         isProgression: 0
-        goal: 1
+        goal: 0
         notify: 0
         progressSuffix: 
-        progress: 2
+        progress: 0
         progressUpdate: 0
