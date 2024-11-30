@@ -4,21 +4,21 @@ public class TransformBehavior : MonoBehaviour
 {
     [SerializeField] private bool _setTransformOnAwake;
     
-    private Vector3 _startTransformPosition;
-    private Quaternion _startTransformRotation;
+    [SerializeField, ReadOnly] private Vector3 _startTransformPosition;
+    [SerializeField, ReadOnly] private Quaternion _startTransformRotation;
     
     private void Awake()
     {
         if (_setTransformOnAwake) SetStartTransform(transform);
     }
     
-    public void SetToTransform(Transform newTransform)
+    public void SetTransform(Transform newTransform)
     {
         transform.position = newTransform.position;
         transform.rotation = newTransform.rotation;
     }
     
-    public void SetToTransform(TransformData newTransform)
+    public void SetTransform(TransformData newTransform)
     {
         transform.position = newTransform.position;
         transform.rotation = newTransform.rotation;
@@ -34,7 +34,6 @@ public class TransformBehavior : MonoBehaviour
     {
         _startTransformPosition = newPosition.position;
         _startTransformRotation = newPosition.rotation;
-        Debug.Log($"Setting start transform to {_startTransformPosition} and {_startTransformRotation}", this);
     }
     public void SetToStartPosition() { transform.position = _startTransformPosition; }
     
@@ -57,7 +56,6 @@ public class TransformBehavior : MonoBehaviour
 
     public void ResetToStartTransform()
     {
-        Debug.Log($"Resetting to start transform, {_startTransformPosition} and {_startTransformRotation}");
         SetToStartPosition();
         SetToStartRotation();
     }

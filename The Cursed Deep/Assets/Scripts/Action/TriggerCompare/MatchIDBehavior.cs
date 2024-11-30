@@ -54,7 +54,7 @@ public class MatchIDBehavior : IDBehavior
             
             if (triggerType == TriggerType.Enter)
             {
-                if (allowDebug) Debug.Log($"Triggering Enter Event on: '{this} (ID: {id})' with '{obj.id}'", this);
+                if (allowDebug) Debug.Log($"Triggering Enter Event on: '{this} (ID: {id})' with '(ID: {obj.id}'", this);
                 obj.triggerEnterEvent.Invoke();
             }
             else if (triggerType == TriggerType.Exit)

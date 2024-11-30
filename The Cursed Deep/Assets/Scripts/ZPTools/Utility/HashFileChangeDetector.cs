@@ -85,9 +85,7 @@ namespace ZPTools.Utility
             }
             catch (IOException e)
             {
-#if UNITY_EDITOR
                 Debug.LogError($"Failed to save hash: {e.Message}");
-#endif
             }
         }
 
@@ -105,9 +103,7 @@ namespace ZPTools.Utility
                 }
                 catch (IOException e)
                 {
-#if UNITY_EDITOR
                     Debug.LogError($"Failed to load hash: {e.Message}");
-#endif
                 }
             }
             else

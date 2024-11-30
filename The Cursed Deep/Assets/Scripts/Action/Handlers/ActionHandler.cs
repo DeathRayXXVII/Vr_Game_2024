@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 using System.Linq;
 
-[System.Serializable] // This makes GameActionEvent visible in the inspector.
+[System.Serializable]
 public class GameActionEvent
 {
     public GameAction actionObj;
@@ -13,7 +13,6 @@ public class GameActionEvent
 [DisallowMultipleComponent]
 public class ActionHandler: MonoBehaviour
 {
-    // This list allows adding multiple GameActionEvent objects from the inspector.
     public List<GameActionEvent> gameActions;
 
     private void OnEnable()

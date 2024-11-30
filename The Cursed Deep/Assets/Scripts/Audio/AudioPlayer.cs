@@ -93,27 +93,33 @@ public class AudioPlayer : MonoBehaviour
     private IEnumerator WaitForClipEnd(WaitForSeconds clipLength)
     {
         yield return clipLength;
-        ProcessClipEnd();
+        ProcessClipEnd(true);
     }
     
-    public void StopAudio()
+    private void PerformStopAudio(bool processEndWithEvent)
     {
-        if (_audioSource != null) _audioSource.Stop();
+        if (_audioSource != null && _audioSource.isPlaying)
+        {
+            _audioSource?.Stop();
+        }
 
         if (_waitForEndCoroutine == null) return;
         
         StopCoroutine(_waitForEndCoroutine);
-        ProcessClipEnd();
+        ProcessClipEnd(processEndWithEvent);
     }
     
+    public void StopAudio() => PerformStopAudio(true);
+    public void StopAudioWithoutOnCompleteEvent() => PerformStopAudio(false);
+    
     private bool _isProcessingClipEnd;
-    private void ProcessClipEnd()
+    private void ProcessClipEnd(bool withEvent)
     {
         if (_isProcessingClipEnd) return;
         _isProcessingClipEnd = true;
         
         _waitForEndCoroutine = null;
-        _onCompleteEvent?.Invoke();
+        if (withEvent) _onCompleteEvent?.Invoke();
         
         _isProcessingClipEnd = false;
     }

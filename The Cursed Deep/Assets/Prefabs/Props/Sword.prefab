@@ -307,6 +307,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4721243022597978951}
+  - component: {fileID: 2614976730601285663}
   - component: {fileID: 5316873226986386232}
   - component: {fileID: 2458734927944218740}
   - component: {fileID: 3110195400373786854}
@@ -315,7 +316,6 @@ GameObject:
   - component: {fileID: 5204731228995493938}
   - component: {fileID: 8175960465549769753}
   - component: {fileID: 3550370940942478501}
-  - component: {fileID: 2614976730601285663}
   - component: {fileID: 5306701577064162978}
   - component: {fileID: 3156451591927616649}
   m_Layer: 20
@@ -345,6 +345,19 @@ Transform:
   - {fileID: 5360092277141048867}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2614976730601285663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6361090481891346177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _setTransformOnAwake: 1
 --- !u!33 &5316873226986386232
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -667,18 +680,6 @@ MonoBehaviour:
     triggerExitEvent:
       m_PersistentCalls:
         m_Calls: []
---- !u!114 &2614976730601285663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6361090481891346177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5306701577064162978
 MonoBehaviour:
   m_ObjectHideFlags: 0

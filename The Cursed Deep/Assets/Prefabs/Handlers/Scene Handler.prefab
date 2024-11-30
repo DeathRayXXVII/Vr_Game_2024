@@ -46,12 +46,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allowDebug: 0
+  initializationManager: {fileID: 0}
+  playerTransform: {fileID: 0}
+  initialPlayerTransform: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa,
+    type: 2}
   transitionAnimator: {fileID: 0}
   transitionOnLoad: 1
+  startGameAfterTransition: 1
   transitionInTrigger: FadeIn
   transitionOutTrigger: FadeOut
-  sceneLoadBuffer: 3
-  transitionCompleteBuffer: 5
+  sceneLoadBuffer: 1
+  transitionInBuffer: 1
+  transitionOutBuffer: 1
   beforeTransitionIn:
     m_PersistentCalls:
       m_Calls: []

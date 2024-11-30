@@ -133,6 +133,13 @@ public class DialogueUI : MonoBehaviour
         if (_closing && !_closingBypass) return;
         _closingBypass = false;
         _closing = true;
+        
+        if (_dialogueCoroutine != null)
+        {
+            StopCoroutine(_dialogueCoroutine);
+            _dialogueCoroutine = null;
+        }
+        
         if (dialogueBox == null || !dialogueBox.activeSelf)
         {
             _closing = false;
@@ -142,7 +149,6 @@ public class DialogueUI : MonoBehaviour
         IsOpen = false;
         dialogueBox?.SetActive(false);
         textLabel.text = string.Empty;
-        _dialogueCoroutine = null;
         _closing = false;
     }
 

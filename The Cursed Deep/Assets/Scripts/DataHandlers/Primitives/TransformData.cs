@@ -1,23 +1,61 @@
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-[assembly: InternalsVisibleTo("TransformBehavior")]
 [CreateAssetMenu(fileName = "TransformData", menuName = "Data/Primitive/TransformData")]
 public class TransformData : ScriptableObject
 {
     [SerializeField] private Vector3 _position;
     [SerializeField] private Quaternion _rotation;
     [SerializeField] private Vector3 _scale = Vector3.one;
-    internal Vector3Data PositionHandler, ScaleHandler;
-    internal QuaternionData RotationHandler;
+    [SerializeField, HideInInspector] private Vector3Data _positionHandler;
+    [SerializeField, HideInInspector] private Vector3Data _scaleHandler;
+    [SerializeField, HideInInspector] private QuaternionData _rotationHandler;
     
-    private void OnValidate()
+    public Vector3Data positionHandler
     {
-        PositionHandler = CreateInstance<Vector3Data>();
-        ScaleHandler = CreateInstance<Vector3Data>();
-        RotationHandler = CreateInstance<QuaternionData>();
+        get
+        {
+            if (_positionHandler == null) _positionHandler = CreateInstance<Vector3Data>();
+            return _positionHandler;
+        }
+        private set
+        {
+            if (_positionHandler == null) _positionHandler = CreateInstance<Vector3Data>();
+            _positionHandler = value;
+        }
+    }
+    
+    public Vector3Data scaleHandler
+    {
+        get
+        {
+            if (_scaleHandler == null) _scaleHandler = CreateInstance<Vector3Data>();
+            return _scaleHandler;
+        }
+        private set
+        {
+            if (_scaleHandler == null) _scaleHandler = CreateInstance<Vector3Data>();
+            _scaleHandler = value;
+        }
+    }
+    public QuaternionData rotationHandler
+    {
+        get
+        {
+            if (_rotationHandler == null) _rotationHandler = CreateInstance<QuaternionData>();
+            return _rotationHandler;
+        }
+        private set
+        {
+            if (_rotationHandler == null) _rotationHandler = CreateInstance<QuaternionData>();
+            _rotationHandler = value;
+        }
+    }
+    
+    private void OnEnable()
+    {
+        positionHandler ??= CreateInstance<Vector3Data>();
+        scaleHandler ??= CreateInstance<Vector3Data>();
+        rotationHandler  ??= CreateInstance<QuaternionData>();
     }
     
     public Vector3 position
@@ -26,7 +64,7 @@ public class TransformData : ScriptableObject
         set
         {
             _position = value;
-            PositionHandler.value = value;
+            positionHandler.value = value;
         }
     }
     
@@ -36,7 +74,7 @@ public class TransformData : ScriptableObject
         set
         {
             _scale = value;
-            ScaleHandler.value = value;
+            scaleHandler.value = value;
         }
     }
     
@@ -46,7 +84,7 @@ public class TransformData : ScriptableObject
         set
         {
             _rotation = value;
-            RotationHandler.value = _rotation;
+            rotationHandler.value = _rotation;
         }
     }
     
@@ -61,11 +99,11 @@ public class TransformData : ScriptableObject
 
     public static implicit operator QuaternionData(TransformData data)
     {
-        return data.RotationHandler;
+        return data.rotationHandler;
     }
     
     public static implicit operator Vector3Data(TransformData data)
     {
-        return data.PositionHandler;
+        return data.positionHandler;
     }
 }

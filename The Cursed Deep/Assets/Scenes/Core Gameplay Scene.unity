@@ -3676,7 +3676,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 404, y: -191.00002}
+  m_AnchoredPosition: {x: 404, y: -191}
   m_SizeDelta: {x: 655.43066, y: -32.690002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1714186603
@@ -3994,7 +3994,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1795409403}
   - component: {fileID: 1795409404}
-  - component: {fileID: 1795409405}
   - component: {fileID: 1795409400}
   m_Layer: 0
   m_Name: Game Handlers
@@ -4055,21 +4054,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9b68e6a649b564d93a7036258fa32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coreData: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
-  initializeCannonAction: {fileID: 11400000, guid: b5d27126c640fbe43ba28b96b1826da1,
-    type: 2}
-  initializeAmmoAction: {fileID: 11400000, guid: 4d97ab5767e300b40a95a227ffd3dbde,
-    type: 2}
-  levelCompleteAction: {fileID: 11400000, guid: 7a09a20d6bfc3bb4cb416333ced333c3,
-    type: 2}
-  levelFailedAction: {fileID: 11400000, guid: febea16168d99f7479cd585451046fb9, type: 2}
-  onAwake:
+  beforeInitialization:
     m_PersistentCalls:
       m_Calls: []
-  onStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onLateStart:
+  onGameStart:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: d439db0e8eb3f3d44a8bb3634e78562e, type: 2}
@@ -4084,6 +4072,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  coreData: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
+  initializeCannonAction: {fileID: 11400000, guid: b5d27126c640fbe43ba28b96b1826da1,
+    type: 2}
+  initializeAmmoAction: {fileID: 11400000, guid: 4d97ab5767e300b40a95a227ffd3dbde,
+    type: 2}
+  levelCompleteAction: {fileID: 11400000, guid: 7a09a20d6bfc3bb4cb416333ced333c3,
+    type: 2}
+  levelFailedAction: {fileID: 11400000, guid: febea16168d99f7479cd585451046fb9, type: 2}
   onInitializeLevel:
     m_PersistentCalls:
       m_Calls: []
@@ -4120,21 +4116,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1795409405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1795409399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endWaitForSeconds: []
-  endWaitForZero: []
-  endWaitForFixedUpdate: []
 --- !u!1001 &1862288956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5040,9 +5021,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
-      propertyPath: transitionOnLoad
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 6366127948270241551}
+    - target: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: initializationManager
+      value: 
+      objectReference: {fileID: 1795409404}
     - target: {fileID: 3906399293454468433, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5149,6 +5135,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6366127948270241549}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6366127948270241551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6230196818379332007, guid: 9633f4a35242b454783ef9a0d2324a5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6366127948270241549}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!20 &6366127948270241553 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 8799986684936750553, guid: 9633f4a35242b454783ef9a0d2324a5f,

@@ -5,6 +5,8 @@ using ZPTools.Interface;
 
 public class TransformTracker : MonoBehaviour, INeedButton
 {
+    public bool allowDebug;
+    
     [SerializeField] private TransformData transformTrackerSO;
     private Vector3Data _activePositionTracker;
     private QuaternionData _activeRotationTracker;
@@ -17,17 +19,42 @@ public class TransformTracker : MonoBehaviour, INeedButton
     private WaitForFixedUpdate _wffu = new();
     private bool _isTrackingPosition, _isTrackRotation;
 
+    private bool _initialized;
+    
+    public void Initialize()
+    {
+        if (_initialized) return;
+        
+        if (transformTrackerSO == null) 
+        { 
+            Debug.LogWarning("Tracker TransformData is missing.", this);
+            return;
+        }
+
+        TrackCurrentTransform();
+        
+// #if UNITY_EDITOR
+        if (allowDebug)
+        {
+            Debug.Log($"Initializing TransformTracker: {name}", this);
+            Debug.Log($"[{name}] Tracked: {transformTrackerSO}", transformTrackerSO);
+        }
+// #endif
+        
+        _initialized = true;
+    }
+    
     private void Awake()
     {
         if (transformTrackerSO == null) 
         { 
-            Debug.LogWarning("Tracker TransformData is missing.");
+            Debug.LogWarning("Tracker TransformData is missing.", this);
             return;
         }
+        
         if (singleTrackOnStart)
         {
-            TrackCurrentPosition();
-            TrackCurrentRotation();
+            Initialize();
         }
         else
         {
@@ -51,18 +78,17 @@ public class TransformTracker : MonoBehaviour, INeedButton
     
     public void TrackCurrentPosition()
     {
-        if (transformTrackerSO) { TrackCurrentPosition(transformTrackerSO); }
+        if (transformTrackerSO != null) { TrackCurrentPosition(transformTrackerSO); }
     }
     
     public void TrackCurrentPosition(TransformData tracker)
     {
-        transformTrackerSO ??= tracker;
-        TrackCurrentPosition(tracker.PositionHandler);
+        TrackCurrentPosition(tracker.positionHandler);
     }
     
     public void TrackCurrentPosition(Vector3Data tracker)
     {
-        if (tracker == transformTrackerSO.PositionHandler && tracker != transformTrackerSO.ScaleHandler)
+        if (tracker == transformTrackerSO.positionHandler && tracker != transformTrackerSO.scaleHandler)
         {
             transformTrackerSO.position = transform.position;
         }
@@ -79,13 +105,12 @@ public class TransformTracker : MonoBehaviour, INeedButton
     
     public void TrackCurrentRotation(TransformData tracker)
     {
-        transformTrackerSO ??= tracker;
-        TrackCurrentRotation(tracker.RotationHandler);
+        TrackCurrentRotation(tracker.rotationHandler);
     }
     
     public void TrackCurrentRotation(QuaternionData tracker)
     {
-        if (tracker == transformTrackerSO.RotationHandler)
+        if (tracker == transformTrackerSO.rotationHandler)
         {
             transformTrackerSO.rotation = transform.rotation;
         }
@@ -154,8 +179,10 @@ public class TransformTracker : MonoBehaviour, INeedButton
     {
         return new List<(System.Action, string)>
         {
+#if UNITY_EDITOR
             (TrackCurrentPosition, "Track Current Position"),
             (TrackCurrentRotation, "Track Current Rotation")
+#endif
         };
     }
 
