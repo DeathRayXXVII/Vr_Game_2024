@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
     protected virtual void Awake()
     {
         initialized = false;
-        Debug.Log("GameManager Awake, Initializing trackers.", this);
         PopulateTrackers();
     }
     
@@ -51,7 +50,6 @@ public class GameManager : MonoBehaviour
     {
         if (_transformTrackers == null && !PopulateTrackers())
         {
-            Debug.LogError("No TransformTrackers found in scene.", this);
             beforeInitialization.Invoke();
             yield return _waitFixed;
             
@@ -61,7 +59,6 @@ public class GameManager : MonoBehaviour
         System.Diagnostics.Debug.Assert(_transformTrackers != null, "No TransformTrackers found in scene.");
         foreach (var tracker in _transformTrackers)
         {
-            Debug.LogWarning($"Initializing {tracker.name}", tracker);
             tracker.Initialize();
             yield return null;
         }

@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1551848230106713710
 Transform:
@@ -50,18 +50,14 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   initialPlayerTransform: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa,
     type: 2}
-  transitionAnimator: {fileID: 0}
+  screenManager: {fileID: 0}
   transitionOnLoad: 1
   startGameAfterTransition: 1
-  transitionInTrigger: FadeIn
-  transitionOutTrigger: FadeOut
-  sceneLoadBuffer: 1
-  transitionInBuffer: 1
-  transitionOutBuffer: 1
-  beforeTransitionIn:
+  loadBuffer: 1
+  beforeLoadIn:
     m_PersistentCalls:
       m_Calls: []
-  onTransitionInComplete:
+  onLoadInComplete:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &444104237113692134

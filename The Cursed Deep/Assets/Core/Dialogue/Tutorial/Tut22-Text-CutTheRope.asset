@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tut22-Text-CutTheRope
   m_EditorClassIdentifier: 
   playOnlyOncePerGame: 1
-  _locked: 0
+  _locked: 1
   dialogueName: 
   firstAction: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
   lastAction: {fileID: 11400000, guid: 163b1d9019fbaa544a6e80836b1a957c, type: 2}
@@ -22,15 +22,24 @@ MonoBehaviour:
       shark oft yer side? Cut that rope with yer sword and send it to the deep.
     formatValues: []
   responses: []
-  onTrigger:
-    m_PersistentCalls:
-      m_Calls: []
   firstTrigger:
     m_PersistentCalls:
       m_Calls: []
   lastTrigger:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 11400000, guid: ecde527fb2f88b746877c44b5188b5b1, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: d689e997d0a670c489706a5307436d0b, type: 2}
         m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
         m_MethodName: ResetAudioShot

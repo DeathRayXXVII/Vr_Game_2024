@@ -22,15 +22,24 @@ MonoBehaviour:
       fowl beasts! Upgrade yer ship! Become the heartiest hunter of them all.
     formatValues: []
   responses: []
-  onTrigger:
-    m_PersistentCalls:
-      m_Calls: []
   firstTrigger:
     m_PersistentCalls:
       m_Calls: []
   lastTrigger:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 11400000, guid: ecde527fb2f88b746877c44b5188b5b1, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 2604a02952f5abf49a554a1027cf66b5, type: 2}
         m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
         m_MethodName: ResetAudioShot

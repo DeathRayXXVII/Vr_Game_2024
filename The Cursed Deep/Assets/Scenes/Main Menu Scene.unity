@@ -898,6 +898,11 @@ PrefabInstance:
       objectReference: {fileID: 1314189957}
     - target: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
+      propertyPath: transitionOutBuffer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
       propertyPath: initializationManager
       value: 
       objectReference: {fileID: 525364872}
@@ -935,6 +940,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593023354658593151, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: allowDebug
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3906399293454468433, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -1627,7 +1637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4554df07cfa0fbb46ad59892f035564a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowDebug: 1
+  allowDebug: 0
   transformTrackerSO: {fileID: 11400000, guid: 88f445a28f504ef4cb8fcb2c367691fa, type: 2}
   singleTrackOnStart: 0
   continuousTrackOnStart: 0
