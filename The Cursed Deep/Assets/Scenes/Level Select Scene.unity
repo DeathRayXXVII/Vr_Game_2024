@@ -5755,7 +5755,6 @@ GameObject:
   - component: {fileID: 1131686467}
   - component: {fileID: 1131686471}
   - component: {fileID: 1131686465}
-  - component: {fileID: 1131686469}
   m_Layer: 0
   m_Name: Game Handlers
   m_TagString: Untagged
@@ -5793,25 +5792,6 @@ Transform:
   - {fileID: 1850169734}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 8.532, y: 0, z: 0}
---- !u!114 &1131686469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1131686463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e9cc29b4af7c6c409061cc6b13b9956, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  directionalLight: {fileID: 142329232}
-  lightData: {fileID: 11400000, guid: d1ee96f7adb12614695fc6fb1ce7f4e6, type: 2}
-  timeOfDay: 0
-  timeScale: 0.08
-  skyboxMaterial: {fileID: 2100000, guid: 0912b8c25e8d83245beaf9bb5d272db1, type: 2}
-  nightExposure: 0.2
-  dayExposure: 1
 --- !u!114 &1131686471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5828,18 +5808,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: e16b327f2aca49c43832c2e06c706eaf, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 7c64c014248a55640b7b9cb69ee41a6a, type: 2}
         m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
         m_MethodName: RaiseAction
         m_Mode: 1

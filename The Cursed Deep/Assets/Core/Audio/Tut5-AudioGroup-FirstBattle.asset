@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a25fef3a68407c4d86271a16c895806, type: 3}
-  m_Name: Tut3-Audio-IntroToBlackMarket
+  m_Name: Tut5-AudioGroup-FirstBattle
   m_EditorClassIdentifier: 
   audioShots:
-  - id: Tutorial15-EnterShop
-    clip: {fileID: 8300000, guid: bc74c9939950aa74bb0d4a35226edc3a, type: 3}
+  - id: Tutorial22-LoadIn
+    clip: {fileID: 8300000, guid: 5b582a78317bdaf43a51f72ff14bcb14, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 1
+    _locked: 0
     playOnAwake: 0
     priority: 128
     volume: 1
-    pitch: 1
+    pitch: 0
     spatialBlend: 0
-    minDistance: 1
-    maxDistance: 500
+    minDistance: 0
+    maxDistance: 0
     delay: 0
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: bf258fdf2a25ec34aa0ea4b4ae96e196, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -40,24 +40,24 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: Tutorial16-BoughtShipHealth
-    clip: {fileID: 8300000, guid: f535a2a33546589409ce9085bea30697, type: 3}
+  - id: Tutorial23-CutTheRope
+    clip: {fileID: 8300000, guid: 7b185d46fd224624f91cafa26ec32fd4, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 1
+    _locked: 0
     playOnAwake: 0
     priority: 128
     volume: 1
-    pitch: 1
+    pitch: 0
     spatialBlend: 0
-    minDistance: 1
-    maxDistance: 500
+    minDistance: 0
+    maxDistance: 0
     delay: 0
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: acfb4f6aece981646b875e89d943b202, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -67,24 +67,24 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: Tutorial17-WristChecked
-    clip: {fileID: 8300000, guid: ebac5339aab7d2942807ce82c8339e81, type: 3}
+  - id: Tutorial24-FightStart
+    clip: {fileID: 8300000, guid: e878360784faa3147892704cb4f2a979, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 1
+    _locked: 0
     playOnAwake: 0
     priority: 128
     volume: 1
-    pitch: 1
+    pitch: 0
     spatialBlend: 0
-    minDistance: 1
-    maxDistance: 500
+    minDistance: 0
+    maxDistance: 0
     delay: 0
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: 5ab693ae5e398d0409d1d85a9bae2815, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -94,24 +94,24 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - id: Tutorial18-NowLeave
-    clip: {fileID: 8300000, guid: 21924e589ef542a498575f34200fb9f5, type: 3}
+  - id: Tutorial25-FightEnd
+    clip: {fileID: 8300000, guid: c113cec458e63c543a271e72ced13564, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 1
+    _locked: 0
     playOnAwake: 0
     priority: 128
     volume: 1
-    pitch: 1
+    pitch: 0
     spatialBlend: 0
-    minDistance: 1
-    maxDistance: 500
+    minDistance: 0
+    maxDistance: 0
     delay: 0
     onComplete:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
+        - m_Target: {fileID: 11400000, guid: 503d9b243875a354681222786ee50f57, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
