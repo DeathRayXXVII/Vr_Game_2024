@@ -23,7 +23,12 @@ namespace ZPTools
         public void SetPrimaryColor(RGBAColorData color) => _baseColor = color;
         public void SetSecondaryColor(RGBAColorData color) => _transitionToColor = color;
         
-        public bool fadeToBlackAfterTransition = false;
+        [SerializeField] private bool _fadeToBlackAfterTransition;
+        public bool fadeToBlackAfterTransition
+        {
+            get => _fadeToBlackAfterTransition;
+            set => _fadeToBlackAfterTransition = value;
+        }
         
         private float _alphaIn;
         private float _alphaOut;
@@ -65,14 +70,20 @@ namespace ZPTools
 
         private Material GetMaterial()
         {
-            // Use sharedMaterial in edit mode, material in play mode
-            if (Application.isPlaying)
+            if (_renderer == null)
             {
-                return _renderer.material; // Unique material for runtime
+                return null;
+            }
+            
+            // Use sharedMaterial in edit mode, material in play mode
+            if (Application.isPlaying && (_renderer.material != null || _renderer.sharedMaterial != null))
+            {
+                return _renderer.material.name.Contains("Instance") ? _renderer.sharedMaterial : _renderer.material;
             }
 
 #if UNITY_EDITOR
-            return _renderer.sharedMaterial; // Shared material for editor
+            // Shared material for editor
+            return _renderer.sharedMaterial != null ? _renderer.sharedMaterial : null;
 #else
             return null;
 #endif

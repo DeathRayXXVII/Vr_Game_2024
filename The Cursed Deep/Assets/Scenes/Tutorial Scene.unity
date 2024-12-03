@@ -1263,6 +1263,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9633f4a35242b454783ef9a0d2324a5f, type: 3}
+--- !u!135 &88805993 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 4770900883148281123, guid: 9633f4a35242b454783ef9a0d2324a5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 88805992}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &95548375 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 651372236609883516, guid: 4425e4726201d0c488519a55eb549526,
@@ -3252,7 +3258,7 @@ PrefabInstance:
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
@@ -3381,7 +3387,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[7].m_Target
       value: 
-      objectReference: {fileID: 1401050426}
+      objectReference: {fileID: 1732659067}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[8].m_Target
@@ -7051,6 +7057,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1249003070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1249003071}
+  - component: {fileID: 1249003072}
+  m_Layer: 0
+  m_Name: TutorialHelper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1249003071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249003070}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451112583}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1249003072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249003070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7108ca5beabdc0b48b46c6b92b8462d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dialogueData:
+  - {fileID: 11400000, guid: 9a113fff2081d0944ad143ab24533d1b, type: 2}
+  - {fileID: 11400000, guid: 6729d4df3cb6a674884ddbdb383f4c9c, type: 2}
+  - {fileID: 11400000, guid: 8f2da4ef5281bb847af72846fe2e5685, type: 2}
+  - {fileID: 11400000, guid: 6752459f4b1ac804898fa1d0eeb0f4ae, type: 2}
+  - {fileID: 11400000, guid: 8fdabb1df4a68b84799e4dd89d14229c, type: 2}
+  - {fileID: 11400000, guid: 3a9d69f8fd8d5fc4dad802f3382af1fe, type: 2}
+  - {fileID: 11400000, guid: 552f5c0e56d6fb44aa088863e08cb9a5, type: 2}
+  - {fileID: 11400000, guid: f1347785a48949140ac52f2de33a90aa, type: 2}
+  - {fileID: 11400000, guid: 105668fd92c4c3f4ba4277014b2b6376, type: 2}
+  _audioData:
+  - {fileID: 11400000, guid: 7c2c773fe60673c4a9b4f62a83440977, type: 2}
 --- !u!1001 &1268792519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7521,6 +7583,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1249003071}
   - {fileID: 1991053785}
   - {fileID: 1999590651}
   m_Father: {fileID: 1572188483}
@@ -7729,18 +7792,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
-          m_MethodName: 
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
         - m_Target: {fileID: 593018822}
           m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
           m_MethodName: ShowDialogue
@@ -7823,6 +7874,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 88805993}
+          m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
         - m_Target: {fileID: 593018822}
           m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
           m_MethodName: ShowDialogue
@@ -7852,6 +7915,18 @@ MonoBehaviour:
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 11400000, guid: d9ca1a83cf5dad94087032fbec6bd763, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
         - m_Target: {fileID: 593018822}
           m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
           m_MethodName: ShowDialogue
@@ -8396,6 +8471,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 6511743c5afcbc2428e686d63548ea53, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: e16b327f2aca49c43832c2e06c706eaf, type: 2}
         m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
         m_MethodName: RaiseAction
@@ -8420,10 +8507,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 6511743c5afcbc2428e686d63548ea53, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
+      - m_Target: {fileID: 88805993}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9437,7 +9524,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 1.76
   m_Center: {x: 0, y: 0, z: 0}
