@@ -14,6 +14,7 @@ namespace ShipGame.ScriptObj
         [SerializeField] private CannonData cannon;
         [SerializeField] private AmmoData ammo;
         [SerializeField] private EnemyData enemy;
+        [SerializeField] private BossData boss;
 
         public GameAction playerInitializePositionAction
         {
@@ -67,11 +68,18 @@ namespace ShipGame.ScriptObj
 
         public int enemyIndex
         {
-            get => ammo.selectionIndex;
+            get => gameGlobals.FightingBoss() ? boss.selectionIndex : enemy.selectionIndex;
             set 
             {
-                ammo.selectionIndex = value;
-                SetEnemyData();
+                if (gameGlobals.FightingBoss())
+                {
+                    boss.selectionIndex = value;
+                }
+                else
+                {
+                    enemy.selectionIndex = value;
+                }
+                SetEnemyData(gameGlobals.FightingBoss());
             }
         }
 
@@ -170,23 +178,45 @@ namespace ShipGame.ScriptObj
             ship.SetCannonPrefabOffset(cannonPrefabOffset);
         }
         
-        private void SetEnemyData()
+        private void SetEnemyData(bool isBoss)
         {
-            // Pass the prefab list to the ship's enemy spawner
-            ship.SetEnemyPrefabDataList(enemy.prefabList);
-            
-            enemy.SetHealth(levelData.spawnBaseHealth + enemy.selectionHealth);
-            enemy.SetDamage(levelData.spawnBaseDamage + enemy.selectionDamage);
-            enemy.SetSpeed(enemy.selectionSpeed);
-            enemy.SetBounty(levelData.spawnBounty + enemy.selectionBounty);
-            enemy.SetScore(levelData.spawnScore + enemy.selectionScore);
+            if (isBoss)
+            {
+                // Pass the prefab list to the ship's enemy spawner
+                ship.SetEnemyPrefabDataList(boss.prefabList);
+
+                boss.SetHealth(levelData.spawnBaseHealth + boss.selectionHealth);
+                boss.SetDamage(levelData.spawnBaseDamage + boss.selectionDamage);
+                boss.SetSpeed(levelData.spawnBaseDamage + boss.selectionSpeed);
+                boss.SetBounty(levelData.spawnBounty + boss.selectionBounty);
+                boss.SetScore(levelData.spawnScore + boss.selectionScore);
+            }
+            else
+            {
+                // Pass the prefab list to the ship's enemy spawner
+                ship.SetEnemyPrefabDataList(enemy.prefabList);
+
+                enemy.SetHealth(levelData.spawnBaseHealth + enemy.selectionHealth);
+                enemy.SetDamage(levelData.spawnBaseDamage + enemy.selectionDamage);
+                enemy.SetSpeed(enemy.selectionSpeed);
+                enemy.SetBounty(levelData.spawnBounty + enemy.selectionBounty);
+                enemy.SetScore(levelData.spawnScore + enemy.selectionScore);
+            }
         }
 
         private void LoadLevelData() => levelData.LoadOnStartup();
         private void LoadShipData() => ship.LoadOnStartup();
         private void LoadAmmoData() => ammo.LoadOnStartup();
         private void LoadCannonData() => cannon.LoadOnStartup();
-        private void LoadEnemyData() => enemy.LoadOnStartup();
+        private void LoadEnemyData()
+        {
+            if(gameGlobals.FightingBoss())
+            {
+                boss.LoadOnStartup();
+                return;
+            }
+            enemy.LoadOnStartup();
+        }
         private void LoadAllData()
         {
             LoadLevelData();
@@ -208,7 +238,7 @@ namespace ShipGame.ScriptObj
             SetLevelData();
             SetAmmoData();
             SetCannonData();
-            SetEnemyData();
+            SetEnemyData(gameGlobals.FightingBoss());
         }
 
         public void Setup()
@@ -291,7 +321,7 @@ namespace ShipGame.ScriptObj
                 );
             }
 #endif
-            // ignored
+            // ignored if not in editor
         }
     }
 }

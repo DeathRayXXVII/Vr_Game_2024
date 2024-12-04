@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -34,6 +35,8 @@ public class SocketMatchInteractor : XRSocketInteractor
     
     private InteractionLayerMask _originalInteractableLayerMask;
     private InteractionLayerMask _isolatedLayerMask;
+    private LayerMask _originalColliderLayerMask;
+    private static readonly LayerMask IgnoreRayCastLayerMask = 2;
     private XRGrabInteractable _socketedObject;
     private Collider _socketTrigger;
     
@@ -119,13 +122,14 @@ public class SocketMatchInteractor : XRSocketInteractor
         return base.CanSelect(interactable) && CheckId(FetchOtherID(interactable.transform.gameObject));
     }
     
-    public void AllowGrabInteration(bool grabState)
+    public void AllowGrabInteraction(bool grabState)
     {
         if (grabState)
         {
             deactivateGrabInteractionOnSocket = false;
             if (!_socketedObject) return;
             _socketedObject.interactionLayers = _originalInteractableLayerMask;
+            _socketedObject.gameObject.layer = _originalInteractableLayerMask;
         }
         else
         {
@@ -134,6 +138,19 @@ public class SocketMatchInteractor : XRSocketInteractor
             _originalInteractableLayerMask = _socketedObject.interactionLayers;
             _socketedObject.interactionLayers = _isolatedLayerMask;
         }
+    }
+    
+    public void EnableSocket() => SetSocketState(true);
+    public void DisableSocket() => SetSocketState(false);
+    
+    private void SetSocketState(bool socketState)
+    {
+        if (_socketTrigger == null)
+        {
+            Debug.LogWarning("Socket Trigger appears to be null, returning");
+            return;
+        }
+        _socketTrigger.enabled = socketState;
     }
 
     protected override bool StartSocketSnapping(XRGrabInteractable interactable)
@@ -147,7 +164,7 @@ public class SocketMatchInteractor : XRSocketInteractor
             return false;
         }
         if (deactivateGrabInteractionOnSocket)
-            AllowGrabInteration(false);
+            AllowGrabInteraction(false);
 
         return base.StartSocketSnapping(interactable);
     }
@@ -155,7 +172,7 @@ public class SocketMatchInteractor : XRSocketInteractor
     protected override bool EndSocketSnapping(XRGrabInteractable interactable)
     {
         if (deactivateGrabInteractionOnSocket)
-            AllowGrabInteration(true);
+            AllowGrabInteraction(true);
         return base.EndSocketSnapping(interactable);
     }
     
@@ -171,7 +188,7 @@ public class SocketMatchInteractor : XRSocketInteractor
     {
         if (!_socketedObject){Debug.LogWarning("SOCKET OBJECT APPEARS TO BE NULL"); return;}
         if (interactablesSelected.Count == 0) return;
-        _socketTrigger.enabled = false;
+        DisableSocket();
         _removeAndMoveCoroutine ??= StartCoroutine(PerformRemoveAndMove(copyTransform.position, copyTransform.rotation));
     }
 
@@ -180,7 +197,7 @@ public class SocketMatchInteractor : XRSocketInteractor
         if (!_socketedObject){Debug.LogWarning("SOCKET OBJECT APPEARS TO BE NULL"); return null;}
         if (interactablesSelected.Count == 0) return null;
         var obj = _socketedObject.gameObject;
-        _socketTrigger.enabled = false;
+        DisableSocket();
         _removeAndMoveCoroutine ??= StartCoroutine(PerformRemoveAndMove(position, rotation));
         return _removeAndMoveCoroutine == null ? null : obj;
     }

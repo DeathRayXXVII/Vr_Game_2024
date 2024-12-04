@@ -1,4 +1,5 @@
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ShipGame.ScriptObj
 {
@@ -6,7 +7,7 @@ namespace ShipGame.ScriptObj
     public class EnemyData : ScriptableObjectLoadOnStartupDataFromJson
     {
         [System.Serializable]
-        internal struct EnemyInstanceData
+        protected struct EnemyInstanceData
         {
             public float health;
             public float damage;
@@ -16,7 +17,7 @@ namespace ShipGame.ScriptObj
         }
 
         [System.Serializable]
-        internal struct EnemyDataJson
+        protected struct EnemyDataJson
         {
             public int elements;
             public float[] enemyHealths;
@@ -27,9 +28,10 @@ namespace ShipGame.ScriptObj
         }
 
         [System.Serializable]
-        internal struct Enemy
+        protected struct Enemy
         {
-            [SerializeField] private string name;
+            [SerializeField, ReadOnly] private string _name;
+            public string name { get => _name; set => _name = value; }
 
             // Prefab List that contains variants of a specific enemy type
             public PrefabDataList prefabVariantList;
@@ -37,7 +39,7 @@ namespace ShipGame.ScriptObj
             public CreepData creepData;
         }
 
-        [SerializeField] [ReadOnly] private int currentIndex;
+        [SerializeField, ReadOnly] protected int currentIndex;
         public int selectionIndex
         {
             get => currentIndex;
@@ -56,7 +58,19 @@ namespace ShipGame.ScriptObj
             }
         }
 
-        private EnemyInstanceData[] _enemyInstanceData;
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_enemyData == null || _enemyData.Length == 0) return;
+            
+            for (var i = 0; i < _enemyData.Length; i++)
+            {
+                _enemyData[i].name = _enemyData[i].creepData != null ? _enemyData[i].creepData.unitName : "Enemy " + i;
+            }
+        }
+#endif
+
+        protected EnemyInstanceData[] _enemyInstanceData;
         public float selectionHealth => _enemyInstanceData[selectionIndex].health;
         public float selectionDamage => _enemyInstanceData[selectionIndex].damage;
         public float selectionSpeed => _enemyInstanceData[selectionIndex].speed;
@@ -83,37 +97,37 @@ namespace ShipGame.ScriptObj
         protected override string dataFilePath => Application.dataPath + "/Resources/GameData/EnemyDataJson.json";
         protected override string resourcePath => "GameData/EnemyDataJson";
 
-        private EnemyDataJson _tempJsonData;
+        protected EnemyDataJson TempJsonData;
 
         protected override void ParseJsonFile(TextAsset jsonObject)
         {
-            _tempJsonData = ParseJsonData<EnemyDataJson>(jsonObject.text);
+            TempJsonData = ParseJsonData<EnemyDataJson>(jsonObject.text);
         }
         
         protected override void InitializeData()
         {
-            if (_enemyInstanceData == null || _enemyInstanceData.Length != _tempJsonData.elements)
+            if (_enemyInstanceData == null || _enemyInstanceData.Length != TempJsonData.elements)
             {
-                _enemyInstanceData = new EnemyInstanceData[_tempJsonData.elements];
+                _enemyInstanceData = new EnemyInstanceData[TempJsonData.elements];
             }
             
-            for (int i = 0; i < _tempJsonData.elements; i++)
+            for (int i = 0; i < TempJsonData.elements; i++)
             {
                 _enemyInstanceData[i] = new EnemyInstanceData
                 {
-                    health = _tempJsonData.enemyHealths[i],
-                    damage = _tempJsonData.enemyDamages[i],
-                    speed = _tempJsonData.enemySpeeds[i],
-                    bounty = _tempJsonData.enemyBounties[i],
-                    score = _tempJsonData.enemyScores[i]
+                    health = TempJsonData.enemyHealths[i],
+                    damage = TempJsonData.enemyDamages[i],
+                    speed = TempJsonData.enemySpeeds[i],
+                    bounty = TempJsonData.enemyBounties[i],
+                    score = TempJsonData.enemyScores[i]
                 };
 
                 if (i != currentIndex) continue;
-                SetHealth(_tempJsonData.enemyHealths[i]);
-                SetDamage(_tempJsonData.enemyDamages[i]);
-                SetSpeed(_tempJsonData.enemySpeeds[i]);
-                SetBounty(_tempJsonData.enemyBounties[i]);
-                SetScore(_tempJsonData.enemyScores[i]);
+                SetHealth(TempJsonData.enemyHealths[i]);
+                SetDamage(TempJsonData.enemyDamages[i]);
+                SetSpeed(TempJsonData.enemySpeeds[i]);
+                SetBounty(TempJsonData.enemyBounties[i]);
+                SetScore(TempJsonData.enemyScores[i]);
             }
         }
         protected override void LogCurrentData()

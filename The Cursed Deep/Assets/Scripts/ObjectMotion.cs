@@ -55,12 +55,6 @@ public class ObjectMotion : MonoBehaviour
 
     private Vector3 _startPosition, _startScale;
     private Coroutine _motionRoutine, _rotationRoutine, _scalingRoutine;
-    
-    void Awake()
-    {
-        _startPosition = transform.position;
-        _startScale = transform.localScale;
-    }
 
     private void OnEnable()
     {
@@ -69,12 +63,49 @@ public class ObjectMotion : MonoBehaviour
     private void OnDisable() => StopAllMotion();
     private void OnDestroy() => StopAllMotion();
 
-    public void StartMotion() { _motionRoutine ??= StartCoroutine(PositionMotion()); }
-    public void StopMotion() { if (_motionRoutine != null) StopCoroutine(_motionRoutine); }
+    public void StartMotion()
+    {
+        if (_motionRoutine != null) return;
+        _startPosition = transform.position;
+        
+        _motionRoutine = StartCoroutine(PositionMotion());
+    }
+
+    public void StopMotion()
+    {
+        if (_motionRoutine == null) return;
+        
+        StopCoroutine(_motionRoutine);
+        _motionRoutine = null;
+        transform.position = _startPosition;
+    }
+
     public void StartRotation() { _rotationRoutine ??= StartCoroutine(RotateMotion()); }
-    public void StopRotation() { if (_rotationRoutine != null) StopCoroutine(_rotationRoutine); }
-    public void StartScaling() { _scalingRoutine ??= StartCoroutine(ScaleMotion()); }
-    public void StopScaling() { if (_scalingRoutine != null) StopCoroutine(_scalingRoutine); }
+
+    public void StopRotation()
+    {
+        if (_rotationRoutine == null) return;
+        
+        StopCoroutine(_rotationRoutine);
+        _rotationRoutine = null;
+    }
+
+    public void StartScaling()
+    {
+        if (_scalingRoutine != null) return;
+        _startScale = transform.localScale;
+        
+        _scalingRoutine = StartCoroutine(ScaleMotion());
+    }
+
+    public void StopScaling()
+    {
+        if (_scalingRoutine == null) return;
+        
+        StopCoroutine(_scalingRoutine);
+        _scalingRoutine = null;
+        transform.localScale = _startScale;
+    }
     
     public void StartAllMotion()
     {

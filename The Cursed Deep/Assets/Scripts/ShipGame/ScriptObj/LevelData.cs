@@ -15,6 +15,7 @@ namespace ShipGame.ScriptObj
             public int laneActiveLimit;
             public float spawnBaseHealth;
             public float spawnBaseDamage;
+            public float spawnBaseSpeed;
             public int spawnBounty;
             public int spawnScore;
         }
@@ -85,6 +86,7 @@ namespace ShipGame.ScriptObj
         public int laneActiveLimit => _levels[currentIndex].laneActiveLimit;
         public float spawnBaseHealth => _levels[currentIndex].spawnBaseHealth;
         public float spawnBaseDamage => _levels[currentIndex].spawnBaseDamage;
+        public float spawnBaseSpeed => _levels[currentIndex].spawnBaseSpeed;
         public int spawnBounty => _levels[currentIndex].spawnBounty;
         public int spawnScore => _levels[currentIndex].spawnScore;
 
@@ -112,6 +114,7 @@ namespace ShipGame.ScriptObj
                     spawnRateMax = _tempJsonData.levelMaxSpawnRates[i],
                     spawnBaseHealth = _tempJsonData.levelSpawnHealths[i],
                     spawnBaseDamage = _tempJsonData.levelSpawnDamages[i],
+                    spawnBaseSpeed = _tempJsonData.levelSpawnMoveSpeeds[i],
                     spawnBounty = _tempJsonData.levelSpawnBounties[i],
                     spawnScore = _tempJsonData.levelSpawnScores[i]
                 };
@@ -130,6 +133,7 @@ namespace ShipGame.ScriptObj
                                        $"Lane Active Limit: {laneActiveLimit}\n" +
                                        $"Spawn Base Health: {spawnBaseHealth}\n" +
                                        $"Spawn Base Damage: {spawnBaseDamage}\n" +
+                                       $"Spawn Base Speed: {spawnBaseSpeed}\n" +
                                        $"Spawn Bounty: {spawnBounty}\n" +
                                        $"Spawn Score: {spawnScore}\n" +
                                        $"----------------------");

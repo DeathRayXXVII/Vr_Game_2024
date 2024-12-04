@@ -86,7 +86,7 @@ namespace Achievements
                 Debug.Log($"Achievement {id} unlocked"); 
             }*/
             }
-            Debug.Log("Steam is not enabled");
+            // Debug.Log("Steam is not enabled");
             if (achievementData.achievements[id] is ProgressiveAchievement { isUnlocked: false } achievement)
             {
                 achievement.progress = achievementData.achievements[id].goal;
