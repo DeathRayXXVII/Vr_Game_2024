@@ -1,18 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
-using ZPTools.Interface;
+using UnityEngine.Events;
 
 namespace ShipGame.Manager
 {
-    public class LevelSelectionManager : MonoBehaviour, INeedButton
+    public class LevelSelectionManager : MonoBehaviour
     {
-        // level selected bool
-        // boss level selected bool
-        // level selection UI manager
-        // Array of level selections
-        //     - Boss level toggle
-        //     - Transform of level selection
-        //     - Socket for level selection
-        
         [SerializeField, ReadOnly] private bool _levelSelected;
         [SerializeField, ReadOnly] private bool _bossLevelSelected;
         
@@ -40,71 +33,128 @@ namespace ShipGame.Manager
         }
         
         [SerializeField] private LevelSelectUIManager _levelSelectUIManager;
+        [SerializeField] private Transform _activatedUIPosition;
+        private int _selectedLevelIndex = -2;
+        
+        private bool ValidSelection(int index)
+        {
+            // -2 is the default empty value, -1 is the merchant selection, 0 and above are valid level selections
+            if (index >= -1 && index < _levelOptions.Length)
+            {
+                return true;
+            }
+            
+            Debug.LogError($"Invalid Level Index: {index} provided", this);
+            return false;
+        }
 
         [System.Serializable]
-        private struct LevelSelection
+        private struct LevelSelectionSocket
         {
             private int _id;
             public bool isBossLevel;
+            public CreepData enemyData;
             public Transform transform;
             public SocketMatchInteractor socket;
             
             public int id { get => _id; set => _id = value; }
         }
         
-        [SerializeField] private LevelSelection[] _levelOptions;
+        [SerializeField] private LevelSelectionSocket[] _levelOptions;
         
-        private void LevelSelected()
+        private void SelectionConfirmed()
+        {
+            if(!ValidSelection(_selectedLevelIndex)) return;
+            
+            Debug.Log($"Level [{_selectedLevelIndex}] Confirmed", this);
+        }
+        
+        private void SelectionCancelled()
+        {
+            if(!ValidSelection(_selectedLevelIndex)) return;
+            
+            Debug.Log($"Level [{_selectedLevelIndex}] Cancelled", this);
+            
+            var selectedSocket = _selectedLevelIndex == -1 ? 
+                ref _merchantOption.socket :
+                ref _levelOptions[_selectedLevelIndex].socket;
+            
+            SetSocketGrabState(true, ref selectedSocket);
+            
+            var uiTargetPosition = _selectedLevelIndex == -1 ? 
+                _merchantOption.transform.position :
+                _levelOptions[_selectedLevelIndex].transform.position;
+            
+            _levelSelectUIManager.DeactivateUI(_activatedUIPosition.position, uiTargetPosition);
+            
+            _selectedLevelIndex = -2;
+        }
+        
+        private void LevelSocketed()
         {
             bossLevelSelected = false;
             levelSelected = true;
         }
         
-        private void BossLevelSelected()
+        private void BossLevelSocketed()
         {
             bossLevelSelected = true;
             levelSelected = false;
         }
         
-        private void MerchantSelected()
+        private void MerchantSocketed()
         {
             Debug.Log("Merchant Selected", this);
             levelSelected = bossLevelSelected = false;
             
-            SetLevelSockets(false);
+            _selectedLevelIndex = -1;
+            SetAllSocketsState(false);
+            
+            _levelSelectUIManager.ActivateUI("Head to Black Market?", _merchantOption.transform.position,
+                _activatedUIPosition.position);
         }
         
-        private void HandleSelectionRemoved()
+        private void HandleRemovedFromSocket()
         {
             Debug.Log("Selection Removed", this);
             levelSelected = bossLevelSelected = false;
             
-            SetLevelSockets(true);
-            SetMerchantSocket(true);
+            SetAllSocketsState(true);
         }
         
-        private void HandleLevelSelection(int index)
+        private void HandleSocketedInLevelSelection(int index)
         {
             if (index < 0 || index >= _levelOptions.Length)
             {
                 Debug.LogError("Index out of range", this);
                 return;
             }
+            
+            _selectedLevelIndex = index;
+            var levelSelection = _levelOptions[index];
             Debug.Log($"Level Option[{index}] Selected", this);
             
-            if (_levelOptions[index].isBossLevel)
+            if (levelSelection.isBossLevel)
             {
-                BossLevelSelected();
+                BossLevelSocketed();
             }
             else
             {
-                LevelSelected();
+                LevelSocketed();
             }
+            _levelSelectUIManager.ActivateUI(
+                $"{(levelSelection.isBossLevel ? "Boss" : "Level")} Selection {index}",
+                levelSelection.transform.position, _activatedUIPosition.position);
 
-            SetLevelSockets(false, index);
+            SetAllSocketsState(false, index);
         }
         
-        private static void SetSocketState(bool state, ref SocketMatchInteractor socket)
+        private static void SetSocketGrabState(bool state, ref SocketMatchInteractor socket)
+        {
+            socket.AllowGrabInteraction(state);
+        }
+        
+        private static void SetSocketActiveState(bool state, ref SocketMatchInteractor socket)
         {
             if (state)
             {
@@ -115,17 +165,27 @@ namespace ShipGame.Manager
                 socket.DisableSocket();
             }
         }
-        
-        private void SetLevelSockets(bool state, int excludeIndex = -1)
+
+        private void SetAllSocketsState(bool state, int selectionIndex = -1)
         {
+            if (selectionIndex == -1)
+            {
+                SetSocketGrabState(state, ref _merchantOption.socket);
+            }
+            else
+            {
+                SetSocketActiveState(state, ref _merchantOption.socket);
+            }
+            
             foreach (var selection in _levelOptions)
             {
-                if (selection.id == excludeIndex)
+                var socket = selection.socket;
+                
+                if (selection.id == selectionIndex)
                 {
+                    SetSocketGrabState(state, ref socket);
                     continue;
                 }
-
-                var socket = selection.socket;
                 
                 if (socket == null)
                 {
@@ -133,30 +193,33 @@ namespace ShipGame.Manager
                     continue;
                 }
             
-                SetSocketState(state, ref socket);
+                SetSocketActiveState(state, ref socket);
             }
+            
+            DebugSocketState();
         }
 
         [System.Serializable]
-        private struct MerchantSelection
+        private struct MerchantSelectionSocket
         {
             public Transform transform;
             public SocketMatchInteractor socket;
         }
         
-        [SerializeField] private MerchantSelection _merchantOption;
+        [SerializeField] private MerchantSelectionSocket _merchantOption;
         
-        private void HandleMerchantSelection()
+        private void HandleSocketedInMerchantSelection()
         {
             if (_merchantOption.transform == null || _merchantOption.socket == null)
             {
+                Debug.LogError("Merchant Socket is missing", this);
                 return;
             }
             
-            MerchantSelected();
+            MerchantSocketed();
         }
         
-        private void SetMerchantSocket(bool state)
+        private void SetMerchantSocketState(bool state)
         {
             var socket = _merchantOption.socket;
                 
@@ -166,7 +229,7 @@ namespace ShipGame.Manager
                 return;
             }
             
-            SetSocketState(state, ref socket);
+            SetSocketActiveState(state, ref socket);
         }
 
         private void Awake()
@@ -180,47 +243,86 @@ namespace ShipGame.Manager
             switch (errorFlags)
             {
                 case 0x0:
-                    Debug.LogError($"Error: {errorFlags}, Level Selections and Merchant Selection are missing. They must be provided.", this);
+                    Debug.LogError($"Error [{errorFlags}]: Level Selections and Merchant Selection are missing. They must be provided.", this);
                     return;
                 case 0x1:
-                    Debug.LogError($"Error: {errorFlags}, Level Selections are missing. They must be provided.", this);
+                    Debug.LogError($"Error [{errorFlags}]: Level Selections are missing. They must be provided.", this);
                     return;
                 case 0x2:
-                    Debug.LogError($"Error: {errorFlags}, Merchant Selection are missing. They must be provided.", this);
+                    Debug.LogError($"Error [{errorFlags}]: Merchant Selection are missing. They must be provided.", this);
                     break;
                 case 0x3:
-                    Debug.Log($"Debug: {errorFlags}, Level Selections and Merchant Selection are present. Initializing...", this);
+                    Debug.Log($"Debug: Flag[{errorFlags}], Level Selections and Merchant Selection are present. Initializing...", this);
                     break;
                 default:
-                    Debug.LogError($"Error: {errorFlags}, Unexpected behavior occurred.", this);
+                    Debug.LogError($"Error [{errorFlags}]: Unexpected behavior occurred.", this);
                     return;
             }
             
+            SetListenerStates(true);
+        }
+        
+        private readonly Dictionary<int, UnityAction> _levelSelectionListeners = new();
+
+        private void SetListenerStates(bool listenState)
+        {
             for (var i = 0; i < _levelOptions.Length; i++)
             {
                 var levelSelection = _levelOptions[i];
                 levelSelection.id = i;
-                _levelOptions[i].socket.onObjectSocketed.AddListener(() => HandleLevelSelection(levelSelection.id));
-                _levelOptions[i].socket.onObjectUnsocketed.AddListener(HandleSelectionRemoved);
+
+                if (listenState)
+                {
+                    UnityAction socketListener = () => HandleSocketedInLevelSelection(levelSelection.id);
+                    _levelSelectionListeners[levelSelection.id] = socketListener;
+
+                    levelSelection.socket.onObjectSocketed.AddListener(socketListener);
+                    levelSelection.socket.onObjectUnsocketed.AddListener(HandleRemovedFromSocket);
+                }
+                else
+                {
+                    if (_levelSelectionListeners.TryGetValue(levelSelection.id, out var socketListener))
+                    {
+                        levelSelection.socket.onObjectSocketed.RemoveListener(socketListener);
+                        _levelSelectionListeners.Remove(levelSelection.id);
+                    }
+
+                    levelSelection.socket.onObjectUnsocketed.RemoveListener(HandleRemovedFromSocket);
+                }
             }
-            
-            _merchantOption.socket.onObjectSocketed.AddListener(HandleMerchantSelection);
-            _merchantOption.socket.onObjectUnsocketed.AddListener(HandleSelectionRemoved);
+
+            if (listenState)
+            {
+                _merchantOption.socket.onObjectSocketed.AddListener(HandleSocketedInMerchantSelection);
+                _merchantOption.socket.onObjectUnsocketed.AddListener(HandleRemovedFromSocket);
+
+                _levelSelectUIManager.confirmedSelection.AddListener(SelectionConfirmed);
+                _levelSelectUIManager.cancelledSelection.AddListener(SelectionCancelled);
+            }
+            else
+            {
+                _merchantOption.socket.onObjectSocketed.RemoveListener(HandleSocketedInMerchantSelection);
+                _merchantOption.socket.onObjectUnsocketed.RemoveListener(HandleRemovedFromSocket);
+
+                _levelSelectUIManager.confirmedSelection.RemoveListener(SelectionConfirmed);
+                _levelSelectUIManager.cancelledSelection.RemoveListener(SelectionCancelled);
+            }
         }
 
-        public System.Collections.Generic.List<(System.Action, string)> GetButtonActions()
+        
+        private void OnDisable()
         {
-            return new System.Collections.Generic.List<(System.Action, string)>
+            SetListenerStates(false);
+        }
+        
+        private void DebugSocketState()
+        {
+            Debug.Log($"Level Selected: {levelSelected}, Boss Level Selected: {bossLevelSelected}", this);
+            Debug.Log($"Merchant Socket Active: {_merchantOption.socket.SocketState()}, Can be grabbed: {_merchantOption.socket.GrabState()}", this);
+            foreach (var levelSelection in _levelOptions)
             {
-                
-                (
-                () =>
-                {
-                    if (!Application.isPlaying) return;
-                    SetLevelSockets(true); 
-                    SetSocketState(true, ref _merchantOption.socket);
-                }, "Unlock Sockets")
-            };
+                Debug.Log($"Level Option[{levelSelection.id}] Socket Active: {levelSelection.socket.SocketState()}, Can be grabbed: {levelSelection.socket.GrabState()}", this);
+            }
         }
     }
 }

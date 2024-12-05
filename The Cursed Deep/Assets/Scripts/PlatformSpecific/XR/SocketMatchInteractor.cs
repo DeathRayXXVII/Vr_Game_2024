@@ -35,8 +35,6 @@ public class SocketMatchInteractor : XRSocketInteractor
     
     private InteractionLayerMask _originalInteractableLayerMask;
     private InteractionLayerMask _isolatedLayerMask;
-    private LayerMask _originalColliderLayerMask;
-    private static readonly LayerMask IgnoreRayCastLayerMask = 2;
     private XRGrabInteractable _socketedObject;
     private Collider _socketTrigger;
     
@@ -129,7 +127,6 @@ public class SocketMatchInteractor : XRSocketInteractor
             deactivateGrabInteractionOnSocket = false;
             if (!_socketedObject) return;
             _socketedObject.interactionLayers = _originalInteractableLayerMask;
-            _socketedObject.gameObject.layer = _originalInteractableLayerMask;
         }
         else
         {
@@ -142,6 +139,8 @@ public class SocketMatchInteractor : XRSocketInteractor
     
     public void EnableSocket() => SetSocketState(true);
     public void DisableSocket() => SetSocketState(false);
+    public bool SocketState() => _socketTrigger.enabled;
+    public bool GrabState() => deactivateGrabInteractionOnSocket;
     
     private void SetSocketState(bool socketState)
     {

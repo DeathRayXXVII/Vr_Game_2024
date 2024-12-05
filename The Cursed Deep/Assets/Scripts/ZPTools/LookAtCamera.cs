@@ -9,7 +9,11 @@ namespace ZPTools
         protected override Transform GetTargetTransform()
         {
             // If no specific camera is assigned, default to the main camera.
-            return targetCamera != null ? targetCamera.transform : Camera.main?.transform;
+            if (targetCamera == null)
+            {
+                targetCamera = Camera.main;
+            }
+            return targetCamera!.transform;
         }
     }
 }

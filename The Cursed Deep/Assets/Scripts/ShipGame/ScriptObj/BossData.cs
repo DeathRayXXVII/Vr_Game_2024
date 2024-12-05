@@ -6,7 +6,7 @@ namespace ShipGame.ScriptObj
     public class BossData : EnemyData
     {
         [System.Serializable]
-        protected new struct EnemyDataJson
+        protected struct BossDataJson
         {
             public int elements;
             public float[] bossHealths;
@@ -15,41 +15,41 @@ namespace ShipGame.ScriptObj
             public int[] bossBounties;
             public int[] bossScores;
         }
-
+        
         protected override string dataFilePath => Application.dataPath + "/Resources/GameData/BossDataJson.json";
         protected override string resourcePath => "GameData/BossDataJson";
         
-        protected new EnemyDataJson TempJsonData;
+        private BossDataJson _tempBossJsonData;
 
         protected override void ParseJsonFile(TextAsset jsonObject)
         {
-            TempJsonData = ParseJsonData<EnemyDataJson>(jsonObject.text);
+            _tempBossJsonData = ParseJsonData<BossDataJson>(jsonObject.text);
         }
         
         protected override void InitializeData()
         {
-            if (_enemyInstanceData == null || _enemyInstanceData.Length != TempJsonData.elements)
+            if (_enemyInstanceData == null || _enemyInstanceData.Length != _tempBossJsonData.elements)
             {
-                _enemyInstanceData = new EnemyInstanceData[TempJsonData.elements];
+                _enemyInstanceData = new EnemyInstanceData[_tempBossJsonData.elements];
             }
             
-            for (var i = 0; i < TempJsonData.elements; i++)
+            for (var i = 0; i < _tempBossJsonData.elements; i++)
             {
                 _enemyInstanceData[i] = new EnemyInstanceData
                 {
-                    health = TempJsonData.bossHealths[i],
-                    damage = TempJsonData.bossDamages[i],
-                    speed = TempJsonData.bossSpeeds[i],
-                    bounty = TempJsonData.bossBounties[i],
-                    score = TempJsonData.bossScores[i]
+                    health = _tempBossJsonData.bossHealths[i],
+                    damage = _tempBossJsonData.bossDamages[i],
+                    speed = _tempBossJsonData.bossSpeeds[i],
+                    bounty = _tempBossJsonData.bossBounties[i],
+                    score = _tempBossJsonData.bossScores[i]
                 };
 
                 if (i != currentIndex) continue;
-                SetHealth(TempJsonData.bossHealths[i]);
-                SetDamage(TempJsonData.bossDamages[i]);
-                SetSpeed(TempJsonData.bossSpeeds[i]);
-                SetBounty(TempJsonData.bossBounties[i]);
-                SetScore(TempJsonData.bossScores[i]);
+                SetHealth(_tempBossJsonData.bossHealths[i]);
+                SetDamage(_tempBossJsonData.bossDamages[i]);
+                SetSpeed(_tempBossJsonData.bossSpeeds[i]);
+                SetBounty(_tempBossJsonData.bossBounties[i]);
+                SetScore(_tempBossJsonData.bossScores[i]);
             }
         }
     }
