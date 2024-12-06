@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -29,9 +28,13 @@ namespace ShipGame.Manager
         private Coroutine _uiAnimationCoroutine;
         
         private Vector3 _initialScale;
+        private float _animationDuration;
 
         private void Awake()
         {
+            confirmButton.colliders[0].enabled = false;
+            cancelButton.colliders[0].enabled = false;
+            
             _initialScale = _uiParent.localScale;
             _uiParent.localScale = Vector3.zero;
             _uiParent.gameObject.SetActive(false);
@@ -72,12 +75,52 @@ namespace ShipGame.Manager
                 PerformUIAnimation(true, startPosition, targetPosition, duration));
         }
         
+        public IEnumerator DeactivateUIAndWait(Vector3 startPosition, Vector3 targetPosition, float duration = 1f)
+        {
+            Debug.Log("Deactivating UI and waiting for animation to complete.", this);
+
+            if (_uiAnimationCoroutine != null)
+            {
+                StopCoroutine(_uiAnimationCoroutine);
+                _uiAnimationCoroutine = null;
+            }
+            
+            _animationDuration = duration;
+            DeactivateUI(startPosition, targetPosition, duration);
+            
+            var time = 0f;
+            while (_uiAnimationCoroutine == null || time < _animationDuration)
+            {
+                Debug.Log($"Waiting for UI Animation to start: {time} / {_animationDuration}", this);
+                time += Time.deltaTime;
+                yield return null;
+            }
+            
+            time = 0f;
+            while (_uiAnimationCoroutine != null || time < _animationDuration)
+            {
+                Debug.Log($"Waiting for UI Deactivation: {time} / {_animationDuration}", this);
+                time += Time.deltaTime;
+                yield return null;
+            }
+            
+            yield return _waitFixed;
+
+            if (_uiAnimationCoroutine == null || !(time > _animationDuration)) yield break;
+            
+            StopCoroutine(_uiAnimationCoroutine);
+            _uiAnimationCoroutine = null;
+        }
+        
         public void DeactivateUI(Vector3 startPosition, Vector3 targetPosition, float duration = 1f)
         {
             if (_uiAnimationCoroutine != null)
             {
                 return;
             }
+            
+            confirmButton.colliders[0].enabled = false;
+            cancelButton.colliders[0].enabled = false;
             
             _uiAnimationCoroutine ??= StartCoroutine(
                 PerformUIAnimation(false, startPosition, targetPosition, duration));
@@ -86,14 +129,17 @@ namespace ShipGame.Manager
         private IEnumerator PerformUIAnimation(bool activeState, Vector3 startPosition, Vector3 targetPosition,
             float duration = 1f)
         {
-            Debug.Log($"Performing UI Animation, Active State: {activeState}, Start Position: {startPosition}, " +
-                      $"Target Position: {targetPosition}, Duration: {duration}");
+            _animationDuration = duration;
+            
             if (activeState)
             {
                 _uiParent.gameObject.SetActive(true);
             
                 _headerTextMesh.UpdateLabel(_headerText);
                 _levelNumberTextMesh.UpdateLabel(levelNumberText);
+                
+                confirmButton.colliders[0].enabled = true;
+                cancelButton.colliders[0].enabled = true;
             }
             _uiParent.localScale = activeState ? Vector3.zero : _initialScale;
             yield return _waitFixed;
