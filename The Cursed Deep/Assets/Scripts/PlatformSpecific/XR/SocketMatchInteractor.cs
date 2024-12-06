@@ -140,7 +140,7 @@ public class SocketMatchInteractor : XRSocketInteractor
     public void EnableSocket() => SetSocketState(true);
     public void DisableSocket() => SetSocketState(false);
     public bool SocketState() => _socketTrigger.enabled;
-    public bool GrabState() => deactivateGrabInteractionOnSocket;
+    public bool GrabState() => !deactivateGrabInteractionOnSocket;
     
     private void SetSocketState(bool socketState)
     {
