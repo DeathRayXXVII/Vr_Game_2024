@@ -15,6 +15,7 @@ public class TextMeshProBehavior : MonoBehaviour
     private void Awake()
     {
         ValidateTMProObject();
+        _text.debugContext = this;
     }
 
     private void Start()

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using ZPTools.Utility;
 
@@ -8,5 +9,10 @@ namespace ZPTools.ScriptableObjects.Primitives
     {
         [SerializeField] private StringFactory _text;
         public string text => _text.formattedString;
+
+        private void OnEnable()
+        {
+            _text.debugContext = this;
+        }
     }
 }

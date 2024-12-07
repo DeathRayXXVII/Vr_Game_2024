@@ -11,11 +11,14 @@ namespace ZPTools.Utility
         // The format string that contains placeholders like {0}, {1}, etc.
         [SerializeField, TextArea] private string formatString;
         [SerializeField] private FormattableValue[] formatValues;
+        private Object _context;
+        public Object debugContext { get => _context; set => _context = value; }
 
-        public StringFactory(string formatString, params FormattableValue[] formatValues)
+        public StringFactory(string formatString, Object contextObj = null, params FormattableValue[] formatValues)
         {
             this.formatString = formatString;
             this.formatValues = formatValues;
+            _context = contextObj;
         }
 
         public string formattedString => FormatString(formatString, formatValues);
@@ -24,7 +27,7 @@ namespace ZPTools.Utility
         {
             if (string.IsNullOrEmpty(input))
             {
-                Debug.LogError("Input string is null or empty.");
+                Debug.LogError("[ERROR] Input string is null or empty.", _context);
                 return string.Empty;
             }
 
@@ -44,12 +47,12 @@ namespace ZPTools.Utility
                 // Perform standard string formatting
                 input = string.Format(input, formattedArgs);
                 
-                Debug.Log($"Final Formatted string: {input}");
+                Debug.Log($"[DEBUG] Final Formatted string: {input}", _context);
                 return input;
             }
             catch (System.FormatException e)
             {
-                Debug.LogError($"FormatException: {e.Message}");
+                Debug.LogError($"[ERROR] FormatException: {e.Message}", _context);
                 return input;
             }
         }
@@ -83,7 +86,7 @@ namespace ZPTools.Utility
             // Handle singular and plural placeholders
             input = pluralRegex.Replace(input, match =>
             {
-                Debug.Log($"Plural match: {match.Value}");
+                Debug.Log($"[DEBUG] Plural match: {match.Value}");
                 // If the match doesn't have a group, return the original match
                 if (!match.Groups[1].Success) return match.Value;
                 // Get the index of the placeholder
@@ -98,7 +101,7 @@ namespace ZPTools.Utility
 
             input = singularRegex.Replace(input, match =>
             {
-                Debug.Log($"Singular match: {match.Value}");
+                Debug.Log($"[DEBUG] Singular match: {match.Value}", _context);
                 if (!match.Groups[1].Success) return match.Value;
                 int index = int.Parse(match.Groups[1].Value);
                 if (index >= formattedArgs.Length) return match.Value;
@@ -109,7 +112,7 @@ namespace ZPTools.Utility
             // Handle currency placeholders
             input = currencyRegex.Replace(input, match =>
             {
-                Debug.Log($"Currency match: {match.Value}");
+                Debug.Log($"[DEBUG] Currency match: {match.Value}", _context);
                 if (!match.Groups[1].Success) return match.Value;
                 int index = int.Parse(match.Groups[1].Value);
                 if (index >= formattedArgs.Length) return match.Value;
@@ -119,7 +122,7 @@ namespace ZPTools.Utility
 
             input = currencyWholeRegex.Replace(input, match =>
             {
-                Debug.Log($"Whole Currency match: {match.Value}");
+                Debug.Log($"[DEBUG] Whole Currency match: {match.Value}", _context);
                 if (!match.Groups[1].Success) return match.Value;
                 int index = int.Parse(match.Groups[1].Value);
                 if (index >= formattedArgs.Length) return match.Value;
@@ -129,7 +132,7 @@ namespace ZPTools.Utility
 
             input = currencyDecimalRegex.Replace(input, match =>
             {
-                Debug.Log($"Decimal Currency match: {match.Value}");
+                Debug.Log($"[DEBUG] Decimal Currency match: {match.Value}", _context);
                 if (!match.Groups[1].Success) return match.Value;
                 int index = int.Parse(match.Groups[1].Value);
                 if (index >= formattedArgs.Length) return match.Value;
@@ -137,7 +140,7 @@ namespace ZPTools.Utility
                 return value.ToString("C2", CultureInfo.InvariantCulture);
             });
             
-            Debug.Log($"Formatted string after REGEX: {input}");
+            Debug.Log($"[DEBUG] Formatted string after REGEX: {input}", _context);
             // If no matches are found, return the original string
             return input;
         }
