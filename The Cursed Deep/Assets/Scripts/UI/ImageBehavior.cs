@@ -1,29 +1,67 @@
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-//[RequireComponent(typeof(Image))]
 public class ImageBehavior : MonoBehaviour
 {
-    //OK this isn't too complicated, you essentially assign an image to be the healthbar, then tell unity to update it's fill amount based on the missing health percent.
     public UnityEvent startEvent;
 
-    //private Image imageObj;
+    [SerializeField] private Image _fillImage;
+    [SerializeField] private Slider _slider;
+    
+    [SerializeField] private Color fullHealthColor = Color.green;
+    [SerializeField] private Color halfHealthColor = Color.yellow;
+    [SerializeField] private Color noHealthColor = Color.red;
+    
+    [SerializeField] private FloatData maxHealth;
+    [SerializeField] private FloatData currentHealth;
+    [SerializeField, SteppedRange(0, 0.1f, 0.01f)] private float hideImageThreshold = 0.02f;
+    
+#if UNITY_EDITOR
+    [SerializeField, SteppedRange(0, 1f, 0.01f)] private float testSlider = 1f;
 
-    private Slider ImageSlider;
-    //this is your healthbar.it'll need to be attached to an image in a screenspace canvas for persistent UI, or a worldspace canvas to float above enemies/objects.
-    //You can toggle between bar and radial health on the image object itself.
-    public FloatData maxHealth; //right now this reads a float Scriptable object, but you could probably change it to just a float if you felt like it.
-    
-    void Start()
+    private void OnValidate()
     {
-        //imageObj = GetComponent<Image>();
-        ImageSlider = GetComponent<Slider>();
-        startEvent.Invoke();// this just opens up an in-editor start event. it's not necessary for the code,but it's here if you want to do anything.
+        if (!Application.isPlaying)
+        {
+            // Delay the editor update to avoid unsafe UI operations
+            EditorApplication.delayCall += SafeEditorUpdate;
+        }
     }
-    
-    public void UpdateImage(FloatData data) //this is the main part of the code, you'll want to call this method every time you want the health bar to update,
-        //after you've already added/subtracted health. I usually call on it using either a unity event or a game action object.
+
+    private void SafeEditorUpdate()
+    {
+        if (this == null) return;
+
+        if (_slider != null)
+        {
+            _slider.value = Mathf.Clamp(testSlider, 0f, 1f);
+        }
+
+        if (_fillImage != null && maxHealth != null)
+        {
+            UpdateImage(testSlider * maxHealth.value);
+        }
+    }
+#endif
+
+    private void Awake()
+    {
+        _fillImage ??= GetComponent<Image>();
+        _slider ??= GetComponent<Slider>();
+    }
+
+    private void Start()
+    {
+        UpdateImage(currentHealth ?? 0f);
+        startEvent.Invoke();
+    }
+
+    public void UpdateImage(FloatData data)
     {
         if (data == null)
         {
@@ -31,12 +69,42 @@ public class ImageBehavior : MonoBehaviour
             return;
         }
         
+        UpdateImage(data.value);
+    }
+
+    public void UpdateImage(float data)
+    {
+        if (_slider == null)
+        {
+            Debug.LogError("Missing slider.", this);
+            return;
+        }
+        if (_fillImage == null)
+        {
+            Debug.LogError("Missing fill image.", this);
+            return;
+        }
+
         if (maxHealth == null)
         {
             Debug.LogError("Max value is null", this);
-            return;           
+            return;
         }
+
         //imageObj.fillAmount = (data.value / maxHealth.value);
-        ImageSlider.value = data.value / maxHealth.value;
+        var result = data / maxHealth.value;
+        if (result < hideImageThreshold) result = 0f;
+        
+        _slider.value = result;
+        noHealthColor.a = result == 0f ? 0f : 1f;
+        
+        if (result > 0.5f)
+        {
+            _fillImage.color = Color.Lerp(halfHealthColor, fullHealthColor, (result - 0.5f) * 2f);
+        }
+        else
+        {
+            _fillImage.color = Color.Lerp(noHealthColor, halfHealthColor, result * 2f);
+        }
     }
 }

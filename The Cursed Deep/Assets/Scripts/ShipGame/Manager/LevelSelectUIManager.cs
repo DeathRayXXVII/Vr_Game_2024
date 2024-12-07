@@ -13,10 +13,10 @@ namespace ShipGame.Manager
         [SerializeField] private Transform _uiParent;
         
         [SerializeField] private TextMeshProBehavior _headerTextMesh;
-        [SerializeField] private TextMeshProBehavior _levelNumberTextMesh;
+        [SerializeField] private TextMeshProBehavior _detailsTextMesh;
         
         private string _headerText;
-        private string levelNumberText => $"Level {_currentLevel ?? 0}";
+        private string _detailsText;
         
         [SerializeField] private XRSimpleInteractable confirmButton;
         [SerializeField] private XRSimpleInteractable cancelButton;
@@ -62,12 +62,20 @@ namespace ShipGame.Manager
             cancelledSelection?.Invoke();
         }
         
-        public void ActivateUI(string headerText, Vector3 startPosition, Vector3 targetPosition, float duration = 1f)
+        public void ActivateUI(string headerText, string detailText, Vector3 startPosition, Vector3 targetPosition, float duration = 1f)
         {
             _headerText = headerText;
+            _detailsText = detailText;
+            
 
             if (_uiAnimationCoroutine != null)
             {
+                return;
+            }
+            
+            if (_headerTextMesh == null || _detailsTextMesh == null)
+            {
+                Debug.LogError("Header or Details Text Mesh is null, cannot update text. Stopping UI Activation", this);
                 return;
             }
             
@@ -77,8 +85,6 @@ namespace ShipGame.Manager
         
         public IEnumerator DeactivateUIAndWait(Vector3 startPosition, Vector3 targetPosition, float duration = 1f)
         {
-            Debug.Log("Deactivating UI and waiting for animation to complete.", this);
-
             if (_uiAnimationCoroutine != null)
             {
                 StopCoroutine(_uiAnimationCoroutine);
@@ -91,7 +97,6 @@ namespace ShipGame.Manager
             var time = 0f;
             while (_uiAnimationCoroutine == null || time < _animationDuration)
             {
-                Debug.Log($"Waiting for UI Animation to start: {time} / {_animationDuration}", this);
                 time += Time.deltaTime;
                 yield return null;
             }
@@ -99,7 +104,6 @@ namespace ShipGame.Manager
             time = 0f;
             while (_uiAnimationCoroutine != null || time < _animationDuration)
             {
-                Debug.Log($"Waiting for UI Deactivation: {time} / {_animationDuration}", this);
                 time += Time.deltaTime;
                 yield return null;
             }
@@ -136,7 +140,7 @@ namespace ShipGame.Manager
                 _uiParent.gameObject.SetActive(true);
             
                 _headerTextMesh.UpdateLabel(_headerText);
-                _levelNumberTextMesh.UpdateLabel(levelNumberText);
+                _detailsTextMesh.UpdateLabel(_detailsText);
                 
                 confirmButton.colliders[0].enabled = true;
                 cancelButton.colliders[0].enabled = true;
@@ -148,9 +152,6 @@ namespace ShipGame.Manager
             
             while (time < duration)
             {
-                // Debug.Log($"Time: {time}, Duration: {duration}, Time / Duration: {time / duration}, " +
-                //           $"Start Position: {startPosition}, Target Position: {targetPosition}, " +
-                //           $"UI Parent Position: {_uiParent.position}");
                 time += Time.deltaTime;
                 _uiParent.position = Vector3.Lerp(startPosition, targetPosition, time / duration);
                 _uiParent.localScale = activeState ?

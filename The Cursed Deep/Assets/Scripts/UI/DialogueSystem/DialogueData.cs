@@ -52,7 +52,8 @@ namespace UI.DialogueSystem
                 string[] dialogueStrings = new string[dialogue.Length];
                 for (int i = 0; i < dialogue.Length; i++)
                 {
-                    dialogueStrings[i] = dialogue[i].FormattedString;
+                    dialogue[i].debugContext = this;
+                    dialogueStrings[i] = dialogue[i].formattedString;
                 }
                 return dialogueStrings;
             }
