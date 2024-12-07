@@ -9,6 +9,8 @@ namespace ShipGame.Manager
     {
         [SerializeField] private bool _allowDebug;
         
+        [SerializeField] private IntData _currentLevel;
+        
         [SerializeField, ReadOnly] private bool _levelSelected;
         [SerializeField, ReadOnly] private bool _bossLevelSelected;
         [SerializeField, ReadOnly] private bool _merchantSelected;
@@ -133,14 +135,27 @@ namespace ShipGame.Manager
             _selectedLevelIndex = index;
             var levelSelection = _levelOptions[index];
             
+            if (levelSelection.socket == null)
+            {
+                Debug.LogError("[ERROR] Socket is missing", this);
+                return;
+            }
+            
+            if (levelSelection.enemyData == null)
+            {
+                Debug.LogError("[ERROR] Enemy Data is missing", this);
+                return;
+            }
+            
             if (_allowDebug) 
-                Debug.Log($"[DEBUG] Level Option[{index}] Selected", this);
+                Debug.Log($"[DEBUG] Level Option[{index}] Selected, with name {levelSelection.enemyData.unitName}", this);
             
             _merchantSelected = false;
             bossLevelSelected = levelSelection.isBossLevel;
             levelSelected = !bossLevelSelected;
             
-            _levelSelectUIManager.ActivateUI($"{(bossLevelSelected ? "Boss" : "Level")} Selection {index}", 
+            _levelSelectUIManager.ActivateUI($"Level {_currentLevel ?? 0}",
+                $"{(bossLevelSelected ? "BOSS" : "")} {levelSelection.enemyData.unitName}", 
                 levelSelection.transform.position, _activatedUIPosition.position);
 
             SetAllSocketsState(false, index);
@@ -207,13 +222,6 @@ namespace ShipGame.Manager
         
         private void HandleSocketedInMerchantSelection()
         {
-            if (_merchantOption.transform == null || _merchantOption.socket == null)
-            {
-                Debug.LogError("[ERROR] Merchant Socket is missing", this);
-                return;
-            }
-            
-            
             if (_allowDebug) 
                 Debug.Log("[DEBUG] Merchant Selected", this);
             levelSelected = bossLevelSelected = false;
@@ -222,7 +230,7 @@ namespace ShipGame.Manager
             _selectedLevelIndex = -1;
             SetAllSocketsState(false, _selectedLevelIndex);
             
-            _levelSelectUIManager.ActivateUI("Head to Black Market?", _merchantOption.transform.position,
+            _levelSelectUIManager.ActivateUI("Head to", "Black Market?", _merchantOption.transform.position,
                 _activatedUIPosition.position);
         }
 
@@ -236,29 +244,34 @@ namespace ShipGame.Manager
             bool hasLevels = _levelOptions is { Length: > 0 };
             bool hasMerchant = _merchantOption.transform != null && _merchantOption.socket != null;
             bool hasUIManager = _levelSelectUIManager != null;
+            bool hasCurrentLevel = _currentLevel != null;
+            bool hasLevelSelectedHolder = levelSelectedHolder != null;
+            bool hasBossLevelSelectedHolder = bossLevelSelectedHolder != null;
             
-            bool hasAllRequired = hasLevels && hasMerchant && hasUIManager;
+            bool hasAllRequired = hasLevels && hasMerchant && hasUIManager && hasCurrentLevel && hasLevelSelectedHolder &&
+                                  hasBossLevelSelectedHolder;
 
             if (!hasLevels)
-            {
                 errorMessage += "\t- Level Selections are missing\n";
-            }
             
             if (!hasMerchant)
-            {
                 errorMessage += "\t- Merchant Selection is missing\n";
-            }
             
             if (!hasUIManager)
-            {
                 errorMessage += "\t- Level Selection UI Manager is missing\n";
-            }
+            
+            if (!hasCurrentLevel)
+                errorMessage += "\t- Current Level Data is missing\n";
+            
+            if (!hasLevelSelectedHolder)
+                errorMessage += "\t- Level Selected Holder is missing\n";
+            
+            if (!hasBossLevelSelectedHolder)
+                errorMessage += "\t- Boss Level Selected Holder is missing\n";
             
             if (_allowDebug && hasAllRequired)
-            {
                 debugMessage +=
                     "[DEBUG] Level Selections, merchant selection, and UI Manager are all present. Initializing...\n";
-            }
             
             if (_allowDebug && !string.IsNullOrEmpty(debugMessage))
                 Debug.Log(debugMessage, this); 
