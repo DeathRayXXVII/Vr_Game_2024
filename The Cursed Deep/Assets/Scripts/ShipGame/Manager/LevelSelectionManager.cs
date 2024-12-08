@@ -10,6 +10,7 @@ namespace ShipGame.Manager
         [SerializeField] private bool _allowDebug;
         
         [SerializeField] private IntData _currentLevel;
+        [SerializeField] private IntData _countToBoss;
         
         [SerializeField, ReadOnly] private bool _levelSelected;
         [SerializeField, ReadOnly] private bool _bossLevelSelected;
@@ -42,6 +43,7 @@ namespace ShipGame.Manager
         
         [SerializeField] private LevelSelectUIManager _levelSelectUIManager;
         [SerializeField] private Transform _activatedUIPosition;
+        [SerializeField, SteppedRange(0.1f, 5, 0.1f)] private float _animationDuration = 1f;
         private int _selectedLevelIndex = -2;
         
         private bool ValidSelection(int index)
@@ -55,20 +57,8 @@ namespace ShipGame.Manager
             Debug.LogError($"[ERROR] Invalid Level Index: {index} provided", this);
             return false;
         }
-
-        [System.Serializable]
-        private struct LevelSelectionSocket
-        {
-            private int _id;
-            public bool isBossLevel;
-            public CreepData enemyData;
-            public Transform transform;
-            public SocketMatchInteractor socket;
-            
-            public int id { get => _id; set => _id = value; }
-        }
         
-        [SerializeField] private LevelSelectionSocket[] _levelOptions;
+        [SerializeField] private LevelSelection[] _levelOptions;
         
         private void SelectionConfirmed()
         {
@@ -94,34 +84,42 @@ namespace ShipGame.Manager
         
         private IEnumerator WaitForCancel()
         {
-            var uiTargetPosition = _selectedLevelIndex == -1 ? 
-                _merchantOption.transform.position :
-                _levelOptions[_selectedLevelIndex].transform.position;
-            
-            yield return _levelSelectUIManager.DeactivateUIAndWait(_activatedUIPosition.position, uiTargetPosition);
-            
             var selectedSocket = _selectedLevelIndex == -1 ? 
                 ref _merchantOption.socket :
                 ref _levelOptions[_selectedLevelIndex].socket;
-                
-            _selectedLevelIndex = -2;
+            
+            yield return StartCoroutine(_levelSelectUIManager.DeactivateUIAndWait(_activatedUIPosition.position, selectedSocket.transform.position, _animationDuration));
+            
+            if (_allowDebug) 
+                Debug.Log($"[DEBUG] Level [{_selectedLevelIndex}] Cancelled", this);
             
             SetSocketGrabState(true, ref selectedSocket);
-            yield return _waitFixed;
+            yield return new WaitUntil(() => selectedSocket.GrabState());
             
             _cancelingSelection = false;
             yield return _waitFixed;
-            
         }
         
         private void HandleRemovedFromSocket()
         {
-            
             if (_allowDebug) 
                 Debug.Log("[DEBUG] Selection Removed", this);
             levelSelected = bossLevelSelected =_merchantSelected = false;
             
-            SetAllSocketsState(true);
+            StartCoroutine(SetSocketStateAfterCancel());
+        }
+        
+        private IEnumerator SetSocketStateAfterCancel()
+        {
+            if (_cancelingSelection)
+            {
+                yield return new WaitUntil(() => !_cancelingSelection);
+            }
+            
+            _selectedLevelIndex = -2;
+            yield return _waitFixed;
+            
+            SetAllSocketsState(true, _selectedLevelIndex);
         }
         
         private void HandleSocketedInLevelSelection(int index)
@@ -156,12 +154,12 @@ namespace ShipGame.Manager
             
             _levelSelectUIManager.ActivateUI($"Level {_currentLevel ?? 0}",
                 $"{(bossLevelSelected ? "BOSS" : "")} {levelSelection.enemyData.unitName}", 
-                levelSelection.transform.position, _activatedUIPosition.position);
+                levelSelection.socket.transform.position, _activatedUIPosition.position, _animationDuration);
 
             SetAllSocketsState(false, index);
         }
         
-        private static void SetSocketGrabState(bool state, ref SocketMatchInteractor socket)
+        private void SetSocketGrabState(bool state, ref SocketMatchInteractor socket)
         {
             socket.AllowGrabInteraction(state);
         }
@@ -230,8 +228,8 @@ namespace ShipGame.Manager
             _selectedLevelIndex = -1;
             SetAllSocketsState(false, _selectedLevelIndex);
             
-            _levelSelectUIManager.ActivateUI("Head to", "Black Market?", _merchantOption.transform.position,
-                _activatedUIPosition.position);
+            _levelSelectUIManager.ActivateUI("Head to", "Black Market?", _merchantOption.socket.transform.position,
+                _activatedUIPosition.position, _animationDuration);
         }
 
         private void Awake()
@@ -245,6 +243,7 @@ namespace ShipGame.Manager
             bool hasMerchant = _merchantOption.transform != null && _merchantOption.socket != null;
             bool hasUIManager = _levelSelectUIManager != null;
             bool hasCurrentLevel = _currentLevel != null;
+            bool hasCountToBoss = _countToBoss != null;
             bool hasLevelSelectedHolder = levelSelectedHolder != null;
             bool hasBossLevelSelectedHolder = bossLevelSelectedHolder != null;
             
@@ -263,6 +262,9 @@ namespace ShipGame.Manager
             if (!hasCurrentLevel)
                 errorMessage += "\t- Current Level Data is missing\n";
             
+            if (!hasCountToBoss)
+                errorMessage += "\t- Count to Boss Data is missing\n";
+            
             if (!hasLevelSelectedHolder)
                 errorMessage += "\t- Level Selected Holder is missing\n";
             
@@ -271,7 +273,7 @@ namespace ShipGame.Manager
             
             if (_allowDebug && hasAllRequired)
                 debugMessage +=
-                    "[DEBUG] Level Selections, merchant selection, and UI Manager are all present. Initializing...\n";
+                    "[DEBUG] All required components are present and accounted for, initializing...\n";
             
             if (_allowDebug && !string.IsNullOrEmpty(debugMessage))
                 Debug.Log(debugMessage, this); 
@@ -288,6 +290,12 @@ namespace ShipGame.Manager
         private readonly Dictionary<int, UnityAction> _levelSelectionListeners = new();
         private void SetListenerStates(bool listenState)
         {
+            if (_levelOptions == null || _levelOptions.Length == 0)
+            {
+                Debug.LogError("[ERROR] Level Options are missing", this);
+                return;
+            }
+            
             for (var i = 0; i < _levelOptions.Length; i++)
             {
                 _levelOptions[i].id = i;
@@ -352,6 +360,8 @@ namespace ShipGame.Manager
         
         private void DebugSocketState()
         {
+            if (!_allowDebug) return;
+            
             const int lineLength = 80;
             var message =
                 $"[DEBUG] Selection -> Normal Level: {levelSelected}, Boss Level: {bossLevelSelected}, Merchant: {_merchantSelected}\n";
@@ -363,8 +373,8 @@ namespace ShipGame.Manager
                     lineLength, $"Level Option[{levelSelection.id}] Socket -> Active: {levelSelection.socket.SocketState()}, " +
                                 $"Grab State: {levelSelection.socket.GrabState()}\n", ' ');
             }
-            if (_allowDebug)
-                Debug.Log(message, this);
+            
+            Debug.Log(message, this);
         }
         
 #endif

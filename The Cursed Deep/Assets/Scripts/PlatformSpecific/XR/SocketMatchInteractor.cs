@@ -31,10 +31,10 @@ public class SocketMatchInteractor : XRSocketInteractor
     public UnityEvent onObjectUnsocketed;
     
     private IDBehavior _idBehavior;
-    private readonly WaitForFixedUpdate _wait = new();
+    private readonly WaitForFixedUpdate _waitFixed = new();
     
-    private InteractionLayerMask _originalInteractableLayerMask;
-    private InteractionLayerMask _isolatedLayerMask;
+    private int _originalInteractableLayerMask;
+    private const int IsolatedLayerMask = 4;
     private XRGrabInteractable _socketedObject;
     private Collider _socketTrigger;
     
@@ -43,7 +43,6 @@ public class SocketMatchInteractor : XRSocketInteractor
     private new void Awake()
     {
         interactionLayers = 6;
-        _isolatedLayerMask.value = 4;
         
         if (socketID)
         {
@@ -125,15 +124,18 @@ public class SocketMatchInteractor : XRSocketInteractor
         if (grabState)
         {
             deactivateGrabInteractionOnSocket = false;
+            
             if (!_socketedObject) return;
-            _socketedObject.interactionLayers = _originalInteractableLayerMask;
+             _socketedObject.interactionLayers = _originalInteractableLayerMask;
         }
         else
         {
             deactivateGrabInteractionOnSocket = true;
+            
             if (!_socketedObject) return;
-            _originalInteractableLayerMask = _socketedObject.interactionLayers;
-            _socketedObject.interactionLayers = _isolatedLayerMask;
+            if (_socketedObject.interactionLayers.value == IsolatedLayerMask) return;
+            _originalInteractableLayerMask = _socketedObject.interactionLayers.value;
+            _socketedObject.interactionLayers = IsolatedLayerMask;
         }
     }
     
@@ -177,15 +179,18 @@ public class SocketMatchInteractor : XRSocketInteractor
     
     private IEnumerator DisableObject(GameObject obj)
     {
-        yield return _wait;
-        yield return _wait;
-        yield return _wait;
+        yield return _waitFixed;
+        yield return _waitFixed;
+        yield return _waitFixed;
         obj.SetActive(false);
     }
     
     public void RemoveAndMoveSocketObject(Transform copyTransform)
     {
-        if (!_socketedObject){Debug.LogWarning("SOCKET OBJECT APPEARS TO BE NULL"); return;}
+        if (!_socketedObject)
+        {
+            Debug.LogWarning("[WARNING] Socket object appears to be null.", this); return;
+        }
         if (interactablesSelected.Count == 0) return;
         DisableSocket();
         _removeAndMoveCoroutine ??= StartCoroutine(PerformRemoveAndMove(copyTransform.position, copyTransform.rotation));
@@ -193,7 +198,11 @@ public class SocketMatchInteractor : XRSocketInteractor
 
     public GameObject RemoveAndMoveSocketObject(Vector3 position, Quaternion rotation)
     {
-        if (!_socketedObject){Debug.LogWarning("SOCKET OBJECT APPEARS TO BE NULL"); return null;}
+        if (!_socketedObject)
+        {
+            Debug.LogWarning("[WARNING] Socket object appears to be null.", this); 
+            return null;
+        }
         if (interactablesSelected.Count == 0) return null;
         var obj = _socketedObject.gameObject;
         DisableSocket();
@@ -204,14 +213,14 @@ public class SocketMatchInteractor : XRSocketInteractor
     private IEnumerator PerformRemoveAndMove(Vector3 position, Quaternion rotation)
     {
         var obj = _socketedObject.gameObject;
-        yield return _wait;
+        yield return _waitFixed;
         if (interactablesSelected.Count != 0) interactionManager.CancelInteractableSelection(interactablesSelected[0]);
-        yield return _wait;
+        yield return _waitFixed;
         obj.transform.position = position;
         obj.transform.rotation = rotation;
-        yield return _wait;
+        yield return _waitFixed;
         _socketedObject = null;
-        yield return _wait;
+        yield return _waitFixed;
         _socketTrigger.enabled = true;
         _removeAndMoveCoroutine = null;
     }

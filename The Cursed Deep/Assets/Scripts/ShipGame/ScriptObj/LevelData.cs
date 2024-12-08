@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using ZPTools.Interface;
 
@@ -36,7 +38,15 @@ namespace ShipGame.ScriptObj
         }
         
         [SerializeField] private IntData _currentLevel;
-        public bool fightingBoss { private get; set; }
+        [SerializeField] private IntData _countdownToBoss;
+        
+        [SerializeField] private BoolData _fightingBoss;
+
+        public bool fightingBoss
+        {
+            get => _fightingBoss;
+            set => _fightingBoss.value = value;
+        }
 
         public int currentLevel
         {
@@ -44,29 +54,42 @@ namespace ShipGame.ScriptObj
             set => _currentLevel.value = value < 1 ? 1 : value;
         }
 
+        public int countdownToBoss => currentLevel % 5 == 0 ? 0 : 5 - currentLevel % 5;
+
         private int currentIndex
         {
             get
             {
                 // boss fight occurs every 5 levels
-                var isBossFightLevel = currentLevel % 5 == 0;
+                var isPotentialBossFight = currentLevel % 5 == 0;
+                _countdownToBoss.value = countdownToBoss;
                 
-                // if not fighting a boss, we are on a normal level so _fightingBoss is false
-                if (!isBossFightLevel) 
+                // if we are not on a 5th level, we are on a normal level so there is no way we could be fighting a boss
+                if (!isPotentialBossFight) 
                     fightingBoss = false;
                 
                 // the current level - 1 to make it 0 based indexed (Since levels start at 1, indexBase 's minimum value is 0)
                 var indexBase = currentLevel - 1;
                 
                 // if _currentLevel is less than 5, return index base
-                if (currentLevel < 5) return indexBase;
+                if (currentLevel < 5)
+                {
+#if UNITY_EDITOR
+                    if (_allowDebug) 
+                        Debug.Log($"[DEBUG] Level: {currentLevel}, Index Base: {indexBase}, Countdown to boss: {countdownToBoss}," +
+                                  $" Modified Index: {indexBase}", this);
+#endif
+                    return indexBase;
+                }
                 
                 // increase the index by 1 for every 5 levels (this bypasses the non-boss fight level every 5 levels)
                 // Level 0:5 = indexBase+0, Level 6:10 = indexBase+1, Level 11:15 = indexBase+2, etc.
                 var modifiedIndex = indexBase + Mathf.FloorToInt((float) indexBase / 5);
                 
 #if UNITY_EDITOR
-                Debug.Log($"Level: {currentLevel}, Index Base: {indexBase}, Modified Index: {modifiedIndex + (fightingBoss ? 0 : 1)}");
+                if (_allowDebug) 
+                    Debug.Log($"[DEBUG] Level: {currentLevel}, Index Base: {indexBase}, potentially fighting boss {isPotentialBossFight}, Countdown to boss: {countdownToBoss}," +
+                              $" Modified Index: {modifiedIndex + (fightingBoss ? 0 : 1)}", this);
 #endif
                 // if the current level is a multiple of 5 and the player has selected to do the boss fight,
                 // then the index is the same as the modified index (boss fight)
@@ -75,6 +98,12 @@ namespace ShipGame.ScriptObj
                 return modifiedIndex + (fightingBoss ? 0 : 1);
             }
         }
+        
+        public void RefreshLevelData()
+        {
+            var index = currentIndex;
+        }
+        
 
         protected override string dataFilePath => Application.dataPath + "/Resources/GameData/LevelDataJson.json";
         protected override string resourcePath => "GameData/LevelDataJson";
@@ -125,8 +154,10 @@ namespace ShipGame.ScriptObj
         protected override void LogCurrentData()
         {
 #if UNITY_EDITOR
-            if (_allowDebug) Debug.Log($"------Level Data------\n" +
+            if (_allowDebug) Debug.Log($"[DEBUG] ------Level Data------\n" +
                                        $"Level: {currentLevel}\n" +
+                                       $"Countdown To Boss: {countdownToBoss}\n" +
+                                       $"Fighting Boss: {fightingBoss}\n" +
                                        $"Spawn Count: {spawnCount}\n" +
                                        $"Spawn Rate Min: {spawnRateMin}\n" +
                                        $"Spawn Rate Max: {spawnRateMax}\n" +
@@ -136,14 +167,15 @@ namespace ShipGame.ScriptObj
                                        $"Spawn Base Speed: {spawnBaseSpeed}\n" +
                                        $"Spawn Bounty: {spawnBounty}\n" +
                                        $"Spawn Score: {spawnScore}\n" +
-                                       $"----------------------");
+                                       $"----------------------", this);
 #endif
         }
         
 #if UNITY_EDITOR
-        private void OnValidate()
+        private void OnEnable()
         {
-            if (!_currentLevel) Debug.LogError("Current Level IntData is null. Please assign a value.", this);
+            if (!_currentLevel) Debug.LogError("[ERROR] Current Level IntData is null. Please assign a value.", this);
+            if (!_countdownToBoss) Debug.LogError("[ERROR] Current Level IntData is null. Please assign a value.", this);
         }
 #endif
 

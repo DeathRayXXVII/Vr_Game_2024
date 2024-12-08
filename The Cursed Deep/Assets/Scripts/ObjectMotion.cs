@@ -40,6 +40,7 @@ public class ObjectMotion : MonoBehaviour
     public Axis rotationAxis;
     [Range(-359, 359), Tooltip("Speed of rotation around the rotation-axis in degrees per second.")]
     public float rotationSpeed;
+    public Vector3 rotationOffset;
     
     [Header("Scale Settings")]
     [Tooltip("Choose whether position wave is based on a sine or cosine function - sine starts at vector3(0, 0, 0), cosine starts at vector3(axis-max, axis-max, axis-max) axis-max is the value of the positionAmplitude or 0 depending on the Scale Axis Selected.")]
@@ -138,7 +139,7 @@ public class ObjectMotion : MonoBehaviour
     {
         while (true)
         {
-            transform.Rotate(GetVectorFromAxes(rotationAxis), rotationSpeed * Time.deltaTime);
+            transform.Rotate(GetVectorFromAxes(rotationAxis) + rotationOffset, rotationSpeed * Time.deltaTime);
             yield return null;
         }
     }

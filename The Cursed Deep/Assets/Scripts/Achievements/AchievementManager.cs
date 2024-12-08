@@ -61,14 +61,14 @@ namespace Achievements
             }
             else
             {
-                Debug.LogWarning($"Achievement with id {id} not found");
+                Debug.LogWarning($"Achievement with id {id} not found", this);
             }
         }
         private void Unlock(int id)
         {
             if (id < 0 || id >= achievementData.achievements.Count)
             {
-                Debug.LogWarning($"Achievement with index {id} out of range");
+                Debug.LogWarning($"Achievement with index {id} out of range", this);
                 return;
             }
             
@@ -94,7 +94,7 @@ namespace Achievements
                 achDisplay = true;
                 DisplayUnlock(id);
                 //SaveAchievements();
-                Debug.Log($"Achievement {id} unlocked");
+                Debug.Log($"Achievement {id} unlocked", this);
             }
         }
     
@@ -117,7 +117,7 @@ namespace Achievements
             //float progress = 0;
             if (id < 0 || id >= achievementData.achievements.Count)
             {
-                Debug.LogWarning($"Achievement with index {id} out of range, cannot update progress");
+                Debug.LogWarning($"Achievement with index {id} out of range, cannot update progress", this);
                 return;
             }
             //progress++;
@@ -148,7 +148,7 @@ namespace Achievements
             }
             else
             {
-                Debug.LogWarning($"Achievement with id {id} not found, cannot update progress");
+                Debug.LogWarning($"Achievement with id {id} not found, cannot update progress", this);
             }
         }
         
@@ -156,7 +156,7 @@ namespace Achievements
         {
             if (id < 0 || id >= achievementData.achievements.Count)
             {
-                Debug.LogWarning($"Achievement with index {id} out of range, cannot add progress");
+                Debug.LogWarning($"Achievement with index {id} out of range, cannot add progress", this);
                 return;
             }
             

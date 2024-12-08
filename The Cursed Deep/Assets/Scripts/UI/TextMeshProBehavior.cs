@@ -20,8 +20,8 @@ public class TextMeshProBehavior : MonoBehaviour
 
     private void Start()
     {
-        if (_updateOnStart) UpdateLabel();
         startEvent.Invoke();
+        if (_updateOnStart) UpdateLabel();
     }
     
     private bool ValidateTMProObject()
