@@ -33,8 +33,8 @@ public class SocketMatchInteractor : XRSocketInteractor
     private IDBehavior _idBehavior;
     private readonly WaitForFixedUpdate _wait = new();
     
-    private InteractionLayerMask _originalInteractableLayerMask;
-    private InteractionLayerMask _isolatedLayerMask;
+    private int _originalInteractableLayerMask;
+    private const int IsolatedLayerMask = 4;
     private XRGrabInteractable _socketedObject;
     private Collider _socketTrigger;
     
@@ -43,7 +43,6 @@ public class SocketMatchInteractor : XRSocketInteractor
     private new void Awake()
     {
         interactionLayers = 6;
-        _isolatedLayerMask.value = 4;
         
         if (socketID)
         {
@@ -125,16 +124,45 @@ public class SocketMatchInteractor : XRSocketInteractor
         if (grabState)
         {
             deactivateGrabInteractionOnSocket = false;
-            if (!_socketedObject) return;
+            if (!_socketedObject)
+            {
+                Debug.LogWarning($"Socketed Object on {name}, appears to be null, returning", this);
+                return;
+            }
             _socketedObject.interactionLayers = _originalInteractableLayerMask;
         }
         else
         {
             deactivateGrabInteractionOnSocket = true;
-            if (!_socketedObject) return;
-            _originalInteractableLayerMask = _socketedObject.interactionLayers;
-            _socketedObject.interactionLayers = _isolatedLayerMask;
+            if (!_socketedObject)
+            {
+                Debug.LogWarning($"Socketed Object on {name}, appears to be null, returning", this);
+                return;
+            }
+            _originalInteractableLayerMask = _socketedObject.interactionLayers.value;
+            _socketedObject.interactionLayers = IsolatedLayerMask;
         }
+        Debug.LogWarning($"Setting Socketed Object {_socketedObject}'s grab state to: {grabState}, on {name}. New layers: {GetLayerNames(_socketedObject.interactionLayers)}", this);
+    }
+    
+    public string GetLayerNames(InteractionLayerMask mask)
+    {
+        string[] allLayerNames = new string[32]; // Unity has 32 possible layers
+        for (int i = 0; i < 32; i++)
+        {
+            if ((mask.value & (1 << i)) != 0) // Check if the layer is included in the mask
+            {
+                string layerName = InteractionLayerMask.LayerToName(i);
+                if (!string.IsNullOrEmpty(layerName))
+                {
+                    allLayerNames[i] = layerName;
+                }
+            }
+        }
+        Debug.Log($"All Layer Names: {string.Join(", ", allLayerNames)}", this);
+
+        // Filter out null/empty layer names and join them into a single string
+        return string.Join(", ", allLayerNames.Where(layer => !string.IsNullOrEmpty(layer)));
     }
     
     public void EnableSocket() => SetSocketState(true);

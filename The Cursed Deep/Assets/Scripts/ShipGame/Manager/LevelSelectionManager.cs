@@ -43,6 +43,7 @@ namespace ShipGame.Manager
         
         [SerializeField] private LevelSelectUIManager _levelSelectUIManager;
         [SerializeField] private Transform _activatedUIPosition;
+        [SerializeField, SteppedRange(0.1f, 5, 0.1f)] private float _animationDuration = 1f;
         private int _selectedLevelIndex = -2;
         
         private bool ValidSelection(int index)
@@ -83,31 +84,46 @@ namespace ShipGame.Manager
         
         private IEnumerator WaitForCancel()
         {
-            
             var selectedSocket = _selectedLevelIndex == -1 ? 
                 ref _merchantOption.socket :
                 ref _levelOptions[_selectedLevelIndex].socket;
             
-            yield return _levelSelectUIManager.DeactivateUIAndWait(_activatedUIPosition.position, selectedSocket.transform.position);
-                
-            _selectedLevelIndex = -2;
+            yield return StartCoroutine(_levelSelectUIManager.DeactivateUIAndWait(_activatedUIPosition.position, selectedSocket.transform.position, _animationDuration));
+            
+            if (_allowDebug) 
+                Debug.Log($"[DEBUG] Level [{_selectedLevelIndex}] Cancelled", this);
             
             SetSocketGrabState(true, ref selectedSocket);
-            yield return _waitFixed;
+            Debug.Log($"Attempting to set Socket: {selectedSocket}'s grab state", this);
+            yield return new WaitUntil(() => selectedSocket.GrabState());
+            Debug.Log($"Socket grab state set to: {selectedSocket.GrabState()}", this);
             
             _cancelingSelection = false;
             yield return _waitFixed;
-            
+            Debug.Log("Finished Canceling...", this);
         }
         
         private void HandleRemovedFromSocket()
         {
-            
             if (_allowDebug) 
                 Debug.Log("[DEBUG] Selection Removed", this);
             levelSelected = bossLevelSelected =_merchantSelected = false;
             
-            SetAllSocketsState(true);
+            StartCoroutine(SetSocketStateAfterCancel());
+        }
+        
+        private IEnumerator SetSocketStateAfterCancel()
+        {
+            if (_cancelingSelection)
+            {
+                yield return new WaitUntil(() => !_cancelingSelection);
+            }
+            
+            _selectedLevelIndex = -2;
+            yield return _waitFixed;
+            
+            SetAllSocketsState(true, _selectedLevelIndex);
+            Debug.Log("Finished ReEnabling Sockets...", this);
         }
         
         private void HandleSocketedInLevelSelection(int index)
@@ -142,12 +158,12 @@ namespace ShipGame.Manager
             
             _levelSelectUIManager.ActivateUI($"Level {_currentLevel ?? 0}",
                 $"{(bossLevelSelected ? "BOSS" : "")} {levelSelection.enemyData.unitName}", 
-                levelSelection.socket.transform.position, _activatedUIPosition.position);
+                levelSelection.socket.transform.position, _activatedUIPosition.position, _animationDuration);
 
             SetAllSocketsState(false, index);
         }
         
-        private static void SetSocketGrabState(bool state, ref SocketMatchInteractor socket)
+        private void SetSocketGrabState(bool state, ref SocketMatchInteractor socket)
         {
             socket.AllowGrabInteraction(state);
         }
@@ -217,7 +233,7 @@ namespace ShipGame.Manager
             SetAllSocketsState(false, _selectedLevelIndex);
             
             _levelSelectUIManager.ActivateUI("Head to", "Black Market?", _merchantOption.socket.transform.position,
-                _activatedUIPosition.position);
+                _activatedUIPosition.position, _animationDuration);
         }
 
         private void Awake()
