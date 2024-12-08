@@ -94,13 +94,10 @@ namespace ShipGame.Manager
                 Debug.Log($"[DEBUG] Level [{_selectedLevelIndex}] Cancelled", this);
             
             SetSocketGrabState(true, ref selectedSocket);
-            Debug.Log($"Attempting to set Socket: {selectedSocket}'s grab state", this);
             yield return new WaitUntil(() => selectedSocket.GrabState());
-            Debug.Log($"Socket grab state set to: {selectedSocket.GrabState()}", this);
             
             _cancelingSelection = false;
             yield return _waitFixed;
-            Debug.Log("Finished Canceling...", this);
         }
         
         private void HandleRemovedFromSocket()
@@ -123,7 +120,6 @@ namespace ShipGame.Manager
             yield return _waitFixed;
             
             SetAllSocketsState(true, _selectedLevelIndex);
-            Debug.Log("Finished ReEnabling Sockets...", this);
         }
         
         private void HandleSocketedInLevelSelection(int index)
@@ -364,6 +360,8 @@ namespace ShipGame.Manager
         
         private void DebugSocketState()
         {
+            if (!_allowDebug) return;
+            
             const int lineLength = 80;
             var message =
                 $"[DEBUG] Selection -> Normal Level: {levelSelected}, Boss Level: {bossLevelSelected}, Merchant: {_merchantSelected}\n";
@@ -375,8 +373,8 @@ namespace ShipGame.Manager
                     lineLength, $"Level Option[{levelSelection.id}] Socket -> Active: {levelSelection.socket.SocketState()}, " +
                                 $"Grab State: {levelSelection.socket.GrabState()}\n", ' ');
             }
-            if (_allowDebug)
-                Debug.Log(message, this);
+            
+            Debug.Log(message, this);
         }
         
 #endif

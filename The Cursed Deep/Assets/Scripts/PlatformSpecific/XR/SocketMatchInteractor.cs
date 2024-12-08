@@ -31,7 +31,7 @@ public class SocketMatchInteractor : XRSocketInteractor
     public UnityEvent onObjectUnsocketed;
     
     private IDBehavior _idBehavior;
-    private readonly WaitForFixedUpdate _wait = new();
+    private readonly WaitForFixedUpdate _waitFixed = new();
     
     private int _originalInteractableLayerMask;
     private const int IsolatedLayerMask = 4;
@@ -124,45 +124,19 @@ public class SocketMatchInteractor : XRSocketInteractor
         if (grabState)
         {
             deactivateGrabInteractionOnSocket = false;
-            if (!_socketedObject)
-            {
-                Debug.LogWarning($"Socketed Object on {name}, appears to be null, returning", this);
-                return;
-            }
-            _socketedObject.interactionLayers = _originalInteractableLayerMask;
+            
+            if (!_socketedObject) return;
+             _socketedObject.interactionLayers = _originalInteractableLayerMask;
         }
         else
         {
             deactivateGrabInteractionOnSocket = true;
-            if (!_socketedObject)
-            {
-                Debug.LogWarning($"Socketed Object on {name}, appears to be null, returning", this);
-                return;
-            }
+            
+            if (!_socketedObject) return;
+            if (_socketedObject.interactionLayers.value == IsolatedLayerMask) return;
             _originalInteractableLayerMask = _socketedObject.interactionLayers.value;
             _socketedObject.interactionLayers = IsolatedLayerMask;
         }
-        Debug.LogWarning($"Setting Socketed Object {_socketedObject}'s grab state to: {grabState}, on {name}. New layers: {GetLayerNames(_socketedObject.interactionLayers)}", this);
-    }
-    
-    public string GetLayerNames(InteractionLayerMask mask)
-    {
-        string[] allLayerNames = new string[32]; // Unity has 32 possible layers
-        for (int i = 0; i < 32; i++)
-        {
-            if ((mask.value & (1 << i)) != 0) // Check if the layer is included in the mask
-            {
-                string layerName = InteractionLayerMask.LayerToName(i);
-                if (!string.IsNullOrEmpty(layerName))
-                {
-                    allLayerNames[i] = layerName;
-                }
-            }
-        }
-        Debug.Log($"All Layer Names: {string.Join(", ", allLayerNames)}", this);
-
-        // Filter out null/empty layer names and join them into a single string
-        return string.Join(", ", allLayerNames.Where(layer => !string.IsNullOrEmpty(layer)));
     }
     
     public void EnableSocket() => SetSocketState(true);
@@ -205,15 +179,18 @@ public class SocketMatchInteractor : XRSocketInteractor
     
     private IEnumerator DisableObject(GameObject obj)
     {
-        yield return _wait;
-        yield return _wait;
-        yield return _wait;
+        yield return _waitFixed;
+        yield return _waitFixed;
+        yield return _waitFixed;
         obj.SetActive(false);
     }
     
     public void RemoveAndMoveSocketObject(Transform copyTransform)
     {
-        if (!_socketedObject){Debug.LogWarning("SOCKET OBJECT APPEARS TO BE NULL"); return;}
+        if (!_socketedObject)
+        {
+            Debug.LogWarning("[WARNING] Socket object appears to be null.", this); return;
+        }
         if (interactablesSelected.Count == 0) return;
         DisableSocket();
         _removeAndMoveCoroutine ??= StartCoroutine(PerformRemoveAndMove(copyTransform.position, copyTransform.rotation));
@@ -221,7 +198,11 @@ public class SocketMatchInteractor : XRSocketInteractor
 
     public GameObject RemoveAndMoveSocketObject(Vector3 position, Quaternion rotation)
     {
-        if (!_socketedObject){Debug.LogWarning("SOCKET OBJECT APPEARS TO BE NULL"); return null;}
+        if (!_socketedObject)
+        {
+            Debug.LogWarning("[WARNING] Socket object appears to be null.", this); 
+            return null;
+        }
         if (interactablesSelected.Count == 0) return null;
         var obj = _socketedObject.gameObject;
         DisableSocket();
@@ -232,14 +213,14 @@ public class SocketMatchInteractor : XRSocketInteractor
     private IEnumerator PerformRemoveAndMove(Vector3 position, Quaternion rotation)
     {
         var obj = _socketedObject.gameObject;
-        yield return _wait;
+        yield return _waitFixed;
         if (interactablesSelected.Count != 0) interactionManager.CancelInteractableSelection(interactablesSelected[0]);
-        yield return _wait;
+        yield return _waitFixed;
         obj.transform.position = position;
         obj.transform.rotation = rotation;
-        yield return _wait;
+        yield return _waitFixed;
         _socketedObject = null;
-        yield return _wait;
+        yield return _waitFixed;
         _socketTrigger.enabled = true;
         _removeAndMoveCoroutine = null;
     }
