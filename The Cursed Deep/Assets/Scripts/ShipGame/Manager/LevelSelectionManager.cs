@@ -10,6 +10,7 @@ namespace ShipGame.Manager
         [SerializeField] private bool _allowDebug;
         
         [SerializeField] private IntData _currentLevel;
+        [SerializeField] private IntData _countToBoss;
         
         [SerializeField, ReadOnly] private bool _levelSelected;
         [SerializeField, ReadOnly] private bool _bossLevelSelected;
@@ -55,20 +56,8 @@ namespace ShipGame.Manager
             Debug.LogError($"[ERROR] Invalid Level Index: {index} provided", this);
             return false;
         }
-
-        [System.Serializable]
-        private struct LevelSelectionSocket
-        {
-            private int _id;
-            public bool isBossLevel;
-            public CreepData enemyData;
-            public Transform transform;
-            public SocketMatchInteractor socket;
-            
-            public int id { get => _id; set => _id = value; }
-        }
         
-        [SerializeField] private LevelSelectionSocket[] _levelOptions;
+        [SerializeField] private LevelSelection[] _levelOptions;
         
         private void SelectionConfirmed()
         {
@@ -94,15 +83,12 @@ namespace ShipGame.Manager
         
         private IEnumerator WaitForCancel()
         {
-            var uiTargetPosition = _selectedLevelIndex == -1 ? 
-                _merchantOption.transform.position :
-                _levelOptions[_selectedLevelIndex].transform.position;
-            
-            yield return _levelSelectUIManager.DeactivateUIAndWait(_activatedUIPosition.position, uiTargetPosition);
             
             var selectedSocket = _selectedLevelIndex == -1 ? 
                 ref _merchantOption.socket :
                 ref _levelOptions[_selectedLevelIndex].socket;
+            
+            yield return _levelSelectUIManager.DeactivateUIAndWait(_activatedUIPosition.position, selectedSocket.transform.position);
                 
             _selectedLevelIndex = -2;
             
@@ -156,7 +142,7 @@ namespace ShipGame.Manager
             
             _levelSelectUIManager.ActivateUI($"Level {_currentLevel ?? 0}",
                 $"{(bossLevelSelected ? "BOSS" : "")} {levelSelection.enemyData.unitName}", 
-                levelSelection.transform.position, _activatedUIPosition.position);
+                levelSelection.socket.transform.position, _activatedUIPosition.position);
 
             SetAllSocketsState(false, index);
         }
@@ -230,7 +216,7 @@ namespace ShipGame.Manager
             _selectedLevelIndex = -1;
             SetAllSocketsState(false, _selectedLevelIndex);
             
-            _levelSelectUIManager.ActivateUI("Head to", "Black Market?", _merchantOption.transform.position,
+            _levelSelectUIManager.ActivateUI("Head to", "Black Market?", _merchantOption.socket.transform.position,
                 _activatedUIPosition.position);
         }
 
@@ -245,6 +231,7 @@ namespace ShipGame.Manager
             bool hasMerchant = _merchantOption.transform != null && _merchantOption.socket != null;
             bool hasUIManager = _levelSelectUIManager != null;
             bool hasCurrentLevel = _currentLevel != null;
+            bool hasCountToBoss = _countToBoss != null;
             bool hasLevelSelectedHolder = levelSelectedHolder != null;
             bool hasBossLevelSelectedHolder = bossLevelSelectedHolder != null;
             
@@ -263,6 +250,9 @@ namespace ShipGame.Manager
             if (!hasCurrentLevel)
                 errorMessage += "\t- Current Level Data is missing\n";
             
+            if (!hasCountToBoss)
+                errorMessage += "\t- Count to Boss Data is missing\n";
+            
             if (!hasLevelSelectedHolder)
                 errorMessage += "\t- Level Selected Holder is missing\n";
             
@@ -271,7 +261,7 @@ namespace ShipGame.Manager
             
             if (_allowDebug && hasAllRequired)
                 debugMessage +=
-                    "[DEBUG] Level Selections, merchant selection, and UI Manager are all present. Initializing...\n";
+                    "[DEBUG] All required components are present and accounted for, initializing...\n";
             
             if (_allowDebug && !string.IsNullOrEmpty(debugMessage))
                 Debug.Log(debugMessage, this); 
@@ -288,6 +278,12 @@ namespace ShipGame.Manager
         private readonly Dictionary<int, UnityAction> _levelSelectionListeners = new();
         private void SetListenerStates(bool listenState)
         {
+            if (_levelOptions == null || _levelOptions.Length == 0)
+            {
+                Debug.LogError("[ERROR] Level Options are missing", this);
+                return;
+            }
+            
             for (var i = 0; i < _levelOptions.Length; i++)
             {
                 _levelOptions[i].id = i;

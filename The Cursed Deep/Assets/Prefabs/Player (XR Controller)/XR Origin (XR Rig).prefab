@@ -1137,7 +1137,7 @@ MonoBehaviour:
   _textObj: {fileID: 3780540761283358625}
   _updateOnStart: 1
   _text:
-    formatString: 
+    formatString: '{0}'
     formatValues:
     - valueType: 2
       stringValue: 
@@ -5846,7 +5846,14 @@ MonoBehaviour:
   _updateOnStart: 1
   _text:
     formatString: '{0:currency}'
-    formatValues: []
+    formatValues:
+    - valueType: 2
+      stringValue: 
+      intValue: 0
+      intDataValue: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
+      floatValue: 0
+      floatDataValue: {fileID: 0}
+      boolValue: 0
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -5869,12 +5876,11 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 8549285977225820353}
           m_TargetAssemblyTypeName: TextMeshProBehavior, Assembly-CSharp
-          m_MethodName: 
-          m_Mode: 2
+          m_MethodName: UpdateLabel
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d,
-              type: 2}
-            m_ObjectArgumentAssemblyTypeName: IntData, Assembly-CSharp
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 

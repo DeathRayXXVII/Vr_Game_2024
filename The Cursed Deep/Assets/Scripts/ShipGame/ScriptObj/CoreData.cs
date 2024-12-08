@@ -102,6 +102,7 @@ namespace ShipGame.ScriptObj
             cannon.LoadError += LoadCannonData;
             ammo.LoadError += LoadAmmoData;
             enemy.LoadError += LoadEnemyData;
+            boss.LoadError += LoadEnemyData;
         }
 
         private void OnDisable()
@@ -111,6 +112,7 @@ namespace ShipGame.ScriptObj
             cannon.LoadError -= LoadCannonData;
             ammo.LoadError -= LoadAmmoData;
             enemy.LoadError -= LoadEnemyData;
+            boss.LoadError -= LoadEnemyData;
         }
         
         public void LevelCompleted()
