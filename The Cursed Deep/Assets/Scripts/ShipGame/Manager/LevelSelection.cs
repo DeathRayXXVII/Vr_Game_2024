@@ -1,5 +1,6 @@
 using System.Collections;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 using ZPTools.Interface;
 
@@ -103,8 +104,7 @@ namespace ShipGame.Manager
             var json = JsonUtility.ToJson(saveData);
             File.WriteAllText(filePath, json);
         }
-
-        private Coroutine _loadCoroutine;
+        
         public void Load()
         {
             if (!savePathExists)
@@ -124,6 +124,13 @@ namespace ShipGame.Manager
             isLoaded = true;
         }
 
+        public IEnumerator LoadCoroutine()
+        {
+            isLoaded = false;
+            Load();
+            yield return new WaitUntil(() => isLoaded);
+        }
+
 
         public void DeleteSavedData()
         {
@@ -133,17 +140,19 @@ namespace ShipGame.Manager
             }
         }
         
+        private Coroutine _initializeCoroutine;
         public IEnumerator Initialize()
         {
-            isLoaded = false;
-            _loadCoroutine ??= StartCoroutine(PerformInitialization());
-            yield return new WaitUntil(() => _loadCoroutine == null);
+            _initializeCoroutine ??= StartCoroutine(PerformInitialization());
+            yield return new WaitUntil(() => _initializeCoroutine == null);
         }
         
         private IEnumerator PerformInitialization()
         {
-            Load();
-            yield return new WaitUntil(() => isLoaded);
+            if (!isLoaded)
+            {
+                yield return LoadCoroutine();
+            }
             
             if (_lockedIndicator)
             {
@@ -154,7 +163,7 @@ namespace ShipGame.Manager
             UpdateMaterials();
             yield return new WaitUntil(() => _materialsUpdated);
             
-            _loadCoroutine = null;
+            _initializeCoroutine = null;
         }
     }
 }
