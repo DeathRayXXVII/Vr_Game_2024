@@ -15,7 +15,7 @@ namespace ShipGame.Manager
         [SerializeField] private bool _isBossLevel;
         public bool isBossLevel { get => _isBossLevel; private set => _isBossLevel = value; }
         
-        [SerializeField] private bool _isLocked;
+        [SerializeField, ReadOnly] private bool _isLocked;
 
         public bool isLocked
         {

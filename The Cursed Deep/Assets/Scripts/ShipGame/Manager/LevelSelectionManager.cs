@@ -20,6 +20,14 @@ namespace ShipGame.Manager
         
         [SerializeField] private BoolData levelSelectedHolder;
         [SerializeField] private BoolData bossLevelSelectedHolder;
+
+        private List<LevelSelection> _bossLevelsList; 
+        private List<LevelSelection> bossLevelsList => 
+            _bossLevelsList ??= _levelOptions.Where(opt => opt != null && opt.isBossLevel).ToList();
+
+        private List<LevelSelection> _normalLevelsList; 
+        private List<LevelSelection> normalLevelsList => 
+            _normalLevelsList ??= _levelOptions.Where(opt => opt != null && !opt.isBossLevel).ToList();
         
         private readonly WaitForFixedUpdate _waitFixed = new();
 
@@ -309,84 +317,47 @@ namespace ShipGame.Manager
 
         public IEnumerator Initialize()
         {
-            uint lockedLevels = 0;
-            uint bossLevels = 0;
-            uint normalLevels = 0;
-
-            var debugLocked = string.Empty;
-            var debugBoss = string.Empty;
-            var debugNormal = string.Empty;
+            var unlockedNormalLevels = normalLevelsList.Count(option => !option.isLocked);
             
             // Wait for all initializations to complete
             foreach (var task in RetrieveTasks(opt => opt.LoadCoroutine()))
             {
                 yield return StartCoroutine(task);
             }
-
-            // Process all levels after initialization
-            foreach (var option in _levelOptions)
-            {
-                if (option == null || !option.isLoaded) continue;
-
-                // Update locked, boss, and normal levels
-                if (option.isLocked)
-                {
-                    lockedLevels |= 1u << option.id;
-                }
-                if (option.isBossLevel)
-                {
-                    bossLevels |= 1u << option.id;
-                }
-                else
-                {
-                    normalLevels |= 1u << option.id;
-                }
-                debugLocked += option.isLocked ? "1" : "0";
-                debugBoss += option.isBossLevel ? "1" : "0";
-                debugNormal += !option.isBossLevel ? "1" : "0";
-            }
-
-            // Calculate expected unlocked count
-            uint expectedUnlockedCount = 0;
-            var debugExpected = string.Empty;
-            for (var i = 0; i < _countToBoss.value; i++)
-            {
-                expectedUnlockedCount |= 1u << i;
-                debugExpected += "1";
-            }
-
-            uint lockedNormalLevels = lockedLevels & normalLevels;
-            uint lockedBossLevels = lockedLevels & bossLevels;
-
-            // Handle mismatch between locked levels and expected count
-            int lockedDifference = (int)~lockedNormalLevels - (int)expectedUnlockedCount;
             
-            Debug.Log($"[DEBUG] Locked Levels: {lockedLevels}[{debugLocked}], Boss Levels: {bossLevels}[{debugBoss}], " +
-                      $"Normal Levels: {normalLevels}[{debugNormal}], Expected Count: {expectedUnlockedCount}[{debugExpected}]" +
-                      $"Locked Normal Levels: {lockedNormalLevels}, Locked Boss Levels: {lockedBossLevels}, " +
-                      $"Locked Difference: {lockedDifference}", this);
+            // Get Locked Normal Levels Count
+            unlockedNormalLevels = normalLevelsList.Where(option => 
+                option.isLoaded).Count(option => !option.isLocked);
+            
+            var lockedDifference = _countToBoss.value - unlockedNormalLevels;
+            switch (lockedDifference)
+            {
+                case > 0:
+                    // Too many locked levels: Unlock randomly down to the expected count
+                    if (_allowDebug)
+                        Debug.Log($"[DEBUG] Locked Normal Level Difference is {lockedDifference}, unlocking down to the expected count.", this);
+                    UpdateLevels(normalLevelsList, lockedDifference, false, opt => opt.isLocked);
+                    break;
+                case < 0:
+                    // Not enough locked levels: Lock randomly up to the expected count
+                    if (_allowDebug)
+                        Debug.Log($"[DEBUG] Locked Normal Level Difference is {lockedDifference}, locking up to the expected count.", this);
+                    UpdateLevels(normalLevelsList, -lockedDifference, true, opt => !opt.isLocked);
+                    break;
+                case 0 when _countToBoss.value == 0:
+                    // Lock all normal levels if the expected count is 0
+                    if (_allowDebug)
+                        Debug.Log($"[DEBUG] Locked Normal Level Difference is {lockedDifference}, locking all normal levels.", this);
+                    UpdateLevels(normalLevelsList, normalLevelsList.Count, true, opt => !opt.isLocked);
+                    break;
+            }
 
-            if (lockedDifference > 0)
+            // Update boss levels if the expected count is not 0
+            if (_countToBoss.value != 0)
             {
-                // Not enough locked levels: Lock randomly up to the expected count
-                UpdateLevels(_levelOptions.ToList(), lockedDifference, true, opt => !opt.isBossLevel && !opt.isLocked);
+                UpdateLevels(bossLevelsList, bossLevelsList.Count, true, opt => !opt.isLocked);
             }
-            else if (lockedDifference < 0)
-            {
-                // Too many locked levels: Unlock randomly down to the expected count
-                UpdateLevels(_levelOptions.ToList(), -lockedDifference, false, opt => !opt.isBossLevel && opt.isLocked);
-            }
-            else if (expectedUnlockedCount <= 0)
-            {
-                Debug.LogError("[ERROR] Expected Unlocked Count is 0", this);
-            }
-
-            // Unlock all boss levels if _countToBoss.value is 0
-            if (_countToBoss.value == 0 && lockedBossLevels != 0)
-            {
-                UpdateLevels(_levelOptions.ToList(), _levelOptions.Length, false, opt => opt.isBossLevel && opt.isLocked);
-            }
-
+            
             foreach (var task in RetrieveTasks(opt => opt.Initialize()))
             {
                 yield return StartCoroutine(task);
@@ -420,7 +391,7 @@ namespace ShipGame.Manager
             foreach (var level in levelsToUpdate)
             {
                 level.SetLockState(lockState);
-                Debug.Log($"{(lockState ? "Locked" : "Unlocked")} Level: {level.id}", this);
+                if (_allowDebug) Debug.Log($"{(lockState ? "Locked" : "Unlocked")} Level: {level.id}", this);
             }
         }
         
