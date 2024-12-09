@@ -210,20 +210,21 @@ namespace ShipGame.Manager
         }
 
         [System.Serializable]
-        private struct MerchantSelectionSocket
+        private struct MerchantSelection
         {
             public Transform transform;
             public SocketMatchInteractor socket;
         }
         
-        [SerializeField] private MerchantSelectionSocket _merchantOption;
+        [SerializeField] private MerchantSelection _merchantOption;
         
         private void HandleSocketedInMerchantSelection()
         {
-            if (_allowDebug) 
-                Debug.Log("[DEBUG] Merchant Selected", this);
-            levelSelected = bossLevelSelected = false;
             _merchantSelected = true;
+            
+            if (_allowDebug) 
+                Debug.Log($"[DEBUG] Merchant Selected: {_merchantSelected}", this);
+            levelSelected = bossLevelSelected = false;
             
             _selectedLevelIndex = -1;
             SetAllSocketsState(false, _selectedLevelIndex);
@@ -252,6 +253,17 @@ namespace ShipGame.Manager
 
             if (!hasLevels)
                 errorMessage += "\t- Level Selections are missing\n";
+            
+            for (var i = 0; i < _levelOptions.Length; i++)
+            {
+                var option = _levelOptions[i];
+                if (option == null)
+                {
+                    errorMessage += $"\t- Level Option {i} is missing\n";
+                    continue;
+                }
+                option.id = i;
+            }
             
             if (!hasMerchant)
                 errorMessage += "\t- Merchant Selection is missing\n";
@@ -287,41 +299,87 @@ namespace ShipGame.Manager
             SetListenerStates(true);
         }
         
+        private Coroutine _initCoroutine;
+        public void Start()
+        {
+            _initCoroutine ??= StartCoroutine(Initialize());
+        }
+
+        public IEnumerator Initialize()
+        {
+            var lockedCount = 0;
+            foreach (var option in _levelOptions)
+            {
+                if (option == null)
+                {
+                    Debug.LogError("[ERROR] Level Selection is missing", this);
+                    continue;
+                }
+                
+                StartCoroutine(option.Initialize());
+                yield return new WaitUntil(() => option.isLoaded);
+                
+                if (option.isLocked)
+                {
+                    lockedCount++;
+                }
+            }
+
+            if (lockedCount == _levelOptions.Length)
+            {
+                Debug.LogError("[ERROR] All levels are locked, cannot proceed", this);
+                yield break;
+            }
+        }
+        
         private readonly Dictionary<int, UnityAction> _levelSelectionListeners = new();
         private void SetListenerStates(bool listenState)
         {
-            if (_levelOptions == null || _levelOptions.Length == 0)
+            HandleMerchantSelectListenerStates(listenState);
+            
+            foreach (var levelSelection in _levelOptions)
             {
-                Debug.LogError("[ERROR] Level Options are missing", this);
+                HandleLevelSelectListenerState(listenState, levelSelection);
+            }
+        }
+        
+        private void HandleLevelSelectListenerState(bool listenState, LevelSelection levelSelection)
+        {
+            if (levelSelection == null)
+            {
+                Debug.LogError("[ERROR] Level Selection is missing", this);
                 return;
             }
             
-            for (var i = 0; i < _levelOptions.Length; i++)
+            var id = levelSelection.id;
+            
+            if (listenState)
             {
-                _levelOptions[i].id = i;
-                
-                var option = _levelOptions[i];
+                UnityAction socketListener = () => HandleSocketedInLevelSelection(id);
+                _levelSelectionListeners[id] = socketListener;
 
-                if (listenState)
-                {
-                    UnityAction socketListener = () => HandleSocketedInLevelSelection(option.id);
-                    _levelSelectionListeners[option.id] = socketListener;
-
-                    option.socket.onObjectSocketed.AddListener(socketListener);
-                    option.socket.onObjectUnsocketed.AddListener(HandleRemovedFromSocket);
-                }
-                else
-                {
-                    if (_levelSelectionListeners.TryGetValue(option.id, out var socketListener))
-                    {
-                        option.socket.onObjectSocketed.RemoveListener(socketListener);
-                        _levelSelectionListeners.Remove(option.id);
-                    }
-
-                    option.socket.onObjectUnsocketed.RemoveListener(HandleRemovedFromSocket);
-                }
+                levelSelection.socket.onObjectSocketed.AddListener(socketListener);
+                levelSelection.socket.onObjectUnsocketed.AddListener(HandleRemovedFromSocket);
             }
+            else
+            {
+                if (_levelSelectionListeners.TryGetValue(id, out var socketListener))
+                {
+                    levelSelection.socket.onObjectSocketed.RemoveListener(socketListener);
+                    _levelSelectionListeners.Remove(id);
+                }
 
+                levelSelection.socket.onObjectUnsocketed.RemoveListener(HandleRemovedFromSocket);
+            }
+        }
+        private void HandleMerchantSelectListenerStates(bool listenState)
+        {
+            if (_merchantOption.socket == null)
+            {
+                Debug.LogError("[ERROR] Merchant Socket is missing", this);
+                return;
+            }
+            
             if (listenState)
             {
                 _merchantOption.socket.onObjectSocketed.AddListener(HandleSocketedInMerchantSelection);

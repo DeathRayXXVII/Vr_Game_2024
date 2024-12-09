@@ -29,11 +29,13 @@ namespace Achievements
             {
                 Instance = this;
             }
-            else if (Instance != this)
+            
+            if (Instance != this)
             {
                 Destroy(gameObject);
             }
-            DontDestroyOnLoad(gameObject);
+            
+            DontDestroyOnLoad(gameObject.transform.root);
             //LoadAchievements();
         }
         public int GetAchievementCount()

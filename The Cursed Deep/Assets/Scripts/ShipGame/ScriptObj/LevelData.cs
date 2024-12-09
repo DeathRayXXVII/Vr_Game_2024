@@ -6,7 +6,7 @@ using ZPTools.Interface;
 namespace ShipGame.ScriptObj
 {
     [CreateAssetMenu(fileName = "LevelData", menuName = "Data/ManagerData/LevelData")]
-    public class LevelData : ScriptableObjectLoadOnStartupDataFromJson, ISaveSystemComponent
+    public class LevelData : ScriptableObjectLoadOnStartupDataFromJson, ISaveSystem
     {
         [System.Serializable]
         internal struct Level
@@ -180,18 +180,19 @@ namespace ShipGame.ScriptObj
 #endif
 
         public string filePath => $"{UnityEngine.Application.persistentDataPath}/SaveData/Core/{GetType().Name}.json";
+        public bool savePathExists => System.IO.File.Exists(filePath);
 
-        public void SaveGameData()
+        public void Save()
         {
             // JsonUtility
         }
 
-        public void LoadGameData()
+        public void Load()
         {
             
         }
 
-        public void DeleteGameData()
+        public void DeleteSavedData()
         {
             
         }
