@@ -210,8 +210,8 @@ namespace ShipGame.Manager
                     continue;
                 }
                 
-                SetSocketGrabState(state || selection.id != selectionIndex, ref socket);
-                SetSocketActiveState(state || selection.id == selectionIndex, ref socket);
+                SetSocketGrabState((state || selection.id != selectionIndex) && !selection.isLocked, ref socket);
+                SetSocketActiveState((state || selection.id == selectionIndex) && !selection.isLocked, ref socket);
             }
             
 #if UNITY_EDITOR
@@ -362,6 +362,8 @@ namespace ShipGame.Manager
             {
                 yield return StartCoroutine(task);
             }
+            
+            SetAllSocketsState(true, _selectedLevelIndex);
 
             _initCoroutine = null;
         }
