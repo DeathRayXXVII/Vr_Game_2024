@@ -1,6 +1,5 @@
 using System.Collections;
 using System.IO;
-using System.Threading.Tasks;
 using UnityEngine;
 using ZPTools.Interface;
 
@@ -93,8 +92,8 @@ namespace ShipGame.Manager
             public int id;
             public bool isLocked;
         }
-        
-        public bool isLoaded;
+
+        public bool isLoaded { get; private set; }
         public void Save()
         {
             var directory = Path.GetDirectoryName(filePath);
