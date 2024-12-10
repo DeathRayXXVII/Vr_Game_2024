@@ -17,8 +17,12 @@ namespace ShipGame.Manager
         [SerializeField, ReadOnly] private bool _bossLevelSelected;
         [SerializeField, ReadOnly] private bool _merchantSelected;
         
+        [SerializeField] private GameAction _unlockDoorToLevelAction;
+        
         [SerializeField] private BoolData toNormalLevelBool;
         [SerializeField] private BoolData toBossLevelBool;
+        
+        [SerializeField] private GameAction _unlockDoorToMerchantAction;
         [SerializeField] private BoolData toMerchantBool;
 
         private List<LevelSelection> _bossLevelsList; 
@@ -73,7 +77,8 @@ namespace ShipGame.Manager
             if (_allowDebug) 
                 Debug.Log($"[DEBUG] Level [{_selectedLevelIndex}] Confirmed", this);
             
-            yield return _waitFixed;
+            GameAction leaveAction = _merchantSelected ? _unlockDoorToMerchantAction : _unlockDoorToLevelAction;
+            leaveAction.RaiseAction();
         }
         
         private bool _cancelingSelection;
@@ -130,7 +135,7 @@ namespace ShipGame.Manager
             yield return _waitFixed;
             SetAllSocketsState(true, _selectedLevelIndex);
             
-            foreach (var task in RetrieveTasks(opt => opt.Initialize(confirmed)))
+            foreach (var task in RetrieveLevelOptionTasks(opt => opt.Initialize(confirmed)))
             {
                 StartCoroutine(task);
             }
@@ -144,7 +149,8 @@ namespace ShipGame.Manager
         {
             if (_allowDebug) 
                 Debug.Log("[DEBUG] Selection Removed", this);
-            _levelSelected = _bossLevelSelected =_merchantSelected = false;
+            _levelSelected = _bossLevelSelected = _merchantSelected = false;
+            toNormalLevelBool.value = toBossLevelBool.value = toMerchantBool.value = false;
             
             StartCoroutine(SetSocketStateAfterCancel());
         }
@@ -188,9 +194,9 @@ namespace ShipGame.Manager
             if (_allowDebug) 
                 Debug.Log($"[DEBUG] Level Option[{index}] Selected, with name {levelSelection.enemyData.unitName}", this);
             
-            _merchantSelected = false;
-            _bossLevelSelected = levelSelection.isBossLevel;
-            _levelSelected = !_bossLevelSelected;
+            _merchantSelected = toMerchantBool.value = false;
+            _bossLevelSelected = toBossLevelBool.value = levelSelection.isBossLevel;
+            _levelSelected = toNormalLevelBool.value = !_bossLevelSelected;
             
             StartCoroutine(_levelSelectUIManager.ActivateUI($"Level {_currentLevel ?? 0}",
                 $"{(_bossLevelSelected ? "BOSS" : "")} {levelSelection.enemyData.unitName}", "Confirm", "CANcEL",
@@ -264,11 +270,12 @@ namespace ShipGame.Manager
         
         private void HandleSocketedInMerchantSelection()
         {
-            _merchantSelected = true;
+            _merchantSelected = toMerchantBool.value = true;
             
             if (_allowDebug) 
                 Debug.Log($"[DEBUG] Merchant Selected: {_merchantSelected}", this);
-            _levelSelected = _bossLevelSelected = false;
+            
+            _levelSelected = toNormalLevelBool.value = _bossLevelSelected = toBossLevelBool.value = false;
             
             _selectedLevelIndex = -1;
             SetAllSocketsState(false, _selectedLevelIndex);
@@ -290,6 +297,8 @@ namespace ShipGame.Manager
             bool hasUIManager = _levelSelectUIManager != null;
             bool hasCurrentLevel = _currentLevel != null;
             bool hasCountToBoss = _countToBoss != null;
+            bool hasDoorToMerchant = _unlockDoorToMerchantAction != null;
+            bool hasDoorToLevel = _unlockDoorToLevelAction != null;
             bool hasToNormalLevelBool = toNormalLevelBool != null;
             bool hasToBossLevelBool = toBossLevelBool != null;
             bool hasToMerchantBool = toMerchantBool != null;
@@ -322,6 +331,12 @@ namespace ShipGame.Manager
             
             if (!hasCountToBoss)
                 errorMessage += "\t- Count to Boss Data is missing\n";
+            
+            if (!hasDoorToMerchant)
+                errorMessage += "\t- Door to Merchant Action is missing\n";
+            
+            if (!hasDoorToLevel)
+                errorMessage += "\t- Door to Level Action is missing\n";    
             
             if (!hasToNormalLevelBool)
                 errorMessage += "\t- Level Selected Holder is missing\n";
@@ -359,7 +374,7 @@ namespace ShipGame.Manager
             var unlockedNormalLevels = normalLevelsList.Count(option => !option.isLocked);
             
             // Wait for all initializations to complete
-            foreach (var task in RetrieveTasks(opt => opt.LoadCoroutine()))
+            foreach (var task in RetrieveLevelOptionTasks(opt => opt.LoadCoroutine()))
             {
                 yield return StartCoroutine(task);
             }
@@ -407,7 +422,7 @@ namespace ShipGame.Manager
             SetAllSocketsState(true, _selectedLevelIndex, excludeMerchantSocket);
             SetSocketActiveState(false, ref _merchantOption.socket);
             
-            foreach (var task in RetrieveTasks(opt => opt.Initialize(_needsBossConfirmation)))
+            foreach (var task in RetrieveLevelOptionTasks(opt => opt.Initialize(_needsBossConfirmation)))
             {
                 yield return StartCoroutine(task);
             }
@@ -418,7 +433,7 @@ namespace ShipGame.Manager
             _initCoroutine = null;
         }
         
-        private List<IEnumerator> RetrieveTasks(System.Func<LevelSelection, IEnumerator> taskSelector)
+        private List<IEnumerator> RetrieveLevelOptionTasks(System.Func<LevelSelection, IEnumerator> taskSelector)
         {
             return (from option in _levelOptions where option != null select taskSelector(option)).ToList();
         }
