@@ -31,17 +31,25 @@ namespace ShipGame.Manager
             isLocked = state;
         }
         
-        [SerializeField] private GameObject _lockedIndicator;
+        [SerializeField] private GameObject _lockedImageIndicator;
+        [SerializeField] private GameObject _lockedTextIndicator;
         [SerializeField] private MeshRenderer[] _levelMeshGameObjects;
         private Material[] _levelMaterials;
         [SerializeField] private Material _lockedMaterial;
         
         private bool _materialsUpdated;
+        private bool _isLockedMaterialSet;
         private void UpdateMaterials()
         {
             if (_levelMeshGameObjects == null || _levelMeshGameObjects.Length == 0)
             {
                 Debug.LogError("Level Mesh Game Objects are null or empty, cannot update materials", this);
+                _materialsUpdated = true;
+                return;
+            }
+            
+            if (_isLockedMaterialSet == _isLocked)
+            {
                 _materialsUpdated = true;
                 return;
             }
@@ -68,7 +76,7 @@ namespace ShipGame.Manager
             {
                 _levelMeshGameObjects[i].material = isLocked ? _lockedMaterial : _levelMaterials[i];
             }
-            
+            _isLockedMaterialSet = isLocked;
             _materialsUpdated = true;
         }
         
@@ -130,8 +138,7 @@ namespace ShipGame.Manager
             Load();
             yield return new WaitUntil(() => isLoaded);
         }
-
-
+        
         public void DeleteSavedData()
         {
             if (savePathExists)
@@ -141,25 +148,31 @@ namespace ShipGame.Manager
         }
         
         private Coroutine _initializeCoroutine;
-        public IEnumerator Initialize()
+        public IEnumerator Initialize(bool bossLevel = false)
         {
-            _initializeCoroutine ??= StartCoroutine(PerformInitialization());
+            _initializeCoroutine ??= StartCoroutine(HandleLevelState(bossLevel));
             yield return new WaitUntil(() => _initializeCoroutine == null);
         }
         
-        private IEnumerator PerformInitialization()
+        private IEnumerator HandleLevelState(bool bossLevel = false)
         {
             if (!isLoaded)
             {
                 yield return LoadCoroutine();
             }
             
-            if (_lockedIndicator)
+            if (_lockedImageIndicator && _isBossLevel)
             {
-                _lockedIndicator.SetActive(_isLocked);
+                _lockedImageIndicator.SetActive(_isLocked);
+            }
+            
+            if (_lockedTextIndicator && (!bossLevel || !_isBossLevel))
+            {
+                _lockedTextIndicator.SetActive(_isLocked);
             }
             yield return null;
             
+            _materialsUpdated = false;
             UpdateMaterials();
             yield return new WaitUntil(() => _materialsUpdated);
             
