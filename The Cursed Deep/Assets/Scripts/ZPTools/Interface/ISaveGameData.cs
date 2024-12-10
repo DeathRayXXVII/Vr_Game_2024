@@ -1,11 +1,12 @@
 namespace ZPTools.Interface
 {
-    public interface ISaveSystemComponent
+    public interface ISaveSystem
     {
         string filePath { get; }
+        bool savePathExists { get; }
         
-        void SaveGameData();
-        void LoadGameData();
-        void DeleteGameData();
+        void Save();
+        void Load();
+        void DeleteSavedData();
     }
 }

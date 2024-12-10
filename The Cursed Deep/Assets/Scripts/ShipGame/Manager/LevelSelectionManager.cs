@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace ShipGame.Manager
 {
@@ -18,6 +20,14 @@ namespace ShipGame.Manager
         
         [SerializeField] private BoolData levelSelectedHolder;
         [SerializeField] private BoolData bossLevelSelectedHolder;
+
+        private List<LevelSelection> _bossLevelsList; 
+        private List<LevelSelection> bossLevelsList => 
+            _bossLevelsList ??= _levelOptions.Where(opt => opt != null && opt.isBossLevel).ToList();
+
+        private List<LevelSelection> _normalLevelsList; 
+        private List<LevelSelection> normalLevelsList => 
+            _normalLevelsList ??= _levelOptions.Where(opt => opt != null && !opt.isBossLevel).ToList();
         
         private readonly WaitForFixedUpdate _waitFixed = new();
 
@@ -200,8 +210,8 @@ namespace ShipGame.Manager
                     continue;
                 }
                 
-                SetSocketGrabState(state || selection.id != selectionIndex, ref socket);
-                SetSocketActiveState(state || selection.id == selectionIndex, ref socket);
+                SetSocketGrabState((state || selection.id != selectionIndex) && !selection.isLocked, ref socket);
+                SetSocketActiveState((state || selection.id == selectionIndex) && !selection.isLocked, ref socket);
             }
             
 #if UNITY_EDITOR
@@ -210,20 +220,21 @@ namespace ShipGame.Manager
         }
 
         [System.Serializable]
-        private struct MerchantSelectionSocket
+        private struct MerchantSelection
         {
             public Transform transform;
             public SocketMatchInteractor socket;
         }
         
-        [SerializeField] private MerchantSelectionSocket _merchantOption;
+        [SerializeField] private MerchantSelection _merchantOption;
         
         private void HandleSocketedInMerchantSelection()
         {
-            if (_allowDebug) 
-                Debug.Log("[DEBUG] Merchant Selected", this);
-            levelSelected = bossLevelSelected = false;
             _merchantSelected = true;
+            
+            if (_allowDebug) 
+                Debug.Log($"[DEBUG] Merchant Selected: {_merchantSelected}", this);
+            levelSelected = bossLevelSelected = false;
             
             _selectedLevelIndex = -1;
             SetAllSocketsState(false, _selectedLevelIndex);
@@ -252,6 +263,17 @@ namespace ShipGame.Manager
 
             if (!hasLevels)
                 errorMessage += "\t- Level Selections are missing\n";
+            
+            for (var i = 0; i < _levelOptions.Length; i++)
+            {
+                var option = _levelOptions[i];
+                if (option == null)
+                {
+                    errorMessage += $"\t- Level Option {i} is missing\n";
+                    continue;
+                }
+                option.id = i;
+            }
             
             if (!hasMerchant)
                 errorMessage += "\t- Merchant Selection is missing\n";
@@ -287,41 +309,142 @@ namespace ShipGame.Manager
             SetListenerStates(true);
         }
         
+        private Coroutine _initCoroutine;
+        public void Start()
+        {
+            _initCoroutine ??= StartCoroutine(Initialize());
+        }
+
+        public IEnumerator Initialize()
+        {
+            var unlockedNormalLevels = normalLevelsList.Count(option => !option.isLocked);
+            
+            // Wait for all initializations to complete
+            foreach (var task in RetrieveTasks(opt => opt.LoadCoroutine()))
+            {
+                yield return StartCoroutine(task);
+            }
+            
+            // Get Locked Normal Levels Count
+            unlockedNormalLevels = normalLevelsList.Where(option => 
+                option.isLoaded).Count(option => !option.isLocked);
+            
+            var lockedDifference = _countToBoss.value - unlockedNormalLevels;
+            switch (lockedDifference)
+            {
+                case > 0:
+                    // Too many locked levels: Unlock randomly down to the expected count
+                    if (_allowDebug)
+                        Debug.Log($"[DEBUG] Locked Normal Level Difference is {lockedDifference}, unlocking down to the expected count.", this);
+                    UpdateLevels(normalLevelsList, lockedDifference, false, opt => opt.isLocked);
+                    break;
+                case < 0:
+                    // Not enough locked levels: Lock randomly up to the expected count
+                    if (_allowDebug)
+                        Debug.Log($"[DEBUG] Locked Normal Level Difference is {lockedDifference}, locking up to the expected count.", this);
+                    UpdateLevels(normalLevelsList, -lockedDifference, true, opt => !opt.isLocked);
+                    break;
+                case 0 when _countToBoss.value == 0:
+                    // Lock all normal levels if the expected count is 0
+                    if (_allowDebug)
+                        Debug.Log($"[DEBUG] Locked Normal Level Difference is {lockedDifference}, locking all normal levels.", this);
+                    UpdateLevels(normalLevelsList, normalLevelsList.Count, true, opt => !opt.isLocked);
+                    break;
+            }
+
+            // Update boss levels if the expected count is not 0
+            if (_countToBoss.value != 0)
+            {
+                UpdateLevels(bossLevelsList, bossLevelsList.Count, true, opt => !opt.isLocked);
+            }
+            
+            foreach (var task in RetrieveTasks(opt => opt.Initialize()))
+            {
+                yield return StartCoroutine(task);
+            }
+            
+            SetAllSocketsState(true, _selectedLevelIndex);
+
+            _initCoroutine = null;
+        }
+        
+        private List<IEnumerator> RetrieveTasks(System.Func<LevelSelection, IEnumerator> taskSelector)
+        {
+            return (from option in _levelOptions where option != null select taskSelector(option)).ToList();
+        }
+        
+        private void UpdateLevels(
+            List<LevelSelection> levels,
+            int count,
+            bool lockState,
+            System.Func<LevelSelection, bool> filterCondition = null
+        )
+        {
+            // Filter levels if a condition is provided
+            var filteredLevels = filterCondition != null
+                ? levels.Where(filterCondition).ToList()
+                : levels;
+
+            // Randomly select the required number of levels
+            var random = new System.Random();
+            var levelsToUpdate = filteredLevels.OrderBy(x => random.Next()).Take(count).ToList();
+
+            // Update the lock state
+            foreach (var level in levelsToUpdate)
+            {
+                level.SetLockState(lockState);
+                if (_allowDebug) Debug.Log($"{(lockState ? "Locked" : "Unlocked")} Level: {level.id}", this);
+            }
+        }
+        
         private readonly Dictionary<int, UnityAction> _levelSelectionListeners = new();
         private void SetListenerStates(bool listenState)
         {
-            if (_levelOptions == null || _levelOptions.Length == 0)
+            HandleMerchantSelectListenerStates(listenState);
+            
+            foreach (var levelSelection in _levelOptions)
             {
-                Debug.LogError("[ERROR] Level Options are missing", this);
+                HandleLevelSelectListenerState(listenState, levelSelection);
+            }
+        }
+        
+        private void HandleLevelSelectListenerState(bool listenState, LevelSelection levelSelection)
+        {
+            if (levelSelection == null)
+            {
+                Debug.LogError("[ERROR] Level Selection is missing", this);
                 return;
             }
             
-            for (var i = 0; i < _levelOptions.Length; i++)
+            var id = levelSelection.id;
+            
+            if (listenState)
             {
-                _levelOptions[i].id = i;
-                
-                var option = _levelOptions[i];
+                UnityAction socketListener = () => HandleSocketedInLevelSelection(id);
+                _levelSelectionListeners[id] = socketListener;
 
-                if (listenState)
-                {
-                    UnityAction socketListener = () => HandleSocketedInLevelSelection(option.id);
-                    _levelSelectionListeners[option.id] = socketListener;
-
-                    option.socket.onObjectSocketed.AddListener(socketListener);
-                    option.socket.onObjectUnsocketed.AddListener(HandleRemovedFromSocket);
-                }
-                else
-                {
-                    if (_levelSelectionListeners.TryGetValue(option.id, out var socketListener))
-                    {
-                        option.socket.onObjectSocketed.RemoveListener(socketListener);
-                        _levelSelectionListeners.Remove(option.id);
-                    }
-
-                    option.socket.onObjectUnsocketed.RemoveListener(HandleRemovedFromSocket);
-                }
+                levelSelection.socket.onObjectSocketed.AddListener(socketListener);
+                levelSelection.socket.onObjectUnsocketed.AddListener(HandleRemovedFromSocket);
             }
+            else
+            {
+                if (_levelSelectionListeners.TryGetValue(id, out var socketListener))
+                {
+                    levelSelection.socket.onObjectSocketed.RemoveListener(socketListener);
+                    _levelSelectionListeners.Remove(id);
+                }
 
+                levelSelection.socket.onObjectUnsocketed.RemoveListener(HandleRemovedFromSocket);
+            }
+        }
+        private void HandleMerchantSelectListenerStates(bool listenState)
+        {
+            if (_merchantOption.socket == null)
+            {
+                Debug.LogError("[ERROR] Merchant Socket is missing", this);
+                return;
+            }
+            
             if (listenState)
             {
                 _merchantOption.socket.onObjectSocketed.AddListener(HandleSocketedInMerchantSelection);
@@ -376,7 +499,6 @@ namespace ShipGame.Manager
             
             Debug.Log(message, this);
         }
-        
 #endif
     }
 }

@@ -3908,6 +3908,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 8c7f90ecad54fe641b481d6c9f229ea4, type: 2}
+        m_TargetAssemblyTypeName: ShipGame.ScriptObj.LevelData, Assembly-CSharp
+        m_MethodName: RefreshLevelData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onGameStart:
     m_PersistentCalls:
       m_Calls:
@@ -9267,10 +9279,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1345217878873573364, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
+      propertyPath: _isLocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345217878873573364, guid: 532a38bad7825bb4d8b551cd42e76f04,
+        type: 3}
       propertyPath: enemyData
       value: 
       objectReference: {fileID: 11400000, guid: aa8e7546be22547499d30c3d298be860,
         type: 2}
+    - target: {fileID: 1345217878873573364, guid: 532a38bad7825bb4d8b551cd42e76f04,
+        type: 3}
+      propertyPath: _isBossLevel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1893627384612336202, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: m_Enabled
@@ -9281,6 +9303,11 @@ PrefabInstance:
       propertyPath: startOnLoad
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1948735052932644152, guid: 532a38bad7825bb4d8b551cd42e76f04,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4022082279108166311, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: m_Enabled
@@ -9311,6 +9338,21 @@ PrefabInstance:
       propertyPath: _performOnEnable
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5885515460291040931, guid: 532a38bad7825bb4d8b551cd42e76f04,
+        type: 3}
+      propertyPath: _offsetRotation.w
+      value: -0.00000004371139
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885515460291040931, guid: 532a38bad7825bb4d8b551cd42e76f04,
+        type: 3}
+      propertyPath: _offsetRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6086678497326287840, guid: 532a38bad7825bb4d8b551cd42e76f04,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6304667403453949209, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: m_Enabled
@@ -9325,6 +9367,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _performOnEnable
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7052884663946225261, guid: 532a38bad7825bb4d8b551cd42e76f04,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7220771873729248046, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
