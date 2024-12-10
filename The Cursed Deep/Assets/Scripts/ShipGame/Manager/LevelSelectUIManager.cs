@@ -17,9 +17,13 @@ namespace ShipGame.Manager
         
         private string _headerText;
         private string _detailsText;
+        private string _confirmText;
+        private string _cancelText;
         
         [SerializeField] private XRSimpleInteractable confirmButton;
         [SerializeField] private XRSimpleInteractable cancelButton;
+        [SerializeField] private TextMeshProBehavior _confirmTextMesh;
+        [SerializeField] private TextMeshProBehavior _cancelTextMesh;
         
         public UnityEvent confirmedSelection;
         public UnityEvent cancelledSelection;
@@ -62,62 +66,46 @@ namespace ShipGame.Manager
             cancelledSelection?.Invoke();
         }
         
-        public void ActivateUI(string headerText, string detailText, Vector3 startPosition, Vector3 targetPosition, float duration = 1f)
+        public IEnumerator ActivateUI(string headerText, string detailText, string confirmText, string cancelText,
+            Vector3 startPosition, Vector3 targetPosition, float duration = 1f)
         {
-            _headerText = headerText;
-            _detailsText = detailText;
-            
-
-            if (_uiAnimationCoroutine != null)
+            if (_headerTextMesh == null || _detailsTextMesh == null || _confirmTextMesh == null || _cancelTextMesh == null)
             {
-                return;
-            }
-            
-            if (_headerTextMesh == null || _detailsTextMesh == null)
-            {
-                Debug.LogError("Header or Details Text Mesh is null, cannot update text. Stopping UI Activation", this);
-                return;
-            }
-            
-            _uiAnimationCoroutine ??= StartCoroutine(
-                PerformUIAnimation(true, startPosition, targetPosition, duration));
-        }
-        
-        private bool _waitingForUI;
-        public IEnumerator DeactivateUIAndWait(Vector3 startPosition, Vector3 targetPosition, float duration = 1f)
-        {
-            if (_waitingForUI)
-            {
-                Debug.LogError("Already waiting for UI to deactivate. Cannot wait again.", this);
+                Debug.LogError("Header, Details, Confirm or Cancel Text Mesh is null, cannot update text. Stopping UI Activation", this);
                 yield break;
             }
-            _waitingForUI = true;
+            
             if (_uiAnimationCoroutine != null)
             {
                 StopCoroutine(_uiAnimationCoroutine);
-                _uiAnimationCoroutine = null;
                 yield return _waitFixed;
+                _uiAnimationCoroutine = null;
+            }
+            
+            _headerText = headerText;
+            _detailsText = detailText;
+            _confirmText = confirmText;
+            _cancelText = cancelText;
+            
+            _uiAnimationCoroutine ??= StartCoroutine(
+                PerformUIAnimation(true, startPosition, targetPosition, duration));
+            
+            yield return new WaitUntil(() => _uiAnimationCoroutine == null);
+        }
+        
+        public IEnumerator DeactivateUI(Vector3 startPosition, Vector3 targetPosition, float duration = 1f)
+        {
+            if (_uiAnimationCoroutine != null)
+            {
+                StopCoroutine(_uiAnimationCoroutine);
+                yield return _waitFixed;
+                _uiAnimationCoroutine = null;
             }
             
             _uiAnimationCoroutine ??= StartCoroutine(
                 PerformUIAnimation(false, startPosition, targetPosition, duration));
             
             yield return new WaitUntil(() => _uiAnimationCoroutine == null);
-            
-            yield return _waitFixed;
-            _waitingForUI = false;
-        }
-        
-        public void DeactivateUI(Vector3 startPosition, Vector3 targetPosition, float duration = 1f)
-        {
-            if (_uiAnimationCoroutine != null)
-            {
-                Debug.LogError($"[ERROR] UI Animation Coroutine is already running. Cannot deactivate UI.", this);
-                return;
-            }
-            
-            _uiAnimationCoroutine ??= StartCoroutine(
-                PerformUIAnimation(false, startPosition, targetPosition, duration));
         }
         
         private IEnumerator PerformUIAnimation(bool activeState, Vector3 startPosition, Vector3 targetPosition,
@@ -130,9 +118,11 @@ namespace ShipGame.Manager
             if (activeState)
             {
                 _uiParent.gameObject.SetActive(true);
-            
+                
                 _headerTextMesh.UpdateLabel(_headerText);
                 _detailsTextMesh.UpdateLabel(_detailsText);
+                _confirmTextMesh.UpdateLabel(_confirmText);
+                _cancelTextMesh.UpdateLabel(_cancelText);
             }
             _uiParent.localScale = activeState ? Vector3.zero : _initialScale;
             yield return _waitFixed;
