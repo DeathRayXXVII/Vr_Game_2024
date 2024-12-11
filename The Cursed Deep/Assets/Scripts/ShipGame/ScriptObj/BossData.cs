@@ -52,5 +52,24 @@ namespace ShipGame.ScriptObj
                 SetScore(_tempBossJsonData.bossScores[i]);
             }
         }
+        protected override void LogCurrentData()
+        {
+#if UNITY_EDITOR
+            if (_allowDebug)
+                Debug.Log("------Enemy Data------\n" +
+                          $"Current Boss Index: {currentIndex}\n" +
+                          $"Current Boss Base Health: {selectionHealth}\n" +
+                          $"Current Boss Total Health: {health}\n" +
+                          $"Current Boss Base Damage: {selectionDamage}\n" +
+                          $"Current Boss Total Damage: {damage}\n" +
+                          $"Current Boss Base Speed: {selectionSpeed}\n" +
+                          $"Current Boss Total Speed: {speed}\n" +
+                          $"Current Boss Base Bounty: {selectionBounty}\n" +
+                          $"Current Boss Total Bounty: {bounty}\n" +
+                          $"Current Boss Base Score: {selectionScore}\n" +
+                          $"Current Boss Total Score: {score}\n" +
+                          "----------------------", this);
+#endif
+        }
     }
 }

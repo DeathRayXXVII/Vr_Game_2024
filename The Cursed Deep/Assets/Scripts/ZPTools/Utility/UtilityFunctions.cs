@@ -35,6 +35,13 @@ namespace ZPTools.Utility
 
             foreach (var interfaceObject in matchingObjects)
             {
+                if (interfaceObject == null)
+                {
+#if UNITY_EDITOR
+                    UnityEngine.Debug.LogError("[ERROR] Interface object is null");
+#endif
+                    continue;
+                }
                 try
                 {
                     action(interfaceObject);
