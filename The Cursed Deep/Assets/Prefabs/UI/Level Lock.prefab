@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6059023267790701264}
   - component: {fileID: 4986436122973320786}
   - component: {fileID: 8512489374930000042}
-  - component: {fileID: 9013284984911266204}
   m_Layer: 5
   m_Name: Lock Text
   m_TagString: Untagged
@@ -168,28 +167,6 @@ MonoBehaviour:
   startEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &9013284984911266204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156367079939377034}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac6f18efb1a968d479a8b7427276e161, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _performOnEnable: 0
-  targetObject: {fileID: 0}
-  _freezeAxes: 0
-  _offsetRotation: {x: 0, y: 0, z: 0, w: 1}
-  _updateInterval: 0.1
-  visualizeRange: 0
-  _interpolateScaleBasedOnDistance: 0
-  _activeRange: 5
-  _fullScaleRange: 5
-  targetCamera: {fileID: 0}
 --- !u!1 &1687225009824692630
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,6 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5323659093066154022}
   - component: {fileID: 2935470062437452672}
+  - component: {fileID: 7267885902168886914}
   m_Layer: 0
   m_Name: Level Lock
   m_TagString: Untagged
@@ -386,3 +364,25 @@ MonoBehaviour:
   pulseAmplitude: 0.1
   pulseFrequency: 1
   pulseOffset: 0
+--- !u!114 &7267885902168886914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8701000696569027807}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6f18efb1a968d479a8b7427276e161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _performOnEnable: 0
+  targetObject: {fileID: 0}
+  _freezeAxes: 0
+  _offsetRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  _updateInterval: 0.1
+  visualizeRange: 0
+  _interpolateScaleBasedOnDistance: 1
+  _activeRange: 3
+  _fullScaleRange: 1.5
+  targetCamera: {fileID: 0}

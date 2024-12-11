@@ -50,8 +50,12 @@ namespace ShipGame.ScriptObj
 
         public int currentLevel
         {
-            get => _currentLevel;
-            set => _currentLevel.value = value < 1 ? 1 : value;
+            get
+            {
+                _currentLevel.value = math.clamp(_currentLevel, 1, _levels?.Length - 1 ?? 1);
+                return _currentLevel.value;
+            }
+            set => _currentLevel.value = math.clamp(value, 1, _levels?.Length - 1 ?? 1);
         }
 
         public int countdownToBoss => currentLevel % 5 == 0 ? 0 : 5 - currentLevel % 5;
@@ -65,7 +69,7 @@ namespace ShipGame.ScriptObj
                 _countdownToBoss.value = countdownToBoss;
                 
                 // if we are not on a 5th level, we are on a normal level so there is no way we could be fighting a boss
-                if (!isPotentialBossFight) 
+                if (!isPotentialBossFight)
                     fightingBoss = false;
                 
                 // the current level - 1 to make it 0 based indexed (Since levels start at 1, indexBase 's minimum value is 0)

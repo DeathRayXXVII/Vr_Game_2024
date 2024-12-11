@@ -60,6 +60,14 @@ namespace ZPTools
             yield return WaitFixed; 
         }
         
+        protected virtual void OnDisable()
+        {
+            if (TransitionCoroutine == null) return;
+            
+            StopCoroutine(TransitionCoroutine);
+            TransitionCoroutine = null;
+        }
+        
         protected abstract void Initialize();
         protected abstract IEnumerator ExecuteTransition();
     }

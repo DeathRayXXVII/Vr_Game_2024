@@ -20,7 +20,7 @@ namespace ZPTools.Utility
             return default;
         }
         
-        public static void PerformActionOnInterface<T>(System.Action<T> action) where T : class
+        public static bool PerformActionOnInterface<T>(System.Action<T> action) where T : class
         {
             var matchingObjects = new List<T>();
             foreach (var obj in UnityEngine.Resources.FindObjectsOfTypeAll<UnityEngine.MonoBehaviour>())
@@ -58,6 +58,8 @@ namespace ZPTools.Utility
                 }
 #endif
             }
+            
+            return true;
         }
         
         public static string ComputeHashSHA(string input)

@@ -175,6 +175,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -321,6 +326,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87e0a64e16e26474a91addeb9b8c03aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sceneBehavior: {fileID: 858131633}
+  startGameAfterSceneBehaviorTransition: 1
   beforeInitialization:
     m_PersistentCalls:
       m_Calls: []
@@ -350,18 +357,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Tutorial15-EnterShop
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1453536779}
-        m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-        m_MethodName: StartWaitForSecondsEvent
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: WaitForGold
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!4 &107583874 stripped
@@ -1394,6 +1389,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1562,6 +1562,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1957,6 +1962,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -2201,6 +2211,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -2351,6 +2366,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -2479,11 +2499,6 @@ PrefabInstance:
       propertyPath: autoAdvance
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
-        type: 3}
-      propertyPath: playerTransform
-      value: 
-      objectReference: {fileID: 858131633}
     - target: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: sceneLoadBuffer
@@ -2778,14 +2793,14 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 9633f4a35242b454783ef9a0d2324a5f, type: 3}
 --- !u!114 &858131633 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6230196818379332007, guid: 9633f4a35242b454783ef9a0d2324a5f,
+  m_CorrespondingSourceObject: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
     type: 3}
   m_PrefabInstance: {fileID: 858131632}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Script: {fileID: 11500000, guid: b357f7999efef0541a80482b8d5d4f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &924435445
@@ -2838,6 +2853,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -3243,6 +3263,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -3393,6 +3418,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -3543,6 +3573,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -7330,6 +7365,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -7441,7 +7481,6 @@ GameObject:
   - component: {fileID: 1453536769}
   - component: {fileID: 1453536781}
   - component: {fileID: 1453536780}
-  - component: {fileID: 1453536779}
   m_Layer: 0
   m_Name: Dialogue Manager
   m_TagString: Untagged
@@ -7464,51 +7503,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 33574442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1453536779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1453536768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endWaitForSeconds:
-  - id: WaitForGold
-    realTime: 1
-    seconds: 11
-    onWaitFinished:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 593380803}
-          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
-          m_MethodName: PlayAudioShot
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: Ding
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-          m_TargetAssemblyTypeName: IntData, Assembly-CSharp
-          m_MethodName: Set
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 100
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  endWaitForZero: []
-  endWaitForFixedUpdate: []
 --- !u!114 &1453536780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7544,7 +7538,19 @@ MonoBehaviour:
   - actionObj: {fileID: 11400000, guid: a03f64e4991d2f84394dfe0e8d645fdc, type: 2}
     onRaiseEvent:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 593380803}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: PlayAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Ding
+            m_BoolArgument: 0
+          m_CallState: 2
   - actionObj: {fileID: 11400000, guid: 7f58da768c47f7a4a9524ea6fac2b423, type: 2}
     onRaiseEvent:
       m_PersistentCalls:

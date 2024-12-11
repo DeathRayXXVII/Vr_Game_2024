@@ -51,7 +51,7 @@ namespace ZPTools
 
             if (_renderer != null) return true;
             
-            Debug.LogWarning($"Renderer not found on {name}", this);
+            Debug.LogWarning($"[WARNING] Renderer not found on {name}", this);
             return false;
         }
 
@@ -61,7 +61,7 @@ namespace ZPTools
 
             if (targetMaterial == null)
             {
-                Debug.LogWarning("Material not found on renderer", this);
+                Debug.LogWarning("[WARNING] Material not found on renderer", this);
             }
 
             targetMaterial?.SetColor(ColorPropertyId, color);
@@ -72,22 +72,35 @@ namespace ZPTools
         {
             if (_renderer == null)
             {
+                Debug.LogWarning("[WARNING] Renderer is null. Ensure the _renderer is assigned correctly.");
                 return null;
             }
-            
-            // Use sharedMaterial in edit mode, material in play mode
-            if (Application.isPlaying && (_renderer.material != null || _renderer.sharedMaterial != null))
+
+            // Check play mode or editor mode
+            if (Application.isPlaying)
             {
-                return _renderer.material.name.Contains("Instance") ? _renderer.sharedMaterial : _renderer.material;
+                if (_renderer.material != null)
+                {
+                    // Use material in play mode
+                    return _renderer.material.name.Contains("Instance") ? _renderer.sharedMaterial : _renderer.material;
+                }
+                Debug.LogWarning("[WARNING] Renderer.material is null during play mode.");
+                return null;
             }
 
 #if UNITY_EDITOR
-            // Shared material for editor
-            return _renderer.sharedMaterial != null ? _renderer.sharedMaterial : null;
-#else
+            // Use sharedMaterial in editor for prefabs or uninstantiated objects
+            if (_renderer.sharedMaterial != null)
+            {
+                return _renderer.sharedMaterial;
+            }
+            Debug.LogWarning("[WARNING] Renderer.sharedMaterial is null in the editor.");
             return null;
+#else
+        return null;
 #endif
         }
+
 
         public override IEnumerator TransitionIn()
         {
@@ -198,7 +211,7 @@ namespace ZPTools
 
             if (allowDebug)
             {
-                Debug.LogWarning($"[DEBUG] Exponential factor: {exponentialFactor} Performing Exponential " +
+                Debug.LogWarning($"[WARNING] Exponential factor: {exponentialFactor} Performing Exponential " +
                                  $"{(exponentialFactor <= 0 ? "Decay" : "Growth")}", this);
             }
 
