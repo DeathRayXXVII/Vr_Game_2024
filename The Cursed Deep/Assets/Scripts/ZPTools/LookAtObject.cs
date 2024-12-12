@@ -25,8 +25,9 @@ namespace ZPTools
         public bool visualizeRange;
 #endif
         [SerializeField] public bool _interpolateScaleBasedOnDistance;
-        [SerializeField, SteppedRange(1f, 100, 0.1f)] protected float _activeRange = 5f;
-        [SerializeField, SteppedRange(1f, 100, 0.1f)] protected float _fullScaleRange = 5f;
+        [SerializeField, SteppedRange(0.1f, 100, 0.01f)] protected float _activeRange = 5f;
+        [SerializeField, SteppedRange(0.1f, 100, 0.01f)] protected float _fullScaleRange = 5f;
+        private const float MIN_RANGE = 0.1f;
         
         private float _distanceToTarget;
         private Vector3 _initialScale;
@@ -39,8 +40,8 @@ namespace ZPTools
 
         protected virtual void OnValidate()
         {
-            _activeRange = Mathf.Max(1, _activeRange);
-            _fullScaleRange = Mathf.Clamp(_fullScaleRange, 1, _activeRange);
+            _activeRange = Mathf.Max(MIN_RANGE, _activeRange);
+            _fullScaleRange = Mathf.Clamp(_fullScaleRange, MIN_RANGE, _activeRange);
 
 #if UNITY_EDITOR
             UnityEditor.EditorUtility.SetDirty(this);
@@ -56,8 +57,8 @@ namespace ZPTools
         {
             _waitSeconds = new WaitForSeconds(_updateInterval);
             
-            _activeRange = Mathf.Max(0, _activeRange);
-            _fullScaleRange = Mathf.Clamp(_fullScaleRange, 0, _activeRange);
+            _activeRange = Mathf.Max(MIN_RANGE, _activeRange);
+            _fullScaleRange = Mathf.Clamp(_fullScaleRange, MIN_RANGE, _activeRange);
 
             if (_performOnEnable && GetTargetTransform() != null)
             {
