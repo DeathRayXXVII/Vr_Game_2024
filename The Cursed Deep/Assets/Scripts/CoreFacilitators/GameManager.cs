@@ -6,6 +6,9 @@ using UnityEngine.Events;
 [DisallowMultipleComponent]
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private SceneBehavior _sceneBehavior;
+    [SerializeField] private bool startGameAfterSceneBehaviorTransition = true;
+    
     private List<TransformTracker> _transformTrackers;
     
     private bool PopulateTrackers()
@@ -41,6 +44,22 @@ public class GameManager : MonoBehaviour
         
         // Initialize Trackers and then trigger beforeInitialization event
         yield return InitializeTrackers();
+
+        yield return _waitFixed;
+        
+        if (_sceneBehavior == null)
+        {
+            Debug.LogError("[ERROR] SceneBehavior is null, cannot initialize GameManager.", this);
+        }
+        else
+        {
+            yield return StartCoroutine(_sceneBehavior.Initialize());
+        }
+        
+        if (startGameAfterSceneBehaviorTransition)
+        {
+            StartGame();
+        }
         
         initialized = true;
         _initCoroutine = null;
@@ -56,7 +75,7 @@ public class GameManager : MonoBehaviour
             yield break;
         }
         
-        System.Diagnostics.Debug.Assert(_transformTrackers != null, "No TransformTrackers found in scene.");
+        System.Diagnostics.Debug.Assert(_transformTrackers != null, "[ERROR] No TransformTrackers found in scene.");
         foreach (var tracker in _transformTrackers)
         {
             tracker.Initialize();

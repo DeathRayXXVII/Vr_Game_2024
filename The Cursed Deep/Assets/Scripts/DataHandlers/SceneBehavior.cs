@@ -9,9 +9,6 @@ public class SceneBehavior : MonoBehaviour
 {
     [SerializeField] private bool allowDebug;
     
-    [Tooltip("Scene Initialization Manager that will be used to track scene initialization.")]
-    [SerializeField] private GameManager initializationManager;
-    
     [Tooltip("TransformBehavior that will be used to set the player's position at the start of the scene.")]
     [SerializeField] private TransformBehavior playerTransform;
     
@@ -24,9 +21,6 @@ public class SceneBehavior : MonoBehaviour
     [Tooltip("Should the transition animation be played when loading a scene?")]
     [SerializeField] private bool transitionOnLoad = true;
     
-    [Tooltip("Should the game start after initialization is complete?")]
-    [SerializeField] private bool startGameAfterTransition = true;
-    
     [Tooltip("Additive time in seconds to wait before loading the scene.")]
     [SerializeField, SteppedRange(0, 10, 0.1f)] private float loadBuffer = 1f;
     
@@ -38,16 +32,6 @@ public class SceneBehavior : MonoBehaviour
     private readonly WaitForFixedUpdate _waitFixed = new();
     private Coroutine _loadCoroutine;
     private Coroutine _initializeCoroutine;
-    
-    private void Awake()
-    {
-        initializationManager ??= FindObjectOfType<GameManager>();
-    }
-    
-    private void Start()
-    {
-        Initialize();
-    }
     
     private void OnDisable()
     {
@@ -64,42 +48,20 @@ public class SceneBehavior : MonoBehaviour
     }
     
     private bool _isInitialized;
-    private void Initialize()
+    public bool isInitialized { get => _isInitialized; private set => _isInitialized = value; }
+    
+    public IEnumerator Initialize()
     {
-        // isInitialized is set to true when the scene is initialized. (At the end of InitializeAndTransitionIn coroutine)
-        if (_isInitialized) return;
         _initializeCoroutine ??= StartCoroutine(InitializeAndTransitionIn());
+        yield return new WaitUntil(() => isInitialized || _initializeCoroutine == null);
     }
 
     private IEnumerator InitializeAndTransitionIn()
     {
         // Wait until all trackers are initialized.
-        if (_isInitialized)
+        if (isInitialized)
         {
             yield break;
-        }
-        
-        var hasInitManager = initializationManager != null;
-        if (hasInitManager)
-        {
-            // Wait until the initialization manager is done.
-            var time = Time.time;
-            while (!initializationManager.initialized)
-            {
-                if (Time.time - time > 180)
-                {
-                    Debug.LogError("[ERROR] Initialization Manager took too long to initialize.", this);
-                    hasInitManager = false;
-                    break;
-                }
-                
-                yield return null;
-            }
-            yield return _waitFixed;
-        }
-        else
-        {
-            Debug.LogError("[ERROR] Initialization Manager not set.", this);
         }
         
         // Wait until the player is positioned.
@@ -141,17 +103,7 @@ public class SceneBehavior : MonoBehaviour
         yield return _waitFixed;
 
         // Start the game if the initialization manager is set and the game should start after transition.
-        if (hasInitManager && startGameAfterTransition)
-        {
-// #if UNITY_EDITOR
-            if (allowDebug) 
-                Debug.Log("[DEBUG] Load Sequence complete. Attempting to start game.", this);
-// #endif
-
-            initializationManager.StartGame();
-        }
-        
-        _isInitialized = true;
+        isInitialized = true;
         _initializeCoroutine = null;
     }
     
@@ -173,7 +125,6 @@ public class SceneBehavior : MonoBehaviour
         
         return true;
     }
-
     
     public void RestartActiveScene() => LoadScene(SceneManager.GetActiveScene().name);
     

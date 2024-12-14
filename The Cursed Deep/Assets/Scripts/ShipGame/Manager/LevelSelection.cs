@@ -1,6 +1,7 @@
 using System.Collections;
 using System.IO;
 using UnityEngine;
+using ZPTools;
 using ZPTools.Interface;
 
 namespace ShipGame.Manager
@@ -32,6 +33,7 @@ namespace ShipGame.Manager
         
         [SerializeField] private GameObject _lockedImageIndicator;
         [SerializeField] private GameObject _lockedTextIndicator;
+        [SerializeField] private LookAtObject _lookAtObjectHandler;
         [SerializeField] private MeshRenderer[] _levelMeshGameObjects;
         private Material[] _levelMaterials;
         [SerializeField] private Material _lockedMaterial;
@@ -146,6 +148,26 @@ namespace ShipGame.Manager
             }
         }
         
+        public void ToggleLockImage(bool state)
+        {
+            if (!_lockedImageIndicator) return;
+            
+            var doToggle = !_isLocked && !_isBossLevel;
+            if (doToggle)
+            {
+                _lockedImageIndicator.SetActive(state);
+            }
+
+            if (state && doToggle)
+            {
+                _lookAtObjectHandler?.StartLookAtObject();
+            }
+            else if (!_isBossLevel)
+            {
+                _lookAtObjectHandler?.StopLookAtObject();
+            }
+        }
+        
         private Coroutine _initializeCoroutine;
         public IEnumerator Initialize(bool bossLevel = false)
         {
@@ -159,7 +181,7 @@ namespace ShipGame.Manager
             {
                 yield return LoadCoroutine();
             }
-            
+
             if (_lockedImageIndicator && _isBossLevel)
             {
                 _lockedImageIndicator.SetActive(_isLocked);
@@ -169,6 +191,16 @@ namespace ShipGame.Manager
             {
                 _lockedTextIndicator.SetActive(_isLocked);
             }
+
+            if (_isLocked && !_isBossLevel)
+            {
+                _lookAtObjectHandler?.StartLookAtObject();
+            }
+            else if (!_isBossLevel)
+            {
+                _lookAtObjectHandler?.StopLookAtObject();
+            }
+            
             yield return null;
             
             _materialsUpdated = false;

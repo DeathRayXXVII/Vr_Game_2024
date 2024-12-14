@@ -86,12 +86,12 @@ namespace ShipGame.ScriptObj
         private void OnValidate()
         {
 #if UNITY_EDITOR
-            if (!gameGlobals) Debug.LogError("Game Globals is null. Please assign a value.", this);
-            if (!levelData) Debug.LogError("Level Data is null. Please assign a value.", this);
-            if (!ship) Debug.LogError("Ship Selections is null. Please assign a value.", this);
-            if (!cannon) Debug.LogError("Cannon Selections is null. Please assign a value.", this);
-            if (!ammo) Debug.LogError("Ammo Selections is null. Please assign a value.", this);
-            if (!enemy) Debug.LogError("Enemy Selections is null. Please assign a value.", this);
+            if (!gameGlobals) Debug.LogError("[ERROR] Game Globals is null. Please assign a value.", this);
+            if (!levelData) Debug.LogError("[ERROR] Level Data is null. Please assign a value.", this);
+            if (!ship) Debug.LogError("[ERROR] Ship Selections is null. Please assign a value.", this);
+            if (!cannon) Debug.LogError("[ERROR] Cannon Selections is null. Please assign a value.", this);
+            if (!ammo) Debug.LogError("[ERROR] Ammo Selections is null. Please assign a value.", this);
+            if (!enemy) Debug.LogError("[ERROR] Enemy Selections is null. Please assign a value.", this);
 #endif
         }
 
@@ -253,7 +253,7 @@ namespace ShipGame.ScriptObj
             catch (System.IndexOutOfRangeException e)
             {
                 if (allowDebug) Debug.LogWarning(
-                    "Attempted to load game data and got an index out of range exception. Attempting to initialize data and reload. Error: " +
+                    "[WARNING] Attempted to load game data and got an index out of range exception. Attempting to initialize data and reload. Error: " +
                     e.Message);
 #else
             catch (System.IndexOutOfRangeException)
@@ -265,7 +265,7 @@ namespace ShipGame.ScriptObj
             catch (System.NullReferenceException e)
             {
                 if (allowDebug) Debug.LogWarning(
-                    "Attempted to load game data and got a null reference exception. Attempting to initialize data and reload. Error: " +
+                    "[WARNING] Attempted to load game data and got a null reference exception. Attempting to initialize data and reload. Error: " +
                     e.Message);
 #else
             catch (System.NullReferenceException)
@@ -277,7 +277,7 @@ namespace ShipGame.ScriptObj
             catch (System.Exception e)
             {
                 if (allowDebug) Debug.LogWarning(
-                    "Attempted to load game data and got an unexpected exception type. Attempting to initialize data and reload. Error: " +
+                    "[WARNING] Attempted to load game data and got an unexpected exception type. Attempting to initialize data and reload. Error: " +
                     e.Message);
 #else
             catch (System.Exception)
@@ -286,7 +286,7 @@ namespace ShipGame.ScriptObj
                 Setup(true);
             }
 #if UNITY_EDITOR
-            if (allowDebug) Debug.Log("Successfully setup game data.", this);
+            if (allowDebug) Debug.Log("[DEBUG] Successfully setup game data.", this);
             PrintGameVariables("Called From Setup");
 #endif
         }
@@ -297,7 +297,7 @@ namespace ShipGame.ScriptObj
             if (allowDebug)
             {
                 Debug.Log(
-                    "-----Game Variables-----\n" +
+                    "[DEBUG] -----Game Variables-----\n" +
                     $"{(header == "" ? "" : $" ---{header}--- \n")}" +
                     $"\n___ Level Index [{currentLevel}] ___\n" +
                     $"Player Speed: {gameGlobals.playerSpeed}\n" +
@@ -317,7 +317,7 @@ namespace ShipGame.ScriptObj
                     $"Enemy Damage: {enemy.damage}\n" +
                     $"Enemy Speed: {enemy.speed}\n" +
                     $"Enemy Bounty: {enemy.bounty}\n" +
-                    $"Enemy Score: {levelData.spawnScore}\n" +
+                    $"Enemy Score: {enemy.score}\n" +
                     "\n"
                     , this
                 );

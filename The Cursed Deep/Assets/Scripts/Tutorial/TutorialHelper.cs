@@ -19,7 +19,7 @@ namespace Tutorial
         {
             foreach (var dialogue in _dialogueData.Where(dialogue => dialogue.playOnlyOncePerGame))
             {
-                dialogue.SetLocked(true);
+                dialogue.locked = true;
             }
         }
 

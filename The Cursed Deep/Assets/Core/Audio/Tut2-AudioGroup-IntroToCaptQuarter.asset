@@ -43,7 +43,7 @@ MonoBehaviour:
   - id: Tutorial11-Scurry
     clip: {fileID: 8300000, guid: e85657225a951fe4697b09449b8dc703, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 0
+    _locked: 1
     playOnAwake: 0
     priority: 128
     volume: 1
@@ -70,7 +70,7 @@ MonoBehaviour:
   - id: Tutorial12-Welcome To Table
     clip: {fileID: 8300000, guid: f2b676842f14dad4bb533be2fd9a7f68, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 0
+    _locked: 1
     playOnAwake: 0
     priority: 128
     volume: 1
@@ -110,6 +110,33 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 11400000, guid: 3f6a2f7eeb23f9d49be4f5f447caab32, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: LastDialogueEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - id: Tutorial14-Confirm Merchant
+    clip: {fileID: 8300000, guid: a9e7cf5ff9b85404ebbe83481caa5a46, type: 3}
+    playOnlyOncePerGame: 1
+    _locked: 0
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 0
+    minDistance: 500
+    maxDistance: 500
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 67ebd056e4e0740458edff606db62f0a, type: 2}
           m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
           m_MethodName: LastDialogueEvent
           m_Mode: 1

@@ -48,6 +48,7 @@ public class DialogueUI : MonoBehaviour
         }
         
         dialogueBox.SetActive(true);
+        dialogueObj.FirstDialogueEvent(action);
         
         _dialogueCoroutine ??= StartCoroutine(StepThroughDialogue(dialogueObj));
     }

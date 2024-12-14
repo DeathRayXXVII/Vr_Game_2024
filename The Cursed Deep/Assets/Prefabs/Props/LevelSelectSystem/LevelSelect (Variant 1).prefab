@@ -280,6 +280,7 @@ MonoBehaviour:
   _isLocked: 0
   _lockedImageIndicator: {fileID: 861262288943220153}
   _lockedTextIndicator: {fileID: 2211949457014913957}
+  _lookAtObjectHandler: {fileID: 8666435246138290861}
   _levelMeshGameObjects:
   - {fileID: 2275777446580285512}
   - {fileID: 2991504287485054704}
@@ -450,6 +451,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7611483928627237241, guid: f5052d74132c3234093732e03f722fba,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8512489374930000042, guid: f5052d74132c3234093732e03f722fba,
         type: 3}
       propertyPath: _text.formatString
@@ -518,6 +524,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2060936999239941167}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8666435246138290861 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7267885902168886914, guid: f5052d74132c3234093732e03f722fba,
+    type: 3}
+  m_PrefabInstance: {fileID: 2060936999239941167}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac6f18efb1a968d479a8b7427276e161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7003366598014117163
 PrefabInstance:
   m_ObjectHideFlags: 0

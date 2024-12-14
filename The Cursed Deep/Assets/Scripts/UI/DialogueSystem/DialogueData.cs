@@ -23,7 +23,7 @@ namespace UI.DialogueSystem
             get => playOnlyOncePerGame && _locked;
             set
             {
-                if (!value) _lastDialogueEventTriggered = false;
+                if (!value) _firstDialogueEventTriggered = _lastDialogueEventTriggered = false;
                 _locked = playOnlyOncePerGame && value;
             }
         }
@@ -77,7 +77,15 @@ namespace UI.DialogueSystem
         //     if (lastAction != null) lastAction.RaiseEvent -= LastDialogueEvent;
         // }
         
-        public void FirstDialogueEvent(GameAction _) => firstTrigger?.Invoke();
+        
+        private bool _firstDialogueEventTriggered;
+        public void FirstDialogueEvent() => FirstDialogueEvent(null);
+        public void FirstDialogueEvent(GameAction _)
+        {
+            if (_firstDialogueEventTriggered && locked) return;
+            _firstDialogueEventTriggered = true;
+            firstTrigger?.Invoke();
+        }
         
         private bool _lastDialogueEventTriggered;
         public void LastDialogueEvent() => LastDialogueEvent(null);

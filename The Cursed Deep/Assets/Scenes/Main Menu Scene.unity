@@ -266,6 +266,7 @@ MonoBehaviour:
   positionOffset: 0
   rotationAxis: 0
   rotationSpeed: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
   scaleWaveType: 0
   scaleAxis: 0
   pulseAmplitude: 0.1
@@ -893,6 +894,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
+      propertyPath: loadBuffer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1314189957}
@@ -944,6 +950,11 @@ PrefabInstance:
     - target: {fileID: 2593023354658593151, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: allowDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2671552642970790219, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3906399293454468433, guid: 9633f4a35242b454783ef9a0d2324a5f,
@@ -1115,12 +1126,12 @@ PrefabInstance:
     - target: {fileID: 6851036645168848705, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6851036645168848705, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6873128157761346885, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -1205,6 +1216,11 @@ PrefabInstance:
     - target: {fileID: 8249592143220754700, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8330072193525298599, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8649240391875177710, guid: 9633f4a35242b454783ef9a0d2324a5f,
@@ -1353,6 +1369,7 @@ MonoBehaviour:
   positionOffset: 0
   rotationAxis: 0
   rotationSpeed: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
   scaleWaveType: 0
   scaleAxis: 0
   pulseAmplitude: 0.1
@@ -1882,6 +1899,7 @@ MonoBehaviour:
   positionOffset: 0
   rotationAxis: 0
   rotationSpeed: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
   scaleWaveType: 0
   scaleAxis: 0
   pulseAmplitude: 0.1
@@ -2103,15 +2121,15 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_enableVertexGradient: 0
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    bottomLeft: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    bottomRight: {r: 0, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -2369,6 +2387,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 525364875}
         m_TargetAssemblyTypeName: ZPTools.NewGameManager, Assembly-CSharp
+        m_MethodName: SetToSceneAction
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 266a155e1b09fe94b97358a916056cdc,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameAction, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 525364875}
+        m_TargetAssemblyTypeName: ZPTools.NewGameManager, Assembly-CSharp
         m_MethodName: ResetToNewGame
         m_Mode: 3
         m_Arguments:
@@ -2377,18 +2408,6 @@ MonoBehaviour:
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 266a155e1b09fe94b97358a916056cdc, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: Level Select Scene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &507459980
@@ -2474,6 +2493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87e0a64e16e26474a91addeb9b8c03aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sceneBehavior: {fileID: 935515564}
+  startGameAfterSceneBehaviorTransition: 1
   beforeInitialization:
     m_PersistentCalls:
       m_Calls: []
@@ -2533,6 +2554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f20b7480c9b6c41962db3b7121622b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _toNewGameSceneAction: {fileID: 0}
 --- !u!114 &525364876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3328,15 +3350,15 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_enableVertexGradient: 0
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    bottomLeft: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    bottomRight: {r: 0, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -3480,6 +3502,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 525364875}
+        m_TargetAssemblyTypeName: ZPTools.NewGameManager, Assembly-CSharp
+        m_MethodName: SetToSceneAction
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: bff2a9948a3ccf5419df3d8fbb84775e,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameAction, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
         m_TargetAssemblyTypeName: ShipGame.ScriptObj.CoreData, Assembly-CSharp
         m_MethodName: set_playerInitializePositionAction
@@ -3503,30 +3538,6 @@ MonoBehaviour:
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: bff2a9948a3ccf5419df3d8fbb84775e, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Tutorial Scene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &823362339
@@ -3709,6 +3720,7 @@ MonoBehaviour:
   positionOffset: 0
   rotationAxis: 0
   rotationSpeed: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
   scaleWaveType: 0
   scaleAxis: 0
   pulseAmplitude: 0.1
@@ -4189,6 +4201,7 @@ MonoBehaviour:
   positionOffset: 0
   rotationAxis: 0
   rotationSpeed: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
   scaleWaveType: 0
   scaleAxis: 0
   pulseAmplitude: 0.1
@@ -4350,6 +4363,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 917260723}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &935515564 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 220304214}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b357f7999efef0541a80482b8d5d4f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &946230548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6606,6 +6631,7 @@ MonoBehaviour:
   positionOffset: 0
   rotationAxis: 2
   rotationSpeed: 8
+  rotationOffset: {x: 0, y: 0, z: 0}
   scaleWaveType: 0
   scaleAxis: 0
   pulseAmplitude: 0.1
@@ -6720,8 +6746,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a1302d0d134fa8a2a5b3bf4aec3c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PermittedDisplacementAxes: 4
-  m_ConstrainedAxisDisplacementMode: 1
+  m_PermittedDisplacementAxes: 0
+  m_ConstrainedAxisDisplacementMode: 0
   m_TwoHandedRotationMode: 1
   m_AllowOneHandedScaling: 0
   m_AllowTwoHandedScaling: 0
@@ -6898,7 +6924,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -7257,7 +7283,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.039215688, g: 0.039215688, b: 0.039215688, a: 0.7254902}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -7271,8 +7297,8 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1791373457}
+  m_Interactable: 0
+  m_TargetGraphic: {fileID: 427420561}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -7380,6 +7406,7 @@ MonoBehaviour:
   positionOffset: 0
   rotationAxis: 2
   rotationSpeed: 10
+  rotationOffset: {x: 0, y: 0, z: 0}
   scaleWaveType: 0
   scaleAxis: 0
   pulseAmplitude: 0.1
@@ -7770,6 +7797,7 @@ MonoBehaviour:
   positionOffset: 0.75
   rotationAxis: 0
   rotationSpeed: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
   scaleWaveType: 0
   scaleAxis: 0
   pulseAmplitude: 0.1
@@ -8079,6 +8107,7 @@ MonoBehaviour:
   positionOffset: 0
   rotationAxis: 0
   rotationSpeed: 0
+  rotationOffset: {x: 0, y: 0, z: 0}
   scaleWaveType: 0
   scaleAxis: 0
   pulseAmplitude: 0.1
@@ -8224,15 +8253,15 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_enableVertexGradient: 0
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    bottomLeft: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    bottomRight: {r: 0, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -8359,15 +8388,15 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_enableVertexGradient: 0
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    bottomLeft: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    bottomRight: {r: 0, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -8618,15 +8647,15 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_enableVertexGradient: 0
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    bottomLeft: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    bottomRight: {r: 0, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -9295,15 +9324,15 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_enableVertexGradient: 0
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    bottomLeft: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    bottomRight: {r: 0, g: 0, b: 0, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0

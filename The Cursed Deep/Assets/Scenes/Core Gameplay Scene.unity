@@ -526,6 +526,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -3443,6 +3448,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textObj: {fileID: 0}
+  _updateOnStart: 0
+  _text:
+    formatString: 
+    formatValues: []
   startEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -4054,6 +4064,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9b68e6a649b564d93a7036258fa32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sceneBehavior: {fileID: 6366127948270241551}
+  startGameAfterSceneBehaviorTransition: 1
   beforeInitialization:
     m_PersistentCalls:
       m_Calls: []
@@ -4137,7 +4149,7 @@ PrefabInstance:
     - target: {fileID: 9145032353818101939, guid: 6588c2d9914dae34fa51bd8fa9761e59,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12.49
+      value: -1.82
       objectReference: {fileID: 0}
     - target: {fileID: 9145032353818101939, guid: 6588c2d9914dae34fa51bd8fa9761e59,
         type: 3}
@@ -5021,11 +5033,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
-      propertyPath: playerTransform
-      value: 
-      objectReference: {fileID: 6366127948270241551}
-    - target: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
-        type: 3}
       propertyPath: initializationManager
       value: 
       objectReference: {fileID: 1795409404}
@@ -5137,14 +5144,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &6366127948270241551 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6230196818379332007, guid: 9633f4a35242b454783ef9a0d2324a5f,
+  m_CorrespondingSourceObject: {fileID: 1015169795730339862, guid: 9633f4a35242b454783ef9a0d2324a5f,
     type: 3}
   m_PrefabInstance: {fileID: 6366127948270241549}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Script: {fileID: 11500000, guid: b357f7999efef0541a80482b8d5d4f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!20 &6366127948270241553 stripped

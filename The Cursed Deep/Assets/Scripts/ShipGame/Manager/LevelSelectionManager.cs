@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using ZPTools;
 
 namespace ShipGame.Manager
 {
@@ -22,8 +24,7 @@ namespace ShipGame.Manager
         
         [Header("Level Actions")]
         [SerializeField] private GameAction _unlockDoorToLevelAction;
-        [SerializeField] private GameAction _lockLevelsAction;
-        [SerializeField] private GameAction _unlockLevelsAction;
+        [SerializeField] private GameAction _levelTutorialAction;
         
         [Header("Level Scene Transition Related")]
         [SerializeField] private BoolData toNormalLevelBool;
@@ -31,8 +32,7 @@ namespace ShipGame.Manager
         
         [Header("Merchant Actions")]
         [SerializeField] private GameAction _unlockDoorToMerchantAction;
-        [SerializeField] private GameAction _lockMerchantAction;
-        [SerializeField] private GameAction _unlockMerchantAction;
+        [SerializeField] private GameAction _merchantTutorialAction;
         
         [Header("Merchant Scene Transition Related")]
         [SerializeField] private BoolData toMerchantBool;
@@ -48,10 +48,75 @@ namespace ShipGame.Manager
         private readonly WaitForFixedUpdate _waitFixed = new();
         
         [Header("UI Settings")]
+        [SerializeField] private GameObject _arrowIndicator;
         [SerializeField] private LevelSelectUIManager _levelSelectUIManager;
         [SerializeField] private Transform _activatedUIPosition;
         [SerializeField, SteppedRange(0.1f, 5, 0.1f)] private float _animationDuration = 1f;
         private int _selectedLevelIndex = -2;
+        
+        private void HandleSocketedInLevelSelection(int index)
+        {
+            if (index < 0 || index >= _levelOptions.Length)
+            {
+                Debug.LogError("[ERROR] Index out of range", this);
+                return;
+            }
+            
+            _selectedLevelIndex = index;
+            var levelSelection = _levelOptions[index];
+            
+            if (levelSelection.socket == null)
+            {
+                Debug.LogError("[ERROR] Socket is missing", this);
+                return;
+            }
+            
+            if (levelSelection.enemyData == null)
+            {
+                Debug.LogError("[ERROR] Enemy Data is missing", this);
+                return;
+            }
+            
+            if (_allowDebug) 
+                Debug.Log($"[DEBUG] Level Option[{index}] Selected, with name {levelSelection.enemyData.unitName}", this);
+            
+            _merchantSelected = toMerchantBool.value = false;
+            _bossLevelSelected = toBossLevelBool.value = levelSelection.isBossLevel;
+            _levelSelected = toNormalLevelBool.value = !_bossLevelSelected;
+            
+            StartCoroutine(_levelSelectUIManager.ActivateUI($"Level {_currentLevel ?? 0}",
+                $"{(_bossLevelSelected ? "BOSS" : "")} {levelSelection.enemyData.unitName}", "Confirm", "CANcEL",
+                levelSelection.socket.transform.position, _activatedUIPosition.position, _animationDuration));
+
+            SetAllSocketsState(false, index);
+        }
+
+        [System.Serializable]
+        private struct MerchantSelection
+        {
+            public Transform transform;
+            public SocketMatchInteractor socket;
+            public LookAtObject lockedIndicator;
+        }
+        
+        [SerializeField] private MerchantSelection _merchantOption;
+        
+        private void HandleSocketedInMerchantSelection()
+        {
+            _merchantSelected = toMerchantBool.value = true;
+            
+            if (_allowDebug) 
+                Debug.Log($"[DEBUG] Merchant Selected: {_merchantSelected}", this);
+            
+            _levelSelected = toNormalLevelBool.value = _bossLevelSelected = toBossLevelBool.value = false;
+            
+            _selectedLevelIndex = -1;
+            SetAllSocketsState(false, _selectedLevelIndex);
+            
+            StartCoroutine(_levelSelectUIManager.ActivateUI("Head to", "Black Market?",
+                "Confirm", "CANcEL", _merchantOption.socket.transform.position, _activatedUIPosition.position,
+                _animationDuration));
+        }
         
         private bool ValidSelection(int index)
         {
@@ -103,6 +168,7 @@ namespace ShipGame.Manager
                 ref _levelOptions[_selectedLevelIndex].socket;
             
             GameAction leaveSceneAction = _merchantSelected ? _unlockDoorToMerchantAction : _unlockDoorToLevelAction;
+            Debug.Log($"[DEBUG] Leave Scene Action: {leaveSceneAction.name} Raised.", this);
             
             yield return StartCoroutine(WaitForUIDeactivation(selectedSocket.transform));
             
@@ -111,6 +177,7 @@ namespace ShipGame.Manager
             _confirmingSelection = false;
             yield return _waitFixed;
         }
+        
         private IEnumerator WaitForUIDeactivation(Transform disappearTransform)
         {
             yield return StartCoroutine(_levelSelectUIManager.DeactivateUI(
@@ -152,7 +219,6 @@ namespace ShipGame.Manager
                 yield break;
             }
             
-            _merchantOption.lockedIndicator.SetActive(false);
             if (confirmed)
             {
                 UpdateLevels(bossLevelsList, bossLevelsList.Count, false, opt => opt.isLocked);
@@ -176,6 +242,32 @@ namespace ShipGame.Manager
             _needsBossConfirmation = false;
         }
         
+        private List<IEnumerator> RetrieveLevelOptionTasks(System.Func<LevelSelection, IEnumerator> taskSelector)
+        {
+            return (from option in _levelOptions where option != null select taskSelector(option)).ToList();
+        }
+        
+        private void UpdateLevels(List<LevelSelection> levels, int count, bool lockState,
+            System.Func<LevelSelection, bool> filterCondition = null
+        )
+        {
+            // Filter levels if a condition is provided
+            var filteredLevels = filterCondition != null
+                ? levels.Where(filterCondition).ToList()
+                : levels;
+
+            // Randomly select the required number of levels
+            var random = new System.Random();
+            var levelsToUpdate = filteredLevels.OrderBy(x => random.Next()).Take(count).ToList();
+
+            // Update the lock state
+            foreach (var level in levelsToUpdate)
+            {
+                level.SetLockState(lockState);
+                if (_allowDebug) Debug.Log($"[DEBUG] {(lockState ? "Locked" : "Unlocked")} Level: {level.id}", this);
+            }
+        }
+        
         private void HandleRemovedFromSocket()
         {
             if (_allowDebug) 
@@ -183,7 +275,8 @@ namespace ShipGame.Manager
             _levelSelected = _bossLevelSelected = _merchantSelected = false;
             toNormalLevelBool.value = toBossLevelBool.value = toMerchantBool.value = false;
             
-            StartCoroutine(SetSocketStateAfterCancel());
+            if (!_lockedToTutorial)
+                StartCoroutine(SetSocketStateAfterCancel());
         }
         
         private IEnumerator SetSocketStateAfterCancel()
@@ -197,43 +290,6 @@ namespace ShipGame.Manager
             yield return _waitFixed;
             
             SetAllSocketsState(true, _selectedLevelIndex);
-        }
-        
-        private void HandleSocketedInLevelSelection(int index)
-        {
-            if (index < 0 || index >= _levelOptions.Length)
-            {
-                Debug.LogError("[ERROR] Index out of range", this);
-                return;
-            }
-            
-            _selectedLevelIndex = index;
-            var levelSelection = _levelOptions[index];
-            
-            if (levelSelection.socket == null)
-            {
-                Debug.LogError("[ERROR] Socket is missing", this);
-                return;
-            }
-            
-            if (levelSelection.enemyData == null)
-            {
-                Debug.LogError("[ERROR] Enemy Data is missing", this);
-                return;
-            }
-            
-            if (_allowDebug) 
-                Debug.Log($"[DEBUG] Level Option[{index}] Selected, with name {levelSelection.enemyData.unitName}", this);
-            
-            _merchantSelected = toMerchantBool.value = false;
-            _bossLevelSelected = toBossLevelBool.value = levelSelection.isBossLevel;
-            _levelSelected = toNormalLevelBool.value = !_bossLevelSelected;
-            
-            StartCoroutine(_levelSelectUIManager.ActivateUI($"Level {_currentLevel ?? 0}",
-                $"{(_bossLevelSelected ? "BOSS" : "")} {levelSelection.enemyData.unitName}", "Confirm", "CANcEL",
-                levelSelection.socket.transform.position, _activatedUIPosition.position, _animationDuration));
-
-            SetAllSocketsState(false, index);
         }
         
         private void SetSocketGrabState(bool state, ref SocketMatchInteractor socket)
@@ -270,15 +326,15 @@ namespace ShipGame.Manager
             if (!excludeMerchant)
             {
                 var merchantSelected = selectionIndex == -1;
-            
+                
                 SetSocketGrabState(state || !merchantSelected, ref _merchantOption.socket);
                 SetSocketActiveState(state || merchantSelected, ref _merchantOption.socket);
             }
             
             // Working on the level sockets
-            foreach (var selection in _levelOptions)
+            foreach (var option in _levelOptions)
             {
-                var socket = selection.socket;
+                var socket = option.socket;
                 
                 if (socket == null)
                 {
@@ -286,148 +342,13 @@ namespace ShipGame.Manager
                     continue;
                 }
                 
-                SetSocketGrabState((state || selection.id != selectionIndex) && !selection.isLocked, ref socket);
-                SetSocketActiveState((state || selection.id == selectionIndex) && !selection.isLocked, ref socket);
+                SetSocketGrabState((state || option.id != selectionIndex) && !option.isLocked, ref socket);
+                SetSocketActiveState((state || option.id == selectionIndex) && !option.isLocked, ref socket);
             }
             
 #if UNITY_EDITOR
             if (_allowDebug) DebugSocketState();
 #endif
-        }
-
-        [System.Serializable]
-        private struct MerchantSelection
-        {
-            public Transform transform;
-            public SocketMatchInteractor socket;
-            public GameObject lockedIndicator;
-        }
-        
-        [SerializeField] private MerchantSelection _merchantOption;
-        
-        private void HandleSocketedInMerchantSelection()
-        {
-            _merchantSelected = toMerchantBool.value = true;
-            
-            if (_allowDebug) 
-                Debug.Log($"[DEBUG] Merchant Selected: {_merchantSelected}", this);
-            
-            _levelSelected = toNormalLevelBool.value = _bossLevelSelected = toBossLevelBool.value = false;
-            
-            _selectedLevelIndex = -1;
-            SetAllSocketsState(false, _selectedLevelIndex);
-            
-            StartCoroutine(_levelSelectUIManager.ActivateUI("Head to", "Black Market?",
-                "Confirm", "CANcEL", _merchantOption.socket.transform.position, _activatedUIPosition.position,
-                _animationDuration));
-        }
-
-        private void Awake()
-        {
-            _bossLevelSelected = _levelSelected = _merchantSelected = false;
-            
-            var debugMessage = string.Empty;
-            var errorMessage = string.Empty;
-            
-            bool hasLevels = _levelOptions is { Length: > 0 };
-            bool hasMerchant = _merchantOption.transform != null && _merchantOption.socket != null;
-            bool hasUIManager = _levelSelectUIManager != null;
-            bool hasCurrentLevel = _currentLevel != null;
-            bool hasCountToBoss = _countToBoss != null;
-            bool hasDoorToMerchant = _unlockDoorToMerchantAction != null;
-            bool hasDoorToLevel = _unlockDoorToLevelAction != null;
-            bool hasLockLevels = _lockLevelsAction != null;
-            bool hasUnlockLevels = _unlockLevelsAction != null;
-            bool hasLockMerchant = _lockMerchantAction != null;
-            bool hasUnlockMerchant = _unlockMerchantAction != null;
-            bool hasToNormalLevelBool = toNormalLevelBool != null;
-            bool hasToBossLevelBool = toBossLevelBool != null;
-            bool hasToMerchantBool = toMerchantBool != null;
-            
-            bool hasAllRequired = hasLevels && hasMerchant && hasUIManager && hasCurrentLevel && hasCountToBoss &&
-                                  hasDoorToMerchant && hasDoorToLevel && hasLockLevels && hasUnlockLevels &&
-                                  hasLockMerchant && hasUnlockMerchant && hasToNormalLevelBool && hasToBossLevelBool &&
-                                  hasToMerchantBool;
-            
-            for (var i = 0; i < _levelOptions.Length; i++)
-            {
-                var option = _levelOptions[i];
-                if (option == null)
-                {
-                    errorMessage += $"\t- Level Option {i} is missing\n";
-                    continue;
-                }
-                option.id = i;
-            }
-            
-            if (!hasLevels)
-                errorMessage += "\t- Level Selections are missing\n";
-            if (!hasMerchant)
-                errorMessage += "\t- Merchant Selection is missing\n";
-            if (!hasUIManager)
-                errorMessage += "\t- Level Selection UI Manager is missing\n";
-            if (!hasCurrentLevel)
-                errorMessage += "\t- Current Level Data is missing\n";
-            if (!hasCountToBoss)
-                errorMessage += "\t- Count to Boss Data is missing\n";
-            if (!hasDoorToMerchant)
-                errorMessage += "\t- Door to Merchant Action is missing\n";
-            if (!hasDoorToLevel)
-                errorMessage += "\t- Door to Level Action is missing\n";
-            if (!hasLockLevels)
-                errorMessage += "\t- Lock Levels Action is missing\n";
-            if (!hasUnlockLevels)
-                errorMessage += "\t- Unlock Levels Action is missing\n";
-            if (!hasLockMerchant)
-                errorMessage += "\t- Lock Merchant Action is missing\n";
-            if (!hasUnlockMerchant)
-                errorMessage += "\t- Unlock Merchant Action is missing\n";
-            if (!hasToNormalLevelBool)
-                errorMessage += "\t- Level Selected Holder is missing\n";
-            if (!hasToBossLevelBool)
-                errorMessage += "\t- Boss Level Selected Holder is missing\n";
-            if (!hasToMerchantBool)
-                errorMessage += "\t- Merchant Selected Holder is missing\n";
-            if (_allowDebug && hasAllRequired)
-                debugMessage +=
-                    "[DEBUG] All required components are present and accounted for, initializing...\n";
-            
-            if (_allowDebug && !string.IsNullOrEmpty(debugMessage))
-                Debug.Log(debugMessage, this); 
-            
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                Debug.LogError($"[ERROR] The following is missing and must be provided:\n{errorMessage}", this);
-                return;
-            }
-            
-            SetListenerStates(true);
-        }
-        
-        private List<IEnumerator> RetrieveLevelOptionTasks(System.Func<LevelSelection, IEnumerator> taskSelector)
-        {
-            return (from option in _levelOptions where option != null select taskSelector(option)).ToList();
-        }
-        
-        private void UpdateLevels(List<LevelSelection> levels, int count, bool lockState,
-            System.Func<LevelSelection, bool> filterCondition = null
-        )
-        {
-            // Filter levels if a condition is provided
-            var filteredLevels = filterCondition != null
-                ? levels.Where(filterCondition).ToList()
-                : levels;
-
-            // Randomly select the required number of levels
-            var random = new System.Random();
-            var levelsToUpdate = filteredLevels.OrderBy(x => random.Next()).Take(count).ToList();
-
-            // Update the lock state
-            foreach (var level in levelsToUpdate)
-            {
-                level.SetLockState(lockState);
-                if (_allowDebug) Debug.Log($"[DEBUG] {(lockState ? "Locked" : "Unlocked")} Level: {level.id}", this);
-            }
         }
         
         private readonly Dictionary<int, UnityAction> _levelSelectionListeners = new();
@@ -442,24 +363,62 @@ namespace ShipGame.Manager
             
             if (listenState)
             {
-                _lockLevelsAction.RaiseEvent += OnLockAllLevelsEvent;
-                _unlockLevelsAction.RaiseEvent += OnUnlockAllLevelsEvent;
-                _lockMerchantAction.RaiseEvent += OnLockMerchantEvent;
-                _unlockMerchantAction.RaiseEvent += OnUnlockMerchantEvent;
+                _levelTutorialAction.RaiseEvent += OnLevelTutorialEvent;
+                _merchantTutorialAction.RaiseEvent += OnMerchantTutorialEvent;
             }
             else
             {
-                _lockLevelsAction.RaiseEvent -= OnLockAllLevelsEvent;
-                _unlockLevelsAction.RaiseEvent -= OnUnlockAllLevelsEvent;
-                _lockMerchantAction.RaiseEvent -= OnLockMerchantEvent;
-                _unlockMerchantAction.RaiseEvent -= OnUnlockMerchantEvent;
+                _levelTutorialAction.RaiseEvent -= OnLevelTutorialEvent;
+                _merchantTutorialAction.RaiseEvent -= OnMerchantTutorialEvent;
             }
         }
         
-        private void OnLockAllLevelsEvent(GameAction _) => SetAllSocketsState(false, -2, true);
-        private void OnUnlockAllLevelsEvent(GameAction _) => SetAllSocketsState(true, -2, true);
-        private void OnLockMerchantEvent(GameAction _) => SetSocketActiveState(false, ref _merchantOption.socket);
-        private void OnUnlockMerchantEvent(GameAction _) => SetSocketActiveState(true, ref _merchantOption.socket);
+        private bool _lockedToTutorial;
+        private void OnLevelTutorialEvent(GameAction _) => HandleTutorialEvent(true);
+
+        private void OnMerchantTutorialEvent(GameAction _) => HandleTutorialEvent(false);
+        
+        private void HandleTutorialEvent(bool isLevelTutorial)
+        {
+            if (_levelOptions == null || _levelOptions.Length == 0 || _merchantOption.socket == null)
+            {
+                Debug.LogError("[ERROR] Level Options are missing, unable to perform " +
+                               $"{(isLevelTutorial ? "level" : "merchant")} select tutorial.", this);
+                return;
+            }
+            
+            if (_arrowIndicator != null)
+            {
+                var targetPosition = isLevelTutorial ? 
+                    _levelOptions[0].socket.transform.position :
+                    _merchantOption.socket.transform.position;
+                
+                _arrowIndicator.transform.position = targetPosition;
+            }
+            
+            if (!isLevelTutorial)
+            {
+                foreach (var option in _levelOptions)
+                {
+                    if (option == null) continue;
+                    option.ToggleLockImage(true);
+                }
+            }
+            else
+            {
+                _merchantOption.lockedIndicator?.gameObject.SetActive(true);
+                _merchantOption.lockedIndicator?.StartLookAtObject();
+                
+                foreach (var option in _levelOptions)
+                {
+                    if (option == null || option.id == 0) continue;
+                    option.ToggleLockImage(true);
+                }
+            }
+            
+            SetAllSocketsState(false, isLevelTutorial ? 0 : -2, !isLevelTutorial);
+            _lockedToTutorial = true;
+        }
         
         private void HandleLevelSelectListenerState(bool listenState, LevelSelection levelSelection)
         {
@@ -490,6 +449,7 @@ namespace ShipGame.Manager
                 levelSelection.socket.onObjectUnsocketed.RemoveListener(HandleRemovedFromSocket);
             }
         }
+        
         private void HandleMerchantSelectListenerStates(bool listenState)
         {
             if (_merchantOption.socket == null)
@@ -514,6 +474,81 @@ namespace ShipGame.Manager
                 _levelSelectUIManager.confirmedSelection.RemoveListener(ConfirmButtonPressed);
                 _levelSelectUIManager.cancelledSelection.RemoveListener(DeclineButtonPressed);
             }
+        }
+
+        private void Awake()
+        {
+            _bossLevelSelected = _levelSelected = _merchantSelected = false;
+            
+            var debugMessage = string.Empty;
+            var errorMessage = string.Empty;
+            
+            bool hasLevels = _levelOptions is { Length: > 0 };
+            bool hasMerchant = _merchantOption.transform != null && _merchantOption.socket != null;
+            bool hasUIManager = _levelSelectUIManager != null;
+            bool hasCurrentLevel = _currentLevel != null;
+            bool hasCountToBoss = _countToBoss != null;
+            bool hasDoorToMerchant = _unlockDoorToMerchantAction != null;
+            bool hasDoorToLevel = _unlockDoorToLevelAction != null;
+            bool hasLevelTutorial = _levelTutorialAction != null;
+            bool hasMerchantTutorial = _merchantTutorialAction != null;
+            bool hasToNormalLevelBool = toNormalLevelBool != null;
+            bool hasToBossLevelBool = toBossLevelBool != null;
+            bool hasToMerchantBool = toMerchantBool != null;
+            
+            bool hasAllRequired = hasLevels && hasMerchant && hasUIManager && hasCurrentLevel && hasCountToBoss &&
+                                  hasDoorToMerchant && hasDoorToLevel && hasLevelTutorial && hasMerchantTutorial &&
+                                  hasToNormalLevelBool && hasToBossLevelBool && hasToMerchantBool;
+            
+            for (var i = 0; i < _levelOptions.Length; i++)
+            {
+                var option = _levelOptions[i];
+                if (option == null)
+                {
+                    errorMessage += $"\t- Level Option {i} is missing\n";
+                    continue;
+                }
+                option.id = i;
+            }
+            
+            if (!hasLevels)
+                errorMessage += "\t- Level Selections are missing\n";
+            if (!hasMerchant)
+                errorMessage += "\t- Merchant Selection is missing\n";
+            if (!hasUIManager)
+                errorMessage += "\t- Level Selection UI Manager is missing\n";
+            if (!hasCurrentLevel)
+                errorMessage += "\t- Current Level Data is missing\n";
+            if (!hasCountToBoss)
+                errorMessage += "\t- Count to Boss Data is missing\n";
+            if (!hasDoorToMerchant)
+                errorMessage += "\t- Door to Merchant Action is missing\n";
+            if (!hasDoorToLevel)
+                errorMessage += "\t- Door to Level Action is missing\n";
+            if (!hasLevelTutorial)
+                errorMessage += "\t- Level Tutorial Action is missing\n";
+            if (!hasMerchantTutorial)
+                errorMessage += "\t- Merchant Tutorial Action is missing\n";
+            if (!hasToNormalLevelBool)
+                errorMessage += "\t- Level Selected Holder is missing\n";
+            if (!hasToBossLevelBool)
+                errorMessage += "\t- Boss Level Selected Holder is missing\n";
+            if (!hasToMerchantBool)
+                errorMessage += "\t- Merchant Selected Holder is missing\n";
+            if (_allowDebug && hasAllRequired)
+                debugMessage +=
+                    "[DEBUG] All required components are present and accounted for, initializing...\n";
+            
+            if (_allowDebug && !string.IsNullOrEmpty(debugMessage))
+                Debug.Log(debugMessage, this); 
+            
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                Debug.LogError($"[ERROR] The following is missing and must be provided:\n{errorMessage}", this);
+                return;
+            }
+            
+            SetListenerStates(true);
         }
         
         private Coroutine _initCoroutine;
@@ -567,7 +602,6 @@ namespace ShipGame.Manager
             {
                 _needsBossConfirmation = true;
                 excludeMerchantSocket = true;
-                _merchantOption.lockedIndicator.SetActive(true);
                 yield return StartCoroutine(_levelSelectUIManager.ActivateUI("WARNING", "Are ye ready to face the boss?",
                     "Yes", "No", _activatedUIPosition.position, _activatedUIPosition.position, _animationDuration));
             }
