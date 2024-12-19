@@ -46,6 +46,8 @@ public class Outline : MonoBehaviour
             _needsUpdate = true;
         }
     }
+    
+    public void SetOutlineColor(RGBAColorData color) => OutlineColor = color;
 
     public float OutlineWidth
     {

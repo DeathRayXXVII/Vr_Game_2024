@@ -1,3 +1,4 @@
+using System.Collections;
 using UI.DialogueSystem;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,10 +11,13 @@ public class DialoguePurchaseHandler : MonoBehaviour
     [SerializeField] private IntData playerCoins;
     [SerializeField, ReadOnly] private int _cost;
     [SerializeField] private UpgradeData upgradeData;
+    [SerializeField] private bool increaseUpgradeLevelOnPurchase = true;
     [SerializeField] private DialogueResponseEvents responseEvents;
     [SerializeField] private ResponseHandler responseHandler;
     [SerializeField] public DialogueUI dialogueUI;
     [SerializeField] private UnityEvent onPurchase;
+    
+    private readonly WaitForFixedUpdate _waitFixed = new();
 
     private int currentPlayerCoins
     {
@@ -42,21 +46,41 @@ public class DialoguePurchaseHandler : MonoBehaviour
     }
     
     public string Id => id;
+    private bool _handlingPurchase;
     public void Purchase(Response response)
     {
+        if (_handlingPurchase) return;
         if (playerCoins >= cost)
         {
-            Debug.Log($"{playerCoins} - {cost} coins, {playerCoins - cost} coins left");
-            playerCoins -= cost;
+            _handlingPurchase = true;
+            StartCoroutine(PerformPurchase());
             ContinueDialogue(response.PurchaseDialogue);
-            onPurchase.Invoke();
-            
         }
         else
         {
             Debug.Log("Not enough coins");
             ContinueDialogue(response.DialogueData);
         }
+    }
+    
+    private IEnumerator PerformPurchase()
+    {
+        playerCoins -= cost;
+        
+        onPurchase.Invoke();
+        yield return _waitFixed;
+        var hasUpgrade = upgradeData != null;
+        if (increaseUpgradeLevelOnPurchase && hasUpgrade)
+        {
+            upgradeData.IncreaseUpgradeLevel();
+        }
+
+        if (!hasUpgrade)
+        {
+            Debug.LogWarning("[WARNING] No upgrade data found",this);
+        }
+        
+        _handlingPurchase = false;
     }
     
     private void ContinueDialogue(DialogueData dialogueData)
