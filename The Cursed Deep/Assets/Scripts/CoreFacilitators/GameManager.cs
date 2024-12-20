@@ -6,6 +6,8 @@ using UnityEngine.Events;
 [DisallowMultipleComponent]
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private BoolData _tutorialIsActive;
+    
     [SerializeField] private SceneBehavior _sceneBehavior;
     [SerializeField] private bool startGameAfterSceneBehaviorTransition = true;
     
@@ -19,9 +21,9 @@ public class GameManager : MonoBehaviour
     }
     
     public UnityEvent beforeInitialization;
-    
-    // Editor Triggered Custom Events
+    public UnityEvent tutorialInitialization;
     public UnityEvent onGameStart;
+    public UnityEvent onTutorialGameStart;
 
     private readonly WaitForFixedUpdate _waitFixed = new();
     protected Coroutine _initCoroutine;
@@ -67,6 +69,11 @@ public class GameManager : MonoBehaviour
 
     protected IEnumerator InitializeTrackers()
     {
+        if (_tutorialIsActive.value)
+        {
+            tutorialInitialization.Invoke();
+        }
+        
         if (_transformTrackers == null && !PopulateTrackers())
         {
             beforeInitialization.Invoke();
@@ -88,6 +95,11 @@ public class GameManager : MonoBehaviour
     
     public void StartGame()
     {
+        if (_tutorialIsActive.value)
+        {
+            onTutorialGameStart.Invoke();
+            return;
+        }
         onGameStart.Invoke();
     }
 }

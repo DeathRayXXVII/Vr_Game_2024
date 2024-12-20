@@ -10,6 +10,8 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     public PlayerDialogueActivator playerActivator;
     [SerializeField] private UnityEvent onInteract;
     
+    public bool interactionAllowed { get; set; } = true;
+    
     public void UpdateDialogueObject(DialogueData dData)
     {
         this.dialogueData = dData;
@@ -41,10 +43,9 @@ public class DialogueActivator : MonoBehaviour, IInteractable
 
     public void OnTrigger()
     {
-        if (playerActivator)
+        if (playerActivator && interactionAllowed)
         {
             playerActivator.interactable = this;
-            onInteract.Invoke();
         }
     }
     
@@ -56,6 +57,8 @@ public class DialogueActivator : MonoBehaviour, IInteractable
 
     public void Interact(PlayerDialogueActivator player)
     {
+        if (!interactionAllowed) return;
+        onInteract.Invoke();
         if (dialogueData.locked) return;
         dialogueData.Activated();
         foreach (DialogueResponseEvents responseEvents in GetComponents<DialogueResponseEvents>())

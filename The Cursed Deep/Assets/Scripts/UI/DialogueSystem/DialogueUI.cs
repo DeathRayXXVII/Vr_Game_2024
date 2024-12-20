@@ -16,6 +16,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private bool autoClose;
     [SerializeField] private UnityEvent OnOpenDialogue;
     [SerializeField] private UnityEvent OnTypingFinish;
+    [SerializeField] private UnityEvent OnFinalDialogueTypingFinish;
     [SerializeField] private UnityEvent OnCloseDialogue;
     public DialogueData dialogueData;
     
@@ -82,6 +83,8 @@ public class DialogueUI : MonoBehaviour
             responseHandler.ShowResponses(dialogueObj.Responses);
             yield break;
         }
+        
+        OnFinalDialogueTypingFinish.Invoke();
 
         if (autoClose)
         {

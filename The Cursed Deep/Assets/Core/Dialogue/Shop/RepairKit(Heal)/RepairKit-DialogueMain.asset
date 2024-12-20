@@ -21,7 +21,14 @@ MonoBehaviour:
   - formatString: "Got some nasty holes in yer hull, do ye? {0} doubloons for a repair
       kit, and I'll have yer ship patched up like new\u2014fit to sail into the fiercest
       storm!"
-    formatValues: []
+    formatValues:
+    - valueType: 1
+      stringValue: 
+      intValue: 0
+      intDataValue: {fileID: 0}
+      floatValue: 0
+      floatDataValue: {fileID: 0}
+      boolValue: 0
   responses:
   - responseText: Buy
     id: 
@@ -35,9 +42,6 @@ MonoBehaviour:
     isPurchasable: 0
     purchaseDialogue: {fileID: 0}
     purchaseAction: {fileID: 0}
-  onTrigger:
-    m_PersistentCalls:
-      m_Calls: []
   firstTrigger:
     m_PersistentCalls:
       m_Calls: []
