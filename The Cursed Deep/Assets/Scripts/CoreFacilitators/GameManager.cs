@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private SceneBehavior _sceneBehavior;
     [SerializeField] private bool startGameAfterSceneBehaviorTransition = true;
+    private bool runTutorial => _tutorialIsActive ?? false;
     
     private List<TransformTracker> _transformTrackers;
     
@@ -69,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     protected IEnumerator InitializeTrackers()
     {
-        if (_tutorialIsActive.value)
+        if (runTutorial)
         {
             tutorialInitialization.Invoke();
         }
@@ -95,7 +96,7 @@ public class GameManager : MonoBehaviour
     
     public void StartGame()
     {
-        if (_tutorialIsActive.value)
+        if (runTutorial)
         {
             onTutorialGameStart.Invoke();
             return;
