@@ -21,10 +21,11 @@ public class IntData : ScriptableObject
     
     private void OnEnable()
     {
-        value = (zeroOnEnable) ? 0 : value;
+        value = zeroOnEnable ? 0 : value;
     }
 
     public void Set(int num) => value = num;
+    public void Set(IntData otherDataObj) => value = otherDataObj.value;
     
     public void Increment() => ++value;
     
