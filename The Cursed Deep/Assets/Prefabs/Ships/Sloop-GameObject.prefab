@@ -8426,6 +8426,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2773877793489008518}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 17367f5aeaba40449946ebf4b55c2588,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6357355219754532240}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 17367f5aeaba40449946ebf4b55c2588,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5964400076333318953}
   m_SourcePrefab: {fileID: 100100000, guid: 17367f5aeaba40449946ebf4b55c2588, type: 3}
 --- !u!4 &1344115708645160895 stripped
 Transform:
@@ -8698,6 +8706,55 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.14847453, y: 0.021451242, z: 0.14847443}
   m_Center: {x: 0.00000016938222, y: 0.010725847, z: 0.00000093160224}
+--- !u!114 &6357355219754532240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868029234566491397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _setTransformOnAwake: 1
+  _startTransformPosition: {x: 0, y: 0, z: 0}
+  _startTransformRotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5964400076333318953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868029234566491397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 084cda31011b9ca4a806fa24ee9735db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: {fileID: 11400000, guid: 489b2ac3738e2f74eb683bcaf36fec9e, type: 2}
+  allowDebug: 0
+  triggerEnterMatches:
+  - id: {fileID: 11400000, guid: 6ce658b07eebcad46a12960a0839dee3, type: 2}
+    triggerEnterEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7350706459606263650}
+          m_TargetAssemblyTypeName: TransformBehavior, Assembly-CSharp
+          m_MethodName: ResetToStartTransform
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    triggerExitEvent:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1001 &1660169119447224461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10293,6 +10350,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5084024008713310867}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7350706459606263650 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2345496286216205809, guid: 9c2d1b21bf915ee47b677201e4e164a3,
+    type: 3}
+  m_PrefabInstance: {fileID: 5084024008713310867}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba9da4a8154a2a54ba05a08e8fc35543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5241286196615041140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11688,6 +11757,36 @@ PrefabInstance:
         type: 3}
       propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379712649099664710, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379712649099664710, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379712649099664710, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4476202993840379714, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263086685696314497, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8037855655023379027, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8456979356729480022, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}

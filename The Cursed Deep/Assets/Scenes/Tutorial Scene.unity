@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 15d46c08362b3ab4ea5f60eb98fff1e8, type: 2}
-  allowDebug: 1
+  allowDebug: 0
   triggerEnterMatches:
   - id: {fileID: 11400000, guid: 0f96a19f7869c834fab0e564558abda6, type: 2}
     triggerEnterEvent:
@@ -578,6 +578,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 44636811888067705, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 70769562335236151, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -774,6 +779,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4596466865326333824, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596466865326333824, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5302685825176670738, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: dialogue
@@ -873,7 +888,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 774244331}
+      objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -1006,6 +1021,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9122422492533807930, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2618,34 +2638,6 @@ PrefabInstance:
       insertIndex: 2
       addedObject: {fileID: 1286220449}
   m_SourcePrefab: {fileID: 100100000, guid: e9c5d08b260ddd240af99c9be382c27f, type: 3}
---- !u!1 &457602966 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4656868471632222997, guid: cc1ad9483fb80da4cb58fb28d23c8042,
-    type: 3}
-  m_PrefabInstance: {fileID: 1695415664}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &457602968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 457602966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac6f18efb1a968d479a8b7427276e161, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _performOnEnable: 1
-  targetObject: {fileID: 0}
-  _freezeAxes: 5
-  _offsetRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  _updateInterval: 0.1
-  visualizeRange: 0
-  _interpolateScaleBasedOnDistance: 0
-  _activeRange: 5
-  _fullScaleRange: 5
-  targetCamera: {fileID: 0}
 --- !u!1 &510270321 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7281101536470286139, guid: c7f0cdd8601014a469748ed08d9c0f0e,
@@ -3374,12 +3366,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4425e4726201d0c488519a55eb549526, type: 3}
---- !u!95 &774244331 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2871762464231238590, guid: 9633f4a35242b454783ef9a0d2324a5f,
-    type: 3}
-  m_PrefabInstance: {fileID: 88805992}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &789853174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4262,6 +4248,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 105668fd92c4c3f4ba4277014b2b6376, type: 2}
   _audioData:
   - {fileID: 11400000, guid: 7c2c773fe60673c4a9b4f62a83440977, type: 2}
+  _tutorialData:
+  - {fileID: 11400000, guid: d850c6863cd552e4da189ee49054f8b8, type: 2}
+  - {fileID: 11400000, guid: b25bbe672d06341478cfc5d4b43ae6b4, type: 2}
+  - {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862, type: 2}
+  - {fileID: 11400000, guid: fad28e03629572149bc101e680a27e2a, type: 2}
+  - {fileID: 11400000, guid: 99245ed7b59aeae498f4095737fa5a94, type: 2}
+  - {fileID: 11400000, guid: 4ffa35125835e4042a5f5893ad65ba34, type: 2}
 --- !u!1001 &1268792519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5145,6 +5138,30 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 88805993}
+          m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1249003072}
+          m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+          m_MethodName: SetActiveTutorialData
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
         - m_Target: {fileID: 593018822}
           m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
           m_MethodName: ShowDialogue
@@ -5348,34 +5365,65 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneBehavior: {fileID: 88805994}
   startGameAfterSceneBehaviorTransition: 1
+  _tutorialData:
+  - _tutorialIsActive: {fileID: 11400000, guid: d850c6863cd552e4da189ee49054f8b8,
+      type: 2}
+    initializationEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: 7c2c773fe60673c4a9b4f62a83440977, type: 2}
+          m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
+          m_MethodName: ResetAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Tutorial1-StartTutorial
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 9a113fff2081d0944ad143ab24533d1b, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: SetLocked
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    StartEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 593018822}
+          m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
+          m_MethodName: ShowDialogue
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 9a113fff2081d0944ad143ab24533d1b,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 335332209}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: PlayAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Tutorial1-StartTutorial
+            m_BoolArgument: 0
+          m_CallState: 2
   beforeInitialization:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 9a113fff2081d0944ad143ab24533d1b, type: 2}
-        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: SetLocked
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 7c2c773fe60673c4a9b4f62a83440977, type: 2}
-        m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
-        m_MethodName: ResetAudioShot
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Tutorial1-StartTutorial
-          m_BoolArgument: 0
-        m_CallState: 2
-  onGameStart:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1780707816}
@@ -5438,31 +5486,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 593018822}
-        m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
-        m_MethodName: ShowDialogue
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 9a113fff2081d0944ad143ab24533d1b,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 335332209}
-        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
-        m_MethodName: PlayAudioShot
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Tutorial1-StartTutorial
-          m_BoolArgument: 0
-        m_CallState: 2
+  onGameStart:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1572188483
 Transform:
   m_ObjectHideFlags: 0
@@ -5684,21 +5710,6 @@ PrefabInstance:
       propertyPath: gameActions.Array.data[0].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: SpawnManager, Assembly-CSharp
       objectReference: {fileID: 0}
-    - target: {fileID: 1239084708734111236, guid: cc1ad9483fb80da4cb58fb28d23c8042,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1239084708734111236, guid: cc1ad9483fb80da4cb58fb28d23c8042,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1239084708734111236, guid: cc1ad9483fb80da4cb58fb28d23c8042,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2053096231101050610, guid: cc1ad9483fb80da4cb58fb28d23c8042,
         type: 3}
       propertyPath: _offsetRotation.w
@@ -5790,11 +5801,6 @@ PrefabInstance:
       propertyPath: selectedEvent
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3858676502505640626, guid: cc1ad9483fb80da4cb58fb28d23c8042,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4587866070522716989, guid: cc1ad9483fb80da4cb58fb28d23c8042,
         type: 3}
       propertyPath: m_IsActive
@@ -5805,34 +5811,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arrow
       objectReference: {fileID: 0}
-    - target: {fileID: 4790126484685672721, guid: cc1ad9483fb80da4cb58fb28d23c8042,
+    - target: {fileID: 4656868471632222997, guid: cc1ad9483fb80da4cb58fb28d23c8042,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4790126484685672721, guid: cc1ad9483fb80da4cb58fb28d23c8042,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4790126484685672721, guid: cc1ad9483fb80da4cb58fb28d23c8042,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.0244
-      objectReference: {fileID: 0}
-    - target: {fileID: 4790126484685672721, guid: cc1ad9483fb80da4cb58fb28d23c8042,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4790126484685672721, guid: cc1ad9483fb80da4cb58fb28d23c8042,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4790126484685672721, guid: cc1ad9483fb80da4cb58fb28d23c8042,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4834825726330543891, guid: cc1ad9483fb80da4cb58fb28d23c8042,
@@ -6105,6 +6086,11 @@ PrefabInstance:
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8070631589203753846, guid: cc1ad9483fb80da4cb58fb28d23c8042,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -2745895726187192462, guid: cc1ad9483fb80da4cb58fb28d23c8042, type: 3}
     - {fileID: 2216665755654570107, guid: cc1ad9483fb80da4cb58fb28d23c8042, type: 3}
@@ -6119,11 +6105,7 @@ PrefabInstance:
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 2057257932}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4656868471632222997, guid: cc1ad9483fb80da4cb58fb28d23c8042,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 457602968}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc1ad9483fb80da4cb58fb28d23c8042, type: 3}
 --- !u!1 &1732659067
 GameObject:

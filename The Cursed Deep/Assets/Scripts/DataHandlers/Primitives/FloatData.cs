@@ -16,15 +16,16 @@ public class FloatData : ScriptableObject
 
     private void Awake() => _saveKey = name;
 
-    private void OnEnable() => objectValue = (zeroOnEnable) ? 0 : objectValue;
+    private void OnEnable() => value = zeroOnEnable ? 0 : value;
 
-    public void Set(float num) => objectValue = num;
+    public void Set(float num) => value = num;
+    public void Set(FloatData otherDataObj) => value = otherDataObj.value;
 
-    public void IncrementValue() => ++objectValue;
+    public void IncrementValue() => ++value;
     
-    public void DecrementValue() => --objectValue;
+    public void DecrementValue() => --value;
     
-    public void AdjustValue(int num) => objectValue += num;
+    public void AdjustValue(int num) => value += num;
 
     public float GetSavedValue()
     {
@@ -35,7 +36,7 @@ public class FloatData : ScriptableObject
     
     public void SaveCurrentValue()
     {
-        PlayerPrefs.SetFloat(_saveKey, objectValue);
+        PlayerPrefs.SetFloat(_saveKey, value);
         PlayerPrefs.Save();
     }
     
