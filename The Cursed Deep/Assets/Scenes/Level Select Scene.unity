@@ -1995,9 +1995,45 @@ MonoBehaviour:
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: f3b6cc65db565a04d95dd38dbcaaf2af, type: 2}
-          m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
-          m_MethodName: LockAllPlayOnlyOnceAudioShots
+        - m_Target: {fileID: 11400000, guid: fad28e03629572149bc101e680a27e2a, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 5
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 99245ed7b59aeae498f4095737fa5a94, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 704650186}
+          m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+          m_MethodName: LockAllLockableDialogueAndAudio
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1021025923}
+          m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+          m_MethodName: LockAllLockableDialogueAndAudio
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2312,7 +2348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598e109bd47a6804a87fc30cfc2d6799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allowDebug: 1
+  _allowDebug: 0
   _levelSelected: 0
   _bossLevelSelected: 0
   _merchantSelected: 0
@@ -3243,6 +3279,18 @@ MonoBehaviour:
             m_StringArgument: Tutorial11-Scurry
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 16ba8c35ee54cfa428c4374d2239cdaa, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - actionObj: {fileID: 11400000, guid: 7433e4d02963510428069d24373e226a, type: 2}
     onRaiseEvent:
       m_PersistentCalls:
@@ -3382,6 +3430,30 @@ MonoBehaviour:
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 11400000, guid: b25bbe672d06341478cfc5d4b43ae6b4, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
         - m_Target: {fileID: 1021025923}
           m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
           m_MethodName: LockAllLockableDialogueAndAudio
@@ -4088,6 +4160,358 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneBehavior: {fileID: 1775872703}
   startGameAfterSceneBehaviorTransition: 1
+  _tutorialData:
+  - _tutorialIsActive: {fileID: 11400000, guid: b25bbe672d06341478cfc5d4b43ae6b4,
+      type: 2}
+    initializationEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: d850c6863cd552e4da189ee49054f8b8, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: fad28e03629572149bc101e680a27e2a, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 99245ed7b59aeae498f4095737fa5a94, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 4ffa35125835e4042a5f5893ad65ba34, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 90989a8f3a36a8840b57000f5291bb1d, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: SetLocked
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 557200500}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: ResetAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Tutorial10-Welcome To Quarters
+            m_BoolArgument: 0
+          m_CallState: 2
+    StartEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1775872701}
+          m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
+          m_MethodName: ShowDialogue
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 90989a8f3a36a8840b57000f5291bb1d,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 557200500}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: PlayAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Tutorial10-Welcome To Quarters
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _tutorialIsActive: {fileID: 11400000, guid: fad28e03629572149bc101e680a27e2a,
+      type: 2}
+    initializationEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: d850c6863cd552e4da189ee49054f8b8, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: b25bbe672d06341478cfc5d4b43ae6b4, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 99245ed7b59aeae498f4095737fa5a94, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 4ffa35125835e4042a5f5893ad65ba34, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 60880e5acefabd34c930930ecb02256d, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: SetLocked
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 557200503}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: ResetAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Tutorial19-OnEnterFromShop
+            m_BoolArgument: 0
+          m_CallState: 2
+    StartEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1775872701}
+          m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
+          m_MethodName: ShowDialogue
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 60880e5acefabd34c930930ecb02256d,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 557200503}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: ResetAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Tutorial19-OnEnterFromShop
+            m_BoolArgument: 0
+          m_CallState: 2
+  - _tutorialIsActive: {fileID: 11400000, guid: 4ffa35125835e4042a5f5893ad65ba34,
+      type: 2}
+    initializationEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000, guid: d850c6863cd552e4da189ee49054f8b8, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: b25bbe672d06341478cfc5d4b43ae6b4, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: fad28e03629572149bc101e680a27e2a, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 99245ed7b59aeae498f4095737fa5a94, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 2a0247d8ab89d5944ba4e3bb2ad1502d, type: 2}
+          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+          m_MethodName: SetLocked
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 557200504}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: ResetAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Tutorial26-EnterScene
+            m_BoolArgument: 0
+          m_CallState: 2
+    StartEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1775872701}
+          m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
+          m_MethodName: ShowDialogue
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 2a0247d8ab89d5944ba4e3bb2ad1502d,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 557200504}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: PlayAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Tutorial26-EnterScene
+            m_BoolArgument: 0
+          m_CallState: 2
   beforeInitialization:
     m_PersistentCalls:
       m_Calls:
@@ -4115,186 +4539,87 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 90989a8f3a36a8840b57000f5291bb1d, type: 2}
-        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: SetLocked
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 557200500}
-        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
-        m_MethodName: ResetAudioShot
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Tutorial10-Welcome To Quarters
-          m_BoolArgument: 0
-        m_CallState: 2
   onGameStart:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1775872701}
-        m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
-        m_MethodName: ShowDialogue
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 90989a8f3a36a8840b57000f5291bb1d,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 557200500}
-        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
-        m_MethodName: PlayAudioShot
-        m_Mode: 5
+      - m_Target: {fileID: 1021025923}
+        m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+        m_MethodName: LockAllLockableDialogueAndAudio
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Tutorial10-Welcome To Quarters
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1775872701}
-        m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
-        m_MethodName: ShowDialogue
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 60880e5acefabd34c930930ecb02256d,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 557200503}
-        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
-        m_MethodName: PlayAudioShot
-        m_Mode: 5
+      - m_Target: {fileID: 704650186}
+        m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+        m_MethodName: LockAllLockableDialogueAndAudio
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Tutorial19-OnEnterFromShop
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1775872701}
-        m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
-        m_MethodName: ShowDialogue
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 2a0247d8ab89d5944ba4e3bb2ad1502d,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 557200504}
-        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
-        m_MethodName: PlayAudioShot
-        m_Mode: 5
+      - m_Target: {fileID: 1870500956}
+        m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+        m_MethodName: LockAllLockableDialogueAndAudio
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Tutorial26-EnterScene
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1021025923}
+        m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+        m_MethodName: DeactivateTutorialData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 16ba8c35ee54cfa428c4374d2239cdaa, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1145494888 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2964963131164309557, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+    type: 3}
+  m_PrefabInstance: {fileID: 639552791219785539}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724bcbebd0252994e9b0cb1096a42da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1154184140 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1679282106335001724, guid: 6a116ea0eba08a04ea54bf63a0b60942,
     type: 3}
   m_PrefabInstance: {fileID: 639552791219785539}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1175133976
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1175133978}
-  - component: {fileID: 1175133979}
-  m_Layer: 0
-  m_Name: debug
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1175133978
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1175133976}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.44859895, y: 0.641652, z: -0.72239715}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1175133979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1175133976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56593a6888d7c7f4a923582ba7ab6167, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedEvent: 0
-  eventActions:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 90989a8f3a36a8840b57000f5291bb1d, type: 2}
-        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: SetLocked
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 19d329f6e374e1448a27de3520890b97, type: 2}
-        m_TargetAssemblyTypeName: AudioShotData, Assembly-CSharp
-        m_MethodName: ResetAudioShot
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Tutorial10-Welcome To Quarters
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1182170011 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6261238658491218680, guid: d525b5870970e884982d52b1f7268ae8,
@@ -5309,6 +5634,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 892398650619850603}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1524019884 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2877276474431740959, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+    type: 3}
+  m_PrefabInstance: {fileID: 639552791219785539}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1524019889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524019884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6d7a1ad6620765448bf9d94d679ed53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1534571719 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4272927023421845813, guid: e43490404c766624389c541d4d580ac8,
@@ -6939,6 +7282,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1743305504343914527, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: eventActions.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1865728156934119136, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_fontSize
@@ -7000,6 +7348,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -43.2
       objectReference: {fileID: 0}
+    - target: {fileID: 2282333144805598719, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2287171623108976687, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -7019,6 +7372,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401412324623856954, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: gameActions.Array.data[0].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2401412324623856954, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2414321949504239512, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -7451,6 +7814,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4596466865326333824, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596466865326333824, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4830329671517396179, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -7581,6 +7954,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5781886722694391902, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5797814298518561335, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -7800,6 +8178,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304532081047093594, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: gameActions.Array.data[0].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7304532081047093594, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400600575351592759, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: eventActions.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7816907556767823951, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -8684,6 +9077,114 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 11400000, guid: af3d3dba93c7c9b4997fc17c4bafbdda,
               type: 2}
             m_ObjectArgumentAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1021025923}
+          m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+          m_MethodName: LockAllLockableDialogueAndAudio
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 704650186}
+          m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+          m_MethodName: LockAllLockableDialogueAndAudio
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1870500956}
+          m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+          m_MethodName: LockAllLockableDialogueAndAudio
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: d850c6863cd552e4da189ee49054f8b8, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: b25bbe672d06341478cfc5d4b43ae6b4, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: fad28e03629572149bc101e680a27e2a, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 99245ed7b59aeae498f4095737fa5a94, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 4ffa35125835e4042a5f5893ad65ba34, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -9611,6 +10112,36 @@ PrefabInstance:
       propertyPath: m_ExcludeLayers.m_Bits
       value: 64
       objectReference: {fileID: 0}
+    - target: {fileID: 615145662540663148, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 615145662540663148, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 615145662540663148, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 615145662540663148, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 615145662540663148, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -92.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 615145662540663148, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 17.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1257141790680174672, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
@@ -9650,6 +10181,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 2877276474431740959, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3858230024591674626, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
@@ -9729,8 +10265,38 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
       propertyPath: gameActions.Array.data[3].onRaiseEvent.m_PersistentCalls.m_Calls.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Mode
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
@@ -9749,6 +10315,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 1524019889}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Target
+      value: 
+      objectReference: {fileID: 1145494888}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 1524019889}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Target
+      value: 
+      objectReference: {fileID: 1145494888}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
       propertyPath: gameActions.Array.data[3].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 925769532}
@@ -9764,6 +10350,16 @@ PrefabInstance:
       objectReference: {fileID: 399389705}
     - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
       propertyPath: gameActions.Array.data[3].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -9776,6 +10372,26 @@ PrefabInstance:
         type: 3}
       propertyPath: gameActions.Array.data[3].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: SetHeight
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
+      value: UpdateLabel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: SetHeight
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
+      value: UpdateLabel
       objectReference: {fileID: 0}
     - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
@@ -9794,6 +10410,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: RectBehavior, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_TargetAssemblyTypeName
+      value: TextMeshProBehavior, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: RectBehavior, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_TargetAssemblyTypeName
+      value: TextMeshProBehavior, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
       propertyPath: gameActions.Array.data[3].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.Collider, UnityEngine
       objectReference: {fileID: 0}
@@ -9809,6 +10445,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
       propertyPath: gameActions.Array.data[3].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
@@ -9821,6 +10462,56 @@ PrefabInstance:
         type: 3}
       propertyPath: gameActions.Array.data[3].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_FloatArgument
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_FloatArgument
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_StringArgument
+      value: Proceed to ship deck?
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_StringArgument
+      value: Sail to Merchant?
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[1].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: gameActions.Array.data[2].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[5].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6993046028237456398, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
@@ -9856,6 +10547,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8115396288907090066, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8115396288907090066, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8115396288907090066, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8115396288907090066, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8115396288907090066, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 8115396288907090066, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 8283990467452821291, guid: 6a116ea0eba08a04ea54bf63a0b60942,
         type: 3}
@@ -9967,7 +10688,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2877276474431740959, guid: 6a116ea0eba08a04ea54bf63a0b60942,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1524019889}
   m_SourcePrefab: {fileID: 100100000, guid: 6a116ea0eba08a04ea54bf63a0b60942, type: 3}
 --- !u!1001 &836335057604536418
 PrefabInstance:
@@ -14199,4 +14924,3 @@ SceneRoots:
   - {fileID: 1131686467}
   - {fileID: 1543262128}
   - {fileID: 1775872700}
-  - {fileID: 1175133978}

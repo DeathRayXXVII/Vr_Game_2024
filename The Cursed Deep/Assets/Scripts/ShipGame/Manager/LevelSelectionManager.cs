@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using ZPTools;
@@ -37,11 +36,11 @@ namespace ShipGame.Manager
         [Header("Merchant Scene Transition Related")]
         [SerializeField] private BoolData toMerchantBool;
 
-        private List<LevelSelection> _bossLevelsList; 
+        private List<LevelSelection> _bossLevelsList;
         private List<LevelSelection> bossLevelsList => 
             _bossLevelsList ??= _levelOptions.Where(opt => opt != null && opt.isBossLevel).ToList();
-
-        private List<LevelSelection> _normalLevelsList; 
+        
+        private List<LevelSelection> _normalLevelsList;
         private List<LevelSelection> normalLevelsList => 
             _normalLevelsList ??= _levelOptions.Where(opt => opt != null && !opt.isBossLevel).ToList();
         
@@ -168,7 +167,8 @@ namespace ShipGame.Manager
                 ref _levelOptions[_selectedLevelIndex].socket;
             
             GameAction leaveSceneAction = _merchantSelected ? _unlockDoorToMerchantAction : _unlockDoorToLevelAction;
-            Debug.Log($"[DEBUG] Leave Scene Action: {leaveSceneAction.name} Raised.", this);
+            if (_allowDebug) 
+                Debug.Log($"[DEBUG] Leave Scene Action: {leaveSceneAction.name} Raised.", this);
             
             yield return StartCoroutine(WaitForUIDeactivation(selectedSocket.transform));
             
@@ -264,7 +264,8 @@ namespace ShipGame.Manager
             foreach (var level in levelsToUpdate)
             {
                 level.SetLockState(lockState);
-                if (_allowDebug) Debug.Log($"[DEBUG] {(lockState ? "Locked" : "Unlocked")} Level: {level.id}", this);
+                if (_allowDebug) 
+                    Debug.Log($"[DEBUG] {(lockState ? "Locked" : "Unlocked")} Level: {level.id}", this);
             }
         }
         

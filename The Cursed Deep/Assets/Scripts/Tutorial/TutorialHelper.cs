@@ -9,7 +9,6 @@ namespace Tutorial
     {
         [SerializeField] private DialogueData[] _dialogueData;
         [SerializeField] private AudioShotData[] _audioData;
-        [SerializeField] private BoolData[] _tutorialData;
         
         private bool ValidateArray(System.Array data)
         {
@@ -49,26 +48,6 @@ namespace Tutorial
                     audioShot.SetLocked(true);
                 }
             }
-        }
-        
-        public void DeactivateTutorialData() => SetActiveTutorialData(-1);
-        
-        public void SetActiveTutorialData(int activeTutorialIndex)
-        {
-            if (!ValidateArray(_tutorialData))
-            {
-                return;
-            }
-            
-            for (var i = 0; i < _tutorialData.Length; i++)
-            {
-                _tutorialData[i].value = i == activeTutorialIndex;
-            }
-        }
-
-        private void OnDisable()
-        {
-            DeactivateTutorialData();
         }
     }
 }
