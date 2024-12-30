@@ -126,8 +126,14 @@ namespace ZPTools
 
             _lookCoroutine = StartCoroutine(UpdateTransform());
         }
+        private bool IsValidTarget()
+        {
+            if (targetObject != null) return true;
+            
+            Debug.LogError("Target object is null!", this);
+            return false;
+        }
 
-        private bool IsValidTarget() => targetObject is not null;
 
         protected virtual Transform GetTargetTransform()
         {
