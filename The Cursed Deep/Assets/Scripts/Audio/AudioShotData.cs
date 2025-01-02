@@ -7,13 +7,6 @@ using ZPTools.Interface;
 [CreateAssetMenu(fileName = "AudioShotManager", menuName = "Audio/Audio Shot Manager", order = 0)]
 public class AudioShotData : ScriptableObject, IResetOnNewGame, INeedButton
 {
-    private const int DefaultPriority = 128;
-    private const float DefaultVolume = 1.0f;
-    private const float DefaultPitch = 1.0f;
-    private const float DefaultSpatialBlend = 0f;
-    private const float DefaultMinDistance = 1f;
-    private const float DefaultMaxDistance = 500f;
-    
     [System.Serializable]
     public class AudioShot
     {
@@ -25,12 +18,12 @@ public class AudioShotData : ScriptableObject, IResetOnNewGame, INeedButton
         [SerializeField, ReadOnly] private bool _locked;
         public bool playOnAwake;
         [Header("Audio Settings")]
-        [Range(0, 256)] public int priority = DefaultPriority;
-        [Range(0, 1)] public float volume = DefaultVolume;
-        [Range(-3, 3)] public float pitch = DefaultPitch;
-        [LabeledRange(0, 1, "2D", "3D")] public float spatialBlend = DefaultSpatialBlend;
-        public float minDistance = DefaultMinDistance;
-        public float maxDistance = DefaultMaxDistance;
+        [Range(0, 256)] public int priority = 128;
+        [Range(0, 1)] public float volume = 1f;
+        [Range(-3, 3)] public float pitch = 1f;
+        [LabeledRange(0, 1, "2D", "3D")] public float spatialBlend;
+        public float minDistance = 1f;
+        public float maxDistance = 500f;
         
         [Header("Runtime Settings")]
         public float delay;
@@ -75,11 +68,14 @@ public class AudioShotData : ScriptableObject, IResetOnNewGame, INeedButton
         if (IsValidIndex(index))
         {
             audioShot = audioShots[index];
-            audioShot.priority = audioShot.priority <= 0 ? DefaultPriority : audioShot.priority;
-            audioShot.volume = audioShot.volume <= 0 ? DefaultVolume : audioShot.volume;
-            audioShot.pitch = Mathf.Abs(audioShot.pitch) <= 0 ? DefaultPitch : audioShot.pitch;
-            audioShot.minDistance = audioShot.minDistance <= 0 ? DefaultMinDistance : audioShot.maxDistance;
-            audioShot.maxDistance = audioShot.maxDistance <= audioShot.minDistance ? DefaultMaxDistance : audioShot.maxDistance;
+            
+            audioShot.priority = audioShot.priority <= 0 ? 128 : audioShot.priority;
+            audioShot.volume = audioShot.volume <= 0 ? 1f : audioShot.volume;
+            audioShot.pitch = Mathf.Approximately(audioShot.pitch, 0) ? 1f : audioShot.pitch;
+            audioShot.minDistance = audioShot.minDistance <= 0 ? 1f : audioShot.minDistance;
+            audioShot.maxDistance = audioShot.maxDistance == 0 ?
+                500f : audioShot.maxDistance <= audioShot.minDistance ?
+                    audioShot.minDistance : audioShot.maxDistance;
             audioShot.delay = audioShot.delay < 0 ? 0 : audioShot.delay;
         }
         return audioShot;
@@ -140,6 +136,7 @@ public class AudioShotData : ScriptableObject, IResetOnNewGame, INeedButton
 
     public List<(System.Action, string)> GetButtonActions()
     {
-        return new List<(System.Action, string)> {(ResetAllAudioShots, "Reset All Audio Shots")};
+        return new List<(System.Action, string)> {(ResetAllAudioShots, "Unlock All Audio Shots"),
+            (LockAllPlayOnlyOnceAudioShots, "Lock All Play Only Once Audio Shots")};
     }
 }
