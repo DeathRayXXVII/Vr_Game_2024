@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using ZPTools;
 
 namespace ShipGame.Manager
@@ -34,14 +34,17 @@ namespace ShipGame.Manager
         [SerializeField] private GameAction _unlockDoorToMerchantAction;
         [SerializeField] private GameAction _merchantTutorialAction;
         
+        [Header("Tutorial Interactable Trigger")]
+        [SerializeField] private XRGrabInteractable _selectionKnife;
+        
         [Header("Merchant Scene Transition Related")]
         [SerializeField] private BoolData toMerchantBool;
 
-        private List<LevelSelection> _bossLevelsList; 
+        private List<LevelSelection> _bossLevelsList;
         private List<LevelSelection> bossLevelsList => 
             _bossLevelsList ??= _levelOptions.Where(opt => opt != null && opt.isBossLevel).ToList();
-
-        private List<LevelSelection> _normalLevelsList; 
+        
+        private List<LevelSelection> _normalLevelsList;
         private List<LevelSelection> normalLevelsList => 
             _normalLevelsList ??= _levelOptions.Where(opt => opt != null && !opt.isBossLevel).ToList();
         
@@ -168,7 +171,8 @@ namespace ShipGame.Manager
                 ref _levelOptions[_selectedLevelIndex].socket;
             
             GameAction leaveSceneAction = _merchantSelected ? _unlockDoorToMerchantAction : _unlockDoorToLevelAction;
-            Debug.Log($"[DEBUG] Leave Scene Action: {leaveSceneAction.name} Raised.", this);
+            if (_allowDebug) 
+                Debug.Log($"[DEBUG] Leave Scene Action: {leaveSceneAction.name} Raised.", this);
             
             yield return StartCoroutine(WaitForUIDeactivation(selectedSocket.transform));
             
@@ -264,7 +268,8 @@ namespace ShipGame.Manager
             foreach (var level in levelsToUpdate)
             {
                 level.SetLockState(lockState);
-                if (_allowDebug) Debug.Log($"[DEBUG] {(lockState ? "Locked" : "Unlocked")} Level: {level.id}", this);
+                if (_allowDebug) 
+                    Debug.Log($"[DEBUG] {(lockState ? "Locked" : "Unlocked")} Level: {level.id}", this);
             }
         }
         
@@ -370,7 +375,19 @@ namespace ShipGame.Manager
             {
                 _levelTutorialAction.RaiseEvent -= OnLevelTutorialEvent;
                 _merchantTutorialAction.RaiseEvent -= OnMerchantTutorialEvent;
+                
+                _selectionKnife?.selectEntered.RemoveListener(TutorialKnifeGrabbed);
             }
+        }
+        
+        private bool _listeningForKnifeGrab;
+        private void TutorialKnifeGrabbed(UnityEngine.XR.Interaction.Toolkit.SelectEnterEventArgs arg)
+        {
+            if (!_listeningForKnifeGrab) return;
+            
+            _listeningForKnifeGrab = false;
+            
+            _arrowIndicator!.SetActive(true);
         }
         
         private bool _lockedToTutorial;
@@ -387,13 +404,17 @@ namespace ShipGame.Manager
                 return;
             }
             
-            if (_arrowIndicator != null)
+            if (_arrowIndicator != null && _selectionKnife != null)
             {
                 var targetPosition = isLevelTutorial ? 
                     _levelOptions[0].socket.transform.position :
                     _merchantOption.socket.transform.position;
                 
                 _arrowIndicator.transform.position = targetPosition;
+                
+                _selectionKnife.selectEntered.AddListener(TutorialKnifeGrabbed);
+                
+                _listeningForKnifeGrab = true;
             }
             
             if (!isLevelTutorial)
@@ -559,8 +580,6 @@ namespace ShipGame.Manager
 
         public IEnumerator Initialize()
         {
-            var unlockedNormalLevels = normalLevelsList.Count(option => !option.isLocked);
-            
             // Wait for all initializations to complete
             foreach (var task in RetrieveLevelOptionTasks(opt => opt.LoadCoroutine()))
             {
@@ -568,7 +587,7 @@ namespace ShipGame.Manager
             }
             
             // Get Locked Normal Levels Count
-            unlockedNormalLevels = normalLevelsList.Where(option => 
+            var unlockedNormalLevels = normalLevelsList.Where(option => 
                 option.isLoaded).Count(option => !option.isLocked);
             
             var lockedDifference = _countToBoss.value - unlockedNormalLevels;

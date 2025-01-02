@@ -35,15 +35,19 @@ namespace UI.DialogueSystem
         }
         
         // Will only be true if playOnlyOncePerGame is true
-        public void Activated() => locked = true;
+        public void Activated()
+        {
+            locked = true;
+        }
         
         [Header("Dialogue Data")]
-        [SerializeField] private string dialogueName;
         [SerializeField] private GameAction firstAction, lastAction;
         
         [SerializeField] private StringFactory[] dialogue;
         [SerializeField] private Response[] responses;
         [SerializeField] private UnityEvent firstTrigger, lastTrigger;
+        
+        
         
         public string[] Dialogue
         {

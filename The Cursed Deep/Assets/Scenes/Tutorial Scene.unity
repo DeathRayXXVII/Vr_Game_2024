@@ -4248,13 +4248,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 105668fd92c4c3f4ba4277014b2b6376, type: 2}
   _audioData:
   - {fileID: 11400000, guid: 7c2c773fe60673c4a9b4f62a83440977, type: 2}
-  _tutorialData:
-  - {fileID: 11400000, guid: d850c6863cd552e4da189ee49054f8b8, type: 2}
-  - {fileID: 11400000, guid: b25bbe672d06341478cfc5d4b43ae6b4, type: 2}
-  - {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862, type: 2}
-  - {fileID: 11400000, guid: fad28e03629572149bc101e680a27e2a, type: 2}
-  - {fileID: 11400000, guid: 99245ed7b59aeae498f4095737fa5a94, type: 2}
-  - {fileID: 11400000, guid: 4ffa35125835e4042a5f5893ad65ba34, type: 2}
 --- !u!1001 &1268792519
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4821,6 +4814,18 @@ MonoBehaviour:
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 11400000, guid: 16ba8c35ee54cfa428c4374d2239cdaa, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
         - m_Target: {fileID: 1991053792}
           m_TargetAssemblyTypeName: ZPTools.InputActionEventHandler, Assembly-CSharp
           m_MethodName: StartListening
@@ -5150,18 +5155,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 1249003072}
-          m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
-          m_MethodName: SetActiveTutorialData
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 1
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
         - m_Target: {fileID: 593018822}
           m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
           m_MethodName: ShowDialogue
@@ -5195,6 +5188,30 @@ MonoBehaviour:
           m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
           m_MethodName: RaiseAction
           m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: d850c6863cd552e4da189ee49054f8b8, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: b25bbe672d06341478cfc5d4b43ae6b4, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

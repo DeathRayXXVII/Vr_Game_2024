@@ -650,7 +650,7 @@ GameObject:
   - component: {fileID: 8084851601691690082}
   - component: {fileID: 4060006937624535644}
   m_Layer: 17
-  m_Name: Near-Far Interactor
+  m_Name: Right Near-Far Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2075,7 +2075,7 @@ GameObject:
   - component: {fileID: 8902827398572390857}
   - component: {fileID: 3210873078595373305}
   m_Layer: 17
-  m_Name: Teleport Interactor
+  m_Name: Left Teleport Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2921,6 +2921,8 @@ GameObject:
   - component: {fileID: 7057096468771453456}
   - component: {fileID: 3882449041032720994}
   - component: {fileID: 3639463811845934327}
+  - component: {fileID: 9071752585113942837}
+  - component: {fileID: 3005952255828659849}
   m_Layer: 17
   m_Name: Turn
   m_TagString: Untagged
@@ -3037,6 +3039,160 @@ MonoBehaviour:
       type: 3}
     m_ObjectReferenceObject: {fileID: 0}
     m_ManualValue: {x: 0, y: 0}
+--- !u!114 &9071752585113942837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2776090538937659555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56593a6888d7c7f4a923582ba7ab6167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedEvent: 0
+  eventActions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3882449041032720994}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.SnapTurnProvider,
+          Unity.XR.Interaction.Toolkit
+        m_MethodName: set_enableTurnAround
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3882449041032720994}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.SnapTurnProvider,
+          Unity.XR.Interaction.Toolkit
+        m_MethodName: set_enableTurnLeftRight
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3639463811845934327}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.ContinuousTurnProvider,
+          Unity.XR.Interaction.Toolkit
+        m_MethodName: set_turnSpeed
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3005952255828659849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2776090538937659555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412663a223fb28c448ef681a3a5c5bf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameActions:
+  - actionObj: {fileID: 11400000, guid: 16ba8c35ee54cfa428c4374d2239cdaa, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3882449041032720994}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.SnapTurnProvider,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableTurnLeftRight
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 3882449041032720994}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.SnapTurnProvider,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableTurnAround
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 3639463811845934327}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.ContinuousTurnProvider,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_turnSpeed
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 90
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - actionObj: {fileID: 11400000, guid: 3116446845e30b245b16a1e267f76e56, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3882449041032720994}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.SnapTurnProvider,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableTurnAround
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 3882449041032720994}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.SnapTurnProvider,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableTurnLeftRight
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 3639463811845934327}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Locomotion.Turning.ContinuousTurnProvider,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_turnSpeed
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2865378846827730648
 GameObject:
   m_ObjectHideFlags: 0
@@ -3103,6 +3259,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5551622592045674716}
   - component: {fileID: 5832557135263330164}
+  - component: {fileID: 2886406792086178434}
+  - component: {fileID: 7912274726514732384}
   m_Layer: 0
   m_Name: XR Interaction Manager
   m_TagString: Untagged
@@ -3139,6 +3297,313 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
+--- !u!114 &2886406792086178434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2901070857252840063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56593a6888d7c7f4a923582ba7ab6167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedEvent: 0
+  eventActions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2865378846827730648}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 130409938858082385}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+          Unity.XR.Interaction.Toolkit
+        m_MethodName: set_enableFarCasting
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 130409938858082385}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+          Unity.XR.Interaction.Toolkit
+        m_MethodName: set_enableNearCasting
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 130409938858082385}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+          Unity.XR.Interaction.Toolkit
+        m_MethodName: set_enableUIInteraction
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6377203611846736043}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+          Unity.XR.Interaction.Toolkit
+        m_MethodName: set_enableFarCasting
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6377203611846736043}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+          Unity.XR.Interaction.Toolkit
+        m_MethodName: set_enableNearCasting
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6377203611846736043}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+          Unity.XR.Interaction.Toolkit
+        m_MethodName: set_enableUIInteraction
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7912274726514732384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2901070857252840063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412663a223fb28c448ef681a3a5c5bf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameActions:
+  - actionObj: {fileID: 11400000, guid: 16ba8c35ee54cfa428c4374d2239cdaa, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2865378846827730648}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 130409938858082385}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableFarCasting
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 130409938858082385}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableNearCasting
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 130409938858082385}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableUIInteraction
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 6377203611846736043}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableFarCasting
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 6377203611846736043}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableNearCasting
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 6377203611846736043}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableUIInteraction
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - actionObj: {fileID: 11400000, guid: 3116446845e30b245b16a1e267f76e56, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2865378846827730648}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 130409938858082385}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableFarCasting
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 130409938858082385}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableNearCasting
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 130409938858082385}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableUIInteraction
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6377203611846736043}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableFarCasting
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6377203611846736043}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableNearCasting
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6377203611846736043}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Interactors.NearFarInteractor,
+            Unity.XR.Interaction.Toolkit
+          m_MethodName: set_enableUIInteraction
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2918676326991569369
 GameObject:
   m_ObjectHideFlags: 0
@@ -3317,7 +3782,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 422415552361412167}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -3570,7 +4035,7 @@ GameObject:
   - component: {fileID: 1859834303554560593}
   - component: {fileID: 6580480682576565712}
   m_Layer: 17
-  m_Name: Poke Interactor
+  m_Name: Left Poke Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6801,8 +7266,8 @@ GameObject:
   m_Component:
   - component: {fileID: 865920674176379840}
   - component: {fileID: 7897440396980726504}
-  - component: {fileID: 1052170744019540695}
   - component: {fileID: 4329649584420734061}
+  - component: {fileID: 7889636709379755545}
   m_Layer: 17
   m_Name: Move
   m_TagString: Untagged
@@ -6879,41 +7344,6 @@ MonoBehaviour:
   m_RightControllerTransform: {fileID: 2046718738745799313}
   m_LeftHandMovementDirection: 0
   m_RightHandMovementDirection: 0
---- !u!114 &1052170744019540695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7024755661572440289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b43ee49d89a0a64f854acc23de55fc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  endWaitForSeconds:
-  - id: Set Speed
-    realTime: 0
-    seconds: 3
-    onWaitFinished:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7897440396980726504}
-          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets.DynamicMoveProvider,
-            Assembly-CSharp
-          m_MethodName: SetMovementSpeed
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 219a518e95713d84f8ccb8d4e3040b4c,
-              type: 2}
-            m_ObjectArgumentAssemblyTypeName: FloatData, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  endWaitForZero: []
-  endWaitForFixedUpdate: []
 --- !u!114 &4329649584420734061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6930,18 +7360,67 @@ MonoBehaviour:
   eventActions:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1052170744019540695}
-        m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-        m_MethodName: StartWaitForSecondsEvent
-        m_Mode: 5
+      - m_Target: {fileID: 7897440396980726504}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets.DynamicMoveProvider,
+          Assembly-CSharp
+        m_MethodName: SetMovementSpeed
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Set Speed
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7889636709379755545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7024755661572440289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412663a223fb28c448ef681a3a5c5bf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameActions:
+  - actionObj: {fileID: 11400000, guid: 16ba8c35ee54cfa428c4374d2239cdaa, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7897440396980726504}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets.DynamicMoveProvider,
+            Assembly-CSharp
+          m_MethodName: SetMovementSpeed
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 219a518e95713d84f8ccb8d4e3040b4c,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: FloatData, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - actionObj: {fileID: 11400000, guid: 3116446845e30b245b16a1e267f76e56, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7897440396980726504}
+          m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets.DynamicMoveProvider,
+            Assembly-CSharp
+          m_MethodName: SetMovementSpeed
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &7274985948267654967
 GameObject:
   m_ObjectHideFlags: 0
@@ -7502,7 +7981,7 @@ GameObject:
   - component: {fileID: 1146933623266482711}
   - component: {fileID: 2338602267660728233}
   m_Layer: 17
-  m_Name: Near-Far Interactor
+  m_Name: Left Near-Far Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7945,7 +8424,7 @@ GameObject:
   - component: {fileID: 7650520132913075745}
   - component: {fileID: 1386590943669716433}
   m_Layer: 17
-  m_Name: Poke Interactor
+  m_Name: Right Poke Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9430,7 +9909,7 @@ GameObject:
   - component: {fileID: 3892156911936186672}
   - component: {fileID: 3105481796983737060}
   m_Layer: 17
-  m_Name: Teleport Interactor
+  m_Name: Right Teleport Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10109,6 +10588,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8616045412260883516}
   - component: {fileID: 1934651728539113875}
+  - component: {fileID: 629566117952206176}
+  - component: {fileID: 6514793495183524442}
+  - component: {fileID: 3240821189794437113}
+  - component: {fileID: 408173324012437444}
   m_Layer: 17
   m_Name: Teleportation
   m_TagString: Untagged
@@ -10146,6 +10629,141 @@ MonoBehaviour:
   m_Mediator: {fileID: 4466912988573252933}
   m_TransformationPriority: 0
   m_DelayTime: 0
+--- !u!114 &629566117952206176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8894302796363922021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 203586d621a961942bf0cfbfe24ac6ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMaskProvider: {fileID: 6220649529749581692}
+--- !u!114 &6514793495183524442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8894302796363922021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 203586d621a961942bf0cfbfe24ac6ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMaskProvider: {fileID: 2062706405485781670}
+--- !u!114 &3240821189794437113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8894302796363922021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56593a6888d7c7f4a923582ba7ab6167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedEvent: 0
+  eventActions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 629566117952206176}
+        m_TargetAssemblyTypeName: InteractionLayerMaskHandler, Assembly-CSharp
+        m_MethodName: DisableInteractions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6514793495183524442}
+        m_TargetAssemblyTypeName: InteractionLayerMaskHandler, Assembly-CSharp
+        m_MethodName: DisableInteractions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &408173324012437444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8894302796363922021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412663a223fb28c448ef681a3a5c5bf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameActions:
+  - actionObj: {fileID: 11400000, guid: 16ba8c35ee54cfa428c4374d2239cdaa, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 629566117952206176}
+          m_TargetAssemblyTypeName: InteractionLayerMaskHandler, Assembly-CSharp
+          m_MethodName: EnableInteractions
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 6514793495183524442}
+          m_TargetAssemblyTypeName: InteractionLayerMaskHandler, Assembly-CSharp
+          m_MethodName: EnableInteractions
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - actionObj: {fileID: 11400000, guid: 3116446845e30b245b16a1e267f76e56, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 629566117952206176}
+          m_TargetAssemblyTypeName: InteractionLayerMaskHandler, Assembly-CSharp
+          m_MethodName: DisableInteractions
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 6514793495183524442}
+          m_TargetAssemblyTypeName: InteractionLayerMaskHandler, Assembly-CSharp
+          m_MethodName: DisableInteractions
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
 --- !u!1 &8988213874215138696
 GameObject:
   m_ObjectHideFlags: 0

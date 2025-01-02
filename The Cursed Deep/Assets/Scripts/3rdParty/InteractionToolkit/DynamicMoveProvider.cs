@@ -11,7 +11,8 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
     /// </summary>
     public class DynamicMoveProvider : ContinuousMoveProvider
     {
-        public void SetMovementSpeed(FloatData speed) => moveSpeed = speed;
+        public void SetMovementSpeed(float speed) => moveSpeed = speed;
+        public void SetMovementSpeed(FloatData speed) => SetMovementSpeed(speed.value);
         
         /// <summary>
         /// Defines which transform the XR Origin's movement direction is relative to.
