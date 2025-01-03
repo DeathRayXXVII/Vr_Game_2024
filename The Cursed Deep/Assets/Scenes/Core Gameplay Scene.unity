@@ -1112,7 +1112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameActions:
-  - actionObj: {fileID: 11400000, guid: 460ab0f6750bb2e40b90a9f738933004, type: 2}
+  - actionObj: {fileID: 11400000, guid: c66c81d8f257fbf45bd96debd6a642a2, type: 2}
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
@@ -1141,7 +1141,7 @@ MonoBehaviour:
             m_StringArgument: Tutorial23-CutTheRope
             m_BoolArgument: 1
           m_CallState: 2
-  - actionObj: {fileID: 11400000, guid: 94626be4242e6c94f9f267062a47e1f0, type: 2}
+  - actionObj: {fileID: 11400000, guid: 684fa0359b0ece949a1869e0247e0c38, type: 2}
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
@@ -1197,70 +1197,6 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Tutorial25-FightEnd
-            m_BoolArgument: 1
-          m_CallState: 2
-  - actionObj: {fileID: 11400000, guid: c66c81d8f257fbf45bd96debd6a642a2, type: 2}
-    onRaiseEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 452585653}
-          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
-          m_MethodName: StopAudio
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: FightEnd
-            m_BoolArgument: 1
-          m_CallState: 2
-  - actionObj: {fileID: 11400000, guid: 684fa0359b0ece949a1869e0247e0c38, type: 2}
-    onRaiseEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 452585653}
-          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
-          m_MethodName: StopAudio
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: FightEnd
-            m_BoolArgument: 1
-          m_CallState: 2
-  - actionObj: {fileID: 11400000, guid: 39f28ce3a0f8c074d9275fa4393ec3bc, type: 2}
-    onRaiseEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 452585653}
-          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
-          m_MethodName: StopAudio
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: FightEnd
-            m_BoolArgument: 1
-          m_CallState: 2
-  - actionObj: {fileID: 11400000, guid: d6eb8ea7e4ab5484b8f3fc017edc98db, type: 2}
-    onRaiseEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 452585653}
-          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
-          m_MethodName: StopAudio
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: FightEnd
             m_BoolArgument: 1
           m_CallState: 2
 --- !u!1001 &393570261
@@ -4122,6 +4058,30 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Tutorial22-LoadIn
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 16ba8c35ee54cfa428c4374d2239cdaa, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: c57af76004b553847846514926b132c7, type: 2}
+          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+          m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
   beforeInitialization:

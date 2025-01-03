@@ -50,9 +50,23 @@ public class AudioPlayer : MonoBehaviour
         }
     }
 
-    public void PlayAudioShot(string id) => PlayAudioShot(audioShotData.GetAudioShotIndex(id));
+    public void PlayAudioShot(string id) 
+    {
+        if (audioShotData == null)
+        {
+            Debug.LogError($"Audio Shot Data is null. Cannot play audio \"{id}\".", this);
+            return;
+        }
+        PlayAudioShot(audioShotData.GetAudioShotIndex(id));
+    }
+    
     public void PlayAudioShot(int index)
     {
+        if (audioShotData == null)
+        {
+            Debug.LogError($"Audio Shot Data is null. Cannot play audio at index: {index}.", this);
+            return;
+        }
         audioShotData.ValidateAudioShot(out var audioShot, index:index);
         PlayAudioShot(audioShot, index);
     }
