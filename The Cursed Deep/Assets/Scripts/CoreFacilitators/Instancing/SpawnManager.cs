@@ -6,7 +6,6 @@ using static ZPTools.Utility.UtilityFunctions;
 using ZPTools.Interface;
 using Random = UnityEngine.Random;
 
-
 public class SpawnManager : MonoBehaviour, INeedButton
 {
     private bool _destroying, _pooling;
@@ -164,6 +163,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
     {
         if (_spawnRoutine == null) return;
         StopCoroutine(_spawnRoutine);
+        spawnerData.spawningComplete = true;
         _spawnRoutine = null;
     }
 
@@ -293,13 +293,14 @@ public class SpawnManager : MonoBehaviour, INeedButton
     
     public void NotifyPoolObjectDisabled(ref SpawnerData.Spawner spawner)
     {
-        
         if (_destroying || _pooling) return;
         spawnerData.HandleSpawnRemoval(ref spawner);
         
 #if UNITY_EDITOR
-        if (allowDebug) Debug.Log($"Notified of Death: passed {spawner.spawnerID} as spawnerID\nTotal active: {spawnerData.activeCount}" +
-                                  $"\nCurrently spawning: {spawnerData.amountLeftToSpawn}", this);
+        // if (allowDebug)
+            Debug.Log($"Notified of Death: passed {spawner.spawnerID} as spawnerID\nTotal active: {spawnerData.activeCount}\n" +
+                      $"Currently spawning: {spawnerData.amountLeftToSpawn}\nDestroying: {_destroying}\nPooling: {_pooling}\n" +
+                      $"Spawning Complete: {spawnerData.spawningComplete}", this);
 #endif
         
         if (spawnerData.activeCount <= 0 && spawnerData.amountLeftToSpawn <= 0)

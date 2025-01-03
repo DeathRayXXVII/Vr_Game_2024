@@ -48,8 +48,11 @@ public class SpawnerData : ScriptableObject
         set => _activeCount.value = value < 0 ? 0 : value;
     }
     internal bool canSpawn => spawnedCount < originalTotalCountToSpawn;
-    internal bool spawningComplete => spawnedCount >= originalTotalCountToSpawn;
-    
+    internal bool spawningComplete 
+    {
+        get => spawnedCount >= originalTotalCountToSpawn;
+        set => spawnedCount = value ? originalTotalCountToSpawn + 1 : 0;
+    }
 
     [System.Serializable]
     public class Spawner

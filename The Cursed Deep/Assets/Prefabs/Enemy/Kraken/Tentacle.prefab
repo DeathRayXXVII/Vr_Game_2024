@@ -5560,7 +5560,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 15
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -5785,9 +5785,9 @@ MonoBehaviour:
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 6856031701504733252}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: StopPlayback
+        - m_Target: {fileID: 11400000, guid: f1f9bac4b1c5d8c49a907f4d95b28b3a, type: 2}
+          m_TargetAssemblyTypeName: CreepData, Assembly-CSharp
+          m_MethodName: DecrementKilledTotal
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5797,16 +5797,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 6856031701504733252}
-          m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-          m_MethodName: SetTrigger
-          m_Mode: 5
+        - m_Target: {fileID: 8405005565170786390}
+          m_TargetAssemblyTypeName: PooledObjectBehavior, Assembly-CSharp
+          m_MethodName: InvalidateDeath
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: TentDie
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 4813802681036350069}
+          m_TargetAssemblyTypeName: HealthBehavior, Assembly-CSharp
+          m_MethodName: SetHealth
+          m_Mode: 4
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
   - actionObj: {fileID: 11400000, guid: dca0e413a98cfd042879613450ecc09b, type: 2}
