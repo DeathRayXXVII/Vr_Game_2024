@@ -11,8 +11,8 @@ public class CannonManager : MonoBehaviour
     [Header("Ammo:")]
     [SerializeField] private GameObject ammoEntity;
     [SerializeField] private SocketMatchInteractor _ammoSpawnSocket;
-    [SerializeField] private int despawnTime = 30;
-    private List<GameObject> _despawningAmmoList = new();
+    [SerializeField] private int ammoDespawnTime = 3;
+    private readonly List<GameObject> _despawningAmmoList = new();
     private GameObject _loadedAmmo;
     private Vector3 _ammoScale;
     private MeshFilter _ammoMeshFilter;
@@ -74,21 +74,20 @@ public class CannonManager : MonoBehaviour
     private void OnEnable()
     {
         if (reloadSocket)
-        {
             reloadSocket.ObjectSocketed += LoadCannon;
-            // reloadSocket.ObjectUnsocketed += UnloadCannon;
-        }
-        // if (_ammoSpawnSocket) _ammoSpawnSocket.ObjectUnsocketed += HandleActivatedAmmo;
+        
+        if (_ammoSpawnSocket) 
+            _ammoSpawnSocket.ObjectUnsocketed += HandleActivatedAmmo;
     }
 
     private void OnDisable()
     {
         if (reloadSocket)
-        {
             reloadSocket.ObjectSocketed -= LoadCannon;
-            // reloadSocket.ObjectUnsocketed -= UnloadCannon;
-        }
-        // if (_ammoSpawnSocket) _ammoSpawnSocket.ObjectUnsocketed -= HandleActivatedAmmo;
+        
+        if (_ammoSpawnSocket) 
+            _ammoSpawnSocket.ObjectUnsocketed -= HandleActivatedAmmo;
+        
         _despawningAmmoList.Clear();
     }
 
@@ -99,12 +98,12 @@ public class CannonManager : MonoBehaviour
         {
             if (_ammoSpawnSocket)
             {
-                // _ammoSpawnSocket.ObjectUnsocketed -= HandleActivatedAmmo;
+                _ammoSpawnSocket.ObjectUnsocketed -= HandleActivatedAmmo;
             }
             _ammoSpawnSocket = value;
             if (_ammoSpawnSocket)
             {
-                // _ammoSpawnSocket.ObjectUnsocketed += HandleActivatedAmmo;
+                _ammoSpawnSocket.ObjectUnsocketed += HandleActivatedAmmo;
             }
         }
     }
@@ -123,12 +122,20 @@ public class CannonManager : MonoBehaviour
             return;
         }
         
-        if (_addForceCoroutine != null){ _ammoObj.SetActive(false); return;}
+        _ammoSpawnSocket.gameObject.SetActive(true);
+        
+        if (_addForceCoroutine != null)
+            return;
+        
         _ammoObj.SetActive(true);
+        
         if (_modelAnimator.GetBool(_loadAnimationTrigger)) _modelAnimator.ResetTrigger(_loadAnimationTrigger);
         _modelAnimator.SetTrigger(_fireAnimationTrigger);
+        
         onSuccessfulFire.Invoke();
+        
         _addForceCoroutine ??= StartCoroutine(AddForceToAmmo());
+        
         UnloadCannon();
     }
 
@@ -138,17 +145,21 @@ public class CannonManager : MonoBehaviour
     private void LoadCannon(GameObject obj)
     {
         if (_isLoaded) return;
+        
         _isLoaded = true;
         _loadedAmmo = obj;
         _ammoScale = obj.transform.localScale;
+        
         reloadSocket.fixedScale = LOAD_SCALE;
         _modelAnimator.SetTrigger(_loadAnimationTrigger);
+        
         _ammoObj = GetAmmo();
         _ammoRb = AdvancedGetComponent<Rigidbody>(_ammoObj);
         _ammoMeshFilter = AdvancedGetComponent<MeshFilter>(_ammoObj);
         _ammoMeshRenderer = AdvancedGetComponent<MeshRenderer>(_ammoObj);
         var objMeshFilter = AdvancedGetComponent<MeshFilter>(obj);
         var objMeshRenderer = AdvancedGetComponent<MeshRenderer>(obj);
+        
         if (_ammoMeshFilter && objMeshFilter)
             _ammoMeshFilter.mesh = objMeshFilter.mesh;
             
@@ -164,10 +175,13 @@ public class CannonManager : MonoBehaviour
         if (_loadedAmmo)
         {
             var currentScale = _loadedAmmo.transform.localScale;
-            if (currentScale != _ammoScale) _loadedAmmo.transform.localScale = _ammoScale;
+            
+            if (currentScale != _ammoScale) 
+                _loadedAmmo.transform.localScale = _ammoScale;
+            
             reloadSocket.RemoveAndMoveSocketObject(Vector3.zero, Quaternion.identity);
-            AdvancedGetComponent<PooledObjectBehavior>(_loadedAmmo)?.TriggerRespawn();
-            if (_loadedAmmo.activeInHierarchy) _loadedAmmo.SetActive(false);
+            
+            StartCoroutine(DespawnAmmo(AdvancedGetComponent<PooledObjectBehavior>(_loadedAmmo)));
         }
         _loadedAmmo = null;
         _isLoaded = false;
@@ -212,33 +226,61 @@ public class CannonManager : MonoBehaviour
             Debug.LogWarning($"Ammo is already despawning: {ammo.name}", this);
             return;
         }
-        _despawningAmmoList.Add(ammo);
+        _ammoSpawnSocket.gameObject.SetActive(false);
         
-        StartCoroutine(DespawnAmmo(ammo));
+        _despawningAmmoList.Add(ammo);
+        Debug.Log($"{ammo.name} has been unsocketed.", this);
+        
+        StartCoroutine(WaitToDespawnAmmo(ammo));
     }
     
-    private IEnumerator DespawnAmmo(GameObject ammo)
+    private IEnumerator WaitToDespawnAmmo(GameObject ammo)
     {
-        var doNotDeactivate = false;
-        var time = 0;
-        while (time < despawnTime)
+        Debug.Log($"Waiting to despawn Ammo: {ammo.name}", this);
+        var pooledObjectBehavior = AdvancedGetComponent<PooledObjectBehavior>(ammo);
+        
+        var time = Time.time;
+        var timeToDespawn = time + ammoDespawnTime;
+        
+#if UNITY_EDITOR
+        var debugSpacer = 0;
+        const int mod = 20;
+#endif
+        
+        while (time < timeToDespawn)
         {
+            
+#if UNITY_EDITOR
+            if (debugSpacer++ % mod == 0)
+            {
+                Debug.Log($"Time to Despawn Ammo: {ammo.name} => {timeToDespawn - time:0.00}", this);
+            }
+#endif
+
             if ((_isLoaded && _loadedAmmo == ammo) || !ammo.activeInHierarchy)
             {
-                doNotDeactivate = true;
-                break;
+                Debug.Log($"{ammo.name} has been loaded or is not active.", this);
+                yield break;
             }
 
-            time++;
-            yield return _waitSingleSecond;
+            time += Time.deltaTime;
+            yield return null;
         }
         
-        var pooledObjectBehavior = AdvancedGetComponent<PooledObjectBehavior>(ammo);
-        if (pooledObjectBehavior != null)
-            pooledObjectBehavior.TriggerRespawn();
+        Debug.Log($"Attempting to Despawn Ammo: {ammo.name} => {pooledObjectBehavior != null}", this);
+        yield return DespawnAmmo(pooledObjectBehavior);
+    }
+    
+    private IEnumerator DespawnAmmo(PooledObjectBehavior ammoPoolBehavior)
+    {
+        Debug.Log($"Despawning Ammo: {ammoPoolBehavior.gameObject.name}", this);
+        _ammoSpawnSocket.gameObject.SetActive(true);
+        
+        if (_despawningAmmoList.Contains(ammoPoolBehavior.gameObject))
+            _despawningAmmoList.Remove(ammoPoolBehavior.gameObject);
+        
         yield return _waitFixedUpdate;
-        _despawningAmmoList.Remove(ammo);
-        if(!doNotDeactivate) ammo.SetActive(false);
+        ammoPoolBehavior.TriggerRespawn();
     }
     
 #if UNITY_EDITOR

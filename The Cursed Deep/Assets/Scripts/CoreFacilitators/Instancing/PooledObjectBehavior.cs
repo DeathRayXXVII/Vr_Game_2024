@@ -10,7 +10,6 @@ public class PooledObjectBehavior : MonoBehaviour
     private bool _allowDebug;
     private bool _spawned;
     private bool _justInstantiated;
-    private bool _allowRespawn;
     private bool _respawnTriggered;
     private bool _beingDestroyed;
     
@@ -24,24 +23,20 @@ public class PooledObjectBehavior : MonoBehaviour
         _spawner = spawner;
         _allowDebug = allowDebug;
     }
-    
-    public void EnableRespawn() => _allowRespawn = true;
-    public void DisableRespawn() => _allowRespawn = false;
 
     public void TriggerRespawn()
     {
-        if (_respawnTriggered || !_allowRespawn) return;
+        Debug.Log($"TriggerRespawn called from {name}.", this);
+        if (_respawnTriggered) return;
         _respawnTriggered = true;
+        
         if (!_spawnManager)
         {
             Debug.LogWarning($"SpawnManager is null {name} SpawnedObjectBehavior.", this);
-            gameObject.SetActive(false);
             return;
         }
         _spawnManager.SetSpawnDelay(timeToRespawn ? timeToRespawn : 1);
-        _spawnManager.NotifyPoolObjectDisabled(ref _spawner);
         
-        _spawnManager.StartSpawn(1, true);
         gameObject.SetActive(false);
     }
 
@@ -65,10 +60,12 @@ public class PooledObjectBehavior : MonoBehaviour
 
     private void OnDisable()
     {
-        if (!_spawned || _respawnTriggered) return;
-        if (_beingDestroyed) return;
-        if (_allowDebug) Debug.Log($"OnDisable of {name} called from {_spawner.spawnerID}.");
-        _spawnManager?.NotifyPoolObjectDisabled(ref _spawner);
+        if (!_spawned || _beingDestroyed) return;
+        
+        if (_allowDebug)
+            Debug.Log($"OnDisable of {name} called from {_spawner.spawnerID}. Respawning: {_respawnTriggered}", this);
+        
+        _spawnManager?.NotifyPoolObjectDisabled(ref _spawner, _respawnTriggered);
         _spawned = false;
     }
 
