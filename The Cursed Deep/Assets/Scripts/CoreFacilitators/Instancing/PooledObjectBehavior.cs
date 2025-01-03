@@ -26,7 +26,6 @@ public class PooledObjectBehavior : MonoBehaviour
 
     public void TriggerRespawn()
     {
-        Debug.Log($"TriggerRespawn called from {name}.", this);
         if (_respawnTriggered) return;
         _respawnTriggered = true;
         

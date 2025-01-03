@@ -11,7 +11,7 @@ public class CannonManager : MonoBehaviour
     [Header("Ammo:")]
     [SerializeField] private GameObject ammoEntity;
     [SerializeField] private SocketMatchInteractor _ammoSpawnSocket;
-    [SerializeField] private int ammoDespawnTime = 3;
+    [SerializeField, Range(1, 50)] private int ammoDespawnTime = 30;
     private readonly List<GameObject> _despawningAmmoList = new();
     private GameObject _loadedAmmo;
     private Vector3 _ammoScale;
@@ -229,37 +229,37 @@ public class CannonManager : MonoBehaviour
         _ammoSpawnSocket.gameObject.SetActive(false);
         
         _despawningAmmoList.Add(ammo);
-        Debug.Log($"{ammo.name} has been unsocketed.", this);
+        // Debug.Log($"{ammo.name} has been unsocketed.", this);
         
         StartCoroutine(WaitToDespawnAmmo(ammo));
     }
     
     private IEnumerator WaitToDespawnAmmo(GameObject ammo)
     {
-        Debug.Log($"Waiting to despawn Ammo: {ammo.name}", this);
+        // Debug.Log($"Waiting to despawn Ammo: {ammo.name}", this);
         var pooledObjectBehavior = AdvancedGetComponent<PooledObjectBehavior>(ammo);
         
         var time = Time.time;
         var timeToDespawn = time + ammoDespawnTime;
         
-#if UNITY_EDITOR
-        var debugSpacer = 0;
-        const int mod = 20;
-#endif
+// #if UNITY_EDITOR
+//         var debugSpacer = 0;
+//         const int mod = 20;
+// #endif
         
         while (time < timeToDespawn)
         {
             
-#if UNITY_EDITOR
-            if (debugSpacer++ % mod == 0)
-            {
-                Debug.Log($"Time to Despawn Ammo: {ammo.name} => {timeToDespawn - time:0.00}", this);
-            }
-#endif
+// #if UNITY_EDITOR
+//             if (debugSpacer++ % mod == 0)
+//             {
+//                 Debug.Log($"Time to Despawn Ammo: {ammo.name} => {timeToDespawn - time:0.00}", this);
+//             }
+// #endif
 
             if ((_isLoaded && _loadedAmmo == ammo) || !ammo.activeInHierarchy)
             {
-                Debug.Log($"{ammo.name} has been loaded or is not active.", this);
+                // Debug.Log($"{ammo.name} has been loaded or is not active.", this);
                 yield break;
             }
 
@@ -267,13 +267,13 @@ public class CannonManager : MonoBehaviour
             yield return null;
         }
         
-        Debug.Log($"Attempting to Despawn Ammo: {ammo.name} => {pooledObjectBehavior != null}", this);
+        // Debug.Log($"Attempting to Despawn Ammo: {ammo.name} => {pooledObjectBehavior != null}", this);
         yield return DespawnAmmo(pooledObjectBehavior);
     }
     
     private IEnumerator DespawnAmmo(PooledObjectBehavior ammoPoolBehavior)
     {
-        Debug.Log($"Despawning Ammo: {ammoPoolBehavior.gameObject.name}", this);
+        // Debug.Log($"Despawning Ammo: {ammoPoolBehavior.gameObject.name}", this);
         _ammoSpawnSocket.gameObject.SetActive(true);
         
         if (_despawningAmmoList.Contains(ammoPoolBehavior.gameObject))
