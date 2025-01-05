@@ -260,6 +260,7 @@ public class CannonManager : MonoBehaviour
             if ((_isLoaded && _loadedAmmo == ammo) || !ammo.activeInHierarchy)
             {
                 // Debug.Log($"{ammo.name} has been loaded or is not active.", this);
+                _ammoSpawnSocket.gameObject.SetActive(true);
                 yield break;
             }
 
