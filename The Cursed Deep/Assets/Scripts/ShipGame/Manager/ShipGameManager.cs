@@ -8,7 +8,7 @@ namespace ShipGame.Manager
 {
     public class ShipGameManager : GameManager
     {
-        private readonly WaitForFixedUpdate _wffu = new();
+        private readonly WaitForFixedUpdate _waitFixed = new();
 
         [SerializeField] private CoreData coreData;
         [SerializeField] private GameAction initializeCannonAction, initializeAmmoAction, levelCompleteAction, levelFailedAction;
@@ -31,8 +31,10 @@ namespace ShipGame.Manager
 
         protected override void Awake()
         {
+            initialized = false;
             _shipInstancer = this.AddComponent<ObjectInstancer>();
             _shipInstancer.SetInstancerData(coreData.shipInstancerData);
+            base.Awake();
         }
         
         private void OnEnable()
@@ -49,8 +51,24 @@ namespace ShipGame.Manager
         
         protected override IEnumerator Initialize()
         {
-            yield return _wffu;
+            yield return _waitFixed;
             yield return InitializeLevelCoroutine();
+
+            yield return _waitFixed;
+        
+            if (_sceneBehavior == null)
+            {
+                Debug.LogError("[ERROR] SceneBehavior is null, cannot initialize GameManager.", this);
+            }
+            else
+            {
+                yield return StartCoroutine(_sceneBehavior.Initialize());
+            }
+        
+            if (startGameAfterSceneBehaviorTransition)
+            {
+                StartGame();
+            }
         
             initialized = true;
             _initCoroutine = null;
@@ -65,10 +83,12 @@ namespace ShipGame.Manager
             // Force the ship to initialize first before the cannon and ammo
             yield return StartCoroutine(InitializeShipCoroutine());
             
+            // yield return WaitUntil(() => PopulateTrackers != null);
+            
             // Asynchronously Initialize the cannon and ammo only after the ship is done
             StartCoroutine(InitializeCannon());
             StartCoroutine(InitializeAmmo());
-            yield return _wffu;
+            yield return _waitFixed;
 
             onLevelInitialized.Invoke();
             

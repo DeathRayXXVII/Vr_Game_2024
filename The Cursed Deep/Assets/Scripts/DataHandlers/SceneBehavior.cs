@@ -210,27 +210,27 @@ public class SceneBehavior : MonoBehaviour
         var time = Time.time;
         float elapsedTime = 0;
         
-// #if UNITY_EDITOR
+#if UNITY_EDITOR
         var debugSpacer = 0;
         const int mod = 20;
-// #endif
+#endif
 
         while (elapsedTime <= waitTime)
         {
-// #if UNITY_EDITOR
+#if UNITY_EDITOR
             if (allowDebug && debugSpacer++ % mod == 0)
             {
                 Debug.Log($"[DEBUG] Running Load Buffer, Time: {Time.time}, Elapsed Time: {elapsedTime} / {waitTime} " +
                           $"Complete: {elapsedTime - time < waitTime}", this);
             }
-// #endif   
+#endif   
             yield return _waitFixed;
             elapsedTime = Time.time - time;
         }
         
-// #if UNITY_EDITOR
-        if (allowDebug) Debug.Log($"[DEBUG] Buffer completed at game time: {Time.time}, Time Elapsed: {elapsedTime}", this);
-// #endif
+        if (allowDebug) 
+            Debug.Log($"[DEBUG] Buffer completed at game time: {Time.time}, Time Elapsed: {elapsedTime}", this);
+        
         yield return null;
         _buffering = false;
     }

@@ -48,8 +48,11 @@ public class SpawnerData : ScriptableObject
         set => _activeCount.value = value < 0 ? 0 : value;
     }
     internal bool canSpawn => spawnedCount < originalTotalCountToSpawn;
-    internal bool spawningComplete => spawnedCount >= originalTotalCountToSpawn;
-    
+    internal bool spawningComplete 
+    {
+        get => spawnedCount >= originalTotalCountToSpawn;
+        set => spawnedCount = value ? originalTotalCountToSpawn + 1 : 0;
+    }
 
     [System.Serializable]
     public class Spawner
@@ -143,20 +146,21 @@ public class SpawnerData : ScriptableObject
     public void HandleSuccessfulSpawn(ref Spawner spawner)
     {
 #if UNITY_EDITOR
-        if (allowDebug) Debug.Log($"Handling removal of spawn from {spawner.spawnerID}.", this);
+        if (allowDebug) Debug.Log($"Handling successful spawn at {spawner.spawnerID}.", this);
 #endif
         spawner.IncrementCount();
         activeCount++;
         spawnedCount++;
     }
     
-    public void HandleSpawnRemoval(ref Spawner spawner, bool invalidDeath = false)
+    public void HandleSpawnRemoval(ref Spawner spawner, bool invalidDeath, bool respawn)
     {
 #if UNITY_EDITOR
-        if (allowDebug) Debug.Log($"Handling {(invalidDeath ? "invalid" : "valid")} removal of spawn from {spawner.spawnerID}.", this);
+        if (allowDebug) 
+            Debug.Log($"Handling {(invalidDeath ? "invalid" : "valid")} removal of spawn from {spawner.spawnerID}. Respawning: {respawn}", this);
 #endif
         spawner.DecrementCount();
         activeCount--;
-        if (invalidDeath) spawnedCount--;
+        if (invalidDeath || respawn) spawnedCount--;
     }
 }

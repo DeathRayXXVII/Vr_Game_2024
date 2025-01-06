@@ -18,6 +18,10 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
     private WaitForSeconds _damageWait;
     private readonly WaitForFixedUpdate _wffu = new();
     private Coroutine _damageCoroutine;
+    
+    [SerializeField] private Collider damageDealingHitBox;
+    [SerializeField, ReadOnly] private bool _dealDamageOnCollision;
+    [SerializeField, ReadOnly] private bool _dealDamageOnTrigger;
 
     [SerializeField, SteppedRange(rangeMin:0.5f, rangeMax:10f, step:0.1f)] private float damageCooldown = 3f;
     
@@ -40,6 +44,18 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
     private void Awake()
     {
         _damageWait = new WaitForSeconds(damageCooldown);
+        
+        if (!damageDealingHitBox)
+        {
+            _dealDamageOnCollision = false;
+            _dealDamageOnTrigger = false;
+        }
+        else
+        {
+            _dealDamageOnCollision = damageDealingHitBox.isTrigger == false;
+            _dealDamageOnTrigger = damageDealingHitBox.isTrigger;
+        }
+        
         StartCoroutine(Setup());
     }
     
@@ -74,9 +90,23 @@ public class NavCreepController : MonoBehaviour, IDamageDealer
 
     private void OnCollisionEnter(Collision other)
     {
+        if (!_dealDamageOnCollision) return;
+        
         var damageable = AdvancedGetComponent<IDamagable>(other.gameObject);
         if(damageable == null) return;
+        
         hitPoint = other.GetContact(0).point;
+        DealDamage(damageable);
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!_dealDamageOnTrigger) return;
+        
+        var damageable = AdvancedGetComponent<IDamagable>(other.gameObject);
+        if(damageable == null) return;
+        
+        hitPoint = other.ClosestPoint(transform.position);
         DealDamage(damageable);
     }
     

@@ -6,7 +6,6 @@ using static ZPTools.Utility.UtilityFunctions;
 using ZPTools.Interface;
 using Random = UnityEngine.Random;
 
-
 public class SpawnManager : MonoBehaviour, INeedButton
 {
     private bool _destroying, _pooling;
@@ -130,6 +129,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
     
     public void StartSpawn(int amount, bool asynchronous = false)
     {
+        Debug.Log($"Starting Spawn with {amount} spawns. Will Continue: {_spawnRoutine == null && amount >= 1}, Async: {asynchronous}", this);
         if (_spawnRoutine != null || amount < 1) return;
         spawnerData.originalTotalCountToSpawn = amount;
         spawnerData.currentTotalCountToSpawn = amount;
@@ -164,6 +164,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
     {
         if (_spawnRoutine == null) return;
         StopCoroutine(_spawnRoutine);
+        spawnerData.spawningComplete = true;
         _spawnRoutine = null;
     }
 
@@ -286,20 +287,22 @@ public class SpawnManager : MonoBehaviour, INeedButton
             if (allowDebug) Debug.Log("Attempted restart spawning for waiting spawns, but a spawn routine is already running.", this);
         }     
 #endif
+        yield return _waitForSpawnDelay;
         _spawnRoutine ??= StartCoroutine(Spawn());
-        yield return _spawnDelay;
+        
         _spawnWaitingRoutine = null;
     }
     
-    public void NotifyPoolObjectDisabled(ref SpawnerData.Spawner spawner)
+    public void NotifyPoolObjectDisabled(ref SpawnerData.Spawner spawner, bool triggerRespawn)
     {
-        
         if (_destroying || _pooling) return;
-        spawnerData.HandleSpawnRemoval(ref spawner);
+        spawnerData.HandleSpawnRemoval(ref spawner, false, triggerRespawn);
         
 #if UNITY_EDITOR
-        if (allowDebug) Debug.Log($"Notified of Death: passed {spawner.spawnerID} as spawnerID\nTotal active: {spawnerData.activeCount}" +
-                                  $"\nCurrently spawning: {spawnerData.amountLeftToSpawn}", this);
+        if (allowDebug)
+            Debug.Log($"Notified of Game Object Removal: passed {spawner.spawnerID} as spawnerID\nTotal active: {spawnerData.activeCount}\n" +
+                      $"Currently spawning: {spawnerData.amountLeftToSpawn}\nDestroying: {_destroying}\nPooling: {_pooling}\n" +
+                      $"Spawning Complete: {spawnerData.spawningComplete}", this);
 #endif
         
         if (spawnerData.activeCount <= 0 && spawnerData.amountLeftToSpawn <= 0)
@@ -316,7 +319,8 @@ public class SpawnManager : MonoBehaviour, INeedButton
         }
     }
 
-    public void NotifyPoolObjectInvalidDeath(ref SpawnerData.Spawner spawnerID) => spawnerData.HandleSpawnRemoval(ref spawnerID, true);
+    public void NotifyPoolObjectInvalidDeath(ref SpawnerData.Spawner spawnerID) =>
+        spawnerData.HandleSpawnRemoval(ref spawnerID, true, false);
 
     private void OnDisable() => _destroying = true;
     private void OnDestroy() => _destroying = true;

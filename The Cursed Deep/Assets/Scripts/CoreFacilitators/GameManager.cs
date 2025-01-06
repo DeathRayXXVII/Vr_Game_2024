@@ -6,13 +6,13 @@ using UnityEngine.Events;
 [DisallowMultipleComponent]
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private SceneBehavior _sceneBehavior;
-    [SerializeField] private bool startGameAfterSceneBehaviorTransition = true;
+    [SerializeField] protected SceneBehavior _sceneBehavior;
+    [SerializeField] protected bool startGameAfterSceneBehaviorTransition = true;
     private bool runTutorial => _tutorialData != null && _tutorialData.Count != 0 && _currentTutorialIndex != -1;
     
     private List<TransformTracker> _transformTrackers;
     
-    private bool PopulateTrackers()
+    protected bool PopulateTrackers()
     {
         var trackers = FindObjectsOfType<TransformTracker>();
         _transformTrackers = trackers != null && trackers.Length != 0 ? new List<TransformTracker>(trackers) : null;
