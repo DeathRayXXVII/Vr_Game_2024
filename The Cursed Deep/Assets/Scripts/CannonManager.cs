@@ -150,6 +150,7 @@ public class CannonManager : MonoBehaviour
         _loadedAmmo = obj;
         _ammoScale = obj.transform.localScale;
         
+        reloadSocket.AllowGrabInteraction(false);
         reloadSocket.fixedScale = LOAD_SCALE;
         _modelAnimator.SetTrigger(_loadAnimationTrigger);
         
@@ -183,6 +184,7 @@ public class CannonManager : MonoBehaviour
             
             StartCoroutine(DespawnAmmo(AdvancedGetComponent<PooledObjectBehavior>(_loadedAmmo)));
         }
+        reloadSocket.AllowGrabInteraction(true);
         _loadedAmmo = null;
         _isLoaded = false;
     }
