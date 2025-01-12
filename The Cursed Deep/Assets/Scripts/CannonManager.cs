@@ -127,6 +127,7 @@ public class CannonManager : MonoBehaviour
         if (_addForceCoroutine != null)
             return;
         
+        _ammoObj.transform.position = muzzlePosition.position;
         _ammoObj.SetActive(true);
         
         if (_modelAnimator.GetBool(_loadAnimationTrigger)) _modelAnimator.ResetTrigger(_loadAnimationTrigger);
@@ -147,7 +148,7 @@ public class CannonManager : MonoBehaviour
         if (_isLoaded) return;
         
         _isLoaded = true;
-        _loadedAmmo = obj;
+        _loadedAmmo = obj; 
         _ammoScale = obj.transform.localScale;
         
         reloadSocket.AllowGrabInteraction(false);
@@ -196,9 +197,12 @@ public class CannonManager : MonoBehaviour
         {
             ammoObj.transform.position = muzzlePosition.position;
             ammoObj.transform.rotation = muzzlePosition.rotation;
+            ammoObj.transform.localScale = _ammoScale;
+            
             return ammoObj;
         }
         var newAmmo = Instantiate(ammoEntity, muzzlePosition.position, muzzlePosition.rotation);
+        newAmmo.transform.localScale = _ammoScale;
         newAmmo.SetActive(false);
         _currentAmmoList.Add(newAmmo);
         return newAmmo;
@@ -274,15 +278,20 @@ public class CannonManager : MonoBehaviour
         }
         
         // Debug.Log($"Attempting to Despawn Ammo: {ammo.name} => {pooledObjectBehavior != null}", this);
-        yield return DespawnAmmo(pooledObjectBehavior);
+        _ammoSpawnSocket.gameObject.SetActive(true);
+        
+        if (pooledObjectBehavior != null)
+        {
+            yield return DespawnAmmo(pooledObjectBehavior);
+        }
     }
     
     private IEnumerator DespawnAmmo(PooledObjectBehavior ammoPoolBehavior)
     {
         // Debug.Log($"Despawning Ammo: {ammoPoolBehavior.gameObject.name}", this);
-        _ammoSpawnSocket.gameObject.SetActive(true);
+        if(ammoPoolBehavior == null) yield break;
         
-        if (_despawningAmmoList.Contains(ammoPoolBehavior.gameObject))
+        if (_despawningAmmoList != null && _despawningAmmoList.Count > 0 && _despawningAmmoList.Contains(ammoPoolBehavior.gameObject))
             _despawningAmmoList.Remove(ammoPoolBehavior.gameObject);
         
         yield return _waitFixedUpdate;
