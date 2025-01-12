@@ -46,7 +46,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
 
     [SerializeField] private UnityEvent onSpawn, onSpawningComplete, onFinalSpawnDefeated;
 
-    private void Awake()
+    private void OnEnable()
     {
         spawnerData.ResetSpawnerData();
         _parentObject = new GameObject($"SpawnedObjects_{name}");
@@ -63,7 +63,6 @@ public class SpawnManager : MonoBehaviour, INeedButton
             return;
         }
 #endif
-        spawnerData.currentTotalCountToSpawn = spawnerData.originalTotalCountToSpawn;
         _prefabSet = spawnerData.prefabList;
         _poolCreationRoutine ??= StartCoroutine(DelayPoolCreation());
     }
@@ -203,7 +202,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
 #if UNITY_EDITOR
             if (allowDebug)
             {
-                Debug.Log($"Spawning Info...\nTotal Spawns Currently Active Count: {spawnerData.activeCount}\nTotal To Spawn: {spawnerData.originalTotalCountToSpawn}\nNum Left: {spawnerData.amountLeftToSpawn}\n" +
+                 Debug.Log($"Spawning Info...\nTotal Spawns Currently Active Count: {spawnerData.activeCount}\nTotal To Spawn: {spawnerData.originalTotalCountToSpawn}\nNum Left: {spawnerData.amountLeftToSpawn}\n" +
                           $"PoolSize: {_poolSize}\nPooledObjects: {_pooledObjects.Count}\nspawners: {spawnerData.spawners.Count}\nspawnRate: {waitTime}", this);
                 Debug.Log((spawner == null) ? "No Spawners Available" : $"Spawner: {spawner.spawnerID}", this);
             }

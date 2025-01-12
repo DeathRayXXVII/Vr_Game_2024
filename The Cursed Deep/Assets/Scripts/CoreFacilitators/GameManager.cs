@@ -70,16 +70,17 @@ public class GameManager : MonoBehaviour
     {
         _initCoroutine ??= StartCoroutine(Initialize());
     }
-
-    protected virtual IEnumerator Initialize()
+    
+    protected void HandleBeforeInitialization() => beforeInitialization.Invoke();
+    protected void HandleTutorialInitialization()
     {
-        yield return _waitFixed;
-        
-        // Initialize Trackers and then trigger beforeInitialization event
-        yield return InitializeTrackers();
-
-        yield return _waitFixed;
-        
+        if (runTutorial)
+        {
+            tutorialInitialization.Invoke();
+        }
+    }
+    protected virtual IEnumerator HandleSceneBehaviorInitialization()
+    {
         if (_sceneBehavior == null)
         {
             Debug.LogError("[ERROR] SceneBehavior is null, cannot initialize GameManager.", this);
@@ -93,6 +94,21 @@ public class GameManager : MonoBehaviour
         {
             StartGame();
         }
+    }
+
+    protected virtual IEnumerator Initialize()
+    {
+        HandleBeforeInitialization();
+        yield return _waitFixed;
+        
+        HandleTutorialInitialization();
+        yield return _waitFixed;
+        
+        // Initialize Trackers and then trigger beforeInitialization event
+        yield return StartCoroutine(InitializeTrackers());
+        yield return _waitFixed;
+        
+        yield return StartCoroutine(HandleSceneBehaviorInitialization());
         
         initialized = true;
         _initCoroutine = null;
@@ -100,16 +116,8 @@ public class GameManager : MonoBehaviour
 
     protected IEnumerator InitializeTrackers()
     {
-        if (runTutorial)
-        {
-            tutorialInitialization.Invoke();
-        }
-        
         if (_transformTrackers == null && !PopulateTrackers())
         {
-            beforeInitialization.Invoke();
-            yield return _waitFixed;
-            
             yield break;
         }
         
@@ -120,8 +128,6 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
         yield return _waitFixed;
-        
-        beforeInitialization.Invoke();
     }
     
     public void StartGame()

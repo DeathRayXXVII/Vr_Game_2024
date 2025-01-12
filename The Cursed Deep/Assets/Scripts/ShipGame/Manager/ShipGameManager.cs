@@ -51,24 +51,16 @@ namespace ShipGame.Manager
         
         protected override IEnumerator Initialize()
         {
+            HandleBeforeInitialization();
             yield return _waitFixed;
-            yield return InitializeLevelCoroutine();
-
+            
+            yield return StartCoroutine(InitializeLevelCoroutine());
             yield return _waitFixed;
-        
-            if (_sceneBehavior == null)
-            {
-                Debug.LogError("[ERROR] SceneBehavior is null, cannot initialize GameManager.", this);
-            }
-            else
-            {
-                yield return StartCoroutine(_sceneBehavior.Initialize());
-            }
-        
-            if (startGameAfterSceneBehaviorTransition)
-            {
-                StartGame();
-            }
+            
+            HandleTutorialInitialization();
+            yield return _waitFixed;
+            
+            yield return StartCoroutine(HandleSceneBehaviorInitialization());
         
             initialized = true;
             _initCoroutine = null;
@@ -83,17 +75,13 @@ namespace ShipGame.Manager
             // Force the ship to initialize first before the cannon and ammo
             yield return StartCoroutine(InitializeShipCoroutine());
             
-            // yield return WaitUntil(() => PopulateTrackers != null);
-            
             // Asynchronously Initialize the cannon and ammo only after the ship is done
             StartCoroutine(InitializeCannon());
             StartCoroutine(InitializeAmmo());
             yield return _waitFixed;
 
             onLevelInitialized.Invoke();
-            
-            if (coreData.playerInitializePositionAction)
-                coreData.playerInitializePositionAction.RaiseAction();
+            yield return _waitFixed;
         }
 
         private IEnumerator InitializeShipCoroutine()
@@ -109,13 +97,20 @@ namespace ShipGame.Manager
         private IEnumerator InitializeCannon()
         {
             initializeCannonAction.RaiseAction();
-            yield return null;
+            yield return _waitFixed;
         }
 
         private IEnumerator InitializeAmmo()
         {
             initializeAmmoAction.RaiseAction();
-            yield return null;
+            yield return _waitFixed;
+        }
+
+        protected override IEnumerator HandleSceneBehaviorInitialization()
+        {
+            coreData.playerInitializePositionAction?.RaiseAction();
+            
+            yield return StartCoroutine(base.HandleSceneBehaviorInitialization());
         }
 
         private void LevelComplete(GameAction action)

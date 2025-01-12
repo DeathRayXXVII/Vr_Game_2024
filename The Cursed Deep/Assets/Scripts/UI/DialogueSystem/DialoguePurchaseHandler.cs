@@ -58,7 +58,6 @@ public class DialoguePurchaseHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not enough coins");
             ContinueDialogue(response.DialogueData);
         }
     }

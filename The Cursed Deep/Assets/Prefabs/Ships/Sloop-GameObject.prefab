@@ -11839,31 +11839,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4950856518900010820}
     m_Modifications:
-    - target: {fileID: 1235773794341932382, guid: 0a78bef89ec5dc443a3223491f56ee87,
-        type: 3}
-      propertyPath: m_text
-      value: Enter yer Captain's Quarters?
-      objectReference: {fileID: 0}
-    - target: {fileID: 1235773794341932382, guid: 0a78bef89ec5dc443a3223491f56ee87,
-        type: 3}
-      propertyPath: m_fontSize
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 1235773794341932382, guid: 0a78bef89ec5dc443a3223491f56ee87,
-        type: 3}
-      propertyPath: m_fontSizeMax
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 1235773794341932382, guid: 0a78bef89ec5dc443a3223491f56ee87,
-        type: 3}
-      propertyPath: m_fontSizeMin
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 1235773794341932382, guid: 0a78bef89ec5dc443a3223491f56ee87,
-        type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1451456929349230860, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
       propertyPath: m_Enabled
@@ -11948,13 +11923,33 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
+      propertyPath: onHalfHealth.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
       propertyPath: onHealthLost.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
+      propertyPath: onQuarterHealth.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
       propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onThreeQuarterHealth.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onHalfHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
@@ -11968,6 +11963,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
+      propertyPath: onHalfHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3178843764459569852}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
       propertyPath: onHealthLost.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4246066265204513487}
@@ -11977,6 +11977,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6511743c5afcbc2428e686d63548ea53,
         type: 2}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
       propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -11989,8 +11994,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
+      propertyPath: onHalfHealth.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
       propertyPath: onHealthLost.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5901103616047670675}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onHalfHealth.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartWaitForFixedUpdateEvent
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
@@ -12020,6 +12040,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
+      propertyPath: onQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onThreeQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
       propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -12027,6 +12057,11 @@ PrefabInstance:
         type: 3}
       propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartWaitForFixedUpdateEvent
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
@@ -12045,6 +12080,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
+      propertyPath: onThreeQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7954349287820579396}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onThreeQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onThreeQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartWaitForFixedUpdateEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onHalfHealth.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WaitBehavior, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
       propertyPath: onHealthLost.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: AudioPlayer, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -12052,6 +12107,16 @@ PrefabInstance:
         type: 3}
       propertyPath: onHealthLost.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: GameAction, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WaitBehavior, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onHalfHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: StartFire
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
@@ -12075,6 +12140,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
+      propertyPath: onQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: StartFire
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
       propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
       value: 
       objectReference: {fileID: 0}
@@ -12085,12 +12155,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
+      propertyPath: onThreeQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WaitBehavior, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onThreeQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: StartFire
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onHalfHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
       propertyPath: onHealthLost.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
       propertyPath: onHealthLost.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
@@ -12106,6 +12196,11 @@ PrefabInstance:
     - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
         type: 3}
       propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563584273761829311, guid: 0a78bef89ec5dc443a3223491f56ee87,
+        type: 3}
+      propertyPath: onThreeQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3982269643319547220, guid: 0a78bef89ec5dc443a3223491f56ee87,

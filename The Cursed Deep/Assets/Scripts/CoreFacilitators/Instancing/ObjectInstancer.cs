@@ -25,7 +25,7 @@ public class ObjectInstancer : MonoBehaviour, INeedButton
         }
     }
     
-    public void InstantiateObjects()
+    private void SetupGroupObject()
     {
         var objectName = !string.IsNullOrEmpty(groupName) ? groupName :
             parentObject ? $"{parentObject.name} - instances" : "World - instances";
@@ -33,6 +33,11 @@ public class ObjectInstancer : MonoBehaviour, INeedButton
         if (!_groupObject) _groupObject = new GameObject(objectName);
         if (parentObject) _groupObject.transform.SetParent(parentObject.transform);
         _groupObject.transform.localPosition = Vector3.zero;
+    }
+    
+    public void InstantiateObjects()
+    {
+        SetupGroupObject();
         
         foreach (var instanceData in instancerData.instancesData)
         {

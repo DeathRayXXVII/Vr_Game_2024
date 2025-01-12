@@ -225,7 +225,10 @@ public class CannonManager : MonoBehaviour
     {
         if (_despawningAmmoList.Contains(ammo))
         {
-            Debug.LogWarning($"Ammo is already despawning: {ammo.name}", this);
+#if UNITY_EDITOR
+#else
+            Debug.LogWarning($"[Warning] Ammo is already despawning: {ammo.name}", this);
+#endif
             return;
         }
         _ammoSpawnSocket.gameObject.SetActive(false);

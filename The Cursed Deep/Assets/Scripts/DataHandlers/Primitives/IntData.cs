@@ -16,12 +16,8 @@ public class IntData : ScriptableObject
     
     private void Awake()
     {
-        _saveKey = name;
-    }
-    
-    private void OnEnable()
-    {
         value = zeroOnEnable ? 0 : value;
+        _saveKey = name;
     }
 
     public void Set(int num) => value = num;

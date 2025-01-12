@@ -4008,6 +4008,19 @@ MonoBehaviour:
     initializationEvent:
       m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
+          m_TargetAssemblyTypeName: ShipGame.ScriptObj.CoreData, Assembly-CSharp
+          m_MethodName: set_playerInitializePositionAction
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 21048bc4168d3bc44a525f3d76e59046,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: GameAction, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
         - m_Target: {fileID: 11400000, guid: bf258fdf2a25ec34aa0ea4b4ae96e196, type: 2}
           m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
           m_MethodName: SetLocked
@@ -4086,7 +4099,32 @@ MonoBehaviour:
           m_CallState: 2
   beforeInitialization:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 2f2f8fe34d081904c8704124c47a0062, type: 2}
+        m_TargetAssemblyTypeName: IntData, Assembly-CSharp
+        m_MethodName: Set
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
+        m_TargetAssemblyTypeName: ShipGame.ScriptObj.CoreData, Assembly-CSharp
+        m_MethodName: set_playerInitializePositionAction
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: ba59ea91fa0decf4e98ad914c2bbb046,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: GameAction, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onGameStart:
     m_PersistentCalls:
       m_Calls:
@@ -4146,6 +4184,18 @@ MonoBehaviour:
   onLevelFailed:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 3184048a2a05e054eacb0444de18a85d, type: 2}
         m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
         m_MethodName: RaiseAction
