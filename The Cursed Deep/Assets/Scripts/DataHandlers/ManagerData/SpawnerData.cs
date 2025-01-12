@@ -13,7 +13,7 @@ public class SpawnerData : ScriptableObject
     public bool usePriority;
     public IntData numToSpawn;
     [SerializeField] private FloatData spawnRateMin, spawnRateMax;
-    [SerializeField] private  IntData _activeCount;
+    [SerializeField] private IntData _activeCount, _spawnsRemaining;
     public IntData globalLaneActiveLimit;
     public PrefabDataList prefabList;
     public void SetPrefabDataList(PrefabDataList data) => prefabList = data;
@@ -44,6 +44,7 @@ public class SpawnerData : ScriptableObject
     internal int originalTotalCountToSpawn { get; set; }
     internal int currentTotalCountToSpawn { get; set; }
     internal int spawnedCount { get; set; }
+
     internal int amountLeftToSpawn => currentTotalCountToSpawn - spawnedCount;
     internal int activeCount
     {
@@ -104,6 +105,11 @@ public class SpawnerData : ScriptableObject
         else 
         {
             originalTotalCountToSpawn = numToSpawn;
+        }
+        
+        if (_spawnsRemaining != null)
+        {
+            _spawnsRemaining.value = originalTotalCountToSpawn;
         }
         
         currentTotalCountToSpawn = originalTotalCountToSpawn;
@@ -170,5 +176,6 @@ public class SpawnerData : ScriptableObject
         spawner.DecrementCount();
         activeCount--;
         if (invalidDeath || respawn) spawnedCount--;
+        if (_spawnsRemaining != null) _spawnsRemaining.value--;
     }
 }

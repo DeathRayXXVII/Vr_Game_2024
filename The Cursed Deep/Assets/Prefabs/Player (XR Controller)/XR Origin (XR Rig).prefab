@@ -9755,6 +9755,7 @@ GameObject:
   - component: {fileID: 4489953417466089295}
   - component: {fileID: 5813431974174602443}
   - component: {fileID: 2357657520342172202}
+  - component: {fileID: 5562837726516868030}
   m_Layer: 5
   m_Name: EnemyNum
   m_TagString: Untagged
@@ -9899,13 +9900,42 @@ MonoBehaviour:
     - valueType: 2
       stringValue: 
       intValue: 0
-      intDataValue: {fileID: 11400000, guid: b77106dfa032095499bbd3a211276907, type: 2}
+      intDataValue: {fileID: 11400000, guid: 9355a8cd6f613014eae40552dc3a2b03, type: 2}
       floatValue: 0
       floatDataValue: {fileID: 0}
       boolValue: 0
   startEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5562837726516868030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8784991890564542871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 412663a223fb28c448ef681a3a5c5bf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameActions:
+  - actionObj: {fileID: 11400000, guid: 7d6a85e27f5be1f4786d0612a554dc19, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2357657520342172202}
+          m_TargetAssemblyTypeName: TextMeshProBehavior, Assembly-CSharp
+          m_MethodName: UpdateLabel
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &8860462104782174335
 GameObject:
   m_ObjectHideFlags: 0

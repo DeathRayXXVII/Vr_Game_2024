@@ -44,7 +44,7 @@ public class SpawnManager : MonoBehaviour, INeedButton
         _poolCreationRoutine,
         _spawnWaitingRoutine;
 
-    [SerializeField] private UnityEvent onSpawn, onSpawningComplete, onFinalSpawnDefeated;
+    [SerializeField] private UnityEvent onSpawn, onSpawningComplete, onSpawnRemoved, onFinalSpawnDefeated;
 
     private void OnEnable()
     {
@@ -296,6 +296,9 @@ public class SpawnManager : MonoBehaviour, INeedButton
     {
         if (_destroying || _pooling) return;
         spawnerData.HandleSpawnRemoval(ref spawner, false, triggerRespawn);
+        
+        if (!triggerRespawn)
+            onSpawnRemoved.Invoke();
         
 #if UNITY_EDITOR
         if (allowDebug)
