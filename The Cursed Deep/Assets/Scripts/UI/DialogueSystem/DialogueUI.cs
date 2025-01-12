@@ -21,6 +21,7 @@ public class DialogueUI : MonoBehaviour
     public DialogueData dialogueData;
     
     private Coroutine _dialogueCoroutine;
+    private Coroutine _waitCoroutine;
     private WaitForFixedUpdate _waitFixedUpdate = new();
     
     public bool IsOpen { get; private set;}
@@ -46,6 +47,7 @@ public class DialogueUI : MonoBehaviour
         {
             if (dialogueData == dialogueObj) return;
             CloseDialogueBox(dialogueData);
+            dialogueData.Activated();
         }
         
         dialogueBox.SetActive(true);
@@ -74,7 +76,8 @@ public class DialogueUI : MonoBehaviour
             if (i == lastDialogueIndex) break;
             yield return null;
             
-            yield return WaitForDelay(elementDelay);
+            _waitCoroutine = StartCoroutine(WaitForDelay(elementDelay));
+            yield return new WaitUntil(() => _waitCoroutine == null);
         }
         yield return _waitFixedUpdate;
         
@@ -88,11 +91,13 @@ public class DialogueUI : MonoBehaviour
 
         if (autoClose)
         {
-            yield return WaitForDelay(autoCloseDelay);
+            _waitCoroutine = StartCoroutine(WaitForDelay(autoCloseDelay));
+            yield return new WaitUntil(() => _waitCoroutine == null);
         }
         else
         {
-            yield return WaitForInput();
+            _waitCoroutine = StartCoroutine(WaitForInput());
+            yield return new WaitUntil(() => _waitCoroutine == null);
         }
         
         CloseDialogueBox(dialogueObj);
@@ -111,6 +116,7 @@ public class DialogueUI : MonoBehaviour
         float time = Time.time;
         
         yield return WaitLoop(() => Time.time - time < delay, () => { });
+        _waitCoroutine = null;
     }
     
     private IEnumerator WaitLoop(System.Func<bool> condition, System.Action actionOnInput, bool breakOnInput = true)
@@ -128,6 +134,7 @@ public class DialogueUI : MonoBehaviour
     private IEnumerator WaitForInput()
     {
         yield return new WaitUntil(() => inputAction.action.triggered);
+        _waitCoroutine = null;
     }
     
     private bool _closing, _closingBypass;
@@ -144,6 +151,12 @@ public class DialogueUI : MonoBehaviour
             _dialogueCoroutine = null;
         }
         
+        if (_waitCoroutine != null)
+        {
+            StopCoroutine(_waitCoroutine);
+            _waitCoroutine = null;
+        }
+        
         if (dialogueBox == null || !dialogueBox.activeSelf)
         {
             _closing = false;
@@ -155,7 +168,7 @@ public class DialogueUI : MonoBehaviour
         textLabel.text = string.Empty;
         _closing = false;
     }
-
+    
     public void CloseDialogueBox(DialogueData dialogueObj)
     {
         if (_closing) return;
