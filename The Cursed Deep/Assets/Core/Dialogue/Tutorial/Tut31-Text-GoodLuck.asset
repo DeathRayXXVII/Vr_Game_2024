@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playOnlyOncePerGame: 1
   _locked: 1
-  dialogueName: 
   firstAction: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
   lastAction: {fileID: 11400000, guid: 163b1d9019fbaa544a6e80836b1a957c, type: 2}
   dialogue:
@@ -24,7 +23,19 @@ MonoBehaviour:
   responses: []
   firstTrigger:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 16ba8c35ee54cfa428c4374d2239cdaa, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   lastTrigger:
     m_PersistentCalls:
       m_Calls:
