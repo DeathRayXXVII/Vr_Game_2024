@@ -2632,7 +2632,7 @@ Transform:
   m_GameObject: {fileID: 4217630917283697253}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.1600037, y: -2, z: 4.522792}
+  m_LocalPosition: {x: -6.15, y: -2, z: 12.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3706,7 +3706,19 @@ MonoBehaviour:
       m_Calls: []
   onSpawnRemoved:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 7d6a85e27f5be1f4786d0612a554dc19, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onFinalSpawnDefeated:
     m_PersistentCalls:
       m_Calls:
@@ -3741,7 +3753,7 @@ MonoBehaviour:
     onWaitFinished:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3503915843211598547}
+        - m_Target: {fileID: 6825321084823754860}
           m_TargetAssemblyTypeName: SpawnManager, Assembly-CSharp
           m_MethodName: StartSpawn
           m_Mode: 1
@@ -14206,18 +14218,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6041988296444976087}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3503915843211598547 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7167791880411152644, guid: cc1ad9483fb80da4cb58fb28d23c8042,
-    type: 3}
-  m_PrefabInstance: {fileID: 6041988296444976087}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3edc9008b6944d4aa28a67b31d284e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &6071549635837411182
 PrefabInstance:
   m_ObjectHideFlags: 0
