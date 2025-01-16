@@ -90,6 +90,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creepData: {fileID: 11400000, guid: aa8e7546be22547499d30c3d298be860, type: 2}
+  damageDealingHitBox: {fileID: 0}
+  _dealDamageOnCollision: 0
+  _dealDamageOnTrigger: 0
+  damageCooldown: 3
 --- !u!114 &2814811193286142455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,10 +189,11 @@ MonoBehaviour:
   onHealthDepleted:
     m_PersistentCalls:
       m_Calls: []
-  currentHealth: 0
+  _currentHealth: 0
+  currentHealthData: {fileID: 0}
   _maxHealth: {fileID: 11400000, guid: 7c2f9cfb194d9c14591b3b56e8b7678d, type: 2}
-  floatingText: {fileID: 2234225813633048880}
-  textPivot: {fileID: 442699273505123336}
+  _showDamageDealt: 0
+  _damageTextPrefab: {fileID: 0}
 --- !u!114 &5013625524001774218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -782,12 +787,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbaaa7315e1db7a4cac1133333475c64, type: 3}
---- !u!1 &2234225813633048880 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 51259392871185019, guid: dbaaa7315e1db7a4cac1133333475c64,
-    type: 3}
-  m_PrefabInstance: {fileID: 2285450019947813707}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2759445073658612462 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4178223365661233573, guid: dbaaa7315e1db7a4cac1133333475c64,
