@@ -17,16 +17,50 @@ MonoBehaviour:
   firstAction: {fileID: 0}
   lastAction: {fileID: 0}
   dialogue:
-  - formatString: Aye, A fine choice. Now, the helm belongs to ye! Go! Hunt those
-      fowl beasts! Upgrade yer ship! Become the heartiest hunter of them all.
+  - formatString: '
+
+'
     formatValues: []
   responses: []
   firstTrigger:
     m_PersistentCalls:
-      m_Calls: []
-  lastTrigger:
-    m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
+        m_TargetAssemblyTypeName: ShipGame.ScriptObj.CoreData, Assembly-CSharp
+        m_MethodName: set_shipIndex
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: ecde527fb2f88b746877c44b5188b5b1, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 05edc256e9467cf449132f0102902117, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 0da19a20cb2bec846896504484cfd1c7, type: 2}
         m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
         m_MethodName: RaiseAction
@@ -39,15 +73,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: f8390c5eba72d184ca4a311a9f850676, type: 2}
-        m_TargetAssemblyTypeName: ShipGame.ScriptObj.ShipData, Assembly-CSharp
-        m_MethodName: set_selectionIndex
-        m_Mode: 3
+      - m_Target: {fileID: 11400000, guid: dc3b234985d742d489aff074ce1445cf, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  lastTrigger:
+    m_PersistentCalls:
+      m_Calls: []
