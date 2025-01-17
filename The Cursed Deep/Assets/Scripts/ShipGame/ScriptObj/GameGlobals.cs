@@ -22,16 +22,16 @@ namespace ShipGame.ScriptObj
          * spawn rate max = levelData[level].spawnRateMax
          */
 
-        [Header("Gameplay Control:")] [SerializeField]
-        private BoolData _levelSelected;
+        [Header("Gameplay Control:")] 
+        [SerializeField] private BoolData _levelSelected;
 
         [SerializeField] private BoolData _fightingBoss;
 
         public bool IsLevelSelected() => _levelSelected;
         public bool FightingBoss() => _fightingBoss;
 
-        [Header("Player Data:")] [SerializeField]
-        private FloatData _playerSpeed;
+        [Header("Player Data:")] 
+        [SerializeField] private FloatData _playerSpeed;
 
         [SerializeField] private UpgradeData _speedUpgrade;
         [SerializeField] private WeaponData _playerDamage;
@@ -60,13 +60,13 @@ namespace ShipGame.ScriptObj
         public int playerScore
         {
             get => _playerScore ?? 0;
-            private set => _playerScore.Set(value);
+            set => _playerScore?.Set(value);
         }
 
         public int playerCoins
         {
             get => _playerCoins ?? 0;
-            private set => _playerCoins.Set(value);
+            set => _playerCoins?.Set(value);
         }
 
         [Header("Ship Data:")] 
@@ -82,10 +82,14 @@ namespace ShipGame.ScriptObj
 
         private float healthUpgrade => (float)_healthUpgrade.upgradeValue;
 
-        public void SetShipHealth(float health) => shipHealth = health + healthUpgrade;
+        public void SetShipHealth(float health)
+        {
+            shipHealth = health + healthUpgrade;
+            UpdateHealthVisual();
+        }
 
-        [Header("Cannon & Ammo Data:")] [SerializeField]
-        private UpgradeData _damageUpgrade;
+        [Header("Cannon & Ammo Data:")] 
+        [SerializeField] private UpgradeData _damageUpgrade;
 
         [SerializeField] private UpgradeData _ammoRespawnUpgrade;
         [SerializeField] private FloatData _ammoRespawnRate;
@@ -98,17 +102,21 @@ namespace ShipGame.ScriptObj
 
         private float damageUpgrade => (float)_damageUpgrade.upgradeValue;
 
-        [Header("Enemy Data:")] [SerializeField]
-        private IntData _enemySpawnCount;
+        [Header("Enemy Data:")]
+        [SerializeField] private IntData _enemySpawnCount;
 
         [SerializeField] private IntData _enemyLaneActiveLimit;
         [SerializeField] private FloatData _spawnRateMin;
         [SerializeField] private FloatData _spawnRateMax;
-
+            
         public int enemySpawnCount
         { get => _enemySpawnCount ?? 0; private set => _enemySpawnCount.Set(value); }
 
-        public void SetEnemySpawnCount(int baseCount, int laneCount) => enemySpawnCount = baseCount * laneCount;
+        public void SetEnemySpawnCount(int baseCount, int laneCount)
+        {
+            enemySpawnCount = baseCount * laneCount;
+            UpdateEnemyCountVisual();
+        }
 
         public int enemyLaneActiveLimit
         { get => _enemyLaneActiveLimit ?? 0; private set => _enemyLaneActiveLimit.Set(value);}
@@ -126,7 +134,16 @@ namespace ShipGame.ScriptObj
             spawnRateMin = min;
             spawnRateMax = max;
         }
-
+        
+        [Header("Game Actions:")] 
+        [SerializeField] private GameAction _healthVisualUpdateAction;
+        [SerializeField] private GameAction _coinVisualUpdateAction;
+        [SerializeField] private GameAction _enemyCountVisualUpdateAction;
+        
+        public void UpdateHealthVisual() => _healthVisualUpdateAction?.RaiseAction();
+        public void UpdateCoinVisual() => _coinVisualUpdateAction?.RaiseAction();
+        public void UpdateEnemyCountVisual() => _enemyCountVisualUpdateAction?.RaiseAction();
+        
         public void ResetGameVariables()
         {
             System.Diagnostics.Debug.Assert(_levelSelected, "Level Selected is null");

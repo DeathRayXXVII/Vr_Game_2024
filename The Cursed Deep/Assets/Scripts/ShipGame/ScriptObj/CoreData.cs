@@ -146,6 +146,7 @@ namespace ShipGame.ScriptObj
         {
             gameGlobals.SetShipHealth(ship.health);
             gameGlobals.SetEnemySpawnCount(levelData.spawnCount, ship.numberOfLanes);
+                
             ship.SetCannonPrefabData(cannon.prefab);
             ship.SetAmmoSpawnCount();
         }
@@ -204,6 +205,22 @@ namespace ShipGame.ScriptObj
                 enemy.SetBounty(levelData.spawnBounty + enemy.selectionBounty);
                 enemy.SetScore(levelData.spawnScore + enemy.selectionScore);
             }
+        }
+
+        public void HandleEnemyDefeated()
+        {
+            if (!gameGlobals)
+            {
+                Debug.LogError("[ERROR] GameGlobals is null. Please assign a value.", this);
+                return;
+            }
+            var enemyIsBoss = gameGlobals.FightingBoss();
+            
+            gameGlobals.playerCoins += enemyIsBoss ? boss.bounty: enemy.bounty;
+            gameGlobals.playerScore += enemyIsBoss ? boss.score: enemy.score;
+            
+            gameGlobals.UpdateCoinVisual();
+            gameGlobals.UpdateEnemyCountVisual();
         }
 
         private void LoadLevelData() => levelData.LoadOnStartup();

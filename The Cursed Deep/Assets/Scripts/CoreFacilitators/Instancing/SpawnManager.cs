@@ -44,7 +44,8 @@ public class SpawnManager : MonoBehaviour, INeedButton
         _poolCreationRoutine,
         _spawnWaitingRoutine;
 
-    [SerializeField] private UnityEvent onSpawn, onSpawningComplete, onSpawnRemoved, onFinalSpawnDefeated;
+    [SerializeField] private UnityEvent onSpawn, onSpawningComplete, onFinalSpawnDefeated;
+    public UnityEvent onSpawnRemoved;
 
     private void OnEnable()
     {
