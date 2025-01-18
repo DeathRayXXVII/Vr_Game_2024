@@ -85,6 +85,8 @@ namespace ShipGame.ScriptObj
         public void SetShipHealth(float health)
         {
             shipHealth = health + healthUpgrade;
+            currentHealth = shipHealth;
+            
             UpdateHealthVisual();
         }
 

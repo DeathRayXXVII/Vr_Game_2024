@@ -56,7 +56,9 @@ namespace Tutorial
         {
             return new List<(Action, string)>
             {
+#if UNITY_EDITOR
                 (LockAllLockableDialogueAndAudio, "Lock All lockables")
+#endif
             };
         }
     }
