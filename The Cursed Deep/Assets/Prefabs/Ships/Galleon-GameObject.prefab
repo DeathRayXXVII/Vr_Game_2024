@@ -1518,16 +1518,28 @@ MonoBehaviour:
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 6825321084823754860}
-          m_TargetAssemblyTypeName: SpawnManager, Assembly-CSharp
-          m_MethodName: StartSpawn
-          m_Mode: 1
+        - m_Target: {fileID: 3549822921068669330}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: PlayAudioShot
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: LeviathanSpotted
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6756036162938309690}
+          m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
+          m_MethodName: StartWaitForSecondsEvent
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: StartSpawning
             m_BoolArgument: 0
           m_CallState: 2
   - actionObj: {fileID: 11400000, guid: 49e3e49d7194d9144be6cf8c7ddbeaff, type: 2}

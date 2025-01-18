@@ -1,11 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UI.DialogueSystem;
 using UnityEngine;
+using ZPTools.Interface;
 
 namespace Tutorial
 {
-    public class TutorialHelper : MonoBehaviour
+    public class TutorialHelper : MonoBehaviour, INeedButton
     {
         [SerializeField] private DialogueData[] _dialogueData;
         [SerializeField] private AudioShotData[] _audioData;
@@ -48,6 +50,14 @@ namespace Tutorial
                     audioShot.SetLocked(true);
                 }
             }
+        }
+
+        public List<(Action, string)> GetButtonActions()
+        {
+            return new List<(Action, string)>
+            {
+                (LockAllLockableDialogueAndAudio, "Lock All lockables")
+            };
         }
     }
 }
