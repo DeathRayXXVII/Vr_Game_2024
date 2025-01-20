@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3404fe7997435ef48bb669bf40f2f0b2, type: 3}
-  m_Name: Speed-ConfirmBuy
+  m_Name: Damage-ConfirmBuy
   m_EditorClassIdentifier: 
   playOnlyOncePerGame: 0
   _locked: 0
-  dialogueName: 
   firstAction: {fileID: 0}
   lastAction: {fileID: 0}
   dialogue:
@@ -23,26 +22,23 @@ MonoBehaviour:
     - valueType: 2
       stringValue: 
       intValue: 0
-      intDataValue: {fileID: 11400000, guid: 8b0df38f7e8e3b141918701cf629a44a, type: 2}
+      intDataValue: {fileID: 11400000, guid: 6e1eecc28940cc54fa80f04da217ea5d, type: 2}
       floatValue: 0
       floatDataValue: {fileID: 0}
       boolValue: 0
   responses:
   - responseText: Yes
-    id: Speed
+    id: DamagePotion
     dialogueData: {fileID: 11400000, guid: 36abc90b4980518499be76003885119f, type: 2}
     isPurchasable: 1
-    purchaseDialogue: {fileID: 11400000, guid: 71db0e0b5b0add047a474be724ea1d26, type: 2}
+    purchaseDialogue: {fileID: 11400000, guid: 3c517f0fbfdcce545b52029c85403619, type: 2}
     purchaseAction: {fileID: 0}
   - responseText: No
     id: 
-    dialogueData: {fileID: 11400000, guid: 7d4e845c0a041394fbe29dc5c2a4a556, type: 2}
+    dialogueData: {fileID: 11400000, guid: 072deffb2cf0c694686ea248f8864fed, type: 2}
     isPurchasable: 0
     purchaseDialogue: {fileID: 0}
     purchaseAction: {fileID: 0}
-  onTrigger:
-    m_PersistentCalls:
-      m_Calls: []
   firstTrigger:
     m_PersistentCalls:
       m_Calls: []

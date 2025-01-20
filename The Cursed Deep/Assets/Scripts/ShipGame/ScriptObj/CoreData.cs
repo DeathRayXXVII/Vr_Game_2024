@@ -165,7 +165,7 @@ namespace ShipGame.ScriptObj
         
         private void SetAmmoData()
         {
-            gameGlobals.SetPlayerDamage(cannon.damage, ammo.damage);
+            UpdatePlayerDamage();
             gameGlobals.SetAmmoRespawnRate(ammo.respawnRate);
             
             // Pass the prefab list to the ship's ammo spawner
@@ -174,11 +174,16 @@ namespace ShipGame.ScriptObj
         
         private void SetCannonData()
         {
-            gameGlobals.SetPlayerDamage(cannon.damage, ammo.damage);
+            UpdatePlayerDamage();
                 
             // Pass the prefab to the ship's cannon instancer with its correct offset
             ship.SetCannonPrefabData(cannon.prefab);
             ship.SetCannonPrefabOffset(cannonPrefabOffset);
+        }
+        
+        public void UpdatePlayerDamage()
+        {
+            gameGlobals.SetPlayerDamage(cannon.damage, ammo.damage);
         }
         
         private void SetEnemyData(bool isBoss)

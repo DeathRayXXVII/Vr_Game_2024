@@ -12,6 +12,10 @@ public class DialoguePurchaseHandler : MonoBehaviour
     [SerializeField, ReadOnly] private int _cost;
     [SerializeField] private UpgradeData upgradeData;
     [SerializeField] private bool increaseUpgradeLevelOnPurchase = true;
+    [SerializeField] private BoolData noMoreStockBool;
+    [SerializeField] private DialogueData mainDialogue;
+    [SerializeField] private DialogueData emptyStockDialogue;
+    [SerializeField] private DialogueActivator _activator;
     [SerializeField] private DialogueResponseEvents responseEvents;
     [SerializeField] private ResponseHandler responseHandler;
     [SerializeField] public DialogueUI dialogueUI;
@@ -28,21 +32,30 @@ public class DialoguePurchaseHandler : MonoBehaviour
         }
     }
 
-    private int cost
+    public int cost
     {
-        get
+        private get
         {
-            _cost = (int)upgradeData.upgradeCost;
+            _cost = upgradeData != null ? (int)upgradeData.upgradeCost : _cost > 0 ? _cost : 0;
             return _cost;
         }
+        set => _cost = value;
     }
     
     private void OnValidate()
     {
 #if UNITY_EDITOR
-        _cost = upgradeData ? cost : 0;
+        _cost = cost;
         _currentPlayerCoins = playerCoins ? currentPlayerCoins : 0;
 #endif
+    }
+    
+    private void Awake()
+    {
+        var hasStock = noMoreStockBool == null || noMoreStockBool.value;
+        
+        Debug.Log($"Max level reached: {hasStock} for {id}", this);
+        _activator?.UpdateDialogueObject(hasStock ? emptyStockDialogue : mainDialogue);
     }
     
     public string Id => id;
@@ -69,9 +82,12 @@ public class DialoguePurchaseHandler : MonoBehaviour
         onPurchase.Invoke();
         yield return _waitFixed;
         var hasUpgrade = upgradeData != null;
+        
+        Debug.Log($"Performing purchase for {id} with cost {cost} and has upgrade: {hasUpgrade}", this); 
         if (increaseUpgradeLevelOnPurchase && hasUpgrade)
         {
             upgradeData.IncreaseUpgradeLevel();
+            Debug.Log($"Increased upgrade level for {id} to {upgradeData.upgradeLevel}", this);
         }
 
         if (!hasUpgrade)

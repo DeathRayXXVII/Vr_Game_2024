@@ -14,6 +14,7 @@ public class DialogueActivator : MonoBehaviour, IInteractable
     
     public void UpdateDialogueObject(DialogueData dData)
     {
+        if (dData == null) return;
         this.dialogueData = dData;
     }
 
