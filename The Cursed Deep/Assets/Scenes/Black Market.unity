@@ -1753,7 +1753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: DamagePotion
-  _currentPlayerCoins: 2210
+  _currentPlayerCoins: 2630
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 180
   upgradeData: {fileID: 11400000, guid: fd934e5fe59856d42b4b7f4e85688531, type: 2}
@@ -2427,6 +2427,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.0778
       objectReference: {fileID: 0}
+    - target: {fileID: 6727223619362585892, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6851036645168848705, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2866,7 +2871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Cannon
-  _currentPlayerCoins: 2210
+  _currentPlayerCoins: 2630
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 90
   upgradeData: {fileID: 11400000, guid: 5f60af6dedd8915479307a2029ecdbe2, type: 2}
@@ -2915,6 +2920,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545535cd39557fa4882d963bc5f1ac4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1142048362 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1322428564386322806, guid: 9633f4a35242b454783ef9a0d2324a5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 858131632}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1e8c997df241c1a67045eeac79b41b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1237604275 stripped
@@ -6221,7 +6238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Ship
-  _currentPlayerCoins: 2210
+  _currentPlayerCoins: 2630
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 900
   upgradeData: {fileID: 11400000, guid: be8b87a39f6a2b94e9b01aa815b8a35d, type: 2}
@@ -10749,10 +10766,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: RepairKIt
-  _currentPlayerCoins: 2210
+  _currentPlayerCoins: 2630
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 30
-  upgradeData: {fileID: 11400000, guid: ebf02b92f0643ad4b82dd05a6579d52e, type: 2}
+  upgradeData: {fileID: 0}
   increaseUpgradeLevelOnPurchase: 0
   noMoreStockBool: {fileID: 11400000, guid: 6632f04460517084681ad7465c83af0a, type: 2}
   mainDialogue: {fileID: 11400000, guid: 02baa48872b545b418f77bc2c1492131, type: 2}
@@ -10764,14 +10781,13 @@ MonoBehaviour:
   onPurchase:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: b9983e87410d3e74aa58a1a7be03060a, type: 2}
-        m_TargetAssemblyTypeName: FloatData, Assembly-CSharp
-        m_MethodName: Set
-        m_Mode: 2
+      - m_Target: {fileID: 1035871823491773148}
+        m_TargetAssemblyTypeName: RepairItemManager, Assembly-CSharp
+        m_MethodName: PerformRepair
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: f042f8a13dcd193489a979f84dea7491,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: FloatData, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -10849,7 +10865,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 0}
-  dialogueData: {fileID: 11400000, guid: 02baa48872b545b418f77bc2c1492131, type: 2}
+  dialogueData: {fileID: 11400000, guid: 9e90a2ed74b7be7408aa2a49fa2ca4b0, type: 2}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:
@@ -11540,6 +11556,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7dc0200260b554e9d1a1726bc94ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _repairCost: {fileID: 11400000, guid: ad9754258d664dc4f94d689d9be21e94, type: 2}
+  _fullHealthBool: {fileID: 11400000, guid: 6632f04460517084681ad7465c83af0a, type: 2}
+  _currentHealth: {fileID: 11400000, guid: b9983e87410d3e74aa58a1a7be03060a, type: 2}
+  _maxHealth: {fileID: 11400000, guid: f042f8a13dcd193489a979f84dea7491, type: 2}
+  _minHealth: 3
 --- !u!33 &1525341522394274626
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11954,9 +11975,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Planks
-  _currentPlayerCoins: 2210
+  _currentPlayerCoins: 2630
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 30
+  _cost: 90
   upgradeData: {fileID: 11400000, guid: ebf02b92f0643ad4b82dd05a6579d52e, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: b7ceb160442092a469a7bef41d6d996c, type: 2}
@@ -11972,6 +11993,30 @@ MonoBehaviour:
       - m_Target: {fileID: 11400000, guid: 1bd9c37766544264a9c933b54b35b0f1, type: 2}
         m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
         m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: RepairItemManager, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1035871823491773148}
+        m_TargetAssemblyTypeName: RepairItemManager, Assembly-CSharp
+        m_MethodName: PerformRepair
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12802,7 +12847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: HeavyBall
-  _currentPlayerCoins: 2210
+  _currentPlayerCoins: 2630
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 30
   upgradeData: {fileID: 11400000, guid: c0881481861acaf48b08b44634069b61, type: 2}
@@ -13572,9 +13617,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: SpeedPotion
-  _currentPlayerCoins: 2210
+  _currentPlayerCoins: 2630
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 40
+  _cost: 180
   upgradeData: {fileID: 11400000, guid: 63c8269836697aa4889ce1622c754329, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: b3e279ba1badc604d8f1be039bd68b09, type: 2}
@@ -13594,6 +13639,20 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1142048362}
+        m_TargetAssemblyTypeName: UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets.DynamicMoveProvider,
+          Assembly-CSharp
+        m_MethodName: SetMovementSpeed
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 219a518e95713d84f8ccb8d4e3040b4c,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: FloatData, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

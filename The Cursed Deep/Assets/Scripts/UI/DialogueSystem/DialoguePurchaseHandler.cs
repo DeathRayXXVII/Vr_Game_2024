@@ -50,7 +50,12 @@ public class DialoguePurchaseHandler : MonoBehaviour
 #endif
     }
     
-    private void Awake()
+    private void Start()
+    {
+        CheckStock();
+    }
+    
+    public void CheckStock()
     {
         var hasStock = noMoreStockBool == null || noMoreStockBool.value;
         
@@ -68,6 +73,7 @@ public class DialoguePurchaseHandler : MonoBehaviour
             _handlingPurchase = true;
             StartCoroutine(PerformPurchase());
             ContinueDialogue(response.PurchaseDialogue);
+            CheckStock();
         }
         else
         {
@@ -88,11 +94,6 @@ public class DialoguePurchaseHandler : MonoBehaviour
         {
             upgradeData.IncreaseUpgradeLevel();
             Debug.Log($"Increased upgrade level for {id} to {upgradeData.upgradeLevel}", this);
-        }
-
-        if (!hasUpgrade)
-        {
-            Debug.LogWarning("[WARNING] No upgrade data found",this);
         }
         
         _handlingPurchase = false;
