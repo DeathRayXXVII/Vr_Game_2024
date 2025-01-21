@@ -6086,8 +6086,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5749490198807416296, guid: cc1ad9483fb80da4cb58fb28d23c8042,
         type: 3}
+      propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5749490198807416296, guid: cc1ad9483fb80da4cb58fb28d23c8042,
+        type: 3}
+      propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5749490198807416296, guid: cc1ad9483fb80da4cb58fb28d23c8042,
+        type: 3}
       propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 11400000, guid: febea16168d99f7479cd585451046fb9,
+        type: 2}
+    - target: {fileID: 5749490198807416296, guid: cc1ad9483fb80da4cb58fb28d23c8042,
+        type: 3}
+      propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1695415665}
+    - target: {fileID: 5749490198807416296, guid: cc1ad9483fb80da4cb58fb28d23c8042,
+        type: 3}
+      propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RaiseAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 5749490198807416296, guid: cc1ad9483fb80da4cb58fb28d23c8042,
+        type: 3}
+      propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: PlayAudioShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 5749490198807416296, guid: cc1ad9483fb80da4cb58fb28d23c8042,
+        type: 3}
+      propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameAction, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5749490198807416296, guid: cc1ad9483fb80da4cb58fb28d23c8042,
+        type: 3}
+      propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: AudioPlayer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5749490198807416296, guid: cc1ad9483fb80da4cb58fb28d23c8042,
+        type: 3}
+      propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: ShipDestroyed
       objectReference: {fileID: 0}
     - target: {fileID: 6441800255242035300, guid: cc1ad9483fb80da4cb58fb28d23c8042,
         type: 3}
@@ -6197,6 +6238,18 @@ PrefabInstance:
       addedObject: {fileID: 2057257932}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc1ad9483fb80da4cb58fb28d23c8042, type: 3}
+--- !u!114 &1695415665 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4246066265204513487, guid: cc1ad9483fb80da4cb58fb28d23c8042,
+    type: 3}
+  m_PrefabInstance: {fileID: 1695415664}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36268bedc119c64e97e7c69f76e993e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1732659067
 GameObject:
   m_ObjectHideFlags: 0

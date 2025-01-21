@@ -1436,8 +1436,6 @@ GameObject:
   - component: {fileID: 7201963466419428107}
   - component: {fileID: 1150600094597304446}
   - component: {fileID: 7396760954530844684}
-  - component: {fileID: 7369464536241583910}
-  - component: {fileID: 4113808063437509408}
   m_Layer: 0
   m_Name: Galleon-GameObject
   m_TagString: Untagged
@@ -1685,198 +1683,6 @@ MonoBehaviour:
           m_CallState: 2
   endWaitForZero: []
   endWaitForFixedUpdate: []
---- !u!114 &7369464536241583910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3343833173984464834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc92a87b298074469f00001545ae4ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onHealthGained:
-    m_PersistentCalls:
-      m_Calls: []
-  onHealthLost:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4113808063437509408}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onThreeQuarterHealth:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3801517866899020358}
-        m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-        m_MethodName: StartWaitForFixedUpdateEvent
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: StartFire
-          m_BoolArgument: 0
-        m_CallState: 2
-  onHalfHealth:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2455690468449122660}
-        m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-        m_MethodName: StartWaitForFixedUpdateEvent
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: StartFire
-          m_BoolArgument: 0
-        m_CallState: 2
-  onQuarterHealth:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5750140753101172376}
-        m_TargetAssemblyTypeName: WaitBehavior, Assembly-CSharp
-        m_MethodName: StartWaitForFixedUpdateEvent
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: StartFire
-          m_BoolArgument: 0
-        m_CallState: 2
-  onHealthDepleted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: febea16168d99f7479cd585451046fb9, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _currentHealth: 0
-  currentHealthData: {fileID: 0}
-  _maxHealth: {fileID: 11400000, guid: f042f8a13dcd193489a979f84dea7491, type: 2}
-  _showDamageDealt: 0
-  _damageTextPrefab: {fileID: 0}
---- !u!82 &4113808063437509408
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3343833173984464834}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 669078311154223415, guid: f7b70a8997f608c46a18f5404f632d2b,
-    type: 2}
-  m_audioClip: {fileID: 8300000, guid: 5d94d9f1581a1994fb1918516d5eda41, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 0.194
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 93
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &3355454265976163420
 GameObject:
   m_ObjectHideFlags: 0
@@ -15559,6 +15365,36 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7201963466419428107}
     m_Modifications:
+    - target: {fileID: 1324718929299273473, guid: d7ad485c224aad441af22090a57a3b3f,
+        type: 3}
+      propertyPath: onHalfHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2455690468449122660}
+    - target: {fileID: 1324718929299273473, guid: d7ad485c224aad441af22090a57a3b3f,
+        type: 3}
+      propertyPath: onHealthLost.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7218095805704159426}
+    - target: {fileID: 1324718929299273473, guid: d7ad485c224aad441af22090a57a3b3f,
+        type: 3}
+      propertyPath: onQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5750140753101172376}
+    - target: {fileID: 1324718929299273473, guid: d7ad485c224aad441af22090a57a3b3f,
+        type: 3}
+      propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6825321084823754860}
+    - target: {fileID: 1324718929299273473, guid: d7ad485c224aad441af22090a57a3b3f,
+        type: 3}
+      propertyPath: onHealthDepleted.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 7218095805704159426}
+    - target: {fileID: 1324718929299273473, guid: d7ad485c224aad441af22090a57a3b3f,
+        type: 3}
+      propertyPath: onThreeQuarterHealth.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3801517866899020358}
     - target: {fileID: 2669170003316414805, guid: d7ad485c224aad441af22090a57a3b3f,
         type: 3}
       propertyPath: m_Name

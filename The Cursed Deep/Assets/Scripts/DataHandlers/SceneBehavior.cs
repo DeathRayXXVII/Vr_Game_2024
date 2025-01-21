@@ -185,7 +185,8 @@ public class SceneBehavior : MonoBehaviour
         yield return StartCoroutine(BackgroundLoad(loadOperation));
         
         // Debug.LogError($"[DEBUG] Load and Transition Out complete. Performing Buffer.", this);
-        yield return StartCoroutine(FixedUpdateBuffer(loadBuffer));
+        StartCoroutine(FixedUpdateBuffer(loadBuffer));
+        yield return new WaitUntil(() => !_buffering);
         
         _loadCoroutine = null;
         loadOperation.allowSceneActivation = true;
