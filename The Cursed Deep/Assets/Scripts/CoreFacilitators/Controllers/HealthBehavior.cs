@@ -111,16 +111,19 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     
     private bool _isDead;
 
-    private void OnEnable() => _isDead = false;
+    private void OnEnable() 
+    {
+        _isDead = false;
+        if (!_maxHealth) _maxHealth = ScriptableObject.CreateInstance<FloatData>();
+        if (maxHealth <= 0) maxHealth = 1;
+        if (health <= 0 || health > maxHealth) health = maxHealth;
+        _currentHealth = health;
+    }
 
     private void Awake()
     {
         if (!_damageTextPrefab) _showDamageDealt = false;
         _mainCamera ??= Camera.main;
-        if (!_maxHealth) _maxHealth = ScriptableObject.CreateInstance<FloatData>();
-        if (maxHealth <= 0) maxHealth = 1;
-        if (health <= 0 || health > maxHealth) health = maxHealth;
-        _currentHealth = health;
     }
     
     private void CheckHealthEvents()
