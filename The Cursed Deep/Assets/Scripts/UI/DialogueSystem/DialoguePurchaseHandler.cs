@@ -59,7 +59,6 @@ public class DialoguePurchaseHandler : MonoBehaviour
     {
         var hasStock = noMoreStockBool == null || noMoreStockBool.value;
         
-        Debug.Log($"Max level reached: {hasStock} for {id}", this);
         _activator?.UpdateDialogueObject(hasStock ? emptyStockDialogue : mainDialogue);
     }
     
@@ -89,11 +88,9 @@ public class DialoguePurchaseHandler : MonoBehaviour
         yield return _waitFixed;
         var hasUpgrade = upgradeData != null;
         
-        Debug.Log($"Performing purchase for {id} with cost {cost} and has upgrade: {hasUpgrade}", this); 
         if (increaseUpgradeLevelOnPurchase && hasUpgrade)
         {
             upgradeData.IncreaseUpgradeLevel();
-            Debug.Log($"Increased upgrade level for {id} to {upgradeData.upgradeLevel}", this);
         }
         
         _handlingPurchase = false;

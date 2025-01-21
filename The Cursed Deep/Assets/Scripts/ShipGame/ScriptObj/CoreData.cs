@@ -151,6 +151,11 @@ namespace ShipGame.ScriptObj
             ship.SetAmmoSpawnCount();
         }
         
+        public void UpdatePlayerHealth()
+        {
+            gameGlobals.SetShipHealth(ship.health);
+        }
+        
         private void SetLevelData()
         {
             gameGlobals.SetSpawnLaneActiveLimit(levelData.laneActiveLimit);
