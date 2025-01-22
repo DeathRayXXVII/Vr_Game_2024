@@ -1753,9 +1753,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: DamagePotion
-  _currentPlayerCoins: 260
+  _currentPlayerCoins: 12
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 180
+  _cost: 35
   upgradeData: {fileID: 11400000, guid: fd934e5fe59856d42b4b7f4e85688531, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: 873972a17e2a39547b9b4f362bccf292, type: 2}
@@ -1828,7 +1828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 0}
-  dialogueData: {fileID: 11400000, guid: 9e90a2ed74b7be7408aa2a49fa2ca4b0, type: 2}
+  dialogueData: {fileID: 11400000, guid: bc8c1b11a69d6ff48b7a2d3c570e60b3, type: 2}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:
@@ -2832,7 +2832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 0}
-  dialogueData: {fileID: 11400000, guid: 9e90a2ed74b7be7408aa2a49fa2ca4b0, type: 2}
+  dialogueData: {fileID: 11400000, guid: 88f54b1d073fdb645bdea3444098dc5e, type: 2}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:
@@ -2871,9 +2871,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Cannon
-  _currentPlayerCoins: 260
+  _currentPlayerCoins: 12
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 500
+  _cost: 30
   upgradeData: {fileID: 11400000, guid: 5f60af6dedd8915479307a2029ecdbe2, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: f501b47ff100ed1429684e51cb0ca137, type: 2}
@@ -6238,7 +6238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Ship
-  _currentPlayerCoins: 260
+  _currentPlayerCoins: 12
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 900
   upgradeData: {fileID: 11400000, guid: be8b87a39f6a2b94e9b01aa815b8a35d, type: 2}
@@ -6917,6 +6917,31 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 1032921208}
+          m_TargetAssemblyTypeName: DialogueActivator, Assembly-CSharp
+          m_MethodName: set_interactionAllowed
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 579575194}
+          m_TargetAssemblyTypeName: Outline, Assembly-CSharp
+          m_MethodName: SetOutlineColor
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 0567dc5b15ccb7143b1e2686f01746c2,
+              type: 2}
+            m_ObjectArgumentAssemblyTypeName: RGBAColorData, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 579575198}
           m_TargetAssemblyTypeName: DialogueActivator, Assembly-CSharp
           m_MethodName: set_interactionAllowed
           m_Mode: 6
@@ -10766,7 +10791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: RepairKIt
-  _currentPlayerCoins: 260
+  _currentPlayerCoins: 12
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 30
   upgradeData: {fileID: 0}
@@ -10865,7 +10890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 0}
-  dialogueData: {fileID: 11400000, guid: 9e90a2ed74b7be7408aa2a49fa2ca4b0, type: 2}
+  dialogueData: {fileID: 11400000, guid: 02baa48872b545b418f77bc2c1492131, type: 2}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:
@@ -11975,9 +12000,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: Planks
-  _currentPlayerCoins: 260
+  _currentPlayerCoins: 12
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 200
+  _cost: 30
   upgradeData: {fileID: 11400000, guid: ebf02b92f0643ad4b82dd05a6579d52e, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: b7ceb160442092a469a7bef41d6d996c, type: 2}
@@ -12075,7 +12100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 0}
-  dialogueData: {fileID: 11400000, guid: 9e90a2ed74b7be7408aa2a49fa2ca4b0, type: 2}
+  dialogueData: {fileID: 11400000, guid: 3b4bd3b4b59609d45a95794fa39a23d6, type: 2}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:
@@ -12860,9 +12885,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: HeavyBall
-  _currentPlayerCoins: 260
+  _currentPlayerCoins: 12
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 220
+  _cost: 30
   upgradeData: {fileID: 11400000, guid: c0881481861acaf48b08b44634069b61, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: f405a060b790c8c45acfefa1a652830e, type: 2}
@@ -13630,9 +13655,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: SpeedPotion
-  _currentPlayerCoins: 260
+  _currentPlayerCoins: 12
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 180
+  _cost: 35
   upgradeData: {fileID: 11400000, guid: 63c8269836697aa4889ce1622c754329, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: b3e279ba1badc604d8f1be039bd68b09, type: 2}
@@ -13707,7 +13732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 0}
-  dialogueData: {fileID: 11400000, guid: 9e90a2ed74b7be7408aa2a49fa2ca4b0, type: 2}
+  dialogueData: {fileID: 11400000, guid: a49279ad257eb4e42a84da70e3d32bdf, type: 2}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:

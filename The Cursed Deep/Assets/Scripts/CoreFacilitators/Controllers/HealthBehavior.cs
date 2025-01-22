@@ -180,7 +180,6 @@ public class HealthBehavior : MonoBehaviour, IDamagable
     {
         if (_isDead) return;
         var amount = dealer.damage;
-        Debug.Log($"{name} took {amount} damage from {dealer}");
         
         if(_showDamageDealt)
         {
