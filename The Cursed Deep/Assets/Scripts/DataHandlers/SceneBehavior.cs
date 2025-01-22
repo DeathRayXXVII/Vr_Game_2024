@@ -176,8 +176,6 @@ public class SceneBehavior : MonoBehaviour
     
     private IEnumerator LoadAndTransitionOut(AsyncOperation loadOperation)
     {
-        loadOperation.allowSceneActivation = false;
-        
         // Debug.LogError($"[DEBUG] Scene Loading in progress. Performing Transition Out.", this);
         yield return StartCoroutine(screenManager.TransitionOut());
         
