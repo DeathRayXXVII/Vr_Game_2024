@@ -61,7 +61,6 @@ public class RepairItemManager : MonoBehaviour
         UpdateRepairCost();
     }
 
-
     private void UpdateRepairCost()
     {
         _fullHealthBool.Set(_currentHealth >= _maxHealth);
