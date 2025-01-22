@@ -84,8 +84,9 @@ namespace ZPTools
                     // Use material in play mode
                     return _renderer.material.name.Contains("Instance") ? _renderer.sharedMaterial : _renderer.material;
                 }
+                
                 Debug.LogWarning("[WARNING] Renderer.material is null during play mode.");
-                return null;
+                return _renderer.sharedMaterial != null ? _renderer.sharedMaterial : null;
             }
 
 #if UNITY_EDITOR
@@ -104,11 +105,19 @@ namespace ZPTools
 
         public override IEnumerator TransitionIn()
         {
-            if (isTransitioning && _fadeCoroutine != null)
+            if (isTransitioning)
             {
-                StopCoroutine(_fadeCoroutine);
-                StopCoroutine(TransitionCoroutine);
-                _fadeCoroutine = TransitionCoroutine = null;
+                if (_fadeCoroutine != null)
+                {
+                    StopCoroutine(_fadeCoroutine);
+                    _fadeCoroutine = null;
+                }
+                
+                if (TransitionCoroutine != null)
+                {
+                    StopCoroutine(TransitionCoroutine);
+                    TransitionCoroutine = null;
+                }
             }
             
             // Transition will fade from 1 to 0 (opaque to transparent) on an exponential growth curve
@@ -119,11 +128,19 @@ namespace ZPTools
 
         public override IEnumerator TransitionOut()
         {
-            if (isTransitioning && _fadeCoroutine != null)
+            if (isTransitioning)
             {
-                StopCoroutine(_fadeCoroutine);
-                StopCoroutine(TransitionCoroutine);
-                _fadeCoroutine = TransitionCoroutine = null;
+                if (_fadeCoroutine != null)
+                {
+                    StopCoroutine(_fadeCoroutine);
+                    _fadeCoroutine = null;
+                }
+                
+                if (TransitionCoroutine != null)
+                {
+                    StopCoroutine(TransitionCoroutine);
+                    TransitionCoroutine = null;
+                }
             }
             
             // Transition will fade from 0 to 1 (transparent to opaque) on an exponential decay curve
@@ -145,6 +162,8 @@ namespace ZPTools
             
             TransitionCoroutine ??= StartCoroutine(ExecuteTransition());
             yield return new WaitUntil(() => TransitionCoroutine == null);
+            
+            _fadeCoroutine = null;
         }
 
         protected override IEnumerator ExecuteTransition()
@@ -154,17 +173,19 @@ namespace ZPTools
             _transitionToColor = transitionFromPrimaryToSecondaryColor ? _transitionToColor : _baseColor;
             var endColor = new Color(_transitionToColor.r, _transitionToColor.g, _transitionToColor.b, _alphaOut);
             
-            yield return HandleColorTransition(startColor, endColor);
+            yield return StartCoroutine(HandleColorTransition(startColor, endColor));
             yield return WaitFixed; 
             
-            yield return fadeToBlackAfterTransition ? HandleColorTransition(endColor, Color.black) : null;
+            
+            yield return fadeToBlackAfterTransition ? 
+                StartCoroutine(HandleColorTransition(endColor, Color.black)) : null;
             yield return WaitFixed; 
             
             // Debug.LogWarning($"Transition completed at game time: {Time.time}", this);
             TransitionCoroutine = null;
         }
 
-        private static float LogarithmicLerp(float start, float end, float normalizedTime, float exponentialFactor, float timeScale = 1f)
+        private static float LogarithmicLerp(float start, float end, float normalizedTime, float exponentialFactor, float timeScale = 1f, bool performDebug = false)
         {
             // Clamp normalized time to [0, 1]
             normalizedTime = Mathf.Clamp01(normalizedTime);
@@ -182,11 +203,13 @@ namespace ZPTools
             else
             {
                 // Decay
-                exponentialTerm = Mathf.Exp(exponentialFactor * scaledTime) - 1;
+                exponentialTerm = (Mathf.Exp(exponentialFactor * scaledTime) - 1) * -1;
             }
 
             // Compute and return the interpolated value
-            return start + (end - start) * exponentialTerm;
+            var result = start + (end - start) * exponentialTerm;
+            if (performDebug) Debug.Log($"Result: {result}");
+            return result;
         }
         
         private IEnumerator HandleColorTransition(Color startColor, Color endColor)
@@ -217,7 +240,7 @@ namespace ZPTools
 
 #if UNITY_EDITOR
             var debugSpacer = 0;
-            const int debugMod = 20;
+            const int debugMod = 30;
         #endif
 
             while (elapsedTime <= transitionDuration)

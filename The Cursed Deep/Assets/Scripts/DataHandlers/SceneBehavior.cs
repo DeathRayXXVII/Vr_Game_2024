@@ -176,13 +176,13 @@ public class SceneBehavior : MonoBehaviour
     
     private IEnumerator LoadAndTransitionOut(AsyncOperation loadOperation)
     {
-        // Debug.LogError($"[DEBUG] Scene Loading in progress. Performing Transition Out.", this);
+        Debug.Log($"[DEBUG] Scene Loading in progress. Performing Transition Out.", this);
         yield return StartCoroutine(screenManager.TransitionOut());
         
-        // Debug.LogError($"[DEBUG] Transition Out complete. Performing Background Load.", this);
+        Debug.Log($"[DEBUG] Transition Out complete. Performing Background Load.", this);
         yield return StartCoroutine(BackgroundLoad(loadOperation));
         
-        // Debug.LogError($"[DEBUG] Load and Transition Out complete. Performing Buffer.", this);
+        Debug.Log($"[DEBUG] Load and Transition Out complete. Performing Buffer.", this);
         StartCoroutine(FixedUpdateBuffer(loadBuffer));
         yield return new WaitUntil(() => !_buffering);
         
@@ -192,10 +192,10 @@ public class SceneBehavior : MonoBehaviour
     
     private IEnumerator BackgroundLoad(AsyncOperation loadOperation)
     {
-        // Debug.LogError($"[DEBUG] Loading Scene in background, Progress: {loadOperation.progress}", this);
+        Debug.Log($"[DEBUG] Loading Scene in background, Progress: {loadOperation.progress}", this);
         while (!loadOperation.isDone && loadOperation.progress < 0.9f)
         {
-            // Debug.LogError($"[DEBUG] Loading Scene in background, Progress: {loadOperation.progress}", this);
+            Debug.Log($"[DEBUG] Loading Scene in background, Progress: {loadOperation.progress}", this);
             yield return _waitFixed;
         }
         _sceneLoaded = true;

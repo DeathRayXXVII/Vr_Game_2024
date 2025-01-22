@@ -71,6 +71,7 @@ namespace ShipGame.Manager
             onInitializeLevel.Invoke();
             yield return null;
             coreData.Setup();
+            yield return new WaitUntil(() => coreData.setupComplete);
             
             // Force the ship to initialize first before the cannon and ammo
             yield return StartCoroutine(InitializeShipCoroutine());

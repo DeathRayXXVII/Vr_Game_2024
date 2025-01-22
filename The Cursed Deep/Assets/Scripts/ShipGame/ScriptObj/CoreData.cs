@@ -331,8 +331,13 @@ namespace ShipGame.ScriptObj
             SetCannonData();
         }
 
+        [HideInInspector] public bool setupComplete;
+        private bool _isSettingUp;
         public void Setup()
         {
+            if (_isSettingUp) return;
+            _isSettingUp = true;
+            setupComplete = false;
             try
             {
                 Setup(false);
@@ -377,6 +382,8 @@ namespace ShipGame.ScriptObj
             if (allowDebug) Debug.Log("[DEBUG] Successfully setup game data.", this);
             PrintGameVariables("Called From Setup");
 #endif
+            setupComplete = true;
+            _isSettingUp = false;
         }
 
         private void PrintGameVariables(string header = "")

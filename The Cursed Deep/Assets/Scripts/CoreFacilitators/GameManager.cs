@@ -100,6 +100,8 @@ public class GameManager : MonoBehaviour
     {
         HandleBeforeInitialization();
         yield return _waitFixed;
+        yield return _waitFixed;
+        yield return _waitFixed;
         
         HandleTutorialInitialization();
         yield return _waitFixed;

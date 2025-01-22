@@ -36,7 +36,7 @@ namespace ZPTools
         {
             if (isTransitioning)
             {
-                if (allowDebug) Debug.LogWarning("Transition already in progress.", this);
+                if (allowDebug) Debug.LogWarning("[Warning] Transition in already in progress.", this);
                 yield break;
             }
             transitionType = (int)TransitionType.In;
@@ -50,7 +50,7 @@ namespace ZPTools
         {
             if (isTransitioning)
             {
-                if (allowDebug) Debug.LogWarning("Transition already in progress.", this);
+                if (allowDebug) Debug.LogWarning("[Warning] Transition out already in progress.", this);
                 yield break;
             }
             transitionType = (int)TransitionType.Out;
