@@ -4256,16 +4256,16 @@ MonoBehaviour:
   onLevelFailed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 3184048a2a05e054eacb0444de18a85d, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
+      - m_Target: {fileID: 1862288959}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: RaiseWater
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1001 &1862288956
@@ -4339,6 +4339,12 @@ PrefabInstance:
 --- !u!4 &1862288957 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9145032353818101939, guid: 6588c2d9914dae34fa51bd8fa9761e59,
+    type: 3}
+  m_PrefabInstance: {fileID: 1862288956}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1862288959 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8721057271069897850, guid: 6588c2d9914dae34fa51bd8fa9761e59,
     type: 3}
   m_PrefabInstance: {fileID: 1862288956}
   m_PrefabAsset: {fileID: 0}
@@ -5229,12 +5235,17 @@ PrefabInstance:
     - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -5243,9 +5254,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
-      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 6366127948270241552}
+    - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: 56f27b4216c89d9409603444b37601dc,
+        type: 2}
     - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[2].m_Target
@@ -5259,8 +5276,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
-      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: set_moveSpeed
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: RaiseAction
       objectReference: {fileID: 0}
     - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -5269,9 +5291,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
-      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.XR.Interaction.Toolkit.Locomotion.Movement.ContinuousMoveProvider,
         Unity.XR.Interaction.Toolkit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GameAction, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -5280,8 +5307,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
-      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_FloatArgument
+      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_FloatArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: triggerEnterMatches.Array.data[1].triggerEnterEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4194086721298750350, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
