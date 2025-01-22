@@ -4,6 +4,7 @@ using UnityEngine;
 public class RepairItemManager : MonoBehaviour
 {
     [SerializeField] private IntData _repairCost;
+    [SerializeField] private DialoguePurchaseHandler _purchaseHandler;
     
     [SerializeField] private BoolData _fullHealthBool;
     [SerializeField] private FloatData _currentHealth;
@@ -68,6 +69,7 @@ public class RepairItemManager : MonoBehaviour
         if (_fullHealthBool.value) return;
         
         _repairCost.Set(CalculateRepairCost());
+        if (_purchaseHandler) _purchaseHandler.cost = _repairCost.value;
     }
     
     private void Awake()
