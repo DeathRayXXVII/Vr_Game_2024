@@ -10,7 +10,7 @@ public class PurchaseHandlerManager : MonoBehaviour
         // Initialize and register all purchase handlers in the scene
         foreach (var handler in FindObjectsOfType<DialoguePurchaseHandler>())
         {
-            purchaseHandlers[handler.Id] = handler;
+            purchaseHandlers[handler.id] = handler;
         }
     }
 

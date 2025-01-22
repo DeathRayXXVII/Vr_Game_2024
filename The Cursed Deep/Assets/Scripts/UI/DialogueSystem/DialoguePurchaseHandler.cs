@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [ExecuteInEditMode]
 public class DialoguePurchaseHandler : MonoBehaviour
 {
-    [SerializeField] private string id;
+    [SerializeField] private string _id;
     [SerializeField, ReadOnly] private int _currentPlayerCoins;
     [SerializeField] private IntData playerCoins;
     [SerializeField, ReadOnly] private int _cost;
@@ -54,10 +54,16 @@ public class DialoguePurchaseHandler : MonoBehaviour
     {
         var hasStock = noMoreStockBool == null || noMoreStockBool.value;
         
-        _activator?.UpdateDialogueObject(hasStock ? emptyStockDialogue : mainDialogue);
+        if (_activator == null)
+        {
+            Debug.LogError($"[ERROR] DialogueActivator is null on '{name}' DialoguePurchaseHandler.", this);
+            return;
+        }
+        
+        _activator.UpdateDialogueObject(hasStock ? emptyStockDialogue : mainDialogue);
     }
     
-    public string Id => id;
+    public string id => _id;
     private bool _handlingPurchase;
     public void Purchase(Response response)
     {
