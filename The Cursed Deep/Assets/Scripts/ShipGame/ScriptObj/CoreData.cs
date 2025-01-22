@@ -144,7 +144,7 @@ namespace ShipGame.ScriptObj
         
         private void SetShipData()
         {
-            gameGlobals.SetShipHealth(ship.health);
+            UpdatePlayerHealth();
             gameGlobals.SetEnemySpawnCount(levelData.spawnCount, ship.numberOfLanes);
                 
             ship.SetCannonPrefabData(cannon.prefab);
