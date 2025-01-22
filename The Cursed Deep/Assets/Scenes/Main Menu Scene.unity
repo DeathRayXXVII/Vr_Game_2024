@@ -1244,26 +1244,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.0000000037252903
       objectReference: {fileID: 0}
-    - target: {fileID: 7292051596614888354, guid: 9633f4a35242b454783ef9a0d2324a5f,
-        type: 3}
-      propertyPath: gameActions.Array.data[0].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7292051596614888354, guid: 9633f4a35242b454783ef9a0d2324a5f,
-        type: 3}
-      propertyPath: gameActions.Array.data[0].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7292051596614888354, guid: 9633f4a35242b454783ef9a0d2324a5f,
-        type: 3}
-      propertyPath: gameActions.Array.data[0].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7292051596614888354, guid: 9633f4a35242b454783ef9a0d2324a5f,
-        type: 3}
-      propertyPath: gameActions.Array.data[0].onRaiseEvent.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8033468983827128084, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3976,65 +3956,6 @@ MonoBehaviour:
   pulseAmplitude: 0.1
   pulseFrequency: 1
   pulseOffset: 0
---- !u!1 &833296927
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 833296929}
-  - component: {fileID: 833296928}
-  m_Layer: 0
-  m_Name: Debug
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &833296928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 833296927}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9fc31ff1a6d89d4a89364aeee6cd9dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onButtonPress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 56f27b4216c89d9409603444b37601dc, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!4 &833296929
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 833296927}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.9582008, y: 1.22, z: -1.3481898}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &835795359 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2765251063090609964, guid: 9633f4a35242b454783ef9a0d2324a5f,
@@ -10072,4 +9993,3 @@ SceneRoots:
   - {fileID: 1212031068}
   - {fileID: 1104608401}
   - {fileID: 220304214}
-  - {fileID: 833296929}
