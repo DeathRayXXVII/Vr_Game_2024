@@ -54,8 +54,10 @@ namespace ShipGame.ScriptObj
             private set => _playerDamage.damage = value;
         }
 
-        public void SetPlayerDamage(float cannonDamage, float ammoDamage) =>
+        public void SetPlayerDamage(float cannonDamage, float ammoDamage)
+        {
             playerDamage = cannonDamage + ammoDamage + damageUpgrade;
+        }
 
         public int playerScore
         {

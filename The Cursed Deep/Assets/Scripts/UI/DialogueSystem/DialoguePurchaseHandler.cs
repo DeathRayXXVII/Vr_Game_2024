@@ -50,11 +50,6 @@ public class DialoguePurchaseHandler : MonoBehaviour
 #endif
     }
     
-    private void Start()
-    {
-        CheckStock();
-    }
-    
     public void CheckStock()
     {
         var hasStock = noMoreStockBool == null || noMoreStockBool.value;
@@ -72,7 +67,6 @@ public class DialoguePurchaseHandler : MonoBehaviour
             _handlingPurchase = true;
             StartCoroutine(PerformPurchase());
             ContinueDialogue(response.PurchaseDialogue);
-            CheckStock();
         }
         else
         {
@@ -84,14 +78,21 @@ public class DialoguePurchaseHandler : MonoBehaviour
     {
         playerCoins -= cost;
         
-        onPurchase.Invoke();
         yield return _waitFixed;
         var hasUpgrade = upgradeData != null;
         
         if (increaseUpgradeLevelOnPurchase && hasUpgrade)
         {
+            var upgradeLevel = upgradeData.upgradeLevel;
             upgradeData.IncreaseUpgradeLevel();
+            yield return new WaitUntil(() => upgradeData.upgradeLevel > upgradeLevel);
         }
+        
+        onPurchase.Invoke();
+        yield return _waitFixed;
+        
+        CheckStock();
+        yield return _waitFixed;
         
         _handlingPurchase = false;
     }

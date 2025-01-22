@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using ZPTools.Interface;
 
@@ -153,8 +155,16 @@ namespace ShipGame.ScriptObj
         
         public void UpdatePlayerHealth()
         {
-            gameGlobals.SetShipHealth(ship.health);
+            float shipHealth = RetrieveWithRetry(
+                getter: () => ship.health, 
+                loader: LoadShipData, 
+                maxAttempts: 25, 
+                defaultValue: 0f
+            );
+
+            gameGlobals.SetShipHealth(shipHealth);
         }
+
         
         private void SetLevelData()
         {
@@ -188,8 +198,23 @@ namespace ShipGame.ScriptObj
         
         public void UpdatePlayerDamage()
         {
-            gameGlobals.SetPlayerDamage(cannon.damage, ammo.damage);
+            float cannonDamage = RetrieveWithRetry(
+                getter: () => cannon.damage, 
+                loader: LoadCannonData, 
+                maxAttempts: 25, 
+                defaultValue: 0f
+            );
+
+            float ammoDamage = RetrieveWithRetry(
+                getter: () => ammo.damage, 
+                loader: LoadAmmoData, 
+                maxAttempts: 25, 
+                defaultValue: 0f
+            );
+
+            gameGlobals.SetPlayerDamage(cannonDamage, ammoDamage);
         }
+
         
         private void SetEnemyData(bool isBoss)
         {
@@ -232,6 +257,34 @@ namespace ShipGame.ScriptObj
             gameGlobals.UpdateCoinVisual();
             gameGlobals.UpdateEnemyCountVisual();
         }
+        
+        private T RetrieveWithRetry<T>(Func<T> getter, Action loader, int maxAttempts = 10, T defaultValue = default)
+        {
+            int attempt = 0;
+
+            while (attempt < maxAttempts)
+            {
+                try
+                {
+                    var value = getter();
+                    if (!EqualityComparer<T>.Default.Equals(value, defaultValue)) // Check if value is valid
+                    {
+                        // Debug.Log($"[DEBUG] Successfully retrieved value: {value} after {attempt + 1} attempts.");
+                        return value;
+                    }
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    // Debug.LogWarning($"[WARNING] Attempt {attempt + 1} failed to retrieve value. Reloading data and retrying.");
+                    loader?.Invoke(); // Attempt to load the data
+                }
+
+                attempt++;
+            }
+
+            // Debug.LogWarning($"[WARNING] Unable to retrieve value after {maxAttempts} attempts.");
+            return defaultValue;
+        }
 
         private void LoadLevelData() => levelData.LoadOnStartup();
         private void LoadShipData() => ship.LoadOnStartup();
@@ -268,6 +321,14 @@ namespace ShipGame.ScriptObj
             SetAmmoData();
             SetCannonData();
             SetEnemyData(gameGlobals.FightingBoss());
+        }
+        
+        public void SetupOnlyPlayerData()
+        {
+            SetPlayerData();
+            SetShipData();
+            SetAmmoData();
+            SetCannonData();
         }
 
         public void Setup()
