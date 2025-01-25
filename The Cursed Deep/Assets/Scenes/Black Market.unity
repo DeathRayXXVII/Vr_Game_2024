@@ -2969,7 +2969,7 @@ MonoBehaviour:
   _id: Cannon
   _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 30
+  _cost: 90
   upgradeData: {fileID: 11400000, guid: 5f60af6dedd8915479307a2029ecdbe2, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: f501b47ff100ed1429684e51cb0ca137, type: 2}
@@ -6439,6 +6439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1263037283}
   - component: {fileID: 1263037284}
+  - component: {fileID: 1263037285}
   m_Layer: 0
   m_Name: Tutorial Helper
   m_TagString: Untagged
@@ -6481,6 +6482,38 @@ MonoBehaviour:
   _audioData:
   - {fileID: 11400000, guid: 0c552af60ee49a342b12198a6fce4e44, type: 2}
   - {fileID: 11400000, guid: 75f38ab9aff1d574a984dae01c44adfa, type: 2}
+--- !u!114 &1263037285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263037282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4614c249556b6f4b9be6faf6f58acd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tutorialData:
+  - _tutorialIsActive: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862,
+      type: 2}
+    actions:
+    - actionName: EndTut18
+      onActionEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: c23a5686b5127fc468696de38ff1f9f6, type: 2}
+            m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+            m_MethodName: LastDialogueEvent
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
 --- !u!1 &1264869015
 GameObject:
   m_ObjectHideFlags: 0
@@ -12099,7 +12132,7 @@ MonoBehaviour:
   _id: ShipHealth
   _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 30
+  _cost: 60
   upgradeData: {fileID: 11400000, guid: ebf02b92f0643ad4b82dd05a6579d52e, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: b7ceb160442092a469a7bef41d6d996c, type: 2}
@@ -12984,7 +13017,7 @@ MonoBehaviour:
   _id: CannonBall
   _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 30
+  _cost: 60
   upgradeData: {fileID: 11400000, guid: c0881481861acaf48b08b44634069b61, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: f405a060b790c8c45acfefa1a652830e, type: 2}
@@ -14645,7 +14678,7 @@ PrefabInstance:
     - target: {fileID: 3830179940300004895, guid: cd26d6acc477f9142962c0be7be9462a,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3830179940300004895, guid: cd26d6acc477f9142962c0be7be9462a,
         type: 3}
@@ -14656,8 +14689,7 @@ PrefabInstance:
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: c23a5686b5127fc468696de38ff1f9f6,
-        type: 2}
+      objectReference: {fileID: 1263037285}
     - target: {fileID: 3830179940300004895, guid: cd26d6acc477f9142962c0be7be9462a,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[3].m_Target
@@ -14677,7 +14709,7 @@ PrefabInstance:
     - target: {fileID: 3830179940300004895, guid: cd26d6acc477f9142962c0be7be9462a,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: LastDialogueEvent
+      value: PerformTutorialAction
       objectReference: {fileID: 0}
     - target: {fileID: 3830179940300004895, guid: cd26d6acc477f9142962c0be7be9462a,
         type: 3}
@@ -14687,12 +14719,17 @@ PrefabInstance:
     - target: {fileID: 3830179940300004895, guid: cd26d6acc477f9142962c0be7be9462a,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: UI.DialogueSystem.DialogueData, Assembly-CSharp
+      value: Tutorial.TutorialHelper, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3830179940300004895, guid: cd26d6acc477f9142962c0be7be9462a,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
       value: GameAction, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3830179940300004895, guid: cd26d6acc477f9142962c0be7be9462a,
+        type: 3}
+      propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
+      value: EndTut18
       objectReference: {fileID: 0}
     - target: {fileID: 3830179940300004895, guid: cd26d6acc477f9142962c0be7be9462a,
         type: 3}

@@ -1993,6 +1993,22 @@ MonoBehaviour:
   - _tutorialIsActive: {fileID: 11400000, guid: b25bbe672d06341478cfc5d4b43ae6b4,
       type: 2}
     actions:
+    - actionName: EndTut13
+      onActionEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: 3f6a2f7eeb23f9d49be4f5f447caab32, type: 2}
+            m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+            m_MethodName: LastDialogueEvent
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
     - actionName: EndTut14
       onActionEvent:
         m_PersistentCalls:
@@ -3158,28 +3174,16 @@ MonoBehaviour:
   onObjectSocketed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 3f6a2f7eeb23f9d49be4f5f447caab32, type: 2}
-        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: LastDialogueEvent
-        m_Mode: 1
+      - m_Target: {fileID: 681944371}
+        m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+        m_MethodName: PerformTutorialAction
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: d96b21a9a2f11004884ad58ef9576c90, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: EndTut13
           m_BoolArgument: 0
         m_CallState: 2
   onObjectUnsocketed:
