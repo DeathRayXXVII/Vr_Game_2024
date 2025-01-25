@@ -1899,6 +1899,7 @@ GameObject:
   - component: {fileID: 681944358}
   - component: {fileID: 681944369}
   - component: {fileID: 681944370}
+  - component: {fileID: 681944371}
   m_Layer: 0
   m_Name: Tutorial Handler
   m_TagString: Untagged
@@ -1975,6 +1976,80 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+--- !u!114 &681944371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681944357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4614c249556b6f4b9be6faf6f58acd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tutorialData:
+  - _tutorialIsActive: {fileID: 11400000, guid: b25bbe672d06341478cfc5d4b43ae6b4,
+      type: 2}
+    actions:
+    - actionName: EndTut14
+      onActionEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: 67ebd056e4e0740458edff606db62f0a, type: 2}
+            m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+            m_MethodName: LastDialogueEvent
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - _tutorialIsActive: {fileID: 11400000, guid: fad28e03629572149bc101e680a27e2a,
+      type: 2}
+    actions:
+    - actionName: EndTut20
+      onActionEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: 0da3d81e0c90e5e47921238460cc57e1, type: 2}
+            m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+            m_MethodName: LastDialogueEvent
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - actionName: StartTut21
+      onActionEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: d439db0e8eb3f3d44a8bb3634e78562e, type: 2}
+            m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+            m_MethodName: RaiseAction
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - _tutorialIsActive: {fileID: 11400000, guid: 4ffa35125835e4042a5f5893ad65ba34,
+      type: 2}
+    actions:
+    - actionName: 
+      onActionEvent:
+        m_PersistentCalls:
+          m_Calls: []
 --- !u!4 &683485417 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8012621686750912784, guid: 911a25856673332459a46d219109d487,
@@ -4349,43 +4424,7 @@ MonoBehaviour:
     initializationEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: d850c6863cd552e4da189ee49054f8b8, type: 2}
-          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
-          m_MethodName: Set
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862, type: 2}
-          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
-          m_MethodName: Set
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 11400000, guid: fad28e03629572149bc101e680a27e2a, type: 2}
-          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
-          m_MethodName: Set
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 99245ed7b59aeae498f4095737fa5a94, type: 2}
           m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
           m_MethodName: Set
           m_Mode: 6
@@ -4490,43 +4529,7 @@ MonoBehaviour:
     initializationEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: d850c6863cd552e4da189ee49054f8b8, type: 2}
-          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
-          m_MethodName: Set
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 11400000, guid: b25bbe672d06341478cfc5d4b43ae6b4, type: 2}
-          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
-          m_MethodName: Set
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862, type: 2}
-          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
-          m_MethodName: Set
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 99245ed7b59aeae498f4095737fa5a94, type: 2}
           m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
           m_MethodName: Set
           m_Mode: 6
@@ -4607,18 +4610,6 @@ MonoBehaviour:
     initializationEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: d850c6863cd552e4da189ee49054f8b8, type: 2}
-          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
-          m_MethodName: Set
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 11400000, guid: b25bbe672d06341478cfc5d4b43ae6b4, type: 2}
           m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
           m_MethodName: Set
@@ -4631,31 +4622,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862, type: 2}
-          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
-          m_MethodName: Set
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 11400000, guid: fad28e03629572149bc101e680a27e2a, type: 2}
-          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
-          m_MethodName: Set
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 11400000, guid: 99245ed7b59aeae498f4095737fa5a94, type: 2}
           m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
           m_MethodName: Set
           m_Mode: 6
@@ -4734,6 +4701,42 @@ MonoBehaviour:
   beforeInitialization:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 11400000, guid: d850c6863cd552e4da189ee49054f8b8, type: 2}
+        m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+        m_MethodName: Set
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862, type: 2}
+        m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+        m_MethodName: Set
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 99245ed7b59aeae498f4095737fa5a94, type: 2}
+        m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+        m_MethodName: Set
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: e16b327f2aca49c43832c2e06c706eaf, type: 2}
         m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
         m_MethodName: RaiseAction
@@ -5479,7 +5482,7 @@ PrefabInstance:
     - target: {fileID: 4838120525210870491, guid: 1a20db0d9901c8e44875fbe9366374ed,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4838120525210870491, guid: 1a20db0d9901c8e44875fbe9366374ed,
         type: 3}
@@ -5941,36 +5944,43 @@ PrefabInstance:
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 6
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
+        type: 3}
+      propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: 67ebd056e4e0740458edff606db62f0a,
-        type: 2}
+      objectReference: {fileID: 681944371}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: d439db0e8eb3f3d44a8bb3634e78562e,
-        type: 2}
+      objectReference: {fileID: 681944371}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: ccb4d245efaeaab4bb0910042f8ac422,
-        type: 2}
+      objectReference: {fileID: 681944371}
+    - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
+        type: 3}
+      propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 681944371}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -5988,38 +5998,73 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
+      propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
+        type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LastDialogueEvent
+      value: PerformTutorialAction
       objectReference: {fileID: 0}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: RaiseAction
+      value: PerformTutorialAction
       objectReference: {fileID: 0}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: Set
+      value: PerformTutorialAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
+        type: 3}
+      propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: PerformTutorialAction
       objectReference: {fileID: 0}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.DialogueSystem.DialogueData, Assembly-CSharp
+      value: Tutorial.TutorialHelper, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: GameAction, Assembly-CSharp
+      value: Tutorial.TutorialHelper, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: BoolData, Assembly-CSharp
+      value: Tutorial.TutorialHelper, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
+        type: 3}
+      propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: Tutorial.TutorialHelper, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
+        type: 3}
+      propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: EndTut14
+      objectReference: {fileID: 0}
+    - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
+        type: 3}
+      propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: StartTut21
+      objectReference: {fileID: 0}
+    - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
+        type: 3}
+      propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
+      value: StartTut21
+      objectReference: {fileID: 0}
+    - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
+        type: 3}
+      propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_StringArgument
+      value: StartTut21
       objectReference: {fileID: 0}
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
@@ -6034,6 +6079,11 @@ PrefabInstance:
     - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
         type: 3}
       propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 734079674543426379, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
+        type: 3}
+      propertyPath: confirmedSelection.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1815763502146391766, guid: 5df4bd52b8d67e64aa39bbe3bd846947,
@@ -7678,7 +7728,7 @@ PrefabInstance:
     - target: {fileID: 1176876260505628077, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_Value
-      value: 0.03
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1176876260505628077, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -11386,30 +11436,28 @@ PrefabInstance:
     - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: 0da3d81e0c90e5e47921238460cc57e1,
-        type: 2}
+      objectReference: {fileID: 681944371}
     - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: c06fb80ee7d4a8d47a9fef1502d60a12,
-        type: 2}
+      objectReference: {fileID: 681944371}
     - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -11423,22 +11471,32 @@ PrefabInstance:
     - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LastDialogueEvent
+      value: PerformTutorialAction
       objectReference: {fileID: 0}
     - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: RaiseAction
+      value: PerformTutorialAction
       objectReference: {fileID: 0}
     - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.DialogueSystem.DialogueData, Assembly-CSharp
+      value: Tutorial.TutorialHelper, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}
       propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: GameAction, Assembly-CSharp
+      value: Tutorial.TutorialHelper, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
+        type: 3}
+      propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: EndTut20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
+        type: 3}
+      propertyPath: onObjectSocketed.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: EndTut20
       objectReference: {fileID: 0}
     - target: {fileID: 2908170276395025003, guid: 532a38bad7825bb4d8b551cd42e76f04,
         type: 3}

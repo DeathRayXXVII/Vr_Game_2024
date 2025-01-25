@@ -1,65 +1,47 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UI.DialogueSystem;
 using UnityEngine;
-using ZPTools.Interface;
+using UnityEngine.Events;
+
 
 namespace Tutorial
 {
-    public class TutorialHelper : MonoBehaviour, INeedButton
+    public class TutorialHelper : MonoBehaviour
     {
-        [SerializeField] private DialogueData[] _dialogueData;
-        [SerializeField] private AudioShotData[] _audioData;
-        
-        private bool ValidateArray(System.Array data)
+        [System.Serializable]
+        private struct TutorialData
         {
-            return data != null && data.Length != 0;
-        }
-
-        public void LockAllLockableDialogueAndAudio()
-        {
-            LockAllLockableDialogues();
-            LockAllLockableAudio();
-        }
-
-        public void LockAllLockableDialogues()
-        {
-            if (!ValidateArray(_dialogueData))
+            public BoolData _tutorialIsActive;
+            [System.Serializable]
+            public struct Actions
             {
-                return;
+                public string actionName;
+                public UnityEvent onActionEvent;
             }
             
-            foreach (var dialogue in _dialogueData.Where(dialogue => dialogue.playOnlyOncePerGame))
-            {
-                dialogue.locked = true;
-            }
-        }
-
-        public void LockAllLockableAudio()
-        {
-            if (!ValidateArray(_audioData))
-            {
-                return;
-            }
+            public Actions[] actions;
             
-            foreach (var audioData in _audioData)
+            public void PerformAction(string actionName)
             {
-                foreach (var audioShot in audioData.audioShots.Where(audioShot => audioShot.playOnlyOncePerGame))
+                Debug.Log($"Performing action {actionName} because {_tutorialIsActive.name} is active.");
+                foreach (var action in actions)
                 {
-                    audioShot.SetLocked(true);
+                    Debug.Log($"Checking action {action.actionName}.");
+                    if (action.actionName != actionName) continue;
+                    Debug.Log($"Valid action found, performing action {actionName}.");
+                    action.onActionEvent.Invoke();
+                    return;
                 }
             }
         }
-
-        public List<(Action, string)> GetButtonActions()
+        
+        [SerializeField] private TutorialData[] _tutorialData;
+        
+        public void PerformTutorialAction(string actionName)
         {
-            return new List<(Action, string)>
+            foreach (var tutorial in _tutorialData)
             {
-#if UNITY_EDITOR
-                (LockAllLockableDialogueAndAudio, "Lock All lockables")
-#endif
-            };
+                if (!tutorial._tutorialIsActive) continue;
+                tutorial.PerformAction(actionName);
+            }
         }
     }
 }
