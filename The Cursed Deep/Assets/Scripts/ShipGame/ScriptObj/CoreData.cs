@@ -146,9 +146,27 @@ namespace ShipGame.ScriptObj
         
         private void SetShipData()
         {
-            UpdatePlayerHealth();
-            gameGlobals.SetEnemySpawnCount(levelData.spawnCount, ship.numberOfLanes);
-                
+            try
+            {
+                UpdatePlayerHealth();
+            } 
+            catch (IndexOutOfRangeException)
+            {
+                LoadShipData();
+                UpdatePlayerHealth();
+            }
+            
+            try
+            {
+                gameGlobals.SetEnemySpawnCount(levelData.spawnCount, ship.numberOfLanes);
+            } 
+            catch (IndexOutOfRangeException)
+            {
+                LoadLevelData();
+                gameGlobals.SetEnemySpawnCount(levelData.spawnCount, ship.numberOfLanes);
+            }
+            
+            
             ship.SetCannonPrefabData(cannon.prefab);
             ship.SetAmmoSpawnCount();
         }
