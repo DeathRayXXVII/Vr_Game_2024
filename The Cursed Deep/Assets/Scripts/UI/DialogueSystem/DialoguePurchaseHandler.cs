@@ -52,7 +52,9 @@ public class DialoguePurchaseHandler : MonoBehaviour
     
     public void CheckStock()
     {
-        var hasStock = noMoreStockBool == null || noMoreStockBool.value;
+        
+        var hasStock = noMoreStockBool == null || !noMoreStockBool.value;
+        Debug.LogError($"[SHOP-INFO] Shop item: {name}, in Stock: {hasStock}, bool is null {noMoreStockBool == null} or is not null and is set to {noMoreStockBool.value}", this);
         
         if (_activator == null)
         {
@@ -60,7 +62,7 @@ public class DialoguePurchaseHandler : MonoBehaviour
             return;
         }
         
-        _activator.UpdateDialogueObject(hasStock ? emptyStockDialogue : mainDialogue);
+        _activator.UpdateDialogueObject(hasStock ? mainDialogue : emptyStockDialogue);
     }
     
     public string id => _id;

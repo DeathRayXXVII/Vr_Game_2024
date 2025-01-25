@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 33574442}
-  - component: {fileID: 33574445}
+  - component: {fileID: 33574443}
   m_Layer: 0
   m_Name: GameHandlers
   m_TagString: Untagged
@@ -159,7 +159,7 @@ Transform:
   - {fileID: 593380800}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &33574445
+--- !u!114 &33574443
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 33574440}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87e0a64e16e26474a91addeb9b8c03aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 40f031d01585c604d931ba36c03111e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneBehavior: {fileID: 858131633}
@@ -221,103 +221,7 @@ MonoBehaviour:
           m_CallState: 2
   beforeInitialization:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
-        m_TargetAssemblyTypeName: ShipGame.ScriptObj.CoreData, Assembly-CSharp
-        m_MethodName: SetupOnlyPlayerData
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1035871823491773143}
-        m_TargetAssemblyTypeName: DialoguePurchaseHandler, Assembly-CSharp
-        m_MethodName: CheckStock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5245233627773701006}
-        m_TargetAssemblyTypeName: DialoguePurchaseHandler, Assembly-CSharp
-        m_MethodName: CheckStock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6038573245265107759}
-        m_TargetAssemblyTypeName: DialoguePurchaseHandler, Assembly-CSharp
-        m_MethodName: CheckStock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7014100818602004341}
-        m_TargetAssemblyTypeName: DialoguePurchaseHandler, Assembly-CSharp
-        m_MethodName: CheckStock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 579575196}
-        m_TargetAssemblyTypeName: DialoguePurchaseHandler, Assembly-CSharp
-        m_MethodName: CheckStock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1032921212}
-        m_TargetAssemblyTypeName: DialoguePurchaseHandler, Assembly-CSharp
-        m_MethodName: CheckStock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1237604278}
-        m_TargetAssemblyTypeName: DialoguePurchaseHandler, Assembly-CSharp
-        m_MethodName: CheckStock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 0
+      m_Calls: []
   onGameStart:
     m_PersistentCalls:
       m_Calls:
@@ -345,6 +249,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  coreData: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
+  _shopData:
+  - purchaseHandler: {fileID: 1035871823491773143}
+    upgradeData: {fileID: 0}
+  - purchaseHandler: {fileID: 5245233627773701006}
+    upgradeData: {fileID: 11400000, guid: ebf02b92f0643ad4b82dd05a6579d52e, type: 2}
+  - purchaseHandler: {fileID: 6038573245265107759}
+    upgradeData: {fileID: 11400000, guid: c0881481861acaf48b08b44634069b61, type: 2}
+  - purchaseHandler: {fileID: 7014100818602004341}
+    upgradeData: {fileID: 11400000, guid: 63c8269836697aa4889ce1622c754329, type: 2}
+  - purchaseHandler: {fileID: 579575196}
+    upgradeData: {fileID: 11400000, guid: fd934e5fe59856d42b4b7f4e85688531, type: 2}
+  - purchaseHandler: {fileID: 1032921212}
+    upgradeData: {fileID: 11400000, guid: 5f60af6dedd8915479307a2029ecdbe2, type: 2}
 --- !u!4 &107583874 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3906399293454468433, guid: 9633f4a35242b454783ef9a0d2324a5f,
@@ -1924,7 +1842,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 0}
-  dialogueData: {fileID: 11400000, guid: bc8c1b11a69d6ff48b7a2d3c570e60b3, type: 2}
+  dialogueData: {fileID: 0}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:
@@ -2237,7 +2155,7 @@ PrefabInstance:
         type: 3}
       propertyPath: initializationManager
       value: 
-      objectReference: {fileID: 33574445}
+      objectReference: {fileID: 0}
     - target: {fileID: 1426538020382673813, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_SmoothMotionEnabled
@@ -2928,7 +2846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 0}
-  dialogueData: {fileID: 11400000, guid: 88f54b1d073fdb645bdea3444098dc5e, type: 2}
+  dialogueData: {fileID: 0}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:
@@ -2969,7 +2887,7 @@ MonoBehaviour:
   _id: Cannon
   _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 90
+  _cost: 30
   upgradeData: {fileID: 11400000, guid: 5f60af6dedd8915479307a2029ecdbe2, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: f501b47ff100ed1429684e51cb0ca137, type: 2}
@@ -6397,7 +6315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
-  dialogueData: {fileID: 11400000, guid: c25d8846cf4a3d740b91c1093dc22c1b, type: 2}
+  dialogueData: {fileID: 0}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:
@@ -6839,7 +6757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 11400000, guid: 706de1805a228304f970f012f90d32de, type: 2}
   action: {fileID: 11400000, guid: 5b9cdc6768dcfe74a88d1d48b5601a5a, type: 2}
-  dialogueData: {fileID: 11400000, guid: 9a113fff2081d0944ad143ab24533d1b, type: 2}
+  dialogueData: {fileID: 0}
   playerActivator: {fileID: 0}
   onInteract:
     m_PersistentCalls:
@@ -11019,7 +10937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 0}
-  dialogueData: {fileID: 11400000, guid: 9e90a2ed74b7be7408aa2a49fa2ca4b0, type: 2}
+  dialogueData: {fileID: 0}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:
@@ -12132,7 +12050,7 @@ MonoBehaviour:
   _id: ShipHealth
   _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 60
+  _cost: 30
   upgradeData: {fileID: 11400000, guid: ebf02b92f0643ad4b82dd05a6579d52e, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: b7ceb160442092a469a7bef41d6d996c, type: 2}
@@ -12230,7 +12148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 0}
-  dialogueData: {fileID: 11400000, guid: 3b4bd3b4b59609d45a95794fa39a23d6, type: 2}
+  dialogueData: {fileID: 0}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:
@@ -13017,7 +12935,7 @@ MonoBehaviour:
   _id: CannonBall
   _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 60
+  _cost: 30
   upgradeData: {fileID: 11400000, guid: c0881481861acaf48b08b44634069b61, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: f405a060b790c8c45acfefa1a652830e, type: 2}
@@ -13090,7 +13008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 0}
-  dialogueData: {fileID: 11400000, guid: f61185c45be444341b5a73f19dcad07e, type: 2}
+  dialogueData: {fileID: 0}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:
@@ -13862,7 +13780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: {fileID: 0}
   action: {fileID: 0}
-  dialogueData: {fileID: 11400000, guid: a49279ad257eb4e42a84da70e3d32bdf, type: 2}
+  dialogueData: {fileID: 0}
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:

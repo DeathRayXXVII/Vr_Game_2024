@@ -87,7 +87,12 @@ namespace ShipGame.ScriptObj
 #if UNITY_EDITOR
             Debug.LogError($"[ERROR] {arrayName} is {error}. Attempting to resolve.", context);
 #endif
-            LoadError?.Invoke();
+            if (LoadError == null)
+            {
+                Debug.LogError($"[ERROR] LoadError event is null. Cannot resolve error.", context);
+                return;
+            }
+            LoadError!.Invoke();
         }
     }
 }

@@ -100,13 +100,10 @@ public class GameManager : MonoBehaviour
     {
         HandleBeforeInitialization();
         yield return _waitFixed;
-        yield return _waitFixed;
-        yield return _waitFixed;
         
         HandleTutorialInitialization();
         yield return _waitFixed;
         
-        // Initialize Trackers and then trigger beforeInitialization event
         yield return StartCoroutine(InitializeTrackers());
         yield return _waitFixed;
         

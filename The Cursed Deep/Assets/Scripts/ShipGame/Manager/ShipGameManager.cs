@@ -31,7 +31,6 @@ namespace ShipGame.Manager
 
         protected override void Awake()
         {
-            initialized = false;
             _shipInstancer = this.AddComponent<ObjectInstancer>();
             _shipInstancer.SetInstancerData(coreData.shipInstancerData);
             base.Awake();
@@ -51,6 +50,8 @@ namespace ShipGame.Manager
         
         protected override IEnumerator Initialize()
         {
+            coreData.failedLevel = false;
+            
             HandleBeforeInitialization();
             yield return _waitFixed;
             

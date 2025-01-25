@@ -84,12 +84,12 @@ namespace ShipGame.ScriptObj
 
         private float healthUpgrade => (float)_healthUpgrade.upgradeValue;
 
-        public void SetShipHealth(float health)
+        public void SetShipHealth(float health, bool updateVisuals = true)
         {
             shipHealth = health + healthUpgrade;
             currentHealth = shipHealth;
             
-            UpdateHealthVisual();
+            if(updateVisuals) UpdateHealthVisual();
         }
 
         [Header("Cannon & Ammo Data:")] 

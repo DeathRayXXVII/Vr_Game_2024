@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using ZPTools.Interface;
 
 namespace ShipGame.ScriptObj
@@ -99,22 +99,22 @@ namespace ShipGame.ScriptObj
 
         private void OnEnable()
         {
-            levelData.LoadError += LoadLevelData;
-            ship.LoadError += LoadShipData;
-            cannon.LoadError += LoadCannonData;
-            ammo.LoadError += LoadAmmoData;
-            enemy.LoadError += LoadEnemyData;
-            boss.LoadError += LoadEnemyData;
+            levelData.LoadError += HandleLevelLoadError;
+            ship.LoadError += HandleShipLoadError;
+            cannon.LoadError += HandleCannonLoadError;
+            ammo.LoadError += HandleAmmoLoadError;
+            enemy.LoadError += HandleEnemyLoadError;
+            boss.LoadError += HandleEnemyLoadError;
         }
 
         private void OnDisable()
         {
-            levelData.LoadError -= LoadLevelData;
-            ship.LoadError -= LoadShipData;
-            cannon.LoadError -= LoadCannonData;
-            ammo.LoadError -= LoadAmmoData;
-            enemy.LoadError -= LoadEnemyData;
-            boss.LoadError -= LoadEnemyData;
+            levelData.LoadError -= HandleLevelLoadError;
+            ship.LoadError -= HandleShipLoadError;
+            cannon.LoadError -= HandleCannonLoadError;
+            ammo.LoadError -= HandleAmmoLoadError;
+            enemy.LoadError -= HandleEnemyLoadError;
+            boss.LoadError -= HandleEnemyLoadError;
         }
         
         public void LevelCompleted()
@@ -125,7 +125,13 @@ namespace ShipGame.ScriptObj
             PrintGameVariables("Called From LevelCompleted");
 #endif
         }
-        public void LevelFailed() => ResetToNewGameValues();
+        
+        public bool failedLevel;
+        public void LevelFailed() 
+        {
+            failedLevel = true;
+            ResetToNewGameValues();
+        }
 
         public void ResetToNewGameValues(int tier = 1)
         {
@@ -150,7 +156,7 @@ namespace ShipGame.ScriptObj
             {
                 UpdatePlayerHealth();
             } 
-            catch (IndexOutOfRangeException)
+            catch (System.IndexOutOfRangeException)
             {
                 LoadShipData();
                 UpdatePlayerHealth();
@@ -160,7 +166,7 @@ namespace ShipGame.ScriptObj
             {
                 gameGlobals.SetEnemySpawnCount(levelData.spawnCount, ship.numberOfLanes);
             } 
-            catch (IndexOutOfRangeException)
+            catch (System.IndexOutOfRangeException)
             {
                 LoadLevelData();
                 gameGlobals.SetEnemySpawnCount(levelData.spawnCount, ship.numberOfLanes);
@@ -180,7 +186,7 @@ namespace ShipGame.ScriptObj
                 defaultValue: 0f
             );
 
-            gameGlobals.SetShipHealth(shipHealth);
+            gameGlobals.SetShipHealth(shipHealth, failedLevel);
         }
 
         
@@ -276,7 +282,7 @@ namespace ShipGame.ScriptObj
             gameGlobals.UpdateEnemyCountVisual();
         }
         
-        private T RetrieveWithRetry<T>(Func<T> getter, Action loader, int maxAttempts = 10, T defaultValue = default)
+        private T RetrieveWithRetry<T>(System.Func<T> getter, System.Action loader, int maxAttempts = 10, T defaultValue = default)
         {
             int attempt = 0;
 
@@ -291,7 +297,7 @@ namespace ShipGame.ScriptObj
                         return value;
                     }
                 }
-                catch (IndexOutOfRangeException)
+                catch (System.IndexOutOfRangeException)
                 {
                     // Debug.LogWarning($"[WARNING] Attempt {attempt + 1} failed to retrieve value. Reloading data and retrying.");
                     loader?.Invoke(); // Attempt to load the data
@@ -304,10 +310,44 @@ namespace ShipGame.ScriptObj
             return defaultValue;
         }
 
+        private void HandleLevelLoadError()
+        {
+            // if (allowDebug) 
+                Debug.LogError("[WARNING] Level data is not loaded. Attempting load.", this);
+            LoadLevelData();
+        }
         private void LoadLevelData() => levelData.LoadOnStartup();
+
+        private void HandleShipLoadError()
+        {
+            // if (allowDebug) 
+                Debug.LogError("[WARNING] Ship data is not loaded. Attempting load.", this);
+            LoadShipData();
+        }
         private void LoadShipData() => ship.LoadOnStartup();
+
+        private void HandleAmmoLoadError()
+        {
+            // if (allowDebug) 
+                Debug.LogError("[WARNING] Ammo data is not loaded. Attempting load.", this);
+            LoadAmmoData();
+        }
         private void LoadAmmoData() => ammo.LoadOnStartup();
+
+        private void HandleCannonLoadError()
+        {
+            // if (allowDebug) 
+                Debug.LogError("[WARNING] Cannon data is not loaded. Attempting load.", this);
+            LoadCannonData();
+        }
         private void LoadCannonData() => cannon.LoadOnStartup();
+        
+        private void HandleEnemyLoadError()
+        {
+            // if (allowDebug) 
+                Debug.LogError("[WARNING] Enemy data is not loaded. Attempting load.", this);
+            LoadEnemyData();
+        }
         private void LoadEnemyData()
         {
             if(gameGlobals.FightingBoss())

@@ -65,7 +65,11 @@ namespace ShipGame.ScriptObj
 #if UNITY_EDITOR
                     ArrayError("ammoUpgradeArray", "not initialized or is empty", this);
 #endif
-                    return;
+                    if (_ammoInstanceData == null || _ammoInstanceData.Length == 0)
+                    {
+                        Debug.LogError("[ERROR] Resolution failed. Ammo Upgrade Array is null or empty.", this);
+                        return;
+                    }
                 }
                 var performUnlockCheck = value > 0 && value < _ammoInstanceData.Length;
                 if (performUnlockCheck && _ammoData is { Length: > 0 } )

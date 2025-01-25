@@ -266,7 +266,7 @@ public class UpgradeDataEditor : Editor
     }
     
     private System.Func<SerializedProperty> upgradeLevelProperty => () => serializedObject.FindProperty("_upgradeLevel");
-    private bool maxLevelProperty => upgradeData.maxLevelReached;
+    private bool maxLevelProperty => upgradeData.hasMaxLevelBeenReached;
     private object currentUpgradeProperty => upgradeData?.upgradeValue;
     private object currentCostProperty => upgradeData?.upgradeCost;
     private VisualElement ReadOnlyPanel()
@@ -345,7 +345,7 @@ public class UpgradeDataEditor : Editor
             return currentField;
         }
 
-        if (changeOnMaxLevel && upgradeData.maxLevelReached)
+        if (changeOnMaxLevel && upgradeData.hasMaxLevelBeenReached)
         {
             currentField = new TextField(label) { value = "MAX LEVEL REACHED", name = fieldName };
             currentField.Q("unity-text-input")?.AddToClassList("max-field");
