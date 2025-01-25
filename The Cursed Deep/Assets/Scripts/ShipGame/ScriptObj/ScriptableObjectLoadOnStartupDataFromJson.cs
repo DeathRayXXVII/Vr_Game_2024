@@ -40,7 +40,7 @@ namespace ShipGame.ScriptObj
             if (isLoaded && hasChanged == false)
             {
 #if UNITY_EDITOR
-                if (_allowDebug) Debug.LogWarning($"{name} is already loaded, and the file has not changed.", this);
+                if (_allowDebug) Debug.LogWarning($"[WARNING] {name} is already loaded, and the file has not changed.", this);
                 LogCurrentData();
 #endif
                 return;
@@ -51,12 +51,12 @@ namespace ShipGame.ScriptObj
             if (!jsonFile)
             {
 #if UNITY_EDITOR
-                if (_allowDebug) Debug.LogError($"JSON file not found at ../Assets/Resources/{resourcePath}.", this);
+                if (_allowDebug) Debug.LogError($"[ERROR] JSON file not found at ../Assets/Resources/{resourcePath}.", this);
 #endif
                 return;
             }
 #if UNITY_EDITOR
-            if (_allowDebug) Debug.Log($"Loading {name} from ../Assets/Resources/{resourcePath}.", this);
+            if (_allowDebug) Debug.Log($"[DEBUG] Loading {name} from ../Assets/Resources/{resourcePath}.", this);
 #endif
 
             ParseJsonFile(jsonFile);
@@ -64,7 +64,7 @@ namespace ShipGame.ScriptObj
             InitializeData();
             
 #if UNITY_EDITOR
-            if (_allowDebug) Debug.Log($"Initialized {name} data.", this);
+            if (_allowDebug) Debug.Log($"[DEBUG] Initialized {name} data.", this);
 #endif
             
             _hashFileChangeDetector.UpdateState();
@@ -85,7 +85,7 @@ namespace ShipGame.ScriptObj
         public void ArrayError(string arrayName, string error, Object context = null)
         {
 #if UNITY_EDITOR
-            Debug.LogError($"{arrayName} is {error}.", context);
+            Debug.LogError($"[ERROR] {arrayName} is {error}. Attempting to resolve.", context);
 #endif
             LoadError?.Invoke();
         }
