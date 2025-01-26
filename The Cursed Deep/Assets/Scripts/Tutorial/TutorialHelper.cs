@@ -22,19 +22,21 @@ namespace Tutorial
             
             public Actions[] actions;
             
-            public void PerformAction(string actionName, bool debugging = false)
+            public void PerformAction(string actionName, Object context = null, bool debugging = false)
             {
                 if (debugging)
-                    Debug.Log($"[INFO] {_tutorialIsActive.name} is active, performing action {actionName}.");
+                    Debug.Log($"[INFO] {_tutorialIsActive.name} is active, performing action {actionName}.", context);
                 foreach (var action in actions)
                 {
                     if (debugging)
-                        Debug.Log($"[INFO] Checking action {action.actionName}.");
-                    if (action.actionName != actionName) continue;
+                        Debug.Log($"[INFO] Checking action {action.actionName}.", context);
+                    if (action.actionName != actionName) 
+                        continue;
+                    
                     if (debugging)
-                        Debug.Log($"[INFO] Valid action found, performing action {actionName}.");
+                        Debug.Log($"[INFO] Valid action found, performing action {actionName}.", context);
                     action.onActionEvent.Invoke();
-                    return;
+                    break;
                 }
             }
         }
@@ -45,8 +47,10 @@ namespace Tutorial
         {
             foreach (var tutorial in _tutorialData)
             {
-                if (!tutorial._tutorialIsActive) continue;
-                tutorial.PerformAction(actionName, allowDebug);
+                if (!tutorial._tutorialIsActive) 
+                    continue;
+                
+                tutorial.PerformAction(actionName, this, allowDebug);
                 break;
             }
         }

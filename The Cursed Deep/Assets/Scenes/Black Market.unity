@@ -221,7 +221,31 @@ MonoBehaviour:
           m_CallState: 2
   beforeInitialization:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: e67ad6bffc8cf25439ca9657f3943fc0, type: 2}
+        m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+        m_MethodName: Set
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 6a603e18fe657824cbe1387d5af42f40, type: 2}
+        m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+        m_MethodName: Set
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onGameStart:
     m_PersistentCalls:
       m_Calls:
@@ -6458,14 +6482,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowDebug: 0
   _tutorialData:
-  - _tutorialIsActive: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862,
+  - _tutorialIsActive: {fileID: 11400000, guid: e67ad6bffc8cf25439ca9657f3943fc0,
       type: 2}
     actions:
-    - actionName: EndTut15
+    - actionName: EndTut16
       onActionEvent:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 11400000, guid: 1f5e461eb9bb4ce49baaee5da9363cc2, type: 2}
+          - m_Target: {fileID: 11400000, guid: e67ad6bffc8cf25439ca9657f3943fc0, type: 2}
+            m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+            m_MethodName: Set
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 11400000, guid: 4aa0afe1434120f4c8c594dfee0e29b0, type: 2}
             m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
             m_MethodName: LastDialogueEvent
             m_Mode: 1
@@ -6477,7 +6513,19 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-  - _tutorialIsActive: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862,
+          - m_Target: {fileID: 11400000, guid: c1c6ea46095d68f408ff657c72b8906d, type: 2}
+            m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+            m_MethodName: RaiseAction
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - _tutorialIsActive: {fileID: 11400000, guid: 6a603e18fe657824cbe1387d5af42f40,
       type: 2}
     actions:
     - actionName: StartTut17
@@ -6487,6 +6535,18 @@ MonoBehaviour:
           - m_Target: {fileID: 1087729909}
             m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
             m_MethodName: set_waitForExternalAction
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 11400000, guid: 6a603e18fe657824cbe1387d5af42f40, type: 2}
+            m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+            m_MethodName: Set
             m_Mode: 6
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -7136,18 +7196,6 @@ MonoBehaviour:
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 11400000, guid: 05edc256e9467cf449132f0102902117, type: 2}
-          m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-          m_MethodName: RaiseAction
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
         - m_Target: {fileID: 593380803}
           m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
           m_MethodName: PlayAudioShot
@@ -7163,6 +7211,18 @@ MonoBehaviour:
         - m_Target: {fileID: 1374881361}
           m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: e67ad6bffc8cf25439ca9657f3943fc0, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -7196,7 +7256,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-  - actionObj: {fileID: 11400000, guid: 7f58da768c47f7a4a9524ea6fac2b423, type: 2}
+  - actionObj: {fileID: 11400000, guid: c1c6ea46095d68f408ff657c72b8906d, type: 2}
     onRaiseEvent:
       m_PersistentCalls:
         m_Calls:
@@ -7213,18 +7273,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 1087729909}
-          m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
-          m_MethodName: set_waitForExternalAction
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
         - m_Target: {fileID: 593380802}
           m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
           m_MethodName: PlayAudioShot
@@ -7235,6 +7283,30 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: Tutorial16-BoughtShipHealth
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 6a603e18fe657824cbe1387d5af42f40, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 1087729909}
+          m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
+          m_MethodName: set_waitForExternalAction
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
   - actionObj: {fileID: 11400000, guid: d03054fd0d00fb04ebad52f6696f406c, type: 2}
@@ -10997,6 +11069,18 @@ MonoBehaviour:
   onPurchase:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1263037285}
+        m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+        m_MethodName: PerformTutorialAction
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: EndTut16
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1035871823491773148}
         m_TargetAssemblyTypeName: RepairItemManager, Assembly-CSharp
         m_MethodName: PerformRepair
@@ -11085,19 +11169,7 @@ MonoBehaviour:
   playerActivator: {fileID: 490804711}
   onInteract:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1263037285}
-        m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
-        m_MethodName: PerformTutorialAction
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: EndTut15
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!65 &1035871823491773146
 BoxCollider:
   m_ObjectHideFlags: 0
