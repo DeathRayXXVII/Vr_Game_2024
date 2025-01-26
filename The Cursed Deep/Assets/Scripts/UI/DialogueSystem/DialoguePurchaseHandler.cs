@@ -54,8 +54,7 @@ public class DialoguePurchaseHandler : MonoBehaviour
     {
         
         var hasStock = noMoreStockBool == null || !noMoreStockBool.value;
-        Debug.LogError($"[SHOP-INFO] Shop item: {name}, in Stock: {hasStock}, bool is null {noMoreStockBool == null} or is not null and is set to {noMoreStockBool.value}", this);
-        
+          
         if (_activator == null)
         {
             Debug.LogError($"[ERROR] DialogueActivator is null on '{name}' DialoguePurchaseHandler.", this);

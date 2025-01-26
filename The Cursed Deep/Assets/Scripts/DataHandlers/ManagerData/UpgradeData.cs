@@ -88,23 +88,18 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
         if (list == null)
         {
             list = new DualTypeList(type);
-            Debug.LogError($"[UPGRADE-INFO] {name}'s {type} list for {key} was null. Created new list.", this);
         }
+        
         else if (list.listType != type)
         {
             list.listType = type;
             list.Clear();
-            Debug.LogError($"[UPGRADE-INFO] {name}'s {type} list for {key} was not of type {type}. Cleared list.", this);
         }
-        
-        Debug.LogError($"[UPGRADE-INFO] {name}'s JSON file is {(_jsonFile == null ? "" : "not")} null, key {(string.IsNullOrEmpty(key) ? "is not assigned." : $"assigned to '{key}'")}" +
-                  $" and the key is {(ValidateJsonKey(key, jsonData) ? "valid." : "invalid.")}", this);
         
         if (_jsonFile == null || string.IsNullOrEmpty(key) || !ValidateJsonKey(key, jsonData))
         {
             SetLoadState(key, false);
             list.Clear();
-            Debug.LogError($"[UPGRADE-INFO] Set {name}'s load state for {key} to false.", this);
         }
     }
     public object baseUpgradeValue => _upgradeDataType == EnumDataTypes.Float ? _baseUpgradeFloat : _baseUpgradeInt;
@@ -292,9 +287,6 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
         UpdateContainer(_upgradeDataType, upgradeValue, _upgradeFloatContainer, _upgradeIntContainer);
         UpdateContainer(_costDataType, upgradeCost, _costFloatContainer, _costIntContainer);
         if (_maxLevelData != null) _maxLevelData.value = hasMaxLevelBeenReached;
-        Debug.LogError($"[UPGRADE-INFO] Info for {name} Upgrade Level: {upgradeLevel}, Upgrade maxed: {hasMaxLevelBeenReached} " +
-                       $"and bool value: {_maxLevelData?.value}. Upgrade Value: {upgradeValue}, Upgrade Cost: {upgradeCost}" +
-                       $"\nUpgrade List: {_upgradeList.ToString()}\nCost List: {_costList.ToString()}", this);
     }
     
     /// <summary>
