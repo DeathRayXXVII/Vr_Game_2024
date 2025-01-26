@@ -18,6 +18,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private UnityEvent OnOpenDialogue;
     [SerializeField] private UnityEvent OnTypingFinish;
     [SerializeField] private UnityEvent OnFinalDialogueTypingFinish;
+    [SerializeField] private UnityEvent OnWaitingForResponse;
     [SerializeField] private UnityEvent OnWaitingForExternalAction;
     [SerializeField] private UnityEvent OnCloseDialogue;
     public DialogueData dialogueData;
@@ -74,7 +75,6 @@ public class DialogueUI : MonoBehaviour
         var formattedDialogueArray = dialogueObj.Dialogue;
         var lastDialogueIndex = dialogueObj.lastDialogueIndex;
 
-        OnOpenDialogue.Invoke();
         for (int i = 0; i < dialogueObj.length; i++)
         {
             OnOpenDialogue?.Invoke();
@@ -92,6 +92,7 @@ public class DialogueUI : MonoBehaviour
         
         if (dialogueObj.hasResponses && dialogueObj.Responses.Length > 0)
         {
+            OnWaitingForResponse?.Invoke();
             responseHandler.ShowResponses(dialogueObj.Responses);
             yield break;
         }
