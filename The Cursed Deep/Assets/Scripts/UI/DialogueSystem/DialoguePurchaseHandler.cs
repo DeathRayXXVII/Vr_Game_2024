@@ -52,7 +52,6 @@ public class DialoguePurchaseHandler : MonoBehaviour
     
     public void CheckStock()
     {
-        
         var hasStock = noMoreStockBool == null || !noMoreStockBool.value;
           
         if (_activator == null)

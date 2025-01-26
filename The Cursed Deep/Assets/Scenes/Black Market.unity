@@ -2484,7 +2484,7 @@ PrefabInstance:
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -2494,18 +2494,28 @@ PrefabInstance:
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 2
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 593380802}
+      objectReference: {fileID: 1263037285}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1087729909}
+      objectReference: {fileID: 593380802}
+    - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 593380802}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -2518,23 +2528,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlayAudioShot
+      value: PerformTutorialAction
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ShowDialogue
+      value: PlayAudioShot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: PlayAudioShot
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: AudioPlayer, Assembly-CSharp
+      value: Tutorial.TutorialHelper, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: DialogueUI, Assembly-CSharp
+      value: AudioPlayer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: AudioPlayer, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -2544,14 +2569,28 @@ PrefabInstance:
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Tutorial17-WristChecked
+      value: StartTut17
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 11400000, guid: a810d901bcb78554894879fa73065c39,
-        type: 2}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Tutorial17-WristChecked
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
+      value: Tutorial17-WristChecked
+      objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -2560,7 +2599,12 @@ PrefabInstance:
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UI.DialogueSystem.DialogueData, Assembly-CSharp
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7444395221594236735, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -6412,6 +6456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4614c249556b6f4b9be6faf6f58acd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowDebug: 0
   _tutorialData:
   - _tutorialIsActive: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862,
       type: 2}
@@ -6430,6 +6475,50 @@ MonoBehaviour:
               m_IntArgument: 0
               m_FloatArgument: 0
               m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - _tutorialIsActive: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862,
+      type: 2}
+    actions:
+    - actionName: StartTut17
+      onActionEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 1087729909}
+            m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
+            m_MethodName: set_waitForExternalAction
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 1087729909}
+            m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
+            m_MethodName: ShowDialogue
+            m_Mode: 2
+            m_Arguments:
+              m_ObjectArgument: {fileID: 11400000, guid: a810d901bcb78554894879fa73065c39,
+                type: 2}
+              m_ObjectArgumentAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 593380802}
+            m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+            m_MethodName: PlayAudioShot
+            m_Mode: 5
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: Tutorial17-WristChecked
               m_BoolArgument: 0
             m_CallState: 2
   - _tutorialIsActive: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862,
@@ -6894,6 +6983,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1035871823491773148}
+          m_TargetAssemblyTypeName: RepairItemManager, Assembly-CSharp
+          m_MethodName: UpdateRepairCost
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
         - m_Target: {fileID: 5245233627773701010}
           m_TargetAssemblyTypeName: Outline, Assembly-CSharp
           m_MethodName: SetOutlineColor
@@ -7019,6 +7120,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1035871823491773143}
+          m_TargetAssemblyTypeName: DialoguePurchaseHandler, Assembly-CSharp
+          m_MethodName: CheckStock
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - actionObj: {fileID: 11400000, guid: a03f64e4991d2f84394dfe0e8d645fdc, type: 2}
     onRaiseEvent:
       m_PersistentCalls:
@@ -7099,6 +7212,18 @@ MonoBehaviour:
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1087729909}
+          m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
+          m_MethodName: set_waitForExternalAction
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
           m_CallState: 2
         - m_Target: {fileID: 593380802}
           m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp

@@ -6,10 +6,13 @@ namespace Tutorial
 {
     public class TutorialHelper : MonoBehaviour
     {
+        public bool allowDebug;
+        
         [System.Serializable]
         private struct TutorialData
         {
             public BoolData _tutorialIsActive;
+            
             [System.Serializable]
             public struct Actions
             {
@@ -19,14 +22,17 @@ namespace Tutorial
             
             public Actions[] actions;
             
-            public void PerformAction(string actionName)
+            public void PerformAction(string actionName, bool debugging = false)
             {
-                Debug.Log($"Performing action {actionName} because {_tutorialIsActive.name} is active.");
+                if (debugging)
+                    Debug.Log($"[INFO] {_tutorialIsActive.name} is active, performing action {actionName}.");
                 foreach (var action in actions)
                 {
-                    Debug.Log($"Checking action {action.actionName}.");
+                    if (debugging)
+                        Debug.Log($"[INFO] Checking action {action.actionName}.");
                     if (action.actionName != actionName) continue;
-                    Debug.Log($"Valid action found, performing action {actionName}.");
+                    if (debugging)
+                        Debug.Log($"[INFO] Valid action found, performing action {actionName}.");
                     action.onActionEvent.Invoke();
                     return;
                 }
@@ -34,13 +40,13 @@ namespace Tutorial
         }
         
         [SerializeField] private TutorialData[] _tutorialData;
-        
+
         public void PerformTutorialAction(string actionName)
         {
             foreach (var tutorial in _tutorialData)
             {
                 if (!tutorial._tutorialIsActive) continue;
-                tutorial.PerformAction(actionName);
+                tutorial.PerformAction(actionName, allowDebug);
             }
         }
     }

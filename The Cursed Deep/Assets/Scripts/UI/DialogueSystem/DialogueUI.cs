@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,12 +18,20 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private UnityEvent OnOpenDialogue;
     [SerializeField] private UnityEvent OnTypingFinish;
     [SerializeField] private UnityEvent OnFinalDialogueTypingFinish;
+    [SerializeField] private UnityEvent OnWaitingForExternalAction;
     [SerializeField] private UnityEvent OnCloseDialogue;
     public DialogueData dialogueData;
     
     private Coroutine _dialogueCoroutine;
     private Coroutine _waitCoroutine;
     private WaitForFixedUpdate _waitFixedUpdate = new();
+
+    public bool _waitForExternalAction;
+    public bool waitForExternalAction
+    {
+        private get => _waitForExternalAction;
+        set => _waitForExternalAction = value;
+    }
     
     public bool IsOpen { get; private set;}
     
@@ -93,6 +102,11 @@ public class DialogueUI : MonoBehaviour
         {
             _waitCoroutine = StartCoroutine(WaitForDelay(autoCloseDelay));
             yield return new WaitUntil(() => _waitCoroutine == null);
+        }
+        else if (waitForExternalAction)
+        {
+            OnWaitingForExternalAction?.Invoke();
+            yield return new WaitUntil(() => waitForExternalAction == false);
         }
         else
         {
@@ -178,6 +192,33 @@ public class DialogueUI : MonoBehaviour
         dialogueObj?.LastDialogueEvent(action);
     }
     
+    private void StopActiveCoroutines()
+    {
+        if (_dialogueCoroutine != null)
+        {
+            StopCoroutine(_dialogueCoroutine);
+            _dialogueCoroutine = null;
+        }
+        
+        if (_waitCoroutine != null)
+        {
+            StopCoroutine(_waitCoroutine);
+            _waitCoroutine = null;
+        }
+        
+        waitForExternalAction = false;
+    }
+    
     public void OnEnable() => inputAction?.action.Enable();
-    public void OnDisable() => inputAction?.action.Disable();
+    public void OnDisable() 
+    {
+        inputAction?.action.Disable();
+        StopActiveCoroutines();
+    }
+
+    public void OnDestroy()
+    {
+        inputAction?.action.Disable();
+        StopActiveCoroutines();
+    }
 }
