@@ -934,12 +934,12 @@ PrefabInstance:
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -955,8 +955,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: f1347785a48949140ac52f2de33a90aa,
-        type: 2}
+      objectReference: {fileID: 1249003073}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -967,7 +966,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: b251928022ea0ea42be99a5c94cbfc09,
+        type: 2}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -986,7 +986,7 @@ PrefabInstance:
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LastDialogueEvent
+      value: PerformTutorialAction
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -996,12 +996,12 @@ PrefabInstance:
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: 
+      value: RaiseAction
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UI.DialogueSystem.DialogueData, Assembly-CSharp
+      value: Tutorial.TutorialHelper, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -1016,7 +1016,7 @@ PrefabInstance:
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: 
+      value: EndTut8
       objectReference: {fileID: 0}
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -1041,7 +1041,7 @@ PrefabInstance:
     - target: {fileID: 7408525178204583048, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_HoverEntered.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: 
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8033468983827128084, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
@@ -2393,7 +2393,7 @@ PrefabInstance:
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.size
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
@@ -2465,7 +2465,7 @@ PrefabInstance:
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[6].m_Mode
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
@@ -2475,7 +2475,7 @@ PrefabInstance:
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[8].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
@@ -2516,17 +2516,17 @@ PrefabInstance:
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[6].m_Target
       value: 
-      objectReference: {fileID: 1286220449}
+      objectReference: {fileID: 510270321}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[7].m_Target
       value: 
-      objectReference: {fileID: 1249003073}
+      objectReference: {fileID: 1286220449}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[8].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1249003073}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[9].m_Target
@@ -2570,17 +2570,17 @@ PrefabInstance:
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[6].m_MethodName
-      value: StartWaitForSecondsEvent
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[7].m_MethodName
-      value: PerformTutorialAction
+      value: StartWaitForSecondsEvent
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[8].m_MethodName
-      value: 
+      value: PerformTutorialAction
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
@@ -2645,17 +2645,17 @@ PrefabInstance:
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[6].m_TargetAssemblyTypeName
-      value: WaitBehavior, Assembly-CSharp
+      value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[7].m_TargetAssemblyTypeName
-      value: Tutorial.TutorialHelper, Assembly-CSharp
+      value: WaitBehavior, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[8].m_TargetAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: Tutorial.TutorialHelper, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
@@ -2695,17 +2695,17 @@ PrefabInstance:
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[6].m_Arguments.m_StringArgument
-      value: ActivateAmmo
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[7].m_Arguments.m_StringArgument
-      value: EndTut7
+      value: ActivateAmmo
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[8].m_Arguments.m_StringArgument
-      value: 
+      value: EndTut7
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
@@ -2740,7 +2740,7 @@ PrefabInstance:
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
       propertyPath: onSuccessfulFire.m_PersistentCalls.m_Calls.Array.data[8].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: 
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 9105805529164418268, guid: e9c5d08b260ddd240af99c9be382c27f,
         type: 3}
@@ -4442,6 +4442,18 @@ MonoBehaviour:
       onActionEvent:
         m_PersistentCalls:
           m_Calls:
+          - m_Target: {fileID: 11400000, guid: f38301e4a257a244eb12ce8351f9676c, type: 2}
+            m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+            m_MethodName: Set
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
           - m_Target: {fileID: 11400000, guid: 8fdabb1df4a68b84799e4dd89d14229c, type: 2}
             m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
             m_MethodName: LastDialogueEvent
@@ -4466,18 +4478,6 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-          - m_Target: {fileID: 11400000, guid: f38301e4a257a244eb12ce8351f9676c, type: 2}
-            m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
-            m_MethodName: Set
-            m_Mode: 6
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
   - _tutorialIsActive: {fileID: 11400000, guid: 87684e840c4d96440b372088d5c9096e,
       type: 2}
     actions:
@@ -4485,10 +4485,10 @@ MonoBehaviour:
       onActionEvent:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 11400000, guid: 3a9d69f8fd8d5fc4dad802f3382af1fe, type: 2}
-            m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-            m_MethodName: LastDialogueEvent
-            m_Mode: 1
+          - m_Target: {fileID: 11400000, guid: 87684e840c4d96440b372088d5c9096e, type: 2}
+            m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+            m_MethodName: Set
+            m_Mode: 6
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4497,10 +4497,10 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-          - m_Target: {fileID: 11400000, guid: 87684e840c4d96440b372088d5c9096e, type: 2}
-            m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
-            m_MethodName: Set
-            m_Mode: 6
+          - m_Target: {fileID: 11400000, guid: 3a9d69f8fd8d5fc4dad802f3382af1fe, type: 2}
+            m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+            m_MethodName: LastDialogueEvent
+            m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4516,6 +4516,18 @@ MonoBehaviour:
       onActionEvent:
         m_PersistentCalls:
           m_Calls:
+          - m_Target: {fileID: 11400000, guid: 3ff14592d3e205248baa9cba8959eed0, type: 2}
+            m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+            m_MethodName: Set
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
           - m_Target: {fileID: 565088305}
             m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
             m_MethodName: SetActive
@@ -4540,7 +4552,14 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 1
             m_CallState: 2
-          - m_Target: {fileID: 11400000, guid: 3ff14592d3e205248baa9cba8959eed0, type: 2}
+  - _tutorialIsActive: {fileID: 11400000, guid: b56fde8cc8ad1a24da78083ab6b5e847,
+      type: 2}
+    actions:
+    - actionName: EndTut7
+      onActionEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: b56fde8cc8ad1a24da78083ab6b5e847, type: 2}
             m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
             m_MethodName: Set
             m_Mode: 6
@@ -4552,13 +4571,6 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-  - _tutorialIsActive: {fileID: 11400000, guid: b56fde8cc8ad1a24da78083ab6b5e847,
-      type: 2}
-    actions:
-    - actionName: EndTut7
-      onActionEvent:
-        m_PersistentCalls:
-          m_Calls:
           - m_Target: {fileID: 11400000, guid: 552f5c0e56d6fb44aa088863e08cb9a5, type: 2}
             m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
             m_MethodName: LastDialogueEvent
@@ -4571,10 +4583,53 @@ MonoBehaviour:
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-          - m_Target: {fileID: 11400000, guid: b56fde8cc8ad1a24da78083ab6b5e847, type: 2}
+  - _tutorialIsActive: {fileID: 11400000, guid: 6a603e18fe657824cbe1387d5af42f40,
+      type: 2}
+    actions:
+    - actionName: EndTut8
+      onActionEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: 6a603e18fe657824cbe1387d5af42f40, type: 2}
             m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
             m_MethodName: Set
             m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 593018822}
+            m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
+            m_MethodName: set_waitForExternalAction
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 11400000, guid: f1347785a48949140ac52f2de33a90aa, type: 2}
+            m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+            m_MethodName: LastDialogueEvent
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+          - m_Target: {fileID: 11400000, guid: b251928022ea0ea42be99a5c94cbfc09, type: 2}
+            m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+            m_MethodName: RaiseAction
+            m_Mode: 1
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5463,6 +5518,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 593018822}
+          m_TargetAssemblyTypeName: DialogueUI, Assembly-CSharp
+          m_MethodName: set_waitForExternalAction
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
         - m_Target: {fileID: 335332209}
           m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
           m_MethodName: PlayAudioShot
@@ -5813,6 +5880,18 @@ MonoBehaviour:
             m_BoolArgument: 1
           m_CallState: 2
         - m_Target: {fileID: 11400000, guid: b56fde8cc8ad1a24da78083ab6b5e847, type: 2}
+          m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+          m_MethodName: Set
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 11400000, guid: 6a603e18fe657824cbe1387d5af42f40, type: 2}
           m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
           m_MethodName: Set
           m_Mode: 6
