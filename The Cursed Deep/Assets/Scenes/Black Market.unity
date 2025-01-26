@@ -6416,6 +6416,25 @@ MonoBehaviour:
   - _tutorialIsActive: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862,
       type: 2}
     actions:
+    - actionName: EndTut15
+      onActionEvent:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: 1f5e461eb9bb4ce49baaee5da9363cc2, type: 2}
+            m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
+            m_MethodName: LastDialogueEvent
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+  - _tutorialIsActive: {fileID: 11400000, guid: 53f304f09d733404c95fbce9181b3862,
+      type: 2}
+    actions:
     - actionName: EndTut18
       onActionEvent:
         m_PersistentCalls:
@@ -10942,16 +10961,16 @@ MonoBehaviour:
   onInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 1f5e461eb9bb4ce49baaee5da9363cc2, type: 2}
-        m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-        m_MethodName: LastDialogueEvent
-        m_Mode: 1
+      - m_Target: {fileID: 1263037285}
+        m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
+        m_MethodName: PerformTutorialAction
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: EndTut15
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!65 &1035871823491773146
