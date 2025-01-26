@@ -151,7 +151,7 @@ MonoBehaviour:
   - id: Tutorial6-LoadCannon
     clip: {fileID: 8300000, guid: 43f59bdf0d29d1348bb51b2ed859e7cc, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 0
+    _locked: 1
     playOnAwake: 0
     priority: 128
     volume: 1
@@ -178,7 +178,7 @@ MonoBehaviour:
   - id: Tutorial7-FireCannon
     clip: {fileID: 8300000, guid: d5b8f56206e792148a4b51f0fb08f928, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 1
+    _locked: 0
     playOnAwake: 0
     priority: 128
     volume: 1
@@ -216,19 +216,7 @@ MonoBehaviour:
     delay: 0
     onComplete:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11400000, guid: f1347785a48949140ac52f2de33a90aa, type: 2}
-          m_TargetAssemblyTypeName: UI.DialogueSystem.DialogueData, Assembly-CSharp
-          m_MethodName: LastDialogueEvent
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
   - id: Tutorial9-ToTheNextScene
     clip: {fileID: 8300000, guid: 168f97c5fc018cf478c6d12ef60a870e, type: 3}
     playOnlyOncePerGame: 1

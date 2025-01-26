@@ -31,7 +31,8 @@ public class PooledObjectBehavior : MonoBehaviour
         
         if (!_spawnManager)
         {
-            Debug.LogWarning($"SpawnManager is null {name} SpawnedObjectBehavior.", this);
+            if (_allowDebug)
+                Debug.LogWarning($"[WARNING] SpawnManager is null {name} SpawnedObjectBehavior.", this);
             return;
         }
         _spawnManager.SetSpawnDelay(timeToRespawn ? timeToRespawn : 1);
@@ -62,7 +63,7 @@ public class PooledObjectBehavior : MonoBehaviour
         if (!_spawned || _beingDestroyed) return;
         
         if (_allowDebug)
-            Debug.Log($"OnDisable of {name} called from {_spawner.spawnerID}. Respawning: {_respawnTriggered}", this);
+            Debug.Log($"[INFO] OnDisable of {name} called from {_spawner.spawnerID}. Respawning: {_respawnTriggered}", this);
         
         _spawnManager?.NotifyPoolObjectDisabled(ref _spawner, _respawnTriggered);
         _spawned = false;
