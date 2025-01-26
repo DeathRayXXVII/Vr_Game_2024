@@ -47,6 +47,7 @@ namespace Tutorial
             {
                 if (!tutorial._tutorialIsActive) continue;
                 tutorial.PerformAction(actionName, allowDebug);
+                break;
             }
         }
     }
