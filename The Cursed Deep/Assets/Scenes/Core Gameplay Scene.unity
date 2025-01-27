@@ -1236,14 +1236,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4614c249556b6f4b9be6faf6f58acd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allowDebug: 0
   _tutorialData:
-  - _tutorialIsActive: {fileID: 11400000, guid: 99245ed7b59aeae498f4095737fa5a94,
+  - _tutorialIsActive: {fileID: 11400000, guid: 74a55896f613f4e49beebef8bd834c90,
       type: 2}
     actions:
     - actionName: StartTut25
       onActionEvent:
         m_PersistentCalls:
           m_Calls:
+          - m_Target: {fileID: 11400000, guid: 74a55896f613f4e49beebef8bd834c90, type: 2}
+            m_TargetAssemblyTypeName: BoolData, Assembly-CSharp
+            m_MethodName: Set
+            m_Mode: 6
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
           - m_Target: {fileID: 11400000, guid: e00c54befd1fb2e469773bf72a3d728b, type: 2}
             m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
             m_MethodName: RaiseAction
