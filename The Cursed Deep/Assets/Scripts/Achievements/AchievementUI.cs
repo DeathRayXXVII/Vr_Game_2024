@@ -24,7 +24,7 @@ namespace Achievements
             if (ach.isHidden && !ach.isUnlocked)
             {
                 hiddenOverlay.SetActive(true);
-                hiddenName.text = "???";
+                hiddenName.text = "? ? ?";
             }
             else
             {
@@ -49,7 +49,8 @@ namespace Achievements
                     
                     if (ach.isUnlocked)
                     {
-                        progress.text = ach.goal + ach.progressSuffix + " / " + ach.goal + ach.progressSuffix + " (Achieved)";
+                        //progress.text = ach.goal + ach.progressSuffix + " / " + ach.goal + ach.progressSuffix + " (Achieved)";
+                        progress.text = "Achieved";
                     }
                     else
                     {
