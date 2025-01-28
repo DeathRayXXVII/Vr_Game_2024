@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +17,7 @@ namespace Achievements
         [SerializeField] private Scrollbar achScrollbar;
 
         private bool menuOpen = false;
-        private Dictionary<string, AchievementUI> achiUIDict = new Dictionary<string, AchievementUI>();
+        //private Dictionary<string, AchievementUI> achiUIDict = new Dictionary<string, AchievementUI>();
 
         private void AddAchievements(string filter)
         {
@@ -26,7 +27,17 @@ namespace Achievements
             achCount.text = "" + achievedCount + " / " + achManager.achievementData.achievements.Count;
             achPercent.text = "Complete (" + achManager.GetAchievementPercent() + "%)";
 
-            foreach (var achievement in achManager.achievementData.achievements)
+            foreach (var ach in achManager.achievementData.achievements)
+            {
+                if (filter.Equals("All") || (filter.Equals("Achieved") && ach.isUnlocked) ||
+                    (filter.Equals("Un-achieved") && !ach.isUnlocked))
+                {
+                    AddAchievementToUI(ach, ach as ProgressiveAchievement);
+                }
+
+                achScrollbar.value = 1;
+            }
+            /*foreach (var achievement in achManager.achievementData.achievements)
             {
                 if (filter.Equals("All") || (filter.Equals("Achieved") && achievement.isUnlocked) || (filter.Equals("Un-achieved") && !achievement.isUnlocked))
                 {
@@ -67,8 +78,7 @@ namespace Achievements
                     kvp.Value.gameObject.SetActive(true);
                 }
             }
-
-            achScrollbar.value = 1;
+            achScrollbar.value = 1;*/
         }
 
         private void AddAchievementToUI(Achievement ach, ProgressiveAchievement progAch)
@@ -76,7 +86,7 @@ namespace Achievements
             AchievementUI ui = Instantiate(achUI, new Vector3(0f, 0f, 0f), Quaternion.identity).GetComponent<AchievementUI>();
             ui.SetAchievement(ach, progAch);
             ui.transform.SetParent(achArea.transform);
-            achiUIDict[ach.id] = ui;
+            //achiUIDict[ach.id] = ui;
         }
 
         public void ChangeFilter()
@@ -87,14 +97,14 @@ namespace Achievements
         private void OpenMenu()
         {
             menuOpen = true;
-            achDisplay.SetActive(true);
+            achDisplay.SetActive(menuOpen);
+            AddAchievements("All");
         }
 
         private void CloseMenu()
         {
             menuOpen = false;
-            achDisplay.SetActive(false);
-            AddAchievements("All");
+            achDisplay.SetActive(menuOpen);
         }
 
         public void ToggleMenu()
