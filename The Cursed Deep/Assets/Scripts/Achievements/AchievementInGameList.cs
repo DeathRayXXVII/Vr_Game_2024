@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +14,6 @@ namespace Achievements
         [SerializeField] private Scrollbar achScrollbar;
 
         private bool menuOpen = false;
-        private Dictionary<string, AchievementUI> achiUIDict = new Dictionary<string, AchievementUI>();
 
         private void AddAchievements(string filter)
         {
@@ -26,49 +23,16 @@ namespace Achievements
             achCount.text = "" + achievedCount + " / " + achManager.achievementData.achievements.Count;
             achPercent.text = "Complete (" + achManager.GetAchievementPercent() + "%)";
 
-            foreach (var achievement in achManager.achievementData.achievements)
+            foreach (var ach in achManager.achievementData.achievements)
             {
-                if (filter.Equals("All") || (filter.Equals("Achieved") && achievement.isUnlocked) || (filter.Equals("Un-achieved") && !achievement.isUnlocked))
+                if (filter.Equals("All") || (filter.Equals("Achieved") && ach.isUnlocked) ||
+                    (filter.Equals("Un-achieved") && !ach.isUnlocked))
                 {
-                    if (achiUIDict.TryGetValue(achievement.id, out var ui))
-                    {
-                        // Update existing UI element
-                        ui.SetAchievement(achievement, achievement as ProgressiveAchievement);
-                    }
-                    else
-                    {
-                        // Create new UI element
-                        ui = Instantiate(achUI, new Vector3(0f, 0f, 0f), Quaternion.identity).GetComponent<AchievementUI>();
-                        ui.SetAchievement(achievement, achievement as ProgressiveAchievement);
-                        ui.transform.SetParent(achArea.transform, false);
-                        ui.transform.localScale = Vector3.one;
-                        ui.transform.localPosition = Vector3.zero;
-                        achiUIDict[achievement.id] = ui;
-                    }
+                    AddAchievementToUI(ach, ach as ProgressiveAchievement);
                 }
-                else
-                {
-                    if (achiUIDict.TryGetValue(achievement.id, out var ui))
-                    {
-                        // Hide UI element if it doesn't match the filter
-                        ui.gameObject.SetActive(false);
-                    }
-                }
-            }
 
-            // Show only the filtered achievements
-            foreach (var kvp in achiUIDict)
-            {
-                var achievement = achManager.achievementData.achievements.FirstOrDefault(a => a.id == kvp.Key);
-                if (achievement != null && ((filter.Equals("All")) ||
-                    (filter.Equals("Achieved") && achievement.isUnlocked) ||
-                    (filter.Equals("Un-achieved") && !achievement.isUnlocked)))
-                {
-                    kvp.Value.gameObject.SetActive(true);
-                }
+                achScrollbar.value = 1;
             }
-
-            achScrollbar.value = 1;
         }
 
         private void AddAchievementToUI(Achievement ach, ProgressiveAchievement progAch)
@@ -76,7 +40,6 @@ namespace Achievements
             AchievementUI ui = Instantiate(achUI, new Vector3(0f, 0f, 0f), Quaternion.identity).GetComponent<AchievementUI>();
             ui.SetAchievement(ach, progAch);
             ui.transform.SetParent(achArea.transform);
-            achiUIDict[ach.id] = ui;
         }
 
         public void ChangeFilter()
@@ -87,14 +50,14 @@ namespace Achievements
         private void OpenMenu()
         {
             menuOpen = true;
-            achDisplay.SetActive(true);
+            achDisplay.SetActive(menuOpen);
+            AddAchievements("All");
         }
 
         private void CloseMenu()
         {
             menuOpen = false;
-            achDisplay.SetActive(false);
-            AddAchievements("All");
+            achDisplay.SetActive(menuOpen);
         }
 
         public void ToggleMenu()
