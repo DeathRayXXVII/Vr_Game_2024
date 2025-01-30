@@ -525,6 +525,18 @@ Transform:
   - {fileID: 1806873826}
   m_Father: {fileID: 1212031068}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &107078456 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 437677511382255851, guid: 9633f4a35242b454783ef9a0d2324a5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 220304214}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce2cfdee0e461d74e9fd1f78513adf33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &108953837
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -896,7 +908,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 525364873}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &190463145
 MonoBehaviour:
@@ -918,22 +930,10 @@ MonoBehaviour:
   achDisplayNum: 1
   showProgress: 0
   display: 0
-  displayUI: {fileID: 0}
+  displayUI: {fileID: 107078456}
   onDisplay:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ScaleUp
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 8300000, guid: 65f8df9cdbc29d64f9b10318f6cdefd0, type: 3}
         m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
         m_MethodName: 
@@ -3504,6 +3504,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 107078456}
+        m_TargetAssemblyTypeName: Achievements.AchievementUIDisplay, Assembly-CSharp
+        m_MethodName: DisplayStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &525364873
 Transform:
   m_ObjectHideFlags: 0
@@ -3519,7 +3531,6 @@ Transform:
   m_Children:
   - {fileID: 1815887192}
   - {fileID: 1516806881}
-  - {fileID: 190463144}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &525364874
@@ -11699,6 +11710,7 @@ SceneRoots:
   - {fileID: 1887719958}
   - {fileID: 1093705442}
   - {fileID: 1145012308}
+  - {fileID: 190463144}
   - {fileID: 525364873}
   - {fileID: 1212031068}
   - {fileID: 1104608401}

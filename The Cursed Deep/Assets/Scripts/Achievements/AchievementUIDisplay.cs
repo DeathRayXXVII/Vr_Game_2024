@@ -18,6 +18,19 @@ namespace Achievements
         {
             achManager = AchievementManager.Instance;
         }
+        
+        public void DisplayStart()
+        {
+            if (achManager.displayUI == null)
+            {
+                achManager.displayUI = this;
+            }
+        }
+        
+        public void RemoveDisplay()
+        {
+            achManager.displayUI = null;
+        }
     
         public void ScheduleAchievementDisplay(int id)
         {
