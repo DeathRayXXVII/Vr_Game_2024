@@ -34,14 +34,15 @@ namespace Achievements
             {
                 Destroy(gameObject);
             }
+            //displayUI = null;
             
-            
-            DontDestroyOnLoad(gameObject.transform.root);
+            //DontDestroyOnLoad(gameObject.transform.root);
             //LoadAchievements();
         }
         
-        private void Start()
+        public void AchStart()
         {
+            displayUI = null;
             if (displayUI == null)
             {
                 displayUI = FindObjectOfType<AchievementUIDisplay>();
