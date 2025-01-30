@@ -35,8 +35,17 @@ namespace Achievements
                 Destroy(gameObject);
             }
             
+            
             DontDestroyOnLoad(gameObject.transform.root);
             //LoadAchievements();
+        }
+        
+        private void Start()
+        {
+            if (displayUI == null)
+            {
+                displayUI = FindObjectOfType<AchievementUIDisplay>();
+            }
         }
         public int GetAchievementCount()
         {
