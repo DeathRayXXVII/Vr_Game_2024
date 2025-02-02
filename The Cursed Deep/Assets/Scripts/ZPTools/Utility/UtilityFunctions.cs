@@ -37,26 +37,19 @@ namespace ZPTools.Utility
             {
                 if (interfaceObject == null)
                 {
-#if UNITY_EDITOR
                     UnityEngine.Debug.LogError("[ERROR] Interface object is null");
-#endif
                     continue;
                 }
+                
                 try
                 {
                     action(interfaceObject);
                 }
-#if UNITY_EDITOR
+                
                 catch (System.Exception e)
                 {
                     UnityEngine.Debug.LogError(e, null);
                 }
-#else
-                catch(System.Exception)
-                {
-                    // ignored
-                }
-#endif
             }
             
             return true;
@@ -75,18 +68,22 @@ namespace ZPTools.Utility
             var returnComponent = (obj.GetComponent<T>() ?? obj.GetComponentInChildren<T>()) ?? obj.GetComponentInParent<T>();
             if (returnComponent != null)
             {
-#if UNITY_EDITOR
-                if (allowDebug) UnityEngine.Debug.Log($"Found {typeof(T)} in {obj.name}", obj);
-#endif
+                if (allowDebug) 
+                    UnityEngine.Debug.Log($"Found {typeof(T)} in {obj.name}", obj);
+                
                 return returnComponent;
             }
-#if UNITY_EDITOR
-            if (allowDebug) UnityEngine.Debug.LogWarning($"No {typeof(T)} found in {obj.name}", obj);
-#endif
+            
+            if (allowDebug) 
+                UnityEngine.Debug.LogWarning($"No {typeof(T)} found in {obj.name}", obj);
+            
             return null;
         }
         
-        public static bool ValidateJsonKey(string key, Newtonsoft.Json.Linq.JObject data) => data.Properties().Any(property => property.Name == key);
+        public static bool ValidateJsonKey(string key, Newtonsoft.Json.Linq.JObject data)
+        {
+            return data != null && data.Properties().Any(property => property.Name == key);
+        }
         public static IEnumerable<string> GetJsonKeys(Newtonsoft.Json.Linq.JObject data) => data.Properties().Select(property => property.Name);
     }
 }

@@ -87,14 +87,12 @@ namespace ShipGame.ScriptObj
 
         private void OnValidate()
         {
-#if UNITY_EDITOR
             if (!gameGlobals) Debug.LogError("[ERROR] Game Globals is null. Please assign a value.", this);
             if (!levelData) Debug.LogError("[ERROR] Level Data is null. Please assign a value.", this);
             if (!ship) Debug.LogError("[ERROR] Ship Selections is null. Please assign a value.", this);
             if (!cannon) Debug.LogError("[ERROR] Cannon Selections is null. Please assign a value.", this);
             if (!ammo) Debug.LogError("[ERROR] Ammo Selections is null. Please assign a value.", this);
             if (!enemy) Debug.LogError("[ERROR] Enemy Selections is null. Please assign a value.", this);
-#endif
         }
 
         private void OnEnable()
@@ -121,9 +119,8 @@ namespace ShipGame.ScriptObj
         {
             currentLevel++;
             // SetEnemyData();
-#if UNITY_EDITOR
+            
             PrintGameVariables("Called From LevelCompleted");
-#endif
         }
         
         public bool failedLevel;
@@ -312,7 +309,7 @@ namespace ShipGame.ScriptObj
 
         private void HandleLevelLoadError()
         {
-            // if (allowDebug) 
+            if (allowDebug) 
                 Debug.LogError("[WARNING] Level data is not loaded. Attempting load.", this);
             LoadLevelData();
         }
@@ -320,7 +317,7 @@ namespace ShipGame.ScriptObj
 
         private void HandleShipLoadError()
         {
-            // if (allowDebug) 
+            if (allowDebug) 
                 Debug.LogError("[WARNING] Ship data is not loaded. Attempting load.", this);
             LoadShipData();
         }
@@ -328,7 +325,7 @@ namespace ShipGame.ScriptObj
 
         private void HandleAmmoLoadError()
         {
-            // if (allowDebug) 
+            if (allowDebug) 
                 Debug.LogError("[WARNING] Ammo data is not loaded. Attempting load.", this);
             LoadAmmoData();
         }
@@ -336,7 +333,7 @@ namespace ShipGame.ScriptObj
 
         private void HandleCannonLoadError()
         {
-            // if (allowDebug) 
+            if (allowDebug) 
                 Debug.LogError("[WARNING] Cannon data is not loaded. Attempting load.", this);
             LoadCannonData();
         }
@@ -344,7 +341,7 @@ namespace ShipGame.ScriptObj
         
         private void HandleEnemyLoadError()
         {
-            // if (allowDebug) 
+            if (allowDebug) 
                 Debug.LogError("[WARNING] Enemy data is not loaded. Attempting load.", this);
             LoadEnemyData();
         }
@@ -400,53 +397,46 @@ namespace ShipGame.ScriptObj
             {
                 Setup(false);
             }
-#if UNITY_EDITOR
+            
             catch (System.IndexOutOfRangeException e)
             {
-                if (allowDebug) Debug.LogWarning(
+                if (allowDebug) 
+                    Debug.LogWarning(
                     "[WARNING] Attempted to load game data and got an index out of range exception. Attempting to initialize data and reload. Error: " +
                     e.Message);
-#else
-            catch (System.IndexOutOfRangeException)
-            {
-#endif
+                
                 Setup(true);
             }
-#if UNITY_EDITOR
+            
             catch (System.NullReferenceException e)
             {
-                if (allowDebug) Debug.LogWarning(
+                if (allowDebug) 
+                    Debug.LogWarning(
                     "[WARNING] Attempted to load game data and got a null reference exception. Attempting to initialize data and reload. Error: " +
                     e.Message);
-#else
-            catch (System.NullReferenceException)
-            {
-#endif
+                
                 Setup(true);
             }
-#if UNITY_EDITOR
+            
             catch (System.Exception e)
             {
-                if (allowDebug) Debug.LogWarning(
+                if (allowDebug) 
+                    Debug.LogWarning(
                     "[WARNING] Attempted to load game data and got an unexpected exception type. Attempting to initialize data and reload. Error: " +
                     e.Message);
-#else
-            catch (System.Exception)
-            {
-#endif
+                
                 Setup(true);
             }
-#if UNITY_EDITOR
-            if (allowDebug) Debug.Log("[DEBUG] Successfully setup game data.", this);
+            if (allowDebug) 
+                Debug.Log("[DEBUG] Successfully setup game data.", this);
             PrintGameVariables("Called From Setup");
-#endif
+            
             setupComplete = true;
             _isSettingUp = false;
         }
 
         private void PrintGameVariables(string header = "")
         {
-#if UNITY_EDITOR
             if (allowDebug)
             {
                 Debug.Log(
@@ -475,8 +465,6 @@ namespace ShipGame.ScriptObj
                     , this
                 );
             }
-#endif
-            // ignored if not in editor
         }
     }
 }

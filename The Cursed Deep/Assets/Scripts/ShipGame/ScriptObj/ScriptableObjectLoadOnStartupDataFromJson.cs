@@ -39,10 +39,10 @@ namespace ShipGame.ScriptObj
             // Use the change detector to see if the JSON has changed
             if (isLoaded && hasChanged == false)
             {
-#if UNITY_EDITOR
-                if (_allowDebug) Debug.LogWarning($"[WARNING] {name} is already loaded, and the file has not changed.", this);
+                if (_allowDebug) 
+                    Debug.LogWarning($"[WARNING] {name} is already loaded, and the file has not changed.", this);
                 LogCurrentData();
-#endif
+                
                 return;
             }
             
@@ -50,22 +50,20 @@ namespace ShipGame.ScriptObj
 
             if (!jsonFile)
             {
-#if UNITY_EDITOR
-                if (_allowDebug) Debug.LogError($"[ERROR] JSON file not found at ../Assets/Resources/{resourcePath}.", this);
-#endif
+                if (_allowDebug) 
+                    Debug.LogError($"[ERROR] JSON file not found at ../Assets/Resources/{resourcePath}.", this);
+                
                 return;
             }
-#if UNITY_EDITOR
-            if (_allowDebug) Debug.Log($"[DEBUG] Loading {name} from ../Assets/Resources/{resourcePath}.", this);
-#endif
+            if (_allowDebug) 
+                Debug.Log($"[DEBUG] Loading {name} from ../Assets/Resources/{resourcePath}.", this);
 
             ParseJsonFile(jsonFile);
             
             InitializeData();
             
-#if UNITY_EDITOR
-            if (_allowDebug) Debug.Log($"[DEBUG] Initialized {name} data.", this);
-#endif
+            if (_allowDebug) 
+                Debug.Log($"[DEBUG] Initialized {name} data.", this);
             
             _hashFileChangeDetector.UpdateState();
             
@@ -73,10 +71,8 @@ namespace ShipGame.ScriptObj
 
             LogCurrentData();
             
-            
-#if UNITY_EDITOR
-            if (_allowDebug) Debug.Log($"Completed load of {name}.", this);
-#endif
+            if (_allowDebug) 
+                Debug.Log($"Completed load of {name}.", this);
                 
             isLoaded = true;
         }
@@ -84,15 +80,9 @@ namespace ShipGame.ScriptObj
         public event System.Action LoadError;
         public void ArrayError(string arrayName, string error, Object context = null)
         {
-#if UNITY_EDITOR
             Debug.LogError($"[ERROR] {arrayName} is {error}. Attempting to resolve.", context);
-#endif
-            if (LoadError == null)
-            {
-                Debug.LogError($"[ERROR] LoadError event is null. Cannot resolve error.", context);
-                return;
-            }
-            LoadError!.Invoke();
+            
+            LoadError?.Invoke();
         }
     }
 }

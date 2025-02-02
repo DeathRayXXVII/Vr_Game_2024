@@ -12,7 +12,6 @@ namespace ZPTools.Utility
         [SerializeField] private List<int> _intList;
         
         public DataType.EnumDataTypes listType;
-        [SerializeField] private string _typeProviderMethodName;
         
         public DualTypeList(DataType.EnumDataTypes initialListType)
         {

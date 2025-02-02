@@ -16,9 +16,10 @@ namespace ZPTools.Utility
             _allowDebug = allowDebug;
             this.filePath = filePath;
             _hashFilePath = GetHashFilePath(filePath);
-#if UNITY_EDITOR
-            if (_allowDebug) Debug.Log($"[DEBUG] Hash Change Detector created:\n   FILEPATH: {filePath}\n    CACHE: {_hashFilePath}");
-#endif
+            
+            if (_allowDebug) 
+                Debug.Log($"[INFO] Hash Change Detector created:\n    FILEPATH: {filePath}\n    CACHE: {_hashFilePath}");
+            
 
             // Try to load the last hash from the saved hash file
             LoadLastHash();
@@ -28,9 +29,8 @@ namespace ZPTools.Utility
         {
             if (!File.Exists(filePath))
             {
-#if UNITY_EDITOR
                 Debug.LogError($"[ERROR] File not found: {filePath}");
-#endif
+                
                 return false;
             }
 
@@ -41,9 +41,9 @@ namespace ZPTools.Utility
             if (_lastFileHash != null)
                 return !string.Equals(currentFileHash, _lastFileHash, System.StringComparison.Ordinal);
 
-#if UNITY_EDITOR
-            if (_allowDebug) Debug.LogWarning("[WARNING] Last file hash is null; assuming file has changed.");
-#endif
+            if (_allowDebug) 
+                Debug.LogWarning("[WARNING] Last file hash is null; assuming file has changed.");
+            
             return true;
         }
 
@@ -51,9 +51,8 @@ namespace ZPTools.Utility
         {
             if (!File.Exists(filePath))
             {
-#if UNITY_EDITOR
                 Debug.LogError($"[ERROR] File not found: {filePath}");
-#endif
+                
                 return;
             }
             
@@ -79,9 +78,9 @@ namespace ZPTools.Utility
             {
                 // Write only the hash to the file
                 File.WriteAllText(_hashFilePath, _lastFileHash);
-#if UNITY_EDITOR
-                if (_allowDebug) Debug.Log($"[DEBUG] Hash saved to: {_hashFilePath}");
-#endif
+                
+                if (_allowDebug) 
+                    Debug.Log($"[INFO] Hash saved to: {_hashFilePath}");
             }
             catch (IOException e)
             {
@@ -97,9 +96,9 @@ namespace ZPTools.Utility
                 {
                     // Read the hash value from the hash file
                     _lastFileHash = File.ReadAllText(_hashFilePath);
-#if UNITY_EDITOR
-                    if (_allowDebug) Debug.Log($"[DEBUG] Hash loaded from: {_hashFilePath}");
-#endif
+                    
+                    if (_allowDebug) 
+                        Debug.Log($"[INFO] Hash loaded from: {_hashFilePath}");
                 }
                 catch (IOException e)
                 {
@@ -108,9 +107,8 @@ namespace ZPTools.Utility
             }
             else
             {
-#if UNITY_EDITOR
-                if (_allowDebug) Debug.LogWarning($"[WARNING] No hash file found at {_hashFilePath}. Assuming no previous state.");
-#endif
+                if (_allowDebug) 
+                    Debug.LogWarning($"[WARNING] No hash file found at {_hashFilePath}. Assuming no previous state.");
             }
         }
     }

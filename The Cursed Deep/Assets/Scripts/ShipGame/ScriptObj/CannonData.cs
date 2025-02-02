@@ -80,9 +80,7 @@ namespace ShipGame.ScriptObj
             {
                 if (_cannonInstanceData == null || _cannonInstanceData.Length == 0)
                 {
-#if UNITY_EDITOR
                     ArrayError("cannonUpgradeArray", "not initialized or is empty", this);
-#endif
                     if (_cannonInstanceData == null || _cannonInstanceData.Length == 0)
                     {
                         Debug.LogError("[ERROR] Resolution failed. Cannon Upgrade Array is null or empty.", this);
@@ -95,17 +93,13 @@ namespace ShipGame.ScriptObj
                 {
                     if (selectionIndex+1 < _cannonData.Length && value == _cannonData[selectionIndex+1].unlockIndex)
                     {
-#if UNITY_EDITOR
                         if (_allowDebug) Debug.Log($"[INFO] Selection Index increasing from {selectionIndex} to {selectionIndex+1} because upgrade index is {value}", this);
-#endif
                         selectionIndex++;
                     }
 
                     if (selectionIndex > 0 && value < _cannonData[selectionIndex].unlockIndex)
                     {
-#if UNITY_EDITOR
                         if (_allowDebug) Debug.Log($"[INFO] Selection Index decreasing from {selectionIndex} to {selectionIndex-1} because upgrade index is {value}", this);
-#endif
                         selectionIndex--;
                     }
                 }
@@ -123,9 +117,7 @@ namespace ShipGame.ScriptObj
             {
                 if (_cannonData == null || _cannonData.Length == 0)
                 {
-#if UNITY_EDITOR
                     ArrayError("cannonSelectionArray", "not initialized or is empty", this);
-#endif
                     return;
                 }
                 // Index clamped between 0 and the length of the cannon array
@@ -166,12 +158,10 @@ namespace ShipGame.ScriptObj
         
         protected override void LogCurrentData()
         {
-#if UNITY_EDITOR
-            if (_allowDebug) Debug.Log($"[DEBUG]\n------Cannon Data------\n" +
+            if (_allowDebug) Debug.Log("[INFO]\n------Cannon Data------\n" +
                                        $"Current Cannon Index: {selectionIndex}\n" +
-                                        $"Current Cannon Damage: {damage}\n" +
+                                       $"Current Cannon Damage: {damage}\n" +
                                        $"----------------------", this);
-#endif
         }
         
         public System.Collections.Generic.List<(System.Action, string)> GetButtonActions()

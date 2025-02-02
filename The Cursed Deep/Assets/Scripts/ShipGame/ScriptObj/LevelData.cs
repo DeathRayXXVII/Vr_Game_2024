@@ -60,6 +60,7 @@ namespace ShipGame.ScriptObj
 
         public int countdownToBoss => currentLevel % 5 == 0 ? 0 : 5 - currentLevel % 5;
 
+        private int _indexDebugged;
         private int currentIndex
         {
             get
@@ -78,11 +79,13 @@ namespace ShipGame.ScriptObj
                 // if _currentLevel is less than 5, return index base
                 if (currentLevel < 5)
                 {
-#if UNITY_EDITOR
-                    if (_allowDebug) 
-                        Debug.Log($"[DEBUG] Level: {currentLevel}, Index Base: {indexBase}, Countdown to boss: {countdownToBoss}," +
-                                  $" Modified Index: {indexBase}", this);
-#endif
+                    if (!_allowDebug || _indexDebugged == indexBase) return indexBase;
+                    
+                    _indexDebugged = indexBase;
+                    Debug.Log(
+                        $"[INFO] Level: {currentLevel}\nIndex Base: {indexBase}\nCountdown to boss: {countdownToBoss}\n" +
+                        $"Modified Index: {indexBase}", this);
+
                     return indexBase;
                 }
                 
@@ -90,11 +93,14 @@ namespace ShipGame.ScriptObj
                 // Level 0:5 = indexBase+0, Level 6:10 = indexBase+1, Level 11:15 = indexBase+2, etc.
                 var modifiedIndex = indexBase + Mathf.FloorToInt((float) indexBase / 5);
                 
-#if UNITY_EDITOR
-                if (_allowDebug) 
-                    Debug.Log($"[DEBUG] Level: {currentLevel}, Index Base: {indexBase}, potentially fighting boss {isPotentialBossFight}, Countdown to boss: {countdownToBoss}," +
-                              $" Modified Index: {modifiedIndex + (fightingBoss ? 0 : 1)}", this);
-#endif
+                if (_allowDebug && _indexDebugged != modifiedIndex)
+                {
+                    _indexDebugged = modifiedIndex;
+                    Debug.Log(
+                        $"[INFO] Level: {currentLevel}\nIndex Base: {indexBase}\npotentially fighting boss {isPotentialBossFight}\nCountdown to boss: {countdownToBoss}\n" +
+                        $"Modified Index: {modifiedIndex + (fightingBoss ? 0 : 1)}", this);
+                }
+                
                 // if the current level is a multiple of 5 and the player has selected to do the boss fight,
                 // then the index is the same as the modified index (boss fight)
                 // otherwise, the index is the modified index + 1 (normal fight)
@@ -157,22 +163,21 @@ namespace ShipGame.ScriptObj
         
         protected override void LogCurrentData()
         {
-#if UNITY_EDITOR
-            if (_allowDebug) Debug.Log($"[DEBUG] ------Level Data------\n" +
-                                       $"Level: {currentLevel}\n" +
-                                       $"Countdown To Boss: {countdownToBoss}\n" +
-                                       $"Fighting Boss: {fightingBoss}\n" +
-                                       $"Spawn Count: {spawnCount}\n" +
-                                       $"Spawn Rate Min: {spawnRateMin}\n" +
-                                       $"Spawn Rate Max: {spawnRateMax}\n" +
-                                       $"Lane Active Limit: {laneActiveLimit}\n" +
-                                       $"Spawn Base Health: {spawnBaseHealth}\n" +
-                                       $"Spawn Base Damage: {spawnBaseDamage}\n" +
-                                       $"Spawn Base Speed: {spawnBaseSpeed}\n" +
-                                       $"Spawn Bounty: {spawnBounty}\n" +
-                                       $"Spawn Score: {spawnScore}\n" +
-                                       $"----------------------", this);
-#endif
+            if (_allowDebug) 
+                Debug.Log($"[INFO] ------Level Data------\n" +
+                          $"Level: {currentLevel}\n" +
+                          $"Countdown To Boss: {countdownToBoss}\n" +
+                          $"Fighting Boss: {fightingBoss}\n" +
+                          $"Spawn Count: {spawnCount}\n" +
+                          $"Spawn Rate Min: {spawnRateMin}\n" +
+                          $"Spawn Rate Max: {spawnRateMax}\n" +
+                          $"Lane Active Limit: {laneActiveLimit}\n" +
+                          $"Spawn Base Health: {spawnBaseHealth}\n" +
+                          $"Spawn Base Damage: {spawnBaseDamage}\n" +
+                          $"Spawn Base Speed: {spawnBaseSpeed}\n" +
+                          $"Spawn Bounty: {spawnBounty}\n" +
+                          $"Spawn Score: {spawnScore}\n" +
+                          $"----------------------", this);
         }
         
 #if UNITY_EDITOR

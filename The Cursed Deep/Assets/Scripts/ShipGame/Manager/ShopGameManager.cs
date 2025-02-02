@@ -59,13 +59,23 @@ namespace ShipGame.Manager
                 WaitUntil waitUntil;
                 try
                 {
+                    // Debug.Log($"Initializing upgradeable: {upgrade.name}");
                     upgrade.LoadOnStartup();
                     waitUntil = new WaitUntil(() => upgrade.isInitialized);
                 }
-                catch (System.Exception e)
+                catch (System.Exception errorOnAttempt)
                 {
-                    Debug.LogError($"[ERROR] Error initializing upgradeable: {upgrade.name}\n{e}", this);
-                    waitUntil = new WaitUntil(() => true);
+                    Debug.LogError($"[ERROR] Error initializing upgradeable: {upgrade.name}. Attempting to resolve...\n{errorOnAttempt}", this);
+                    try
+                    {
+                        upgrade.LoadOnStartup();
+                        waitUntil = new WaitUntil(() => upgrade.isInitialized);
+                    }
+                    catch (System.Exception errorOnRetry)
+                    {
+                        Debug.LogError($"[ERROR] Unresolvable error initializing upgradeable: {upgrade.name}\n{errorOnRetry}", this);
+                        waitUntil = new WaitUntil(() => true);
+                    }
                 }
                 
                 yield return waitUntil;
@@ -98,10 +108,26 @@ namespace ShipGame.Manager
             coreData.Setup();
             yield return new WaitUntil(() => coreData.setupComplete);
             
-            yield return StartCoroutine(InitializeShop());
+            HandleBeforeInitialization();
+            yield return null;
+        
+            HandleTutorialInitialization();
             yield return null;
             
-            yield return StartCoroutine(base.Initialize());
+            yield return StartCoroutine(InitializeUpgradeables());
+            yield return null;
+            
+            yield return StartCoroutine(InitializeTrackers());
+            yield return null;
+            
+            yield return StartCoroutine(UpdateStock());
+            yield return null;
+        
+            yield return StartCoroutine(HandleSceneBehaviorInitialization());
+            yield return null;
+        
+            initialized = true;
+            _initCoroutine = null;
         }
     }
 }

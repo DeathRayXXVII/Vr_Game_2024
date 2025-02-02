@@ -216,8 +216,7 @@ public class UpgradeDataEditor : Editor
         
         if (JsonBlob().stringValue != null)
         {
-            var jsonUpToDate = upgradeData.HashFileChangeDetector?.HasChanged();
-            jsonUpToDate ??= false;
+            var jsonUpToDate = !upgradeData.hasChanged;
             
             var json = JsonFileProperty().objectReferenceValue as TextAsset;
             if (json != null)

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using ZPTools.Interface;
 using static ZPTools.Utility.UtilityFunctions;
@@ -13,8 +14,19 @@ namespace ZPTools
                 Debug.LogError("[ERROR] Loader is null", this);
                 return;
             }
-            loader.LoadOnStartup();
+            try
+            {
+                loader.LoadOnStartup();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"[ERROR] Error loading '{loader}' on startup: {e}", this);
+            }
         }
-        private void Start() => PerformActionOnInterface((ILoadOnStartup objectToLoad) => ExecuteLoadOnStartup(objectToLoad));
+        
+        private void Start()
+        {
+            PerformActionOnInterface((ILoadOnStartup objectToLoad) => ExecuteLoadOnStartup(objectToLoad));
+        }
     }
 }

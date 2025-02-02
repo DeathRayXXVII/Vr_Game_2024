@@ -62,31 +62,33 @@ namespace ShipGame.ScriptObj
             {
                 if (_ammoInstanceData == null || _ammoInstanceData.Length == 0)
                 {
-#if UNITY_EDITOR
                     ArrayError("ammoUpgradeArray", "not initialized or is empty", this);
-#endif
+                    
                     if (_ammoInstanceData == null || _ammoInstanceData.Length == 0)
                     {
                         Debug.LogError("[ERROR] Resolution failed. Ammo Upgrade Array is null or empty.", this);
-                        return;
+                        
+                        // return;
                     }
+                    return;
                 }
+                
                 var performUnlockCheck = value > 0 && value < _ammoInstanceData.Length;
                 if (performUnlockCheck && _ammoData is { Length: > 0 } )
                 {
                     if (selectionIndex+1 < _ammoData.Length && value == _ammoData[selectionIndex+1].unlockIndex)
                     {
-#if UNITY_EDITOR
-                        if (_allowDebug) Debug.Log($"Selection Index increasing from {selectionIndex} to {selectionIndex+1} because upgrade index is {value}", this);
-#endif
+                        if (_allowDebug) 
+                            Debug.Log($"Selection Index increasing from {selectionIndex} to {selectionIndex+1} because upgrade index is {value}", this);
+                        
                         selectionIndex++;
                     }
 
                     if (selectionIndex > 0 && value < _ammoData[selectionIndex].unlockIndex)
                     {
-#if UNITY_EDITOR
-                        if (_allowDebug) Debug.Log($"Selection Index decreasing from {selectionIndex} to {selectionIndex-1} because upgrade index is {value}", this);
-#endif
+                        if (_allowDebug)
+                            Debug.Log($"Selection Index decreasing from {selectionIndex} to {selectionIndex-1} because upgrade index is {value}", this);
+                        
                         selectionIndex--;
                     }
                 }
@@ -109,9 +111,8 @@ namespace ShipGame.ScriptObj
             {
                 if (_ammoData == null || _ammoData.Length == 0)
                 {
-#if UNITY_EDITOR
                     ArrayError("ammoArray", "not initialized or is empty", this);
-#endif
+                    
                     return;
                 }
                 
@@ -153,13 +154,12 @@ namespace ShipGame.ScriptObj
         
         protected override void LogCurrentData()
         {
-#if UNITY_EDITOR
-            if (_allowDebug) Debug.Log($"------Ammo Data------\n" +
-                                       $"Current Ammo Index: {upgradeIndex}\n" +
-                                       $"Current Ammo Damage: {damage}\n" +
-                                        $"Current Ammo Respawn Rate: {respawnRate}\n" +
-                                       $"----------------------", this);
-#endif
+            if (_allowDebug) 
+                Debug.Log("------Ammo Data------\n" +
+                          $"Current Ammo Index: {upgradeIndex}\n" +
+                          $"Current Ammo Damage: {damage}\n" +
+                          $"Current Ammo Respawn Rate: {respawnRate}\n" +
+                          "----------------------", this);
         }
         
         public System.Collections.Generic.List<(System.Action, string)> GetButtonActions()
