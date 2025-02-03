@@ -4,6 +4,11 @@ using UnityEngine;
 public class WeaponData : ScriptableObject
 {
     public float health, damage;
+
+    public float GetHealth() => health;
+    public void GetHealth(FloatData getter) => getter.value = health;
+    public float GetDamage() => damage;
+    public void GetDamage(FloatData getter) => getter.value = damage;
     
     [Header("Total Stats")]
     [SerializeField] [ReadOnly] private int totalFired, totalWhiffs;
