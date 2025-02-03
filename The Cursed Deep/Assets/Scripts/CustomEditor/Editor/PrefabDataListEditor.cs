@@ -43,22 +43,33 @@ public class PrefabDataListEditor : Editor
             }
             else
             {
-                Debug.Log("No prefab selected");
+                Debug.LogWarning("Attempted to add a prefab, but no prefab was provided.", target);
             }
         }
 
         if (GUILayout.Button("Clear List"))
         {
-            foreach (var prefabData in prefabList.prefabDataList)
+            if (prefabList.prefabDataList.Count == 0)
             {
-                DestroyImmediate(prefabData, true);
+                EditorUtility.DisplayDialog("Clear List", "List is already empty.", "OK");
+                return;
             }
-            prefabList.prefabDataList.Clear();
-            AssetDatabase.SaveAssets();
+            
+            if (EditorUtility.DisplayDialog("Clear List", "Are you sure you want to clear the list?", "Yes", "No"))
+            {
+                foreach (var prefabData in prefabList.prefabDataList)
+                {
+                    DestroyImmediate(prefabData, true);
+                }
+                prefabList.prefabDataList.Clear();
+                AssetDatabase.SaveAssets();
+            }
         }
 
         if (prefabList.prefabDataList.Count == 0) return;
-
+        
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
         EditorGUILayout.Space();
 
         _showPrefabList = EditorGUILayout.Foldout(_showPrefabList, "Prefab Data List Items:");
@@ -67,11 +78,14 @@ public class PrefabDataListEditor : Editor
         if (_showPrefabList)
         {
             int counter = 0;
+            const int col1MinWidth = 80;
+            const int col1MaxWidth = 165;
+            const int col3MaxWidth = 75;
             PrefabData elementToRemove = null;
 
             EditorGUI.indentLevel++;
 
-            EditorGUILayout.BeginVertical(GUI.skin.box); // Begin a vertical group with a box around it
+            EditorGUILayout.BeginVertical(GUI.skin.box); // Begin of List vertical group
 
             foreach (PrefabData prefabData in prefabList.prefabDataList)
             {
@@ -81,29 +95,57 @@ public class PrefabDataListEditor : Editor
                     continue;
                 }
 
-                EditorGUILayout.BeginVertical(GUI.skin.box); // Box for each element
-
+                EditorGUILayout.BeginVertical(GUI.skin.box); // Box for each list element
+                
+                // Row 1
                 EditorGUILayout.BeginHorizontal();
-                var spacer = GUILayout.Width(265);
-                EditorGUILayout.LabelField("Element [" + counter + "]", spacer);
-                EditorGUILayout.LabelField("Priority: " + prefabData.priority, spacer);
+                
+                // Column 1 Row 1
+                EditorGUILayout.LabelField("Element [" + counter + "]", GUILayout.MinWidth(col1MinWidth),
+                    GUILayout.MaxWidth(col1MaxWidth), GUILayout.ExpandWidth(false));
+                
+                // Column 2 Row 1
+                GUILayout.FlexibleSpace();
+                
+                // Column 3 Row 1
+                EditorGUILayout.LabelField("Priority: " + prefabData.priority, GUILayout.MaxWidth(col3MaxWidth), GUILayout.ExpandWidth(false));
+                
+                // End Row 1
                 EditorGUILayout.EndHorizontal();
 
+                // Row 2
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField(prefabData.prefab.name);
-                if (GUILayout.Button("Remove"))
+                
+                try
+                {
+                    // Column 1 Row 2
+                    EditorGUILayout.ObjectField(prefabData.prefab, typeof(GameObject), false,
+                        GUILayout.MinWidth(col1MinWidth), GUILayout.MaxWidth(col1MaxWidth), GUILayout.ExpandWidth(false));
+                }
+                catch
+                {
+                    elementToRemove = prefabData;
+                }
+                
+                // Column 2 Row 2
+                GUILayout.FlexibleSpace();
+                
+                // Column 3 Row 2
+                if (GUILayout.Button("Remove", GUILayout.MaxWidth(col3MaxWidth+10),
+                        GUILayout.ExpandWidth(false)))
                 {
                     elementToRemove = prefabData;
                 }
 
+                // End Row 2
                 EditorGUILayout.EndHorizontal();
 
-                EditorGUILayout.EndVertical(); // End box for each element
+                EditorGUILayout.EndVertical(); // End box for each list element
 
                 counter++;
             }
 
-            EditorGUILayout.EndVertical(); // End of vertical group
+            EditorGUILayout.EndVertical(); // End of List vertical group
 
             EditorGUI.indentLevel--;
 
