@@ -163,11 +163,15 @@ namespace ShipGame.ScriptObj
             System.Diagnostics.Debug.Assert(_playerSpeed, "Player Speed is null");
             System.Diagnostics.Debug.Assert(_speedUpgrade, "Speed Upgrade is null");
             System.Diagnostics.Debug.Assert(_playerDamage, "Player Damage is null");
-
+            _playerDamage.damage = 1f;
+            
+            
             System.Diagnostics.Debug.Assert(_shipHealth, "Ship Health is null");
             System.Diagnostics.Debug.Assert(_healthUpgrade, "Health Upgrade is null");
 
             System.Diagnostics.Debug.Assert(_damageUpgrade, "Damage Upgrade is null");
+            _damageUpgrade.SetUpgradeLevel(0);
+            
             System.Diagnostics.Debug.Assert(_ammoRespawnRate, "Ammo Respawn Rate is null");
 
             System.Diagnostics.Debug.Assert(_enemySpawnCount, "Enemy Spawn Count is null");
