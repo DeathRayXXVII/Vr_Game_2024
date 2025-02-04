@@ -11,7 +11,7 @@ namespace Achievements
     public class AchievementManager : MonoBehaviour
     {
         [SerializeField] private bool isSteamEnabled;
-        [SerializeField] private bool autoSave;
+        //[SerializeField] private bool autoSave;
         public AchievementData achievementData;
         public int displayTime;
         public bool achDisplay;
@@ -37,7 +37,7 @@ namespace Achievements
             //displayUI = null;
             
             //DontDestroyOnLoad(gameObject.transform.root);
-            //LoadAchievements();
+            LoadAchievements();
         }
         
         public void AchStart()
@@ -105,7 +105,7 @@ namespace Achievements
                 achievement.isUnlocked = true;
                 achDisplay = true;
                 DisplayUnlock(id);
-                //SaveAchievements();
+                SaveAchievements();
                 Debug.Log($"Achievement {id} unlocked", this);
             }
         }
@@ -145,7 +145,7 @@ namespace Achievements
                 {
                     //if (achievement != null) achievement.progress = progress;
                     DisplayUnlock(id);
-                    //SaveAchievements();
+                    SaveAchievements();
                 }
             }
         }
@@ -183,7 +183,7 @@ namespace Achievements
                 {
                     if (achievement != null) achievement.progress += progress;
                     DisplayUnlock(id);
-                    //SaveAchievements();
+                    SaveAchievements();
                 }
             }
         }
@@ -264,13 +264,13 @@ namespace Achievements
             SaveAchievements();
         }
     
-        private void AutoSaveAchievements()
-        {
-            if (autoSave)
-            {
-                SaveAchievements();
-            }
-        }
+        // private void AutoSaveAchievements()
+        // {
+        //     if (autoSave)
+        //     {
+        //         SaveAchievements();
+        //     }
+        // }
     }
 
     public enum DisplayLocation
