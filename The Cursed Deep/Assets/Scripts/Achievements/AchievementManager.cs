@@ -231,8 +231,6 @@ namespace Achievements
     
         public void LoadAchievements()
         {
-            achievementData.achievements.Clear();
-        
             for (int i = 0; i < achievementData.achievements.Count; i++)
             {
                 if(PlayerPrefs.HasKey("Achievements" + i))
