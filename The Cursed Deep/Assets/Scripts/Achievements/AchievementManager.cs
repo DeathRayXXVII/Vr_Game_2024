@@ -37,7 +37,7 @@ namespace Achievements
             //displayUI = null;
             
             //DontDestroyOnLoad(gameObject.transform.root);
-            LoadAchievements();
+            //LoadAchievements();
         }
         
         public void AchStart()
@@ -105,7 +105,7 @@ namespace Achievements
                 achievement.isUnlocked = true;
                 achDisplay = true;
                 DisplayUnlock(id);
-                SaveAchievements();
+                //SaveAchievements();
                 Debug.Log($"Achievement {id} unlocked", this);
             }
         }
@@ -145,7 +145,7 @@ namespace Achievements
                 {
                     //if (achievement != null) achievement.progress = progress;
                     DisplayUnlock(id);
-                    SaveAchievements();
+                    //SaveAchievements();
                 }
             }
         }
@@ -183,7 +183,7 @@ namespace Achievements
                 {
                     if (achievement != null) achievement.progress += progress;
                     DisplayUnlock(id);
-                    SaveAchievements();
+                    //SaveAchievements();
                 }
             }
         }

@@ -18,13 +18,16 @@ public class AchievementPurchessTracker : MonoBehaviour
             onAchUnlock.Invoke();
         }
     }
-    
     public void EverythingUnlockedCheck()
     {
-        if (everythingUnlockedCheck.Any(boolData => !boolData.value))
+        if (everythingUnlockedCheck.TrueForAll(x => x.value))
         {
-            return;
+            everythingUnlockedAction.RaiseAction();
+            Debug.Log("All values are true.");
         }
-        everythingUnlockedAction.RaiseAction();
+        else
+        {
+            Debug.Log("Not all values are true.");
+        }
     }
 }
