@@ -16,14 +16,14 @@ MonoBehaviour:
   - id: Ding
     clip: {fileID: 8300000, guid: 1b511b428e13ac0478fb2fa873186031, type: 3}
     playOnlyOncePerGame: 1
-    _locked: 0
+    _locked: 1
     playOnAwake: 0
     priority: 131
     volume: 1
     pitch: 1
     spatialBlend: 0
-    minDistance: 0
-    maxDistance: 0
+    minDistance: 1
+    maxDistance: 500
     delay: 0
     onComplete:
       m_PersistentCalls:
@@ -187,7 +187,37 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     spatialBlend: 1
-    minDistance: 0
+    minDistance: 1
+    maxDistance: 500
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: FireSmall
+    clip: {fileID: 8300000, guid: f25d1ef656b9bce41a3edb545e0a7044, type: 3}
+    playOnlyOncePerGame: 0
+    _locked: 0
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 1
+    minDistance: 1
+    maxDistance: 500
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: FireBig
+    clip: {fileID: 8300000, guid: 7ca88b9c583b5d14b86d88e2b0d9e450, type: 3}
+    playOnlyOncePerGame: 0
+    _locked: 0
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 1
+    minDistance: 1
     maxDistance: 500
     delay: 0
     onComplete:
