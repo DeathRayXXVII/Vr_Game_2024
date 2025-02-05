@@ -244,8 +244,32 @@ namespace Achievements
                 }
             }
         }
+        
+        public void ResetAchievement(string id)
+        {
+            var index = FindAchievement(id);
+            if (index >= 0 && index < achievementData.achievements.Count)
+            {
+                var achievement = achievementData.achievements[index];
+                if (achievement.isUnlocked)
+                {
+                    achievement.isUnlocked = false;
+                }
+                if (achievement.isProgression)
+                {
+                    var progAch = (ProgressiveAchievement)achievement;
+                    progAch.progress = 0;
+                }
+                // Optionally save the changes
+                // SaveAchievements();
+            }
+            else
+            {
+                Debug.LogWarning($"Achievement with id {id} not found, cannot reset", this);
+            }
+        }
     
-        public void ResetAchievements()
+        public void ResetAllAchievements()
         {
             if (isSteamEnabled)
             {

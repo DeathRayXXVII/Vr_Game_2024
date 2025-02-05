@@ -4395,6 +4395,18 @@ MonoBehaviour:
           m_StringArgument: StartTut25
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2007588448}
+        m_TargetAssemblyTypeName: Achievements.AchievementManager, Assembly-CSharp
+        m_MethodName: ResetAchievement
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 50Cannonballs
+          m_BoolArgument: 0
+        m_CallState: 2
   onLevelFailed:
     m_PersistentCalls:
       m_Calls:
@@ -4408,6 +4420,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: RaiseWater
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2007588448}
+        m_TargetAssemblyTypeName: Achievements.AchievementManager, Assembly-CSharp
+        m_MethodName: ResetAchievement
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 50Cannonballs
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1001 &1862288956
@@ -5038,7 +5062,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 2007588448}
           m_TargetAssemblyTypeName: Achievements.AchievementManager, Assembly-CSharp
-          m_MethodName: Unlock
+          m_MethodName: UpdateProgress
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5157,7 +5181,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSteamEnabled: 0
-  autoSave: 0
   achievementData: {fileID: 11400000, guid: 4df953d2a3ce563469a5a31c66b352fe, type: 2}
   displayTime: 3
   achDisplay: 1
