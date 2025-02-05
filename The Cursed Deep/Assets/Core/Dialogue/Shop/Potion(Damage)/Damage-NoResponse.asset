@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playOnlyOncePerGame: 0
   _locked: 0
-  firstAction: {fileID: 0}
+  firstAction: {fileID: 11400000, guid: 19f5ed8bf7396a6409cfd864826e7d9b, type: 2}
   lastAction: {fileID: 0}
   dialogue:
   - formatString: "Lost yer nerve, have ye? Fair enough, but don\u2019t expect mercy
@@ -24,7 +24,19 @@ MonoBehaviour:
   responses: []
   firstTrigger:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 19f5ed8bf7396a6409cfd864826e7d9b, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   lastTrigger:
     m_PersistentCalls:
       m_Calls: []
