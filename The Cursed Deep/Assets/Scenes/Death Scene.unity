@@ -3946,6 +3946,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2126129412}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Death Theme
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1487115345
 GameObject:
   m_ObjectHideFlags: 0
@@ -4932,6 +4944,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2126129409}
   - component: {fileID: 2126129411}
+  - component: {fileID: 2126129412}
   m_Layer: 0
   m_Name: SFX Handler
   m_TagString: Untagged
@@ -4968,6 +4981,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioShotData: {fileID: 11400000, guid: ce22794bfcbcedd45b034e01fecea26c, type: 2}
   mixerGroup: {fileID: -6073963964718969515, guid: f7b70a8997f608c46a18f5404f632d2b,
+    type: 2}
+  resetAudioOnAwake: 0
+  resetAudioOnDestroy: 0
+--- !u!114 &2126129412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126129407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36268bedc119c64e97e7c69f76e993e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioShotData: {fileID: 11400000, guid: 9f01ac5a431489445b4e3f3116cfaef8, type: 2}
+  mixerGroup: {fileID: 5118882064390212307, guid: f7b70a8997f608c46a18f5404f632d2b,
     type: 2}
   resetAudioOnAwake: 0
   resetAudioOnDestroy: 0
@@ -5507,6 +5537,18 @@ MonoBehaviour:
         - m_Target: {fileID: 11400000, guid: 56f27b4216c89d9409603444b37601dc, type: 2}
           m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
           m_MethodName: RaiseAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2126129412}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: StopAudio
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

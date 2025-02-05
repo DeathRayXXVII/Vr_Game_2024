@@ -2378,6 +2378,7 @@ GameObject:
   - component: {fileID: 557200503}
   - component: {fileID: 557200504}
   - component: {fileID: 557200506}
+  - component: {fileID: 557200507}
   - component: {fileID: 557200505}
   m_Layer: 0
   m_Name: SFX Manager
@@ -2518,6 +2519,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioShotData: {fileID: 11400000, guid: 75f38ab9aff1d574a984dae01c44adfa, type: 2}
   mixerGroup: {fileID: -6073963964718969515, guid: f7b70a8997f608c46a18f5404f632d2b,
+    type: 2}
+  resetAudioOnAwake: 0
+  resetAudioOnDestroy: 0
+--- !u!114 &557200507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 557200499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36268bedc119c64e97e7c69f76e993e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioShotData: {fileID: 11400000, guid: 9f01ac5a431489445b4e3f3116cfaef8, type: 2}
+  mixerGroup: {fileID: 5118882064390212307, guid: f7b70a8997f608c46a18f5404f632d2b,
     type: 2}
   resetAudioOnAwake: 0
   resetAudioOnDestroy: 0
@@ -2894,6 +2912,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameActions:
+  - actionObj: {fileID: 11400000, guid: c57af76004b553847846514926b132c7, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1349589206}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - actionObj: {fileID: 11400000, guid: c57af76004b553847846514926b132c7, type: 2}
     onRaiseEvent:
       m_PersistentCalls:
@@ -6809,6 +6843,18 @@ MonoBehaviour:
   onGameStart:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 557200507}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Quarters Theme
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1021025923}
         m_TargetAssemblyTypeName: Tutorial.TutorialHelper, Assembly-CSharp
         m_MethodName: LockAllLockableDialogueAndAudio
