@@ -11,7 +11,7 @@ namespace Achievements
     public class AchievementManager : MonoBehaviour
     {
         [SerializeField] private bool isSteamEnabled;
-        [SerializeField] private bool autoSave;
+        //[SerializeField] private bool autoSave;
         public AchievementData achievementData;
         public int displayTime;
         public bool achDisplay;
@@ -231,8 +231,6 @@ namespace Achievements
     
         public void LoadAchievements()
         {
-            achievementData.achievements.Clear();
-        
             for (int i = 0; i < achievementData.achievements.Count; i++)
             {
                 if(PlayerPrefs.HasKey("Achievements" + i))
@@ -246,8 +244,32 @@ namespace Achievements
                 }
             }
         }
+        
+        public void ResetAchievement(string id)
+        {
+            var index = FindAchievement(id);
+            if (index >= 0 && index < achievementData.achievements.Count)
+            {
+                var achievement = achievementData.achievements[index];
+                if (achievement.isUnlocked)
+                {
+                    achievement.isUnlocked = false;
+                }
+                if (achievement.isProgression)
+                {
+                    var progAch = (ProgressiveAchievement)achievement;
+                    progAch.progress = 0;
+                }
+                // Optionally save the changes
+                // SaveAchievements();
+            }
+            else
+            {
+                Debug.LogWarning($"Achievement with id {id} not found, cannot reset", this);
+            }
+        }
     
-        public void ResetAchievements()
+        public void ResetAllAchievements()
         {
             if (isSteamEnabled)
             {
@@ -264,13 +286,13 @@ namespace Achievements
             SaveAchievements();
         }
     
-        private void AutoSaveAchievements()
-        {
-            if (autoSave)
-            {
-                SaveAchievements();
-            }
-        }
+        // private void AutoSaveAchievements()
+        // {
+        //     if (autoSave)
+        //     {
+        //         SaveAchievements();
+        //     }
+        // }
     }
 
     public enum DisplayLocation
