@@ -4521,6 +4521,30 @@ MonoBehaviour:
           m_StringArgument: 50Cannonballs
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2007588450}
+        m_TargetAssemblyTypeName: Achievements.PirateAchTracker, Assembly-CSharp
+        m_MethodName: CheckHpWin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2007588450}
+        m_TargetAssemblyTypeName: Achievements.PirateAchTracker, Assembly-CSharp
+        m_MethodName: CheckBoosWin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onLevelFailed:
     m_PersistentCalls:
       m_Calls:
@@ -4546,6 +4570,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 50Cannonballs
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2007588450}
+        m_TargetAssemblyTypeName: Achievements.PirateAchTracker, Assembly-CSharp
+        m_MethodName: CheckFirstLoss
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1001 &1862288956
@@ -4926,6 +4962,7 @@ GameObject:
   - component: {fileID: 2007588448}
   - component: {fileID: 2007588447}
   - component: {fileID: 2007588446}
+  - component: {fileID: 2007588450}
   m_Layer: 0
   m_Name: AchievementManager
   m_TagString: Untagged
@@ -5176,7 +5213,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 2007588448}
           m_TargetAssemblyTypeName: Achievements.AchievementManager, Assembly-CSharp
-          m_MethodName: UpdateProgress
+          m_MethodName: Unlock
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5332,6 +5369,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2007588450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007588445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8dbe96fe7fa8b4c8f281544c4feea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: {fileID: 11400000, guid: b9983e87410d3e74aa58a1a7be03060a, type: 2}
+  hpAchAction: {fileID: 11400000, guid: 2a6885fb8a2aaab43b3c278aff1e95f4, type: 2}
+  currentLevel: {fileID: 11400000, guid: 253fbbad587c441489d1bd9dac20e634, type: 2}
+  lossAchAction: {fileID: 11400000, guid: 9677da0cf5d496c489ea48b1961dd300, type: 2}
+  boss: {fileID: 11400000, guid: 1af41c13e1c27fd4f903e6a654d0feac, type: 2}
+  bossAchAction: {fileID: 11400000, guid: 508799e0cbcac6340975f2c920b929b6, type: 2}
+  bossFight:
+    m_PersistentCalls:
+      m_Calls: []
+  enemyFight:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &2035396557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5980,6 +6041,27 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2492820716167112407, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: _text.formatString
+      value: '{0:currency}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2492820716167112407, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: _text.formatValues.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2492820716167112407, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: _text.formatValues.Array.data[1].valueType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2492820716167112407, guid: 9633f4a35242b454783ef9a0d2324a5f,
+        type: 3}
+      propertyPath: _text.formatValues.Array.data[1].intDataValue
+      value: 
+      objectReference: {fileID: 11400000, guid: 873522170be07c34b8c0a640b9dc0812,
+        type: 2}
     - target: {fileID: 2771467086842886872, guid: 9633f4a35242b454783ef9a0d2324a5f,
         type: 3}
       propertyPath: m_LocalScale.x
