@@ -209,9 +209,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11400000, guid: 25729fa5499eb2e44ad576082edca94e, type: 2}
-        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
-        m_MethodName: RaiseAction
+      - m_Target: {fileID: 8919484688492560045}
+        m_TargetAssemblyTypeName: Achievements.PirateAchIDCheck, Assembly-CSharp
+        m_MethodName: FireCannon
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21637,6 +21637,7 @@ GameObject:
   - component: {fileID: 3300723562912348241}
   - component: {fileID: 4624554520326943738}
   - component: {fileID: 6611880016742504851}
+  - component: {fileID: 8919484688492560045}
   m_Layer: 20
   m_Name: Pos Socket Reload
   m_TagString: Untagged
@@ -21850,3 +21851,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8919484688492560045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9207764901726323132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c236a8d58140fb54f825be77998ecee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  validIDs:
+  - id: {fileID: 11400000, guid: 0eba56e70948ccd4a8f10c4ad410c5be, type: 2}
+    value: 0
+    action: {fileID: 11400000, guid: 25729fa5499eb2e44ad576082edca94e, type: 2}
+  - id: {fileID: 11400000, guid: b6cff83debbaa4740ac2b1be65e65933, type: 2}
+    value: 0
+    action: {fileID: 11400000, guid: ab5af25ff3a1e7a47b1a2ae30139ac3e, type: 2}
+  - id: {fileID: 11400000, guid: 60ed7de22b891f446a34e41b7e76be87, type: 2}
+    value: 0
+    action: {fileID: 11400000, guid: f753743de4ae2504fbfe0aaa8ffe8099, type: 2}
