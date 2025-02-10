@@ -334,6 +334,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 593380805}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MerchantTheme
+          m_BoolArgument: 0
+        m_CallState: 2
   coreData: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
   _shopData:
   - purchaseHandler: {fileID: 1035871823491773143}
@@ -1856,9 +1868,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: PotionDamage
-  _currentPlayerCoins: 49535
+  _currentPlayerCoins: 50000
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 40
+  _cost: 35
   upgradeData: {fileID: 11400000, guid: fd934e5fe59856d42b4b7f4e85688531, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: 873972a17e2a39547b9b4f362bccf292, type: 2}
@@ -2007,6 +2019,7 @@ GameObject:
   - component: {fileID: 593380802}
   - component: {fileID: 593380803}
   - component: {fileID: 593380804}
+  - component: {fileID: 593380805}
   m_Layer: 0
   m_Name: SFX Manager
   m_TagString: Untagged
@@ -2154,6 +2167,22 @@ MonoBehaviour:
             m_StringArgument: Wanna Buy?
             m_BoolArgument: 0
           m_CallState: 2
+  - actionObj: {fileID: 11400000, guid: fe6fe9b818f1ae54782f88b10d07e8fe, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 593380803}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: PlayAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: DoorClose
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &593380802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2202,6 +2231,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioShotData: {fileID: 11400000, guid: 20b0c3e617261f141a37387b29a427fd, type: 2}
   mixerGroup: {fileID: -6073963964718969515, guid: f7b70a8997f608c46a18f5404f632d2b,
+    type: 2}
+  resetAudioOnAwake: 0
+  resetAudioOnDestroy: 0
+--- !u!114 &593380805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593380799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36268bedc119c64e97e7c69f76e993e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioShotData: {fileID: 11400000, guid: 9f01ac5a431489445b4e3f3116cfaef8, type: 2}
+  mixerGroup: {fileID: 5118882064390212307, guid: f7b70a8997f608c46a18f5404f632d2b,
     type: 2}
   resetAudioOnAwake: 0
   resetAudioOnDestroy: 0
@@ -3325,9 +3371,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: Cannon
-  _currentPlayerCoins: 49535
+  _currentPlayerCoins: 50000
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 200
+  _cost: 90
   upgradeData: {fileID: 11400000, guid: 5f60af6dedd8915479307a2029ecdbe2, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: f501b47ff100ed1429684e51cb0ca137, type: 2}
@@ -6704,7 +6750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: Ship
-  _currentPlayerCoins: 49535
+  _currentPlayerCoins: 50000
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 900
   upgradeData: {fileID: 11400000, guid: be8b87a39f6a2b94e9b01aa815b8a35d, type: 2}
@@ -11894,7 +11940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: RepairKit
-  _currentPlayerCoins: 49535
+  _currentPlayerCoins: 50000
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 30
   upgradeData: {fileID: 0}
@@ -13104,7 +13150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: ShipHealth
-  _currentPlayerCoins: 49535
+  _currentPlayerCoins: 50000
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 30
   upgradeData: {fileID: 11400000, guid: ebf02b92f0643ad4b82dd05a6579d52e, type: 2}
@@ -14025,7 +14071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: CannonBall
-  _currentPlayerCoins: 49535
+  _currentPlayerCoins: 50000
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 220
   upgradeData: {fileID: 11400000, guid: c0881481861acaf48b08b44634069b61, type: 2}
@@ -14860,9 +14906,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: PotionSpeed
-  _currentPlayerCoins: 49535
+  _currentPlayerCoins: 50000
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 40
+  _cost: 35
   upgradeData: {fileID: 11400000, guid: 63c8269836697aa4889ce1622c754329, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: b3e279ba1badc604d8f1be039bd68b09, type: 2}

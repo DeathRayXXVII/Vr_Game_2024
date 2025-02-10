@@ -1716,6 +1716,22 @@ MonoBehaviour:
             m_StringArgument: DoorOpen
             m_BoolArgument: 0
           m_CallState: 2
+  - actionObj: {fileID: 11400000, guid: fe6fe9b818f1ae54782f88b10d07e8fe, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 452585658}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: PlayAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: DoorClose
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &452585658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5389,10 +5405,34 @@ MonoBehaviour:
   bossAchAction: {fileID: 11400000, guid: 508799e0cbcac6340975f2c920b929b6, type: 2}
   bossFight:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 452585659}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CalypsoTheme
+          m_BoolArgument: 0
+        m_CallState: 2
   enemyFight:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 452585659}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Fight Theme
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &2035396557
 PrefabInstance:
   m_ObjectHideFlags: 0
