@@ -36,6 +36,7 @@ namespace Achievements
             AchievementUI ui = Instantiate(achUI, spawnPoint.transform.position, Quaternion.identity).GetComponent<AchievementUI>();
             ui.SetAchievement(ach, progAch);
             ui.transform.SetParent(spawnPoint.transform);
+            ui.transform.localScale = Vector3.one;
         }
 
         // public void ChangeFilter()
