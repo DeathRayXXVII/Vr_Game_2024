@@ -26,13 +26,14 @@ public class AudioPlayer : MonoBehaviour
 
     private void Start() => PlayAwakeAudio();
 
-    private void ConfigureAudioSource(AudioShotData.AudioShot audioShot)
+    private void ConfigureAudioSource(AudioShotData.AudioShot audioShot, bool loop = false)
     {
         StopAudio();
         
         _currentAudioShot = audioShot;
         _onCompleteEvent = audioShot.onComplete;
         
+        _audioSource.loop = loop;
         _audioSource.priority = audioShot.priority;
         _audioSource.volume = audioShot.volume;
         _audioSource.pitch = audioShot.pitch;
@@ -50,28 +51,50 @@ public class AudioPlayer : MonoBehaviour
         }
     }
 
+    public void PlayAudioShotOnLoop(string id)
+    {
+        if (audioShotData == null)
+        {
+            Debug.LogError($"[ERROR] Audio Shot Data is null. Cannot play audio \"{id}\".", this);
+            return;
+        }
+        PlayAudioShotOnLoop(audioShotData.GetAudioShotIndex(id));
+    }
+
+    public void PlayAudioShotOnLoop(int index)
+    {
+        if (audioShotData == null)
+        {
+            Debug.LogError($"[ERROR] Audio Shot Data is null. Cannot play audio \"{index}\".", this);
+            return;
+        }
+        
+        audioShotData.ValidateAudioShot(out var audioShot, index:index);
+        PlayAudioShot(audioShot, index, true);
+    }
+
     public void PlayAudioShot(string id) 
     {
         if (audioShotData == null)
         {
-            Debug.LogError($"Audio Shot Data is null. Cannot play audio \"{id}\".", this);
+            Debug.LogError($"[ERROR] Audio Shot Data is null. Cannot play audio \"{id}\".", this);
             return;
         }
         PlayAudioShot(audioShotData.GetAudioShotIndex(id));
     }
-    
+
     public void PlayAudioShot(int index)
     {
         if (audioShotData == null)
         {
-            Debug.LogError($"Audio Shot Data is null. Cannot play audio at index: {index}.", this);
+            Debug.LogError($"[ERROR] Audio Shot Data is null. Cannot play audio at index: {index}.", this);
             return;
         }
         audioShotData.ValidateAudioShot(out var audioShot, index:index);
-        PlayAudioShot(audioShot, index);
+        PlayAudioShot(audioShot, index, false);
     }
 
-    private void PlayAudioShot(AudioShotData.AudioShot audioShot, int index)
+    private void PlayAudioShot(AudioShotData.AudioShot audioShot, int index, bool loop)
     {
         if (audioShot == null || !audioShotData.IsValidIndex(index))
         {
@@ -83,7 +106,7 @@ public class AudioPlayer : MonoBehaviour
         var audioClip = audioShot.clip;
         if (audioClip == null || audioShot.locked) return;
         
-        ConfigureAudioSource(audioShot);
+        ConfigureAudioSource(audioShot, loop);
         
         if (_currentAudioShot.delay > 0)
         {
@@ -94,7 +117,7 @@ public class AudioPlayer : MonoBehaviour
             audioShotData.PlayAudio(_audioSource, index);
         }
         
-        _waitForEndCoroutine ??= StartCoroutine(WaitForClipEnd(new WaitForSeconds(audioClip.length + _currentAudioShot.delay)));
+        if (!loop) _waitForEndCoroutine ??= StartCoroutine(WaitForClipEnd(new WaitForSeconds(audioClip.length + _currentAudioShot.delay)));
     }
 
     private IEnumerator WaitForStartDelay(WaitForSeconds delay, int index)
