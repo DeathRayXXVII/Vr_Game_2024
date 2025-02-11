@@ -12,6 +12,7 @@ namespace Achievements
         [SerializeField] private Image icon, overlayIcon;
         [SerializeField] private Slider progressBar;
         [SerializeField] private GameObject hiddenOverlay;
+        [SerializeField] private GameObject hiddenOverlay2;
         [SerializeField] private Text hiddenName;
         [HideInInspector] public AchievementUIDisplay achDisplay;
         [SerializeField] private UnityEvent onDisplay;
@@ -24,6 +25,7 @@ namespace Achievements
             if (ach.isHidden && !ach.isUnlocked)
             {
                 hiddenOverlay.SetActive(true);
+                hiddenOverlay2.SetActive(true);
                 hiddenName.text = "? ? ?";
             }
             else

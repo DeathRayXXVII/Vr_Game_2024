@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,14 +9,15 @@ namespace Achievements
         [SerializeField] private GameObject achArea;
         [SerializeField] private GameObject achUI;
         [SerializeField] private GameObject achDisplay;
-        [SerializeField] private Dropdown achFilter;
+        //[SerializeField] private Dropdown achFilter;
         [SerializeField] private Text achCount;
         [SerializeField] private Text achPercent;
-        [SerializeField] private Scrollbar achScrollbar;
+        //[SerializeField] private Scrollbar achScrollbar;
+        [SerializeField] private List<GameObject> spawnPoints;
 
         private bool menuOpen = false;
 
-        private void AddAchievements(string filter)
+        private void AddAchievements()
         {
             AchievementManager achManager = AchievementManager.Instance;
             int achievedCount = achManager.GetAchievementCount();
@@ -23,35 +25,29 @@ namespace Achievements
             achCount.text = "" + achievedCount + " / " + achManager.achievementData.achievements.Count;
             achPercent.text = "Complete (" + achManager.GetAchievementPercent() + "%)";
 
-            foreach (var ach in achManager.achievementData.achievements)
+            for (int i = 0; i < achManager.achievementData.achievements.Count && i < spawnPoints.Count; i++)
             {
-                if (filter.Equals("All") || (filter.Equals("Achieved") && ach.isUnlocked) ||
-                    (filter.Equals("Un-achieved") && !ach.isUnlocked))
-                {
-                    AddAchievementToUI(ach, ach as ProgressiveAchievement);
-                }
-
-                achScrollbar.value = 1;
+                AddAchievementToUI(achManager.achievementData.achievements[i], achManager.achievementData.achievements[i] as ProgressiveAchievement, spawnPoints[i]);
             }
         }
 
-        private void AddAchievementToUI(Achievement ach, ProgressiveAchievement progAch)
+        private void AddAchievementToUI(Achievement ach, ProgressiveAchievement progAch, GameObject spawnPoint)
         {
-            AchievementUI ui = Instantiate(achUI, new Vector3(0f, 0f, 0f), Quaternion.identity).GetComponent<AchievementUI>();
+            AchievementUI ui = Instantiate(achUI, spawnPoint.transform.position, Quaternion.identity).GetComponent<AchievementUI>();
             ui.SetAchievement(ach, progAch);
-            ui.transform.SetParent(achArea.transform);
+            ui.transform.SetParent(spawnPoint.transform);
         }
 
-        public void ChangeFilter()
-        {
-            AddAchievements(achFilter.options[achFilter.value].text);
-        }
+        // public void ChangeFilter()
+        // {
+        //     AddAchievements(achFilter.options[achFilter.value].text);
+        // }
 
         private void OpenMenu()
         {
             menuOpen = true;
             achDisplay.SetActive(menuOpen);
-            AddAchievements("All");
+            AddAchievements();
         }
 
         private void CloseMenu()

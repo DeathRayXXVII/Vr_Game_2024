@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace Achievements
 {
@@ -14,11 +15,15 @@ namespace Achievements
             public GameAction action;
         }
         [SerializeField] private List<PossibleMatch> validIDs;
+        [SerializeField] private XRGrabInteractable socketObject;
 
         private ID _currentID;
 
-        public void CheckSocketedID(GameObject socketedObject)
+        public void CheckSocketedID()
         {
+            var socketedObject = socketObject.gameObject;
+            if (socketedObject == null) return;
+            
             _currentID = socketedObject.GetComponent<IDBehavior>()?.id;
             if (_currentID == null) return;
 
