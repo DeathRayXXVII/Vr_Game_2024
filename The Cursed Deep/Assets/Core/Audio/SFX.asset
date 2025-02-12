@@ -172,7 +172,7 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     spatialBlend: 1
-    minDistance: 0
+    minDistance: 1
     maxDistance: 500
     delay: 0
     onComplete:
@@ -210,6 +210,36 @@ MonoBehaviour:
         m_Calls: []
   - id: FireBig
     clip: {fileID: 8300000, guid: 7ca88b9c583b5d14b86d88e2b0d9e450, type: 3}
+    playOnlyOncePerGame: 0
+    _locked: 0
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 1
+    minDistance: 1
+    maxDistance: 500
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: CalypsoSpawned
+    clip: {fileID: 8300000, guid: cdf5732b4cc1cdf44b493b7e127731c1, type: 3}
+    playOnlyOncePerGame: 0
+    _locked: 0
+    playOnAwake: 0
+    priority: 128
+    volume: 1
+    pitch: 1
+    spatialBlend: 1
+    minDistance: 1
+    maxDistance: 500
+    delay: 0
+    onComplete:
+      m_PersistentCalls:
+        m_Calls: []
+  - id: CalypsoKilled
+    clip: {fileID: 8300000, guid: 31acec5e7a234ca4ea6f21a2742b02b6, type: 3}
     playOnlyOncePerGame: 0
     _locked: 0
     playOnAwake: 0
