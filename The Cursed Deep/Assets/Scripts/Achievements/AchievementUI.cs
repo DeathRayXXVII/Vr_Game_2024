@@ -22,7 +22,7 @@ namespace Achievements
         
         public void SetAchievement(Achievement ach, ProgressiveAchievement progAch)
         {
-            if (ach.isHidden && !ach.isUnlocked)
+            if (ach.isHidden && !ach.isUnlocked && hiddenOverlay != null && hiddenOverlay2 != null && hiddenName != null)
             {
                 hiddenOverlay.SetActive(true);
                 hiddenOverlay2.SetActive(true);
@@ -30,14 +30,20 @@ namespace Achievements
             }
             else
             {
-                name.text = ach.name;
-                description.text = ach.description;
+                if (name != null)
+                    name.text = ach.name;
+                if (description != null)
+                    description.text = ach.description;
+                
 
                 if (ach.lockedOverlay && !ach.isUnlocked)
                 {
-                    overlayIcon.gameObject.SetActive(true);
-                    overlayIcon.sprite = ach.lockedIcon;
-                    icon.sprite = ach.unlockedIcon;
+                    if (overlayIcon != null)
+                    {
+                        overlayIcon.gameObject.SetActive(true);
+                        overlayIcon.sprite = ach.lockedIcon;
+                        icon.sprite = ach.unlockedIcon;
+                    }
                 }
                 else
                 {
@@ -86,7 +92,8 @@ namespace Achievements
         private void UpdateUI()
         {
             name.text = achievement.name;
-            description.text = achievement.description;
+            if (description != null)
+                description.text = achievement.description;
             if (prog != null)
             {
                 progressBar.value = prog.progress / prog.goal;

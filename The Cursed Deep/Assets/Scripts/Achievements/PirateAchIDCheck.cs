@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using System.Linq;
 
 namespace Achievements
 {
@@ -15,13 +15,12 @@ namespace Achievements
             public GameAction action;
         }
         [SerializeField] private List<PossibleMatch> validIDs;
-        [SerializeField] private XRGrabInteractable socketObject;
 
         private ID _currentID;
 
-        public void CheckSocketedID()
+        public void CheckSocketedID(GameObject obj)
         {
-            var socketedObject = socketObject.gameObject;
+            var socketedObject = obj;
             if (socketedObject == null) return;
             
             _currentID = socketedObject.GetComponent<IDBehavior>()?.id;
@@ -35,10 +34,9 @@ namespace Achievements
 
         public void FireCannon()
         {
-            for (var i = 0; i < validIDs.Count; i++)
+            foreach (var t in validIDs.Where(t => t.value))
             {
-                if (!validIDs[i].value) continue;
-                validIDs[i].action.RaiseAction();
+                t.action.RaiseAction();
                 break;
             }
         }

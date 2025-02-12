@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Achievements;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -17,6 +19,7 @@ public class CannonManager : MonoBehaviour
     private Vector3 _ammoScale;
     private MeshFilter _ammoMeshFilter;
     private MeshRenderer _ammoMeshRenderer;
+    [SerializeField] private PirateAchIDCheck pirateAchIDCheck;
     
     [Header("Fire Physics System:")]
 #if UNITY_EDITOR
@@ -150,6 +153,8 @@ public class CannonManager : MonoBehaviour
         _isLoaded = true;
         _loadedAmmo = obj; 
         _ammoScale = obj.transform.localScale;
+        
+        pirateAchIDCheck.CheckSocketedID(obj);
         
         reloadSocket.AllowGrabInteraction(false);
         reloadSocket.fixedScale = LOAD_SCALE;
