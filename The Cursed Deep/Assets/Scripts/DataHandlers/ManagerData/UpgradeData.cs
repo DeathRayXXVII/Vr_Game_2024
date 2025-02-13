@@ -506,7 +506,6 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
         InitializeList(_upgradeList, _upgradeDataType);
         InitializeList(_costList, _costDataType);
         
-        Debug.LogError($"[ERROR] {name} | Performing JSON Data check.", this);
         if (jsonData == null)
         {
             if (_allowDebug) 
@@ -518,17 +517,14 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
             return;
         }
         
-        Debug.LogError($"[ERROR] {name} | Performing has changed check.", this);
         var path = GetJsonPath();
         if (!string.IsNullOrEmpty(path))
         {
-            Debug.LogError($"[ERROR] {name} | Creating Hash File Change Detector.", this);
             _hashFileChangeDetector ??= new HashFileChangeDetector(path, _allowDebug);
             hasChanged = _hashFileChangeDetector.HasChanged();
         }
         else
         {
-            Debug.LogError($"[ERROR] {name} | Hash File Change Detector not created as it is not needed.", this);
             hasChanged = false;
         }
         
