@@ -117,6 +117,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 388721758654850324}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c047d732ea5c004cb7b96d5581ea620,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2615419286123169651}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c047d732ea5c004cb7b96d5581ea620,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2882631039362035192}
   m_SourcePrefab: {fileID: 100100000, guid: 9c047d732ea5c004cb7b96d5581ea620, type: 3}
 --- !u!1 &6261238658491218680 stripped
 GameObject:
@@ -344,3 +352,39 @@ MonoBehaviour:
   _setTransformOnAwake: 1
   _startTransformPosition: {x: 0, y: 0, z: 0}
   _startTransformRotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2615419286123169651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261238658491218680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f64b8b0ac26e084e958be7c6dacf32b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleGrabbersMeshVisibility: 0
+  onGrab:
+    m_PersistentCalls:
+      m_Calls: []
+  onRelease:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-2882631039362035192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6261238658491218680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36268bedc119c64e97e7c69f76e993e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioShotData: {fileID: 11400000, guid: 5c20b8df8e50d7646a12fb408892df04, type: 2}
+  mixerGroup: {fileID: -9159555401377983202, guid: f7b70a8997f608c46a18f5404f632d2b,
+    type: 2}
+  resetAudioOnAwake: 0
+  resetAudioOnDestroy: 0

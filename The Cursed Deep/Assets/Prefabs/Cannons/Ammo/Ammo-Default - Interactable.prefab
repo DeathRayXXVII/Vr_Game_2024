@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 1655934223155502546}
   - component: {fileID: 8596837145433627448}
   - component: {fileID: -7157524752608855785}
+  - component: {fileID: -4251884428057431633}
   m_Layer: 20
   m_Name: Ammo-Default - Interactable
   m_TagString: Untagged
@@ -511,10 +512,34 @@ MonoBehaviour:
   toggleGrabbersMeshVisibility: 1
   onGrab:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -4251884428057431633}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Grab
+          m_BoolArgument: 0
+        m_CallState: 2
   onRelease:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -4251884428057431633}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Drop
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8596837145433627448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -534,21 +559,33 @@ MonoBehaviour:
     triggerEnterEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: -7157524752608855785}
-          m_TargetAssemblyTypeName: PooledObjectBehavior, Assembly-CSharp
-          m_MethodName: TriggerRespawn
-          m_Mode: 1
+        - m_Target: {fileID: -4251884428057431633}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: PlayAudioShot
+          m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: 
+            m_StringArgument: Grab
             m_BoolArgument: 0
           m_CallState: 2
     triggerExitEvent:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: -4251884428057431633}
+          m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+          m_MethodName: PlayAudioShot
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Drop
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &-7157524752608855785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,3 +602,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   timeToRespawn: {fileID: 11400000, guid: 524182c2839ad094a82b055e46694aef, type: 2}
+--- !u!114 &-4251884428057431633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7281101536470286139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36268bedc119c64e97e7c69f76e993e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioShotData: {fileID: 11400000, guid: 5c20b8df8e50d7646a12fb408892df04, type: 2}
+  mixerGroup: {fileID: -9159555401377983202, guid: f7b70a8997f608c46a18f5404f632d2b,
+    type: 2}
+  resetAudioOnAwake: 0
+  resetAudioOnDestroy: 0

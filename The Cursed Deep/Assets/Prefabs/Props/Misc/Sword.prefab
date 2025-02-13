@@ -125,7 +125,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -7390000564273996342, guid: e277e69d8c87af14ba83427fbcdddc7d,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 953b038f74909744d8e3e32e175c99e9, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -319,6 +319,7 @@ GameObject:
   - component: {fileID: 5306701577064162978}
   - component: {fileID: 3156451591927616649}
   - component: {fileID: 3532559098835351616}
+  - component: {fileID: 7572023344679933929}
   m_Layer: 20
   m_Name: Sword
   m_TagString: Untagged
@@ -635,6 +636,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7572023344679933929}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Grab
+          m_BoolArgument: 0
+        m_CallState: 2
   onRelease:
     m_PersistentCalls:
       m_Calls: []
@@ -761,6 +774,23 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+--- !u!114 &7572023344679933929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6361090481891346177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36268bedc119c64e97e7c69f76e993e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioShotData: {fileID: 11400000, guid: 5c20b8df8e50d7646a12fb408892df04, type: 2}
+  mixerGroup: {fileID: -9159555401377983202, guid: f7b70a8997f608c46a18f5404f632d2b,
+    type: 2}
+  resetAudioOnAwake: 0
+  resetAudioOnDestroy: 0
 --- !u!1 &7318042111607082926
 GameObject:
   m_ObjectHideFlags: 0

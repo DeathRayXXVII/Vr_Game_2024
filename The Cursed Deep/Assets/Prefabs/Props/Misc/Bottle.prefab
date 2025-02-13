@@ -150,6 +150,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2673050081111478343}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4004d8d55a9ee7b49bf914eefa209000,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7294575643528029442}
   m_SourcePrefab: {fileID: 100100000, guid: 4004d8d55a9ee7b49bf914eefa209000, type: 3}
 --- !u!1 &8869397195377079200 stripped
 GameObject:
@@ -316,7 +320,19 @@ MonoBehaviour:
   toggleGrabbersMeshVisibility: 1
   onGrab:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7294575643528029442}
+        m_TargetAssemblyTypeName: AudioPlayer, Assembly-CSharp
+        m_MethodName: PlayAudioShot
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Grab
+          m_BoolArgument: 0
+        m_CallState: 2
   onRelease:
     m_PersistentCalls:
       m_Calls: []
@@ -411,3 +427,20 @@ MonoBehaviour:
   _setTransformOnAwake: 1
   _startTransformPosition: {x: 0, y: 0, z: 0}
   _startTransformRotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7294575643528029442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8869397195377079200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36268bedc119c64e97e7c69f76e993e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioShotData: {fileID: 11400000, guid: 5c20b8df8e50d7646a12fb408892df04, type: 2}
+  mixerGroup: {fileID: -9159555401377983202, guid: f7b70a8997f608c46a18f5404f632d2b,
+    type: 2}
+  resetAudioOnAwake: 0
+  resetAudioOnDestroy: 0
