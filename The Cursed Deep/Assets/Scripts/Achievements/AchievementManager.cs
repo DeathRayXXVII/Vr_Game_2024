@@ -105,7 +105,7 @@ namespace Achievements
                 achievement.isUnlocked = true;
                 achDisplay = true;
                 DisplayUnlock(id);
-                //SaveAchievements();
+                SaveAchievements();
                 Debug.Log($"Achievement {id} unlocked", this);
             }
         }
@@ -145,7 +145,7 @@ namespace Achievements
                 {
                     //if (achievement != null) achievement.progress = progress;
                     DisplayUnlock(id);
-                    //SaveAchievements();
+                    SaveAchievements();
                 }
             }
         }
@@ -183,7 +183,7 @@ namespace Achievements
                 {
                     if (achievement != null) achievement.progress += progress;
                     DisplayUnlock(id);
-                    //SaveAchievements();
+                    SaveAchievements();
                 }
             }
         }
@@ -252,24 +252,33 @@ namespace Achievements
             {
                 var achievement = achievementData.achievements[index];
                 if (achievement.isUnlocked)
-                {
                     achievement.isUnlocked = false;
-                }
-                if (achievement.isProgression)
-                {
-                    var progAch = (ProgressiveAchievement)achievement;
-                    progAch.progress = 0;
-                }
-                // Optionally save the changes
-                // SaveAchievements();
+                if (!achievement.isProgression) return;
+                var progAch = (ProgressiveAchievement)achievement;
+                progAch.progress = 0;
+                SaveAchievements();
             }
             else
             {
                 Debug.LogWarning($"Achievement with id {id} not found, cannot reset", this);
             }
         }
-    
+        
         public void ResetAllAchievements()
+        {
+            for (int i = 0; i < achievementData.achievements.Count; i++)
+            {
+                var achievement = achievementData.achievements[i];
+                if (achievement.isUnlocked)
+                    achievement.isUnlocked = false;
+                if (!achievement.isProgression) continue;
+                var progAch = (ProgressiveAchievement)achievement;
+                progAch.progress = 0;
+            }
+            SaveAchievements();
+        }
+    
+        public void RemoveAllAchievements()
         {
             if (isSteamEnabled)
             {
@@ -283,7 +292,7 @@ namespace Achievements
                 PlayerPrefs.DeleteKey("Achievements" + i);
                 achievementData.achievements.Add(new ProgressiveAchievement());
             }
-            SaveAchievements();
+            //SaveAchievements();
         }
     
         // private void AutoSaveAchievements()
