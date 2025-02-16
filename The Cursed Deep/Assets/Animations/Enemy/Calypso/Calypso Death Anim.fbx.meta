@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b76d0eeb656aa4544a71b9495322c6d5
+guid: edc57b04470826445893a712f5c6e723
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: CalypsoSpawn
-      takeName: hand again
-      internalID: 6239791686817010074
-      firstFrame: 60
-      lastFrame: 110
+      name: CalypsoDeath
+      takeName: Take 001
+      internalID: 1827226128182048838
+      firstFrame: 120
+      lastFrame: 165
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -56,12 +56,19 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.9571429
+        functionName: AnimationEvent
+        data: DeathEvent
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    isReadable: 0
+      additiveReferencePoseFrame: 1
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

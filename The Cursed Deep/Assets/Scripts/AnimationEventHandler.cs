@@ -3,20 +3,28 @@ using UnityEngine.Events;
 
 public class AnimationEventHandler : MonoBehaviour
 {
-    public UnityEvent animationEvent;
-    // Example of an event function that takes no parameters
-    public void AnimationEvent()
+    [System.Serializable]
+    private struct AnimationEvents
     {
-        // Do something when the animation event is triggered
-        animationEvent.Invoke();
-        // Debug.Log("Animation event triggered!");
+        public string eventName;
+        public UnityEvent onAnimationEvent;
     }
+    
+    [SerializeField] private AnimationEvents[] animationEvents;
 
-   /*// Example of an event function that takes an AnimationEvent parameter
-    public void MyEventFunctionWithParameter(AnimationEvent animationEvent)
+    public void AnimationEvent(AnimationEvent triggeredEvent)
     {
-        // Access properties of the AnimationEvent
-        Debug.Log("Animation event time: " + animationEvent.time);
-        Debug.Log("Animation event string parameter: " + animationEvent.stringParameter);
-    }*/
+        if (animationEvents == null || animationEvents.Length == 0) return;
+        
+        foreach (var animationEvent in animationEvents)
+        {
+            if (animationEvent.eventName != triggeredEvent.stringParameter || animationEvent.onAnimationEvent == null)
+            {
+                continue;
+            }
+            
+            animationEvent.onAnimationEvent.Invoke();
+            return;
+        }
+    }
 }
