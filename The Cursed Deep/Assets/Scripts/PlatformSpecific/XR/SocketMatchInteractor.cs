@@ -87,14 +87,38 @@ public class SocketMatchInteractor : XRSocketInteractor
     
     private void OnObjectSocketed(SelectEnterEventArgs args)
     {
-        ObjectSocketed?.Invoke(args.interactableObject.transform.gameObject);
+        ObjectSocketed?.Invoke(HandleSocketEventObject(args));
         onObjectSocketed.Invoke();
     }
     
     private void OnObjectUnsocketed(SelectExitEventArgs args)
     {
-        ObjectUnsocketed?.Invoke(args.interactableObject.transform.gameObject);
+        ObjectUnsocketed?.Invoke(HandleSocketEventObject(args));
         onObjectUnsocketed.Invoke();
+    }
+    
+    private GameObject HandleSocketEventObject(SelectEnterEventArgs args)
+    {
+        var obj = args.interactableObject.transform.gameObject;
+        return HandleSocketEventObject(obj);
+    }
+    
+    private GameObject HandleSocketEventObject(SelectExitEventArgs args)
+    {
+        var obj = args.interactableObject.transform.gameObject;
+        return HandleSocketEventObject(obj);
+    }
+    
+    private GameObject HandleSocketEventObject(GameObject obj)
+    {
+        var rb = obj.GetComponent<Rigidbody>();
+
+        if (!rb || rb.isKinematic) return obj;
+        
+        rb.angularVelocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
+
+        return obj;
     }
     
     private static ID FetchOtherID(GameObject interactable)
@@ -204,23 +228,39 @@ public class SocketMatchInteractor : XRSocketInteractor
             return null;
         }
         if (interactablesSelected.Count == 0) return null;
+        
         var obj = _socketedObject.gameObject;
+        
         DisableSocket();
+        
         _removeAndMoveCoroutine ??= StartCoroutine(PerformRemoveAndMove(position, rotation));
+        
         return _removeAndMoveCoroutine == null ? null : obj;
     }
  
     private IEnumerator PerformRemoveAndMove(Vector3 position, Quaternion rotation)
     {
         var obj = _socketedObject.gameObject;
+        var rb = obj.GetComponent<Rigidbody>();
         yield return _waitFixed;
+        
         if (interactablesSelected.Count != 0) interactionManager.CancelInteractableSelection(interactablesSelected[0]);
         yield return _waitFixed;
+        
+        if (rb)
+        {
+            rb.angularVelocity = Vector3.zero;
+            rb.velocity = Vector3.zero;
+        }
+        
         obj.transform.position = position;
         obj.transform.rotation = rotation;
+        
         yield return _waitFixed;
+        
         _socketedObject = null;
         yield return _waitFixed;
+        
         _socketTrigger.enabled = true;
         _removeAndMoveCoroutine = null;
     }

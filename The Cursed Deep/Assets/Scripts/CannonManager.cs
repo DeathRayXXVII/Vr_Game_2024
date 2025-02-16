@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Achievements;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
@@ -29,15 +28,15 @@ public class CannonManager : MonoBehaviour
     [SerializeField, SteppedRange(rangeMin:0.0f, rangeMax:1000.0f, step:0.01f)] private float propellantForce = 10.0f;
     [SerializeField] private Transform muzzlePosition, breechPosition;
     [SerializeField] private SocketMatchInteractor reloadSocket;
-    private Vector3 forceVector => !muzzlePosition || !breechPosition ? Vector3.zero : (ejectionPoint - ingitionPoint).normalized;
+    private Vector3 forceVector => !muzzlePosition || !breechPosition ? Vector3.zero : (ejectionPoint - ignitionPoint).normalized;
     private Vector3 momentumVector  => forceVector * propellantForce;
-    private Vector3 ingitionPoint => !breechPosition ? Vector3.zero : breechPosition.position;
+    private Vector3 ignitionPoint => !breechPosition ? Vector3.zero : breechPosition.position;
     private Vector3 ejectionPoint  => !muzzlePosition ? Vector3.zero : muzzlePosition.position;
     
     private List <GameObject> _currentAmmoList;
     private bool _isLoaded;
-    private GameObject _ammoObj;
-    private Rigidbody _ammoRb;
+    private GameObject _ammoEntityObj;
+    private Rigidbody _ammoEntityRb;
     private Coroutine _addForceCoroutine;
 
     [Header("Model Animation:")]
@@ -50,7 +49,6 @@ public class CannonManager : MonoBehaviour
     public UnityEvent onLoaded;
     
     private readonly WaitForFixedUpdate _waitFixedUpdate = new();
-    private readonly WaitForSeconds _waitSingleSecond = new(1f);
     
     private void Awake()
     {
@@ -113,7 +111,7 @@ public class CannonManager : MonoBehaviour
 
     public void Fire()
     {
-        if (!_ammoObj)
+        if (!_ammoEntityObj)
         {
             Debug.LogWarning($"No ammo found in {gameObject.name}", this);
             return;
@@ -130,22 +128,22 @@ public class CannonManager : MonoBehaviour
         if (_addForceCoroutine != null)
             return;
         
-        _ammoObj.transform.position = muzzlePosition.position;
-        _ammoObj.SetActive(true);
+        _ammoEntityObj.transform.position = muzzlePosition.position;
+        _ammoEntityObj.SetActive(true);
         
         if (_modelAnimator.GetBool(_loadAnimationTrigger)) _modelAnimator.ResetTrigger(_loadAnimationTrigger);
         _modelAnimator.SetTrigger(_fireAnimationTrigger);
         
         onSuccessfulFire.Invoke();
         
-        _addForceCoroutine ??= StartCoroutine(AddForceToAmmo());
+        _addForceCoroutine ??= StartCoroutine(AddForceToAmmoEntity());
         
         UnloadCannon();
     }
 
     private const float RESIZE_FACTOR = 0.1f;
-    private static readonly Vector3 LOAD_SCALE = Vector3.one * RESIZE_FACTOR;
-    private Vector3 UNLOAD_SCALE = LOAD_SCALE / RESIZE_FACTOR;
+    private static readonly Vector3 LoadScale = Vector3.one * RESIZE_FACTOR;
+    private readonly Vector3 _unloadScale = LoadScale / RESIZE_FACTOR;
     private void LoadCannon(GameObject obj)
     {
         if (_isLoaded) return;
@@ -157,13 +155,13 @@ public class CannonManager : MonoBehaviour
         pirateAchIDCheck.CheckSocketedID(obj);
         
         reloadSocket.AllowGrabInteraction(false);
-        reloadSocket.fixedScale = LOAD_SCALE;
+        reloadSocket.fixedScale = LoadScale;
         _modelAnimator.SetTrigger(_loadAnimationTrigger);
         
-        _ammoObj = GetAmmo();
-        _ammoRb = AdvancedGetComponent<Rigidbody>(_ammoObj);
-        _ammoMeshFilter = AdvancedGetComponent<MeshFilter>(_ammoObj);
-        _ammoMeshRenderer = AdvancedGetComponent<MeshRenderer>(_ammoObj);
+        _ammoEntityObj = GetAmmo();
+        _ammoEntityRb = AdvancedGetComponent<Rigidbody>(_ammoEntityObj);
+        _ammoMeshFilter = AdvancedGetComponent<MeshFilter>(_ammoEntityObj);
+        _ammoMeshRenderer = AdvancedGetComponent<MeshRenderer>(_ammoEntityObj);
         var objMeshFilter = AdvancedGetComponent<MeshFilter>(obj);
         var objMeshRenderer = AdvancedGetComponent<MeshRenderer>(obj);
         
@@ -178,17 +176,24 @@ public class CannonManager : MonoBehaviour
 
     private void UnloadCannon()
     {
-        reloadSocket.fixedScale = UNLOAD_SCALE;
+        reloadSocket.fixedScale = _unloadScale;
         if (_loadedAmmo)
         {
             var currentScale = _loadedAmmo.transform.localScale;
+            var poolBehavior = AdvancedGetComponent<PooledObjectBehavior>(_loadedAmmo);
+            var transformBehavior = AdvancedGetComponent<TransformBehavior>(_loadedAmmo);
             
             if (currentScale != _ammoScale) 
                 _loadedAmmo.transform.localScale = _ammoScale;
             
-            reloadSocket.RemoveAndMoveSocketObject(Vector3.zero, Quaternion.identity);
+            var despawnCoroutine = 
+                poolBehavior != null ?
+                    DespawnAmmo(poolBehavior) : 
+                transformBehavior != null ?
+                    DespawnAmmo(transformBehavior) :
+                    DespawnAmmo(_loadedAmmo);
             
-            StartCoroutine(DespawnAmmo(AdvancedGetComponent<PooledObjectBehavior>(_loadedAmmo)));
+            StartCoroutine(despawnCoroutine);
         }
         reloadSocket.AllowGrabInteraction(true);
         _loadedAmmo = null;
@@ -213,20 +218,20 @@ public class CannonManager : MonoBehaviour
         return newAmmo;
     }
     
-    private IEnumerator AddForceToAmmo()
+    private IEnumerator AddForceToAmmoEntity()
     {
-        if (!_ammoRb) yield break;
-        _ammoRb.isKinematic = false;
-        _ammoRb.useGravity = true;
-        _ammoRb.velocity = Vector3.zero;
-        _ammoRb.angularVelocity = Vector3.zero;
+        if (!_ammoEntityRb) yield break;
+        _ammoEntityRb.isKinematic = false;
+        _ammoEntityRb.useGravity = true;
+        _ammoEntityRb.velocity = Vector3.zero;
+        _ammoEntityRb.angularVelocity = Vector3.zero;
         
         yield return _waitFixedUpdate;
         yield return _waitFixedUpdate;
         yield return _waitFixedUpdate;
         yield return null;
         
-        _ammoRb.AddForce(momentumVector, ForceMode.Impulse);
+        _ammoEntityRb.AddForce(momentumVector, ForceMode.Impulse);
         _addForceCoroutine = null; 
     }
     
@@ -291,16 +296,44 @@ public class CannonManager : MonoBehaviour
         }
     }
     
+    private void RemoveFromDespawnList(GameObject ammo)
+    {
+        if (_despawningAmmoList is { Count: >0 } && _despawningAmmoList.Contains(ammo))
+            _despawningAmmoList.Remove(ammo);
+    }
+    
     private IEnumerator DespawnAmmo(PooledObjectBehavior ammoPoolBehavior)
     {
-        // Debug.Log($"Despawning Ammo: {ammoPoolBehavior.gameObject.name}", this);
         if(ammoPoolBehavior == null) yield break;
         
-        if (_despawningAmmoList != null && _despawningAmmoList.Count > 0 && _despawningAmmoList.Contains(ammoPoolBehavior.gameObject))
-            _despawningAmmoList.Remove(ammoPoolBehavior.gameObject);
+        RemoveFromDespawnList(ammoPoolBehavior.gameObject);
         
-        yield return _waitFixedUpdate;
+        reloadSocket.RemoveAndMoveSocketObject(Vector3.zero, Quaternion.identity);
+        
         ammoPoolBehavior.TriggerRespawn();
+    }
+    
+    private IEnumerator DespawnAmmo(TransformBehavior ammoTransformBehavior)
+    {
+        if(ammoTransformBehavior == null) yield break;
+        
+        var ammoObj = ammoTransformBehavior.gameObject;
+        
+        RemoveFromDespawnList(ammoObj);
+        
+        reloadSocket.RemoveAndMoveSocketObject(ammoTransformBehavior.GetStartPosition(), 
+            ammoTransformBehavior.GetStartRotation());
+    }
+    
+    private IEnumerator DespawnAmmo(GameObject ammoObj)
+    {
+        if(ammoObj == null) yield break;
+        
+        reloadSocket.RemoveAndMoveSocketObject(Vector3.zero, Quaternion.identity);
+        
+        RemoveFromDespawnList(ammoObj.gameObject);
+        
+        ammoObj.SetActive(false);
     }
     
 #if UNITY_EDITOR
@@ -309,12 +342,12 @@ public class CannonManager : MonoBehaviour
         if (!muzzlePosition || !breechPosition) return;
         
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(ingitionPoint, 0.2f);
-        Gizmos.DrawLine(ingitionPoint, ejectionPoint);
+        Gizmos.DrawSphere(ignitionPoint, 0.2f);
+        Gizmos.DrawLine(ignitionPoint, ejectionPoint);
 
         // Simulate the trajectory
         Vector3 position = ejectionPoint;
-        Vector3 newposition = position;
+        Vector3 newPosition = position;
         Vector3 velocity = momentumVector;
         float timeStep = 0.025f;
         var count = Mathf.Clamp(propellantForce * (simulationTime * 0.01f), 0, 100);
@@ -324,16 +357,16 @@ public class CannonManager : MonoBehaviour
             float radius = Mathf.Lerp(0.2f, 0.01f, i / (count * 0.9f));
             if (Physics.Raycast(position, velocity, out var hit, 0.1f))
             {
-                newposition = hit.point;
-                if (solidLine) Gizmos.DrawLine(position, newposition);
+                newPosition = hit.point;
+                if (solidLine) Gizmos.DrawLine(position, newPosition);
                 else Gizmos.DrawSphere(position, radius);
                 break;
                 
             }
-            newposition += velocity * timeStep;
-            if (solidLine) Gizmos.DrawLine(position, newposition);
+            newPosition += velocity * timeStep;
+            if (solidLine) Gizmos.DrawLine(position, newPosition);
             else Gizmos.DrawSphere(position, radius);
-            position = newposition;
+            position = newPosition;
             velocity += Physics.gravity * timeStep;
         }
     }

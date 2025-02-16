@@ -35,12 +35,14 @@ public class TransformBehavior : MonoBehaviour
         _startTransformPosition = newPosition.position;
         _startTransformRotation = newPosition.rotation;
     }
+    
     public void SetToStartPosition() { transform.position = _startTransformPosition; }
     
     public void SetPosition(Vector3 newPosition) { transform.position = newPosition; }
     public void SetPosition(Vector3Data newPosition) => SetPosition(newPosition.value);
     public void SetPosition(CharacterData data) { transform.position = data.spawnPosition; }
     public void SetPosition(Transform newPosition) { transform.position = newPosition.position; }
+
     
     public void SetToStartRotation() { transform.rotation = _startTransformRotation; }
     public void SetRotation(Vector3 newRotation) { transform.position = newRotation; }
@@ -60,7 +62,9 @@ public class TransformBehavior : MonoBehaviour
         SetToStartRotation();
     }
 
-    public Vector3 GetPosition() { return transform.position; }
-    private Vector3 GetStartPosition() { return _startTransformPosition; }
-    private Quaternion GetStartRotation() { return _startTransformRotation; }
+    public Vector3 GetPosition() => transform.position;
+    public Vector3 GetStartPosition() => _startTransformPosition;
+    public Vector3 GetEulerRotation() => transform.rotation.eulerAngles;
+    public Quaternion GetRotation() => transform.rotation;
+    public Quaternion GetStartRotation() => _startTransformRotation;
 }
