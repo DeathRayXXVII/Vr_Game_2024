@@ -86,17 +86,15 @@ namespace Achievements
             
             if (isSteamEnabled)
             {
-                /* var ach = new Steamworks.Data.Achievement(id);
-            Debug.Log($"Achievement {id} status : " + ach.State);
-            if (ach.State)
-            {
-                Debug.Log("Achievement already unlocked");
-            }
-            else
-            {
+                var ach = new Steamworks.Data.Achievement(achievementData.achievements[id].id);
+                Debug.Log($"Achievement {id} status : " + ach.State);
+                if (ach.State)
+                {
+                    Debug.Log("Achievement already unlocked");
+                    return;
+                }
                 ach.Trigger();
                 Debug.Log($"Achievement {id} unlocked"); 
-            }*/
             }
             // Debug.Log("Steam is not enabled");
             if (achievementData.achievements[id] is ProgressiveAchievement { isUnlocked: false } achievement)
@@ -132,8 +130,23 @@ namespace Achievements
                 Debug.LogWarning($"Achievement with index {id} out of range, cannot update progress", this);
                 return;
             }
+            var achievement = achievementData.achievements[id] as ProgressiveAchievement; 
+            /*if (isSteamEnabled)
+            {
+                //var ach = new Steamworks.Data.Achievement(achievementData.achievements[id].id);
+                var ach = new Steamworks.Data.Stat(achievementData.achievements[id].id);
+                Steamworks.SteamUserStats.
+                if (ach)
+                {
+                    Debug.Log("Achievement already unlocked");
+                    return;
+                }
+
+                if (achievement != null)
+                    Steamworks.SteamUserStats.SetStat(achievementData.achievements[id].id, achievement.progress);
+            }*/
             //progress++;
-            var achievement = achievementData.achievements[id] as ProgressiveAchievement;
+            
             if (achievement != null) achievement.progress++;
             if (achievementData.achievements[id].isProgression)
             {
@@ -170,6 +183,17 @@ namespace Achievements
             {
                 Debug.LogWarning($"Achievement with index {id} out of range, cannot add progress", this);
                 return;
+            }
+
+            if (isSteamEnabled)
+            {
+                var ach = new Steamworks.Data.Achievement(achievementData.achievements[id].id);
+                if (ach.State)
+                {
+                    Debug.Log("Achievement already unlocked");
+                    return;
+                }
+                Steamworks.SteamUserStats.SetStat(achievementData.achievements[id].id, (int)progress);
             }
             
             var achievement = achievementData.achievements[id] as ProgressiveAchievement;
@@ -282,9 +306,8 @@ namespace Achievements
         {
             if (isSteamEnabled)
             {
-                //var ach = new Steamworks.Data.Achievement(achievementData.achievements[0].id);
-                // ach.Clear();
-                // Debug.Log($"Achievement {id} cleared");
+                var ach = new Steamworks.Data.Achievement(achievementData.achievements[0].id);
+                 ach.Clear();
             }
             achievementData.achievements.Clear();
             for (int i = 0; i < achievementData.achievements.Count; i++)
