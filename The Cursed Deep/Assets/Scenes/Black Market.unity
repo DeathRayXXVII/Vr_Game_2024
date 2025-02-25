@@ -346,6 +346,18 @@ MonoBehaviour:
           m_StringArgument: MerchantTheme
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: d9ca1a83cf5dad94087032fbec6bd763, type: 2}
+        m_TargetAssemblyTypeName: GameAction, Assembly-CSharp
+        m_MethodName: RaiseAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   coreData: {fileID: 11400000, guid: 829d27ba066609f40af06c19e1497513, type: 2}
   _shopData:
   - purchaseHandler: {fileID: 1035871823491773143}
@@ -1868,9 +1880,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: PotionDamage
-  _currentPlayerCoins: 50145
+  _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
-  _cost: 75
+  _cost: 35
   upgradeData: {fileID: 11400000, guid: fd934e5fe59856d42b4b7f4e85688531, type: 2}
   increaseUpgradeLevelOnPurchase: 1
   noMoreStockBool: {fileID: 11400000, guid: 873972a17e2a39547b9b4f362bccf292, type: 2}
@@ -3371,7 +3383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: Cannon
-  _currentPlayerCoins: 50145
+  _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 90
   upgradeData: {fileID: 11400000, guid: 5f60af6dedd8915479307a2029ecdbe2, type: 2}
@@ -6750,7 +6762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: Ship
-  _currentPlayerCoins: 50145
+  _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 900
   upgradeData: {fileID: 11400000, guid: be8b87a39f6a2b94e9b01aa815b8a35d, type: 2}
@@ -11940,7 +11952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: RepairKit
-  _currentPlayerCoins: 50145
+  _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 30
   upgradeData: {fileID: 0}
@@ -13150,7 +13162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: ShipHealth
-  _currentPlayerCoins: 50145
+  _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 30
   upgradeData: {fileID: 11400000, guid: ebf02b92f0643ad4b82dd05a6579d52e, type: 2}
@@ -14071,7 +14083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: CannonBall
-  _currentPlayerCoins: 50145
+  _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 220
   upgradeData: {fileID: 11400000, guid: c0881481861acaf48b08b44634069b61, type: 2}
@@ -14906,7 +14918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _id: PotionSpeed
-  _currentPlayerCoins: 50145
+  _currentPlayerCoins: 0
   playerCoins: {fileID: 11400000, guid: 66cade2cb868945489d7fa0addecdb1d, type: 2}
   _cost: 35
   upgradeData: {fileID: 11400000, guid: 63c8269836697aa4889ce1622c754329, type: 2}
