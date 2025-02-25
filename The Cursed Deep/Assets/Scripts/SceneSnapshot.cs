@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SceneSnapshot
 {
+    #if UNITY_EDITOR
     [MenuItem("Tools/Capture Scene")]
     static void CaptureScene()
     {
@@ -38,4 +39,5 @@ public class SceneSnapshot
 
         Debug.Log("Scene snapshot saved to " + fileName);
     }
+    #endif
 }
