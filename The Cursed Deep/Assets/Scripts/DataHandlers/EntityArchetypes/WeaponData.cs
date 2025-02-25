@@ -8,7 +8,8 @@ public class WeaponData : ScriptableObject
     public float GetHealth() => health;
     public void GetHealth(FloatData getter) => getter.value = health;
     public float GetDamage() => damage;
-    public void GetDamage(FloatData getter) => getter.value = damage;
+    public void SetDamage(float newDamage) => damage = newDamage;
+    public void GetDamage(FloatData container) => container.value = damage;
     
     [Header("Total Stats")]
     [SerializeField] [ReadOnly] private int totalFired, totalWhiffs;
