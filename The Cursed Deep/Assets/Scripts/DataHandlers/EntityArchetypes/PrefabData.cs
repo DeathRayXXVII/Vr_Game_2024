@@ -18,7 +18,7 @@ public class PrefabData : ScriptableObject
         set => spawnPriority = value;
     }
     
-    private void OnValidate()
+    private void OnEnable()
     {
         if (!gameObject) Debug.LogError("Prefab is null. Please assign a value.", this);
     }
