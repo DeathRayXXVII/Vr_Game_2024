@@ -133,13 +133,20 @@ namespace ShipGame.ScriptObj
         public void ResetToNewGameValues(int tier = 1)
         {
             if (tier < 1) return;
+            currentLevel = 1;
+            
+            shipIndex = 0;
+            
+            cannonIndex = 0;
+            cannon.upgradeIndex = 0;
+            
+            ammoIndex = 0;
+            ammo.upgradeIndex = 0;
+            
+            enemyIndex = 0;
+            
             gameGlobals.ResetGameVariables();
             
-            currentLevel = 1;
-            shipIndex = 0;
-            cannonIndex = 0;
-            ammoIndex = 0;
-            enemyIndex = 0;
         }
         
         private void SetPlayerData()
