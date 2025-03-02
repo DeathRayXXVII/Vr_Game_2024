@@ -268,40 +268,42 @@ namespace Achievements
                 }
             }
         }
+
+        public void ResetAchievement(string id) => ResetSingleAchievement(FindAchievement(id));
+        public void ResetAchievementIfNotComplete(string id) =>
+            ResetSingleAchievement(FindAchievement(id), false);
         
-        public void ResetAchievement(string id)
+        private void ResetSingleAchievement(int index, bool unconditionalReset = true)
         {
-            var index = FindAchievement(id);
             if (index >= 0 && index < achievementData.achievements.Count)
             {
-                var achievement = achievementData.achievements[index];
-                if (achievement.isUnlocked)
-                    achievement.isUnlocked = false;
-                if (!achievement.isProgression) return;
-                var progAch = (ProgressiveAchievement)achievement;
-                progAch.progress = 0;
+                PerformResetAchievement(index, unconditionalReset);
                 SaveAchievements();
             }
             else
             {
-                Debug.LogWarning($"Achievement with id {id} not found, cannot reset", this);
+                Debug.LogWarning($"Achievement with id {index} not found, cannot reset", this);
             }
+        }
+
+        private void PerformResetAchievement(int index, bool unconditionalReset = true)
+        {
+            var achievement = achievementData.achievements[index];
+            achievement.isUnlocked = !unconditionalReset && achievement.isUnlocked;
+            if (!achievement.isProgression || achievement.isUnlocked) return;
+            var progAch = (ProgressiveAchievement)achievement;
+            progAch.progress = 0;
         }
         
         public void ResetAllAchievements()
         {
             for (int i = 0; i < achievementData.achievements.Count; i++)
             {
-                var achievement = achievementData.achievements[i];
-                if (achievement.isUnlocked)
-                    achievement.isUnlocked = false;
-                if (!achievement.isProgression) continue;
-                var progAch = (ProgressiveAchievement)achievement;
-                progAch.progress = 0;
+                PerformResetAchievement(i);
             }
             SaveAchievements();
         }
-    
+        
         public void RemoveAllAchievements()
         {
             if (isSteamEnabled)
