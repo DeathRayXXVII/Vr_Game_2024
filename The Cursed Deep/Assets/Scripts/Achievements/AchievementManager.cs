@@ -225,6 +225,10 @@ namespace Achievements
             {
                 if (achievementData.achievements[id].isProgression && achievement.progress < achievementData.achievements[id].goal)
                 {
+                    if (achievementData.achievements[id].notify == 0)
+                    {
+                        return;
+                    }
                     int steps = (int)achievementData.achievements[id].goal / (int)achievementData.achievements[id].notify;
                     for (int i = steps; i > achievement.progressUpdate; i--)
                     {
