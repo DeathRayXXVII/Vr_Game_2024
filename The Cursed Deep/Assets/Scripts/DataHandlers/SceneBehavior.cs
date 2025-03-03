@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using ZPTools;
 
@@ -14,6 +15,9 @@ public class SceneBehavior : MonoBehaviour
     
     [Tooltip("TransformData that will be used to set the player's position at the start of the scene.")]
     [SerializeField] private TransformData initialPlayerTransform;
+    
+    [Tooltip("Y Offset to add to the player's position.")]
+    [SerializeField, Range(0, 10)] private float cameraYOffset = 1;
 
     [Tooltip("Animator that will be used to transition between scenes.")]
     [SerializeField] private ScreenManager screenManager;
@@ -71,7 +75,7 @@ public class SceneBehavior : MonoBehaviour
         // Proceed with the transition.
 // #if UNITY_EDITOR
         if (allowDebug) 
-            Debug.Log("[DEBUG] Scene Initialization Complete. Performing before load in actions.", this);
+            Debug.Log("[INFO] Scene Initialization Complete. Performing before load in actions.", this);
 // #endif
         
         // Invoke the beforeLoadIn event.
@@ -79,7 +83,7 @@ public class SceneBehavior : MonoBehaviour
         yield return _waitFixed;
 // #if UNITY_EDITOR
         if (allowDebug && transitionOnLoad) 
-            Debug.Log("[DEBUG] Before load in Complete. Attempting transition in.", this);
+            Debug.Log("[INFO] Before load in Complete. Attempting transition in.", this);
 // #endif
         
         // Perform Buffer before transitioning calling transition in.
@@ -94,7 +98,7 @@ public class SceneBehavior : MonoBehaviour
 
 // #if UNITY_EDITOR
         if (allowDebug) 
-            Debug.Log($"[DEBUG] {(transitionOnLoad? "Transition in complete" : "Before load in complete")}. " +
+            Debug.Log($"[INFO] {(transitionOnLoad? "Transition in complete" : "Before load in complete")}. " +
                       $"Performing after load in actions.", this);
 // #endif
 
@@ -123,6 +127,52 @@ public class SceneBehavior : MonoBehaviour
         playerTransform.SetTransform(initialPlayerTransform);
         playerTransform.SetStartTransform(initialPlayerTransform);
         
+        var headSetCamera = Camera.main?.gameObject;
+        var headSetPositionParent = headSetCamera?.transform.parent.gameObject;
+        var headSetRotationParent = headSetPositionParent?.transform.parent.gameObject;
+        
+        if (headSetCamera == null || headSetPositionParent == null || headSetRotationParent == null)
+        {
+            Debug.LogError("[ERROR] Head Set Camera, Position Parent or Rotation Parent is null, cannot complete positioning player corrections.", this);
+            return false;
+        }
+        
+        headSetPositionParent.transform.localScale = Vector3.one;
+        
+        var expectedCameraPosition = new Vector3(
+            initialPlayerTransform.position.x,
+            initialPlayerTransform.position.y + cameraYOffset,
+            initialPlayerTransform.position.z
+            );
+        
+        float expectedYaw = initialPlayerTransform.rotation.eulerAngles.y;
+        
+        var currentCameraPosition = headSetCamera.transform.position;
+        float currentYaw = headSetCamera.transform.rotation.eulerAngles.y;
+        
+        var posDiff = Vector3.Distance(expectedCameraPosition, currentCameraPosition);
+        var yawDiff = Mathf.DeltaAngle(currentYaw, expectedYaw);
+        
+        var withinPosThreshold = posDiff < 0.1f;
+        var withinRotThreshold = Mathf.Abs(yawDiff) < 15f;
+        
+        if (withinPosThreshold && withinRotThreshold)
+        {
+            return true;
+        }
+
+        if (!withinPosThreshold)
+        {
+            headSetPositionParent.transform.position += expectedCameraPosition - currentCameraPosition;
+        }
+        
+        if (!withinRotThreshold)
+        {
+            headSetRotationParent.transform.rotation = Quaternion.Euler(
+                headSetRotationParent.transform.rotation.eulerAngles + new Vector3(0, expectedYaw - currentYaw, 0)
+                );
+        }
+        
         return true;
     }
     
@@ -135,7 +185,7 @@ public class SceneBehavior : MonoBehaviour
         if (sceneIndex >= 0 && sceneIndex < SceneManager.sceneCountInBuildSettings)
         {
 // #if UNITY_EDITOR
-            if (allowDebug) Debug.Log($"[DEBUG] Attempting to load Scene: {scene}", this);
+            if (allowDebug) Debug.Log($"[INFO] Attempting to load Scene: {scene}", this);
 // #endif
             LoadScene(sceneIndex);
         }
@@ -157,7 +207,7 @@ public class SceneBehavior : MonoBehaviour
 // #if UNITY_EDITOR
         var scene = SceneUtility.GetScenePathByBuildIndex(sceneIndex);
         if (!string.IsNullOrEmpty(scene) && allowDebug)
-            Debug.Log($"[DEBUG] Loading Scene: {scene}, Index: {sceneIndex}", this);
+            Debug.Log($"[INFO] Loading Scene: {scene}, Index: {sceneIndex}", this);
 // #endif
         var asyncLoad = SceneManager.LoadSceneAsync(sceneIndex);
         try
@@ -177,15 +227,15 @@ public class SceneBehavior : MonoBehaviour
     private IEnumerator LoadAndTransitionOut(AsyncOperation loadOperation)
     {
         if (allowDebug) 
-            Debug.Log($"[DEBUG] Scene Loading in progress. Performing Transition Out.", this);
+            Debug.Log($"[INFO] Scene Loading in progress. Performing Transition Out.", this);
         yield return StartCoroutine(screenManager.TransitionOut());
         
         if (allowDebug) 
-            Debug.Log($"[DEBUG] Transition Out complete. Performing Background Load.", this);
+            Debug.Log($"[INFO] Transition Out complete. Performing Background Load.", this);
         yield return StartCoroutine(BackgroundLoad(loadOperation));
         
         if (allowDebug) 
-            Debug.Log($"[DEBUG] Load and Transition Out complete. Performing Buffer.", this);
+            Debug.Log($"[INFO] Load and Transition Out complete. Performing Buffer.", this);
         StartCoroutine(FixedUpdateBuffer(loadBuffer));
         yield return new WaitUntil(() => !_buffering);
         
@@ -196,11 +246,11 @@ public class SceneBehavior : MonoBehaviour
     private IEnumerator BackgroundLoad(AsyncOperation loadOperation)
     {
         if (allowDebug) 
-            Debug.Log($"[DEBUG] Loading Scene in background, Progress: {loadOperation.progress}", this);
+            Debug.Log($"[INFO] Loading Scene in background, Progress: {loadOperation.progress}", this);
         while (!loadOperation.isDone && loadOperation.progress < 0.9f)
         {
             if (allowDebug) 
-                Debug.Log($"[DEBUG] Loading Scene in background, Progress: {loadOperation.progress}", this);
+                Debug.Log($"[INFO] Loading Scene in background, Progress: {loadOperation.progress}", this);
             yield return _waitFixed;
         }
         _sceneLoaded = true;
@@ -224,7 +274,7 @@ public class SceneBehavior : MonoBehaviour
 #if UNITY_EDITOR
             if (allowDebug && debugSpacer++ % mod == 0)
             {
-                Debug.Log($"[DEBUG] Running Load Buffer, Time: {Time.time}, Elapsed Time: {elapsedTime} / {waitTime} " +
+                Debug.Log($"[INFO] Running Load Buffer, Time: {Time.time}, Elapsed Time: {elapsedTime} / {waitTime} " +
                           $"Complete: {elapsedTime - time < waitTime}", this);
             }
 #endif   
@@ -233,7 +283,7 @@ public class SceneBehavior : MonoBehaviour
         }
         
         if (allowDebug) 
-            Debug.Log($"[DEBUG] Buffer completed at game time: {Time.time}, Time Elapsed: {elapsedTime}", this);
+            Debug.Log($"[INFO] Buffer completed at game time: {Time.time}, Time Elapsed: {elapsedTime}", this);
         
         yield return null;
         _buffering = false;

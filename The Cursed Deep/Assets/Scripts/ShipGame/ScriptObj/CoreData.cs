@@ -122,7 +122,7 @@ namespace ShipGame.ScriptObj
             PrintGameVariables("Called From LevelCompleted");
         }
         
-        public bool failedLevel;
+        [HideInInspector] public bool failedLevel;
         public void LevelFailed() 
         {
             failedLevel = true;
