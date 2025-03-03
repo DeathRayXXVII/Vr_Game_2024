@@ -268,7 +268,40 @@ namespace Achievements
                 }
             }
         }
-
+        public void ResetAchievement(string id)
+        {
+            var index = FindAchievement(id);
+            if (index >= 0 && index < achievementData.achievements.Count)
+            {                
+                var achievement = achievementData.achievements[index];
+                if (achievement.isUnlocked)
+                    achievement.isUnlocked = false;
+                if (!achievement.isProgression) return;
+                var progAch = (ProgressiveAchievement)achievement;
+                progAch.progress = 0;
+                SaveAchievements();
+            }
+            else
+            {
+                Debug.LogWarning($"Achievement with id {id} not found, cannot reset", this);
+            }
+        }
+        
+        public void ResetAllAchievements()
+        {
+            for (int i = 0; i < achievementData.achievements.Count; i++)
+            {                
+                var achievement = achievementData.achievements[i];
+                if (achievement.isUnlocked)
+                    achievement.isUnlocked = false;
+                if (!achievement.isProgression) continue;
+                var progAch = (ProgressiveAchievement)achievement;
+                progAch.progress = 0;
+            }
+            SaveAchievements();
+        }
+        
+        /* implementation that causes divide by zero error
         public void ResetAchievement(string id) => ResetSingleAchievement(FindAchievement(id));
         public void ResetAchievementIfNotComplete(string id) =>
             ResetSingleAchievement(FindAchievement(id), false);
@@ -303,6 +336,7 @@ namespace Achievements
             }
             SaveAchievements();
         }
+        */
         
         public void RemoveAllAchievements()
         {
