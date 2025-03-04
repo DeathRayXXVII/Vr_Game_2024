@@ -134,15 +134,16 @@ namespace ShipGame.ScriptObj
             if (tier < 1) return;
             currentLevel = 1;
             
-            shipIndex = 0;
+            ship.selectionIndex = 0;
             
-            cannonIndex = 0;
+            cannon.selectionIndex = 0;
             cannon.upgradeIndex = 0;
             
-            ammoIndex = 0;
+            ammo.selectionIndex = 0;
             ammo.upgradeIndex = 0;
             
-            enemyIndex = 0;
+            boss.selectionIndex = 0;
+            enemy.selectionIndex = 0;
             
             gameGlobals.ResetGameVariables();
             
