@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -255,6 +256,12 @@ namespace ShipGame.Manager
             System.Func<LevelSelection, bool> filterCondition = null
         )
         {
+            if(count <= 0)
+            {
+                Debug.LogError($"[ERROR] Invalid Count of '{count}' provided for Level Update.", this);
+                return;
+            }
+            
             // Filter levels if a condition is provided
             var filteredLevels = filterCondition != null
                 ? levels.Where(filterCondition).ToList()
