@@ -124,9 +124,8 @@ namespace ShipGame.Manager
             }
 
             var json = File.ReadAllText(filePath);
-
             var saveData = JsonUtility.FromJson<SaveData>(json);
-
+            
             id = saveData.id;
             isLocked = saveData.isLocked;
 

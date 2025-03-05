@@ -446,9 +446,12 @@ namespace ShipGame.ScriptObj
         {
             if (allowDebug)
             {
+                var fightingBoss = gameGlobals.FightingBoss();
+                
                 Debug.Log(
                     "[DEBUG] -----Game Variables-----\n" +
                     $"{(header == "" ? "" : $" ---{header}--- \n")}" +
+                    $"Boss level: {(fightingBoss ? "True" : "False")}" +
                     $"\n___ Level Index [{currentLevel}] ___\n" +
                     $"Player Speed: {gameGlobals.playerSpeed}\n" +
                     $"Player Score: {gameGlobals.playerScore}\n" +
@@ -458,7 +461,7 @@ namespace ShipGame.ScriptObj
                     $"Ammo Damage: {gameGlobals.playerDamage}\n" +
                     $"Ammo Respawn Time: {gameGlobals.ammoRespawnRate}\n" +
                     $"\n___ Cannon Index: [{cannonIndex}] ___\n" +
-                    $"\n___ Enemy Index: [{enemyIndex}] ___\n" +
+                    $"\n___ {(fightingBoss ? "Boss" : "Enemy")} Index: [{enemyIndex}] ___\n" +
                     $"Lane Active Limit: {gameGlobals.enemyLaneActiveLimit}\n" +
                     $"Spawn Rate MIN: {gameGlobals.spawnRateMin}\n" +
                     $"Spawn Rate MAX: {gameGlobals.spawnRateMax}\n" +

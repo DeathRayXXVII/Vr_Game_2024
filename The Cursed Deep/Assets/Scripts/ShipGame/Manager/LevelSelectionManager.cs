@@ -84,9 +84,9 @@ namespace ShipGame.Manager
             if (_allowDebug) 
                 Debug.Log($"[DEBUG] Level Option[{index}] Selected, with name {levelSelection.enemyData.unitName}", this);
             
-            _merchantSelected = toMerchantBool.value = false;
-            _bossLevelSelected = toBossLevelBool.value = levelSelection.isBossLevel;
-            _levelSelected = toNormalLevelBool.value = !_bossLevelSelected;
+            _merchantSelected = false;
+            _bossLevelSelected = levelSelection.isBossLevel;
+            _levelSelected = !_bossLevelSelected;
             
             StartCoroutine(_levelSelectUIManager.ActivateUI($"Level {_currentLevel ?? 0}",
                 $"{(_bossLevelSelected ? "BOSS" : "")} {levelSelection.enemyData.unitName}", "Confirm", "CANcEL",
@@ -107,12 +107,12 @@ namespace ShipGame.Manager
         
         private void HandleSocketedInMerchantSelection()
         {
-            _merchantSelected = toMerchantBool.value = true;
+            _merchantSelected = true;
             
             if (_allowDebug) 
                 Debug.Log($"[DEBUG] Merchant Selected: {_merchantSelected}", this);
             
-            _levelSelected = toNormalLevelBool.value = _bossLevelSelected = toBossLevelBool.value = false;
+            _levelSelected = _bossLevelSelected = false;
             
             _selectedLevelIndex = -1;
             SetAllSocketsState(false, _selectedLevelIndex);
@@ -170,6 +170,10 @@ namespace ShipGame.Manager
             var selectedSocket = _merchantSelected ? 
                 ref _merchantOption.socket :
                 ref _levelOptions[_selectedLevelIndex].socket;
+
+            toMerchantBool.value = _merchantSelected;
+            toBossLevelBool.value = _bossLevelSelected;
+            toNormalLevelBool.value = _levelSelected;
             
             GameAction leaveSceneAction = _merchantSelected ? _unlockDoorToMerchantAction : _unlockDoorToLevelAction;
             if (_allowDebug) 
@@ -206,6 +210,10 @@ namespace ShipGame.Manager
             var selectedSocket = _selectedLevelIndex == -1 ? 
                 ref _merchantOption.socket :
                 ref _levelOptions[_selectedLevelIndex].socket;
+            
+            toMerchantBool.value = false;
+            toBossLevelBool.value = false;
+            toNormalLevelBool.value = false;
             
             yield return StartCoroutine(WaitForUIDeactivation(selectedSocket.transform));
             
@@ -285,7 +293,6 @@ namespace ShipGame.Manager
             if (_allowDebug) 
                 Debug.Log($"[DEBUG] {(_selectedLevelIndex == -1 ? "Merchant" : $"Level [{_selectedLevelIndex}]")} Selection Removed", this);
             _levelSelected = _bossLevelSelected = _merchantSelected = false;
-            toNormalLevelBool.value = toBossLevelBool.value = toMerchantBool.value = false;
             
             if (!_lockedToTutorial)
                 StartCoroutine(SetSocketStateAfterCancel());
@@ -506,8 +513,6 @@ namespace ShipGame.Manager
 
         private void Awake()
         {
-            _bossLevelSelected = _levelSelected = _merchantSelected = false;
-            
             var debugMessage = string.Empty;
             var errorMessage = string.Empty;
             
@@ -576,6 +581,8 @@ namespace ShipGame.Manager
                 return;
             }
             
+            _bossLevelSelected = _levelSelected = _merchantSelected = false;
+            
             SetListenerStates(true);
         }
         
@@ -619,18 +626,37 @@ namespace ShipGame.Manager
                     UpdateLevels(normalLevelsList, normalLevelsList.Count, true, opt => !opt.isLocked);
                     break;
             }
-            // Always lock the boss levels
-            UpdateLevels(bossLevelsList, bossLevelsList.Count, true, opt => !opt.isLocked);
             
             var excludeMerchantSocket = false;
+            var comingFromMerchant = toMerchantBool.value;
+            
+            Debug.Log($"[DEBUG] Count to Boss: {_countToBoss.value}, Coming from Merchant: {comingFromMerchant}", this);
+            
             // Activate the boss level confirmation if the count to boss is 0
-            if (_countToBoss.value == 0 && !toMerchantBool.value)
+            if (_countToBoss.value == 0 && !comingFromMerchant)
             {
+                // lock the boss levels
+                UpdateLevels(bossLevelsList, bossLevelsList.Count, true, opt => !opt.isLocked);
+                
                 _needsBossConfirmation = true;
                 excludeMerchantSocket = true;
+                
                 yield return StartCoroutine(_levelSelectUIManager.ActivateUI("WARNING", "Are ye ready to face the boss?",
                     "Yes", "No", _activatedUIPosition.position, _activatedUIPosition.position, _animationDuration));
             }
+            else if (_countToBoss.value == 0 && comingFromMerchant)
+            {   
+                // leave boss levels unlocked as we should have just come from the merchant and levels should revert to saved state
+            }
+            else
+            {
+                // lock the boss levels
+                UpdateLevels(bossLevelsList, bossLevelsList.Count, true, opt => !opt.isLocked);
+            }
+
+            toNormalLevelBool.value = false;
+            toBossLevelBool.value = false;
+            toMerchantBool.value = false;
             
             SetSocketActiveState(false, ref _merchantOption.socket);
             SetAllSocketsState(true, _selectedLevelIndex, excludeMerchantSocket);
@@ -640,9 +666,6 @@ namespace ShipGame.Manager
                 yield return StartCoroutine(task);
             }
             
-            toBossLevelBool.value = false;
-            toNormalLevelBool.value = false;
-            toMerchantBool.value = false;
             _initCoroutine = null;
             
             if (_allowDebug)
