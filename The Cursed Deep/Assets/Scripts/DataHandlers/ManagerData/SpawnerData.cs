@@ -87,8 +87,11 @@ public class SpawnerData : ScriptableObject
 
     private void SetupData()
     {
-        if (globalLaneActiveLimit)
-            globalLaneActiveLimit.value = globalLaneActiveLimit < 1 ? globalLaneActiveLimit.value : 1;
+        if (globalLaneActiveLimit != null)
+        {
+            var limit = globalLaneActiveLimit.value;
+            globalLaneActiveLimit.value = limit < 1 ? 1 : limit;
+        }
 
         if (numToSpawn != null && numToSpawn < 1)
         {
@@ -126,13 +129,12 @@ public class SpawnerData : ScriptableObject
         SetupData();
     }
     
-    
     internal int GetSpawnerActiveLimit(Spawner spawner) => spawner.GetActiveLimit(globalLaneActiveLimit.value);
 
     internal Spawner GetInactiveSpawner()
     {
 #if UNITY_EDITOR
-        if (allowDebug) Debug.Log($"Checking for available spawners.\nPotential Spawners: {_spawnerCount}", this);
+        if (allowDebug) Debug.Log($"Checking for available spawners.\nPotential Spawners: {_spawnerCount}\n", this);
 #endif
         if (_spawnerCount <= 0) return null;
         _availableSpawners.Clear();
@@ -140,13 +142,14 @@ public class SpawnerData : ScriptableObject
         foreach (var spawner in spawners)
         {
             var currentSpawnerActiveCount = spawner.GetAliveCount();
-            if (currentSpawnerActiveCount < GetSpawnerActiveLimit(spawner))
+            var spawnerActiveLimit = GetSpawnerActiveLimit(spawner);
+            if (currentSpawnerActiveCount < spawnerActiveLimit)
             {
                 _availableSpawners.Add(spawner);
             }
             
 #if UNITY_EDITOR
-            if (allowDebug) Debug.Log($"Spawner: {spawner.spawnerID} has {currentSpawnerActiveCount} active.", this);
+            if (allowDebug) Debug.Log($"Spawner: {spawner.spawnerID} has [{currentSpawnerActiveCount}/{spawnerActiveLimit}] active.", this);
 #endif
         }
         var output = _availableSpawners.Count == 0 ? null: _availableSpawners[Random.Range(0, _availableSpawners.Count)];

@@ -630,7 +630,6 @@ namespace ShipGame.Manager
             var excludeMerchantSocket = false;
             var comingFromMerchant = toMerchantBool.value;
             
-            Debug.Log($"[DEBUG] Count to Boss: {_countToBoss.value}, Coming from Merchant: {comingFromMerchant}", this);
             
             // Activate the boss level confirmation if the count to boss is 0
             if (_countToBoss.value == 0 && !comingFromMerchant)

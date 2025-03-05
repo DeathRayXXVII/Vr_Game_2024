@@ -176,7 +176,6 @@ namespace ShipGame.ScriptObj
                 gameGlobals.SetEnemySpawnCount(levelData.spawnCount, ship.numberOfLanes);
             }
             
-            
             ship.SetCannonPrefabData(cannon.prefab);
             ship.SetAmmoSpawnCount();
         }
@@ -196,6 +195,7 @@ namespace ShipGame.ScriptObj
         
         private void SetLevelData()
         {
+            Debug.Log($"Global Level: {currentLevel}, Active Limit: {levelData.laneActiveLimit}");
             gameGlobals.SetSpawnLaneActiveLimit(levelData.laneActiveLimit);
             gameGlobals.SetEnemySpawnCount(levelData.spawnCount, ship.numberOfLanes);
             gameGlobals.SetSpawnRates(levelData.spawnRateMin, levelData.spawnRateMax);
@@ -451,7 +451,7 @@ namespace ShipGame.ScriptObj
                 Debug.Log(
                     "[DEBUG] -----Game Variables-----\n" +
                     $"{(header == "" ? "" : $" ---{header}--- \n")}" +
-                    $"Boss level: {(fightingBoss ? "True" : "False")}" +
+                    $"Boss level: {(fightingBoss ? "True" : "False")}\n" +
                     $"\n___ Level Index [{currentLevel}] ___\n" +
                     $"Player Speed: {gameGlobals.playerSpeed}\n" +
                     $"Player Score: {gameGlobals.playerScore}\n" +
