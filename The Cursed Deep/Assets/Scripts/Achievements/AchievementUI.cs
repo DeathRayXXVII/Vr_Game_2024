@@ -48,6 +48,7 @@ namespace Achievements
                 else
                 {
                     icon.sprite = ach.isUnlocked ? ach.unlockedIcon : ach.lockedIcon;
+                    overlayIcon.gameObject.SetActive(false);
                 }
 
                 if (ach.isProgression)
