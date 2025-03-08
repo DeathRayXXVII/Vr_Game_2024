@@ -195,6 +195,45 @@ namespace Achievements
                     Debug.Log("Achievement already unlocked");
                     return;
                 }
+                Steamworks.SteamUserStats.SetStat(achievementData.achievements[id].id, (int)progress);
+            }
+            
+            var achievement = achievementData.achievements[id] as ProgressiveAchievement;
+            if (achievementData.achievements[id].isProgression)
+            {
+                if (achievement != null && achievement.progress + progress >= achievementData.achievements[id].goal)
+                {
+                    Unlock(id);
+                }
+                else
+                {
+                    if (achievement != null) achievement.progress += progress;
+                    DisplayUnlock(id);
+                    SaveAchievements();
+                }
+            }
+        }
+        
+        public void AddProgress(string id, IntData progress)
+        {
+            AddProgress(FindAchievement(id), progress.value);
+        }
+        private void AddProgress(int id, IntData progress)
+        {
+            if (id < 0 || id >= achievementData.achievements.Count)
+            {
+                Debug.LogWarning($"Achievement with index {id} out of range, cannot add progress", this);
+                return;
+            }
+
+            if (isSteamEnabled)
+            {
+                var ach = new Steamworks.Data.Achievement(achievementData.achievements[id].id);
+                if (ach.State)
+                {
+                    Debug.Log("Achievement already unlocked");
+                    return;
+                }
                 Steamworks.SteamUserStats.SetStat(achievementData.achievements[id].id, progress);
             }
             

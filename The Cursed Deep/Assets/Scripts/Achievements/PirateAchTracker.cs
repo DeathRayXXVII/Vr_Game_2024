@@ -5,6 +5,7 @@ namespace Achievements
 {
     public class PirateAchTracker : MonoBehaviour
     {
+        [SerializeField] private AchievementManager achievementManager;
         [SerializeField] private AchievementData achievementData;
         
         private bool _hpWin;
@@ -63,14 +64,11 @@ namespace Achievements
         {
             achBounty.value = 0;
         }
-        public void GetBounty()
+        public void GetBounty(string id)
         {
-            if(boss)
-                achBounty.value += bossData.bounty;
-            else
-                achBounty.value += enemyData.bounty;
-            
-            bountyAchAction.RaiseAction();
+            achBounty.value = boss ? bossData.bounty : enemyData.bounty;
+            achievementManager.AddProgress(id, achBounty);
+            //bountyAchAction.RaiseAction();
         }
     }
 }
