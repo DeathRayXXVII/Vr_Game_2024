@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08785505, g: 0.103733055, b: 0.13230883, a: 1}
+  m_IndirectSpecularColor: {r: 0.08760295, g: 0.1031279, b: 0.13212985, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5439,6 +5439,22 @@ MonoBehaviour:
             m_StringArgument: FirstLose
             m_BoolArgument: 0
           m_CallState: 2
+  - actionObj: {fileID: 11400000, guid: 6bfcc2bdec986e949bf25e15df0404bc, type: 2}
+    onRaiseEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2007588450}
+          m_TargetAssemblyTypeName: Achievements.PirateAchTracker, Assembly-CSharp
+          m_MethodName: GetBounty
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: Doubloons
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &2007588448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5453,6 +5469,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSteamEnabled: 0
   achievementData: {fileID: 11400000, guid: 4df953d2a3ce563469a5a31c66b352fe, type: 2}
+  achCoins: {fileID: 11400000, guid: 873522170be07c34b8c0a640b9dc0812, type: 2}
   displayTime: 3
   achDisplay: 1
   achDisplayNum: 1
@@ -5501,6 +5518,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8dbe96fe7fa8b4c8f281544c4feea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  achievementManager: {fileID: 2007588448}
+  achievementData: {fileID: 11400000, guid: 4df953d2a3ce563469a5a31c66b352fe, type: 2}
   currentHealth: {fileID: 11400000, guid: b9983e87410d3e74aa58a1a7be03060a, type: 2}
   hpAchAction: {fileID: 11400000, guid: 2a6885fb8a2aaab43b3c278aff1e95f4, type: 2}
   currentLevel: {fileID: 11400000, guid: 253fbbad587c441489d1bd9dac20e634, type: 2}
@@ -5537,6 +5556,10 @@ MonoBehaviour:
           m_StringArgument: Fight Theme
           m_BoolArgument: 0
         m_CallState: 2
+  achBounty: {fileID: 11400000, guid: 873522170be07c34b8c0a640b9dc0812, type: 2}
+  enemyData: {fileID: 11400000, guid: f1f9bac4b1c5d8c49a907f4d95b28b3a, type: 2}
+  bossData: {fileID: 11400000, guid: aa8e7546be22547499d30c3d298be860, type: 2}
+  bountyAchAction: {fileID: 11400000, guid: ced313b5326cdcd4bae195e1a9cea1f8, type: 2}
 --- !u!1001 &2035396557
 PrefabInstance:
   m_ObjectHideFlags: 0
