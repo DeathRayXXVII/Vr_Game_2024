@@ -5,6 +5,8 @@ namespace Achievements
 {
     public class PirateAchTracker : MonoBehaviour
     {
+        [SerializeField] private AchievementData achievementData;
+        
         private bool _hpWin;
         [SerializeField] private FloatData currentHealth;
         [SerializeField] private GameAction hpAchAction;
@@ -17,6 +19,11 @@ namespace Achievements
         [SerializeField] private GameAction bossAchAction;
         
         [SerializeField] private UnityEvent bossFight, enemyFight;
+        
+        [SerializeField] private IntData achBounty;
+        [SerializeField] private CreepData enemyData;
+        [SerializeField] private CreepData bossData;
+        [SerializeField] private GameAction bountyAchAction;
     
         public void CheckFirstLoss()
         {
@@ -50,6 +57,20 @@ namespace Achievements
         {
             if (!boss) return;
             bossAchAction.RaiseAction();
+        }
+        
+        public void ResetBounty()
+        {
+            achBounty.value = 0;
+        }
+        public void GetBounty()
+        {
+            if(boss)
+                achBounty.value += bossData.bounty;
+            else
+                achBounty.value += enemyData.bounty;
+            
+            bountyAchAction.RaiseAction();
         }
     }
 }
