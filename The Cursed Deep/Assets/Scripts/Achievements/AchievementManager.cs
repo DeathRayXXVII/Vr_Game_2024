@@ -13,6 +13,7 @@ namespace Achievements
         [SerializeField] private bool isSteamEnabled;
         //[SerializeField] private bool autoSave;
         public AchievementData achievementData;
+        public IntData achCoins;
         public int displayTime;
         public bool achDisplay;
         public int achDisplayNum;
@@ -163,18 +164,19 @@ namespace Achievements
             }
         }
     
-        public void AddProgress(string id, float progress)
+        public void AddProgress(string id)
         {
-            //AddProgress(FindAchievement(id), progress);
-            int index = FindAchievement(id);
-            if (index >= 0 && index < achievementData.achievements.Count)
-            {
-                Unlock(index);
-            }
-            else
-            {
-                Debug.LogWarning($"Achievement with id {id} not found, cannot update progress", this);
-            }
+            float progress = achCoins.value;
+            AddProgress(FindAchievement(id), progress);
+            // int index = FindAchievement(id);
+            // if (index >= 0 && index < achievementData.achievements.Count)
+            // {
+            //     Unlock(index);
+            // }
+            // else
+            // {
+            //     Debug.LogWarning($"Achievement with id {id} not found, cannot update progress", this);
+            // }
         }
         
         private void AddProgress(int id, float progress)
@@ -193,7 +195,7 @@ namespace Achievements
                     Debug.Log("Achievement already unlocked");
                     return;
                 }
-                Steamworks.SteamUserStats.SetStat(achievementData.achievements[id].id, (int)progress);
+                Steamworks.SteamUserStats.SetStat(achievementData.achievements[id].id, progress);
             }
             
             var achievement = achievementData.achievements[id] as ProgressiveAchievement;
