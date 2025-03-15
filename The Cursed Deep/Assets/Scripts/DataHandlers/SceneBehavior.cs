@@ -24,6 +24,7 @@ public class SceneBehavior : MonoBehaviour
     
     [Tooltip("Should the transition animation be played when loading a scene?")]
     [SerializeField] private bool transitionOnLoad = true;
+    [SerializeField] private bool skipAutomaticOrientation;
     
     [Tooltip("Additive time in seconds to wait before loading the scene.")]
     [SerializeField, SteppedRange(0, 10, 0.1f)] private float loadBuffer = 1f;
@@ -32,6 +33,7 @@ public class SceneBehavior : MonoBehaviour
     [SerializeField] private UnityEvent beforeLoadIn;
     [Tooltip("UnityEvent that will be invoked after the scene is loaded.")]
     [SerializeField] private UnityEvent onLoadInComplete;
+    
     
     private readonly WaitForFixedUpdate _waitFixed = new();
     private Coroutine _loadCoroutine;
@@ -126,6 +128,11 @@ public class SceneBehavior : MonoBehaviour
         
         playerTransform.SetTransform(initialPlayerTransform);
         playerTransform.SetStartTransform(initialPlayerTransform);
+        
+        if (skipAutomaticOrientation)
+        {
+            return true;
+        }
         
         var headSetCamera = Camera.main?.gameObject;
         var headSetPositionParent = headSetCamera?.transform.parent.gameObject;
