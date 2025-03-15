@@ -347,7 +347,8 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
 #if UNITY_EDITOR
         return AssetDatabase.GetAssetPath(_jsonFile);
 #else
-        return System.IO.Path.Combine(Application.streamingAssetsPath, _jsonFile.name + ".json");
+        // return System.IO.Path.Combine(Application.streamingAssetsPath, _jsonFile.name + ".json");
+        return null;
 #endif
     }
 
@@ -517,7 +518,8 @@ public class UpgradeData : ScriptableObject, ILoadOnStartup, IResetOnNewGame, IN
             return;
         }
         
-        var path = GetJsonPath();
+        // var path = GetJsonPath();
+        var path = "";
         if (!string.IsNullOrEmpty(path))
         {
             _hashFileChangeDetector ??= new HashFileChangeDetector(path, _allowDebug);

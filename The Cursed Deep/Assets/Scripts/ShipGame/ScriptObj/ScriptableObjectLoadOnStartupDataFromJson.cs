@@ -32,12 +32,13 @@ namespace ShipGame.ScriptObj
         public void LoadOnStartup()
         {
             // Initialize the HashFileChangeDetector if it hasn't been already
-            _hashFileChangeDetector ??= new HashFileChangeDetector(dataFilePath, _allowDebug);
+            // _hashFileChangeDetector ??= new HashFileChangeDetector(dataFilePath, _allowDebug);
 
-            var hasChanged = _hashFileChangeDetector.HasChanged();
+            // var hasChanged = _hashFileChangeDetector.HasChanged();
             
             // Use the change detector to see if the JSON has changed
-            if (isLoaded && hasChanged == false)
+            // if (isLoaded && hasChanged == false)
+            if (isLoaded)
             {
                 if (_allowDebug) 
                     Debug.LogWarning($"[WARNING] {name} is already loaded, and the file has not changed.", this);
@@ -65,7 +66,7 @@ namespace ShipGame.ScriptObj
             if (_allowDebug) 
                 Debug.Log($"[DEBUG] Initialized {name} data.", this);
             
-            _hashFileChangeDetector.UpdateState();
+            // _hashFileChangeDetector.UpdateState();
             
             Resources.UnloadAsset(jsonFile);
 
