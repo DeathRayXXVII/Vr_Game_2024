@@ -42,13 +42,16 @@ namespace Achievements
                     {
                         overlayIcon.gameObject.SetActive(true);
                         overlayIcon.sprite = ach.lockedIcon;
-                        icon.sprite = ach.unlockedIcon;
+                        if (icon != null)
+                            icon.sprite = ach.unlockedIcon;
                     }
                 }
                 else
                 {
-                    icon.sprite = ach.isUnlocked ? ach.unlockedIcon : ach.lockedIcon;
-                    overlayIcon.gameObject.SetActive(false);
+                    if (icon != null)
+                        icon.sprite = ach.isUnlocked ? ach.unlockedIcon : ach.lockedIcon;
+                    if (overlayIcon != null) 
+                        overlayIcon.gameObject.SetActive(false);
                 }
 
                 if (ach.isProgression)
