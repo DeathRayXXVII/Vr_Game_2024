@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using ZPTools;
 
@@ -24,10 +23,12 @@ public class SceneBehavior : MonoBehaviour
     
     [Tooltip("Should the transition animation be played when loading a scene?")]
     [SerializeField] private bool transitionOnLoad = true;
-    //[SerializeField] private bool skipAutomaticOrientation;
+    
+    [SerializeField, SteppedRange(0, 10, 0.1f)] private float transitionOutDelay;
     
     [Tooltip("Additive time in seconds to wait before loading the scene.")]
     [SerializeField, SteppedRange(0, 10, 0.1f)] private float loadBuffer = 1f;
+    
     
     [Tooltip("UnityEvent that will be invoked before the scene is loaded.")]
     [SerializeField] private UnityEvent beforeLoadIn;
@@ -234,20 +235,30 @@ public class SceneBehavior : MonoBehaviour
     private IEnumerator LoadAndTransitionOut(AsyncOperation loadOperation)
     {
         if (allowDebug) 
-            Debug.Log($"[INFO] Scene Loading in progress. Performing Transition Out.", this);
-        yield return StartCoroutine(screenManager.TransitionOut());
+            Debug.Log("[INFO] Performing Background Load.", this);
+        StartCoroutine(BackgroundLoad(loadOperation));
         
         if (allowDebug) 
-            Debug.Log($"[INFO] Transition Out complete. Performing Background Load.", this);
-        yield return StartCoroutine(BackgroundLoad(loadOperation));
+            Debug.Log("[INFO] Performing Transition Out.", this);
+        yield return StartCoroutine(FixedUpdateBuffer(transitionOutDelay));
         
         if (allowDebug) 
-            Debug.Log($"[INFO] Load and Transition Out complete. Performing Buffer.", this);
+            Debug.Log("[INFO] Performing Transition Out.", this);
+        StartCoroutine(screenManager.TransitionOut());
+        
+        if (allowDebug) 
+            Debug.Log("[INFO] Performing Buffer.", this);
         StartCoroutine(FixedUpdateBuffer(loadBuffer));
-        yield return new WaitUntil(() => !_buffering);
         
+        yield return new WaitUntil(() => !_buffering && _sceneLoaded && !screenManager.isTransitioning);
+        
+        if (allowDebug) 
+            Debug.Log("[INFO] Load, Delay, Buffer and Transition Out complete. Allowing scene to activate.", this);
         _loadCoroutine = null;
         loadOperation.allowSceneActivation = true;
+        
+        if (allowDebug) 
+            Debug.Log("[INFO] Load out call completed.", this);
     }
     
     private IEnumerator BackgroundLoad(AsyncOperation loadOperation)
@@ -260,14 +271,24 @@ public class SceneBehavior : MonoBehaviour
                 Debug.Log($"[INFO] Loading Scene in background, Progress: {loadOperation.progress}", this);
             yield return _waitFixed;
         }
+        
+        if (allowDebug) 
+            Debug.Log($"[INFO] Loading Scene in background completed, Progress: {loadOperation.progress}", this);
         _sceneLoaded = true;
-        yield return _waitFixed;
     }
     
     private bool _buffering;
     private IEnumerator FixedUpdateBuffer(float waitTime = 5f)
     {
         _buffering = true;
+        
+        if (waitTime <= 0)
+        {
+            if (allowDebug) 
+                Debug.LogWarning("[WARNING] Buffer time is less than or equal to 0, skipping buffer.", this);
+            yield break;
+        }
+        
         var time = Time.time;
         float elapsedTime = 0;
         

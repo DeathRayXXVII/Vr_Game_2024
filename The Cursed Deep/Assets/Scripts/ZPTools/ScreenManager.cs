@@ -57,7 +57,7 @@ namespace ZPTools
             TransitionCoroutine ??= StartCoroutine(ExecuteTransition());
             yield return new WaitUntil(() => TransitionCoroutine == null);
         
-            yield return WaitFixed; 
+            yield return WaitFixed;
         }
         
         protected virtual void OnDisable()
