@@ -8,9 +8,24 @@ public class SteamManager : MonoBehaviour
     [Header("Steamworks Settings")]
     [SerializeField] private uint steamAppID;
     [SerializeField] private bool isSteamworksEnabled;
+    [SerializeField] private BoolData isSteamworksEnabledData;
+    private static SteamManager s_instance;
     private void Awake()
     {
-        if (!isSteamworksEnabled) return;
+        if (!isSteamworksEnabled)
+        {
+            isSteamworksEnabledData.value = false;
+            return;
+        }
+        isSteamworksEnabledData.value = true;
+        if (s_instance != null) {
+            Destroy(gameObject);
+            return;
+        }
+        s_instance = this;
+
+        DontDestroyOnLoad(gameObject);
+        
         try
         {
             SteamClient.Init(steamAppID);
@@ -18,6 +33,7 @@ public class SteamManager : MonoBehaviour
         }
         catch (Exception e)
         {
+            Debug.LogError($"SteamApi_Init failed: {e.Message}");
             Console.WriteLine(e);
             throw;
         }
@@ -33,5 +49,16 @@ public class SteamManager : MonoBehaviour
     {
         if (!isSteamworksEnabled) return;
         SteamClient.Shutdown();
+    }
+    
+    private void OnEnable() {
+        if (s_instance == null) {
+            s_instance = this;
+        }
+    }
+
+    private void OnDestroy() {
+        if (s_instance == this)
+            s_instance = null;
     }
 }

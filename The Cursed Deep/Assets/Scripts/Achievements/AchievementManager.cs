@@ -10,7 +10,7 @@ namespace Achievements
     [System.Serializable]
     public class AchievementManager : MonoBehaviour
     {
-        [SerializeField] private bool isSteamEnabled;
+        [SerializeField] private BoolData isSteamEnabled;
         //[SerializeField] private bool autoSave;
         public AchievementData achievementData;
         public IntData achCoins;
@@ -85,7 +85,7 @@ namespace Achievements
                 return;
             }
             
-            if (isSteamEnabled)
+            if (isSteamEnabled.value)
             {
                 var ach = new Steamworks.Data.Achievement(achievementData.achievements[id].id);
                 Debug.Log($"Achievement {id} status : " + ach.State);
@@ -187,7 +187,7 @@ namespace Achievements
                 return;
             }
 
-            if (isSteamEnabled)
+            if (isSteamEnabled.value)
             {
                 var ach = new Steamworks.Data.Achievement(achievementData.achievements[id].id);
                 if (ach.State)
@@ -226,7 +226,7 @@ namespace Achievements
                 return;
             }
 
-            if (isSteamEnabled)
+            if (isSteamEnabled.value)
             {
                 var ach = new Steamworks.Data.Achievement(achievementData.achievements[id].id);
                 if (ach.State)
@@ -351,7 +351,7 @@ namespace Achievements
         
         public void RemoveAllAchievements()
         {
-            if (isSteamEnabled)
+            if (isSteamEnabled.value)
             {
                 var ach = new Steamworks.Data.Achievement(achievementData.achievements[0].id);
                  ach.Clear();

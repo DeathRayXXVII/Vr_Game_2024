@@ -1364,7 +1364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9464352c175bb4d448c8bd50851fa006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isSteamEnabled: 0
+  isSteamEnabled: {fileID: 11400000, guid: f3f9eff6a5674ac449df8daa7ac4a114, type: 2}
   achievementData: {fileID: 11400000, guid: 4df953d2a3ce563469a5a31c66b352fe, type: 2}
   achCoins: {fileID: 11400000, guid: 873522170be07c34b8c0a640b9dc0812, type: 2}
   displayTime: 3
@@ -2330,52 +2330,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4189477962324893927}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &539202661
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 539202663}
-  - component: {fileID: 539202662}
-  m_Layer: 0
-  m_Name: SteamManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &539202662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539202661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 454e7bacda8ebd042a727673d0ea7354, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  steamAppID: 3581200
-  isSteamworksEnabled: 0
---- !u!4 &539202663
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539202661}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1127846, y: -0.038000003, z: -3.555313}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &548466630
 GameObject:
@@ -22263,4 +22217,3 @@ SceneRoots:
   - {fileID: 1131686467}
   - {fileID: 1543262128}
   - {fileID: 1775872700}
-  - {fileID: 539202663}
