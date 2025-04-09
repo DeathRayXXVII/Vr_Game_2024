@@ -29,7 +29,6 @@ public class SteamManager : MonoBehaviour
         try
         {
             SteamClient.Init(steamAppID);
-            Debug.Log("Steamworks initialized");
         }
         catch (Exception e)
         {

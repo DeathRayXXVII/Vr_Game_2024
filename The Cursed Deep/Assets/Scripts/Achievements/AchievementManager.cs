@@ -88,14 +88,14 @@ namespace Achievements
             if (isSteamEnabled.value)
             {
                 var ach = new Steamworks.Data.Achievement(achievementData.achievements[id].id);
-                Debug.Log($"Achievement {id} status : " + ach.State);
+                // Debug.Log($"Achievement {id} status : " + ach.State);
                 if (ach.State)
                 {
-                    Debug.Log("Achievement already unlocked");
+                    // Debug.Log("Achievement already unlocked");
                     return;
                 }
                 ach.Trigger();
-                Debug.Log($"Achievement {id} unlocked"); 
+                // Debug.Log($"Achievement {id} unlocked"); 
             }
             // Debug.Log("Steam is not enabled");
             if (achievementData.achievements[id] is ProgressiveAchievement { isUnlocked: false } achievement)
@@ -105,7 +105,7 @@ namespace Achievements
                 achDisplay = true;
                 DisplayUnlock(id);
                 SaveAchievements();
-                Debug.Log($"Achievement {id} unlocked", this);
+                // Debug.Log($"Achievement {id} unlocked", this);
             }
         }
     
